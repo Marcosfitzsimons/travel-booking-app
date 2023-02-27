@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react";
 
 const Profile = () => {
   return (
-    <section className="section hidden">
+    <section className="section">
       <div className="">
         <h2 className="text-3xl font-medium">Mi perfil</h2>
         <div className="relative w-10/12 max-w-2xl mx-auto mt-6 p-3 py-6 rounded-md border border-slate-300 bg-white/80 flex flex-col gap-5 items-center dark:bg-[#262626] dark:border-zinc-700">

@@ -2,7 +2,7 @@ import { Button } from "../components/ui/button";
 
 const Home = () => {
   return (
-    <div className="section hero hidden">
+    <div className="section hero">
       <div className="flex flex-col items-center gap-5 text-center">
         <h1 className="font-serif tracking-wider text-6xl">
           <span className="font-medium text-[4rem]">F</span>

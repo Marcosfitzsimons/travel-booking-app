@@ -16,7 +16,7 @@ const EditProfile = () => {
   };
 
   return (
-    <section className="section">
+    <section className="">
       <div className="">
         <h2 className="text-3xl font-medium text-center">Editar perfil</h2>
         <form
@@ -44,7 +44,7 @@ const EditProfile = () => {
                   <TooltipTrigger asChild>
                     <button
                       type="button"
-                      className="absolute bottom-0 -right-2 rounded-full p-1"
+                      className="absolute -bottom-1 -right-5 rounded-full p-1"
                     >
                       <Edit className="w-5 h-5 text-black dark:text-slate-100" />
                     </button>

@@ -2,7 +2,7 @@ import { Button } from "../components/ui/button";
 
 const Trip = () => {
   return (
-    <section className="section hidden">
+    <section className="section">
       <div className="">
         <h2 className="text-3xl font-medium">Confirmar lugar</h2>
         <div className="w-10/12 mx-auto mt-6 p-3 rounded-md border border-slate-300 bg-white/80 flex flex-col gap-5 items-center text-center dark:bg-[#262626] dark:border-zinc-700">

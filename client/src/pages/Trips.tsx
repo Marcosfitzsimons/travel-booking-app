@@ -10,7 +10,7 @@ import {
 
 const Trip = () => {
   return (
-    <section className="hidden">
+    <section className="">
       <div className="flex flex-col gap-2">
         <h2 className="text-3xl font-medium">Nuestros próximos viajes:</h2>
         <div className="flex items-center gap-2">
