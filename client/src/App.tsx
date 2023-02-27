@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Trips from "./pages/Trips";
 import Trip from "./pages/Trip";
 import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Trips />
         <Trip />
         <Profile />
+        <EditProfile />
       </main>
       <Footer />
     </div>
