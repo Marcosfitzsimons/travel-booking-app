@@ -9,6 +9,7 @@ import {
 } from "../components/ui/tooltip";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
+import { Link } from "react-router-dom";
 
 const EditProfile = () => {
   const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -24,10 +25,10 @@ const EditProfile = () => {
           className="relative w-10/12 max-w-2xl mx-auto mt-6 p-3 py-6 rounded-md border border-slate-300 bg-white/80 flex flex-col gap-5 items-center dark:bg-[#262626] dark:border-zinc-700"
         >
           <div className="absolute top-2 left-2">
-            <Button className="px-1 py-1 pr-3" variant="ghost">
+            <Link to="/mi-perfil" className="px-1 py-1 pr-3 flex items-center">
               <ArrowLeft className="mr-1 w-5 aspect-square" />
               Volver
-            </Button>
+            </Link>
           </div>
           <div className="w-10/12 flex flex-col items-center gap-5">
             <div className="relative">
@@ -95,7 +96,9 @@ const EditProfile = () => {
             </div>
           </div>
           <div className="w-full flex items-center justify-center sm:mt-8">
-            <Button type="submit">Guardar</Button>
+            <Button type="submit">
+              <Link to="/mi-perfil">Guardar</Link>
+            </Button>
           </div>
         </form>
       </div>

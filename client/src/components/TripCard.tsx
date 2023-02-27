@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 
 const TripCard = () => {
@@ -25,7 +26,9 @@ const TripCard = () => {
             </p>
           </div>
           <div className="self-end">
-            <Button>Reservar</Button>
+            <Button>
+              <Link to="/viaje/:id">Reservar</Link>
+            </Button>
           </div>
         </div>
       </div>

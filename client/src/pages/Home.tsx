@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 
 const Home = () => {
@@ -17,7 +18,9 @@ const Home = () => {
         <p className="font-medium dark:text-slate-100">
           Somos una empresa familiar con más de 28 años de trayectoria.
         </p>
-        <Button>Viajes</Button>
+        <Link to="/viajes" className="py-1 px-4 rounded-md border border-red">
+          Viajes
+        </Link>
       </div>
     </div>
   );

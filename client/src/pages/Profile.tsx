@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Button } from "../components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (
@@ -9,10 +10,10 @@ const Profile = () => {
         <h2 className="text-3xl font-medium">Mi perfil</h2>
         <div className="relative w-10/12 max-w-2xl mx-auto mt-6 p-3 py-6 rounded-md border border-slate-300 bg-white/80 flex flex-col gap-5 items-center dark:bg-[#262626] dark:border-zinc-700">
           <div className="absolute top-2 left-2">
-            <Button className="px-1 py-1 pr-3" variant="ghost">
+            <Link to="/viajes" className="px-1 py-1 pr-3 flex items-center">
               <ArrowLeft className="mr-1 w-5 aspect-square" />
               Volver
-            </Button>
+            </Link>
           </div>
           <div className="w-10/12 flex flex-col items-center just gap-5">
             <Avatar className="w-20 h-20">
@@ -39,7 +40,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="w-full flex items-center justify-center sm:mt-8">
-            <Button>Editar</Button>
+            <Link to="/mi-perfil/editar-perfil">Editar</Link>
           </div>
         </div>
       </div>

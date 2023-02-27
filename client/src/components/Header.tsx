@@ -1,6 +1,6 @@
 import { RoughNotation } from "react-rough-notation";
 import { motion } from "framer-motion";
-
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
@@ -19,7 +19,7 @@ const Header = () => {
       <div className="w-[min(90%,1200px)] mx-auto py-3 flex justify-between items-center">
         <RoughNotation type="underline" show={true} color="#bd284d" padding={2}>
           <motion.div className="" whileHover={{ scale: 1.1 }}>
-            <a href="/" className="font-serif tracking-wider">
+            <Link to="/" className="font-serif tracking-wider">
               <span className="font-medium text-xl">F</span>
               <span className="inline-block rotate-3">a</span>
               <span className="inline-block -rotate-6">b</span>
@@ -27,7 +27,7 @@ const Header = () => {
               <span className="font-medium text-xl">B</span>
               <span className="inline-block rotate-6">u</span>
               <span className="inline-block -rotate-3">s</span>
-            </a>
+            </Link>
           </motion.div>
         </RoughNotation>
         <div className=" flex items-center gap-2">
@@ -59,13 +59,13 @@ const Header = () => {
               <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="cursor-pointer">
-                Perfil
+                <Link to="/mi-perfil">Perfil</Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
                 Mis Viajes
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
-                Configuracion
+                <Link to="/mi-perfil/editar-perfil">Configuracion</Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
                 Salir

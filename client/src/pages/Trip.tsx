@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../components/ui/button";
 
 const Trip = () => {
@@ -13,9 +14,9 @@ const Trip = () => {
             <p>Precio: $2000</p>
           </div>
           <div className="w-full px-1 flex items-center justify-between">
-            <a href="/" className="">
+            <Link to="/viajes" className="">
               Cancelar
-            </a>
+            </Link>
             <Button>Confirmar</Button>
           </div>
         </div>
