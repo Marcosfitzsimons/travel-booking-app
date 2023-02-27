@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.section {
+  height: 90vh;
+  height: 90svh;
+}
+.hero {
+  padding-top: 150px;
+}
+
+@layer base {
+  html {
+    font-family: "Ubuntu", sans-serif;
+  }
+  body {
+    @apply bg-slate-200 dark:bg-dark-gray dark:text-white;
+  }
+}
