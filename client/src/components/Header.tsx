@@ -1,7 +1,6 @@
 import { RoughNotation } from "react-rough-notation";
 import { motion } from "framer-motion";
-import { Moon, SunMedium } from "lucide-react";
-import { Toggle } from "./ui/toggle";
+
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
@@ -12,11 +11,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   return (
     <header className="fixed w-full z-10 backdrop-blur-md bg-[#ffffff40] dark:bg-black/50">
-      <div className="w-[min(90%,1200px)] mx-auto py-2 flex justify-between items-center">
+      <div className="w-[min(90%,1200px)] mx-auto py-3 flex justify-between items-center">
         <RoughNotation type="underline" show={true} color="#bd284d" padding={2}>
           <motion.div className="" whileHover={{ scale: 1.1 }}>
             <a href="/" className="font-serif tracking-wider">
@@ -30,32 +30,24 @@ const Header = () => {
             </a>
           </motion.div>
         </RoughNotation>
-
-        <div className="flex items-center gap-3">
-          <nav>
-            <ul className="hidden md:flex md:items-center md:gap-2 ">
-              <li>
-                <a href="">Viajes</a>
-              </li>
-              <li>
-                <a href="">Nosotros</a>
-              </li>
-            </ul>
-          </nav>
-          <div className="">
-            <Toggle aria-label="Toggle theme">
-              <Moon className="w-4 h-4" />
-            </Toggle>
-            <Toggle aria-label="Toggle theme" variant="default">
-              <SunMedium className="w-4 h-4" />
-            </Toggle>
+        <div className=" flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <nav>
+              <ul className="hidden md:flex md:items-center md:gap-2 ">
+                <li>
+                  <a href="">Viajes</a>
+                </li>
+                <li>
+                  <a href="">Nosotros</a>
+                </li>
+              </ul>
+            </nav>
+            <ThemeToggle />
+            <div className="hidden">
+              <Button>Entrar</Button>
+              <Button>Registrarme</Button>
+            </div>
           </div>
-          <div className="hidden">
-            <Button>Entrar</Button>
-            <Button>Registrarme</Button>
-          </div>
-        </div>
-        <div className="">
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
