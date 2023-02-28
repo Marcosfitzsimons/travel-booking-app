@@ -1,4 +1,4 @@
-import { ArrowLeft, Edit } from "lucide-react";
+import { ArrowLeft, Edit, Pencil, Edit2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Button } from "../components/ui/button";
 import {
@@ -31,8 +31,8 @@ const EditProfile = () => {
             </Link>
           </div>
           <div className="w-10/12 flex flex-col items-center gap-5">
-            <div className="relative">
-              <Avatar className="w-20 h-20">
+            <div className="relative flex justify-center">
+              <Avatar className="w-24 h-24">
                 <AvatarImage
                   className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
                   src="https://github.com/shadcn.png"
@@ -45,9 +45,9 @@ const EditProfile = () => {
                   <TooltipTrigger asChild>
                     <button
                       type="button"
-                      className="absolute -bottom-1 -right-5 rounded-full p-1"
+                      className="absolute -bottom-1 -right-1 rounded-full p-2 bg-slate-800 border-2 border-[#fdfafa] dark:border-[#262626] dark:bg-white"
                     >
-                      <Edit className="w-5 h-5 text-black dark:text-slate-100" />
+                      <Pencil className="w-4 h-4 text-slate-200 dark:text-slate-700" />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent>

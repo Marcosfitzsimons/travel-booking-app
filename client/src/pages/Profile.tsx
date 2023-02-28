@@ -15,7 +15,7 @@ const Profile = () => {
               Volver
             </Link>
           </div>
-          <div className="w-10/12 flex flex-col items-center just gap-5">
+          <div className="w-10/12 flex flex-col items-center gap-2">
             <Avatar className="w-20 h-20">
               <AvatarImage
                 className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
@@ -24,6 +24,7 @@ const Profile = () => {
               />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
+            <p>Username</p>
             <div className="w-11/12 flex flex-col sm:gap-3">
               <div className="flex flex-col sm:flex-row sm:justify-between">
                 <p>Nombre: .......</p>

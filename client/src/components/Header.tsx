@@ -1,6 +1,7 @@
 import { RoughNotation } from "react-rough-notation";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { Bus, LogOut, User, UserCog } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
@@ -58,17 +59,41 @@ const Header = () => {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer">
-                <Link to="/mi-perfil">Perfil</Link>
+              <DropdownMenuItem className="cursor-pointer p-0">
+                <Link
+                  to="/mi-perfil"
+                  className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
+                >
+                  <User className="w-4 h-4" />
+                  Perfil
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                Mis Viajes
+              <DropdownMenuItem className="cursor-pointer p-0">
+                <Link
+                  to="/misviajes"
+                  className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
+                >
+                  <Bus className="w-4 h-4" />
+                  Mis viajes
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <Link to="/mi-perfil/editar-perfil">Configuracion</Link>
+              <DropdownMenuItem className="cursor-pointer p-0">
+                <Link
+                  to="/mi-perfil/editar-perfil"
+                  className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
+                >
+                  <UserCog className="w-4 h-4" />
+                  Configuración
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                Salir
+              <DropdownMenuItem className="cursor-pointer p-0">
+                <Link
+                  to="/"
+                  className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Salir
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
