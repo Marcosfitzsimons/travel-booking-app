@@ -5,12 +5,33 @@ import { registerLocale, setDefaultLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import { format } from "date-fns"; // use it to format the date and to filter by each trip. format(startDate, "dd/MM/yyyy") -> dd/MM/yyyy
 import TripCard from "../components/TripCard";
+import useFetch from "../hooks/useFetch";
 
-const Trip = () => {
+interface TripProps {
+  _id: number;
+  name: string;
+  type: string;
+  date: string;
+  from: string;
+  departureTime: string;
+  to: string;
+  returnTime?: string;
+  maxCapacity: number;
+  image?: string;
+  price: number;
+  available: boolean;
+  seats: string[];
+}
+
+const Trips = () => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   setDefaultLocale("es");
   registerLocale("es", es);
 
+  const { data, loading, error, reFetch } = useFetch(
+    "http://localhost:8800/api/trips"
+  );
+  console.log(data);
   return (
     <section className="">
       <div className="flex flex-col gap-2">
@@ -26,16 +47,19 @@ const Trip = () => {
           />
         </div>
         <div className="mt-8 flex flex-col gap-2">
-          <TripCard />
-          <TripCard />
-          <TripCard />
-          <TripCard />
-          <TripCard />
-          <TripCard />
+          {loading ? (
+            "loading"
+          ) : (
+            <>
+              {data.map((item: TripProps) => (
+                <TripCard key={item._id} {...item} />
+              ))}{" "}
+            </>
+          )}
         </div>
       </div>
     </section>
   );
 };
 
-export default Trip;
+export default Trips;
