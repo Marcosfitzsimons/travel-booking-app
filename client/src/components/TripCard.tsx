@@ -21,6 +21,7 @@ const TripCard = ({
   name,
   date,
   from,
+  _id,
   departureTime,
   to,
   price,
@@ -48,7 +49,7 @@ const TripCard = ({
           </div>
           <div className="self-end">
             <Button>
-              <Link to="/viaje/:id">Reservar</Link>
+              <Link to={`/viajes/${_id}`}>Reservar</Link>
             </Button>
           </div>
         </div>
