@@ -19,7 +19,7 @@ interface Trip {
 }
 
 type TripProps = Trip & {
-  currentDate: string | null;
+  dateSelected: string | null;
 };
 
 const TripCard = ({
@@ -30,7 +30,7 @@ const TripCard = ({
   departureTime,
   to,
   price,
-  currentDate,
+  dateSelected,
 }: TripProps) => {
   const todayDate = format(new Date(), "dd/MM/yy");
 
@@ -45,7 +45,7 @@ const TripCard = ({
               className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle rounded-full"
             />
           </div>
-          {currentDate === todayDate && (
+          {dateSelected === todayDate && (
             <p className="absolute right-4 -top-3 rounded-md px-2 bg-[#68c58d]">
               HOY
             </p>
