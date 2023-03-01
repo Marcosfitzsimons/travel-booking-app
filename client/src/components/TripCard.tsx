@@ -1,7 +1,8 @@
+import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 
-interface TripProps {
+interface Trip {
   _id: number;
   name: string;
   type: string;
@@ -17,6 +18,10 @@ interface TripProps {
   seats: string[];
 }
 
+type TripProps = Trip & {
+  currentDate: string | null;
+};
+
 const TripCard = ({
   name,
   date,
@@ -25,7 +30,10 @@ const TripCard = ({
   departureTime,
   to,
   price,
+  currentDate,
 }: TripProps) => {
+  const todayDate = format(new Date(), "dd/MM/yy");
+
   return (
     <article className="relative bg-white/80 rounded-md shadow-md shadow-red/10 border-l-4 border-l-red mb-10 pb-2 dark:bg-[#262626] max-w-lg">
       <div className="px-4 pt-9 pb-4 flex flex-col gap-4 lg:px-10 lg:pt-6 lg:pb-6 lg:flex-row lg:items-center lg:justify-between">
@@ -37,6 +45,11 @@ const TripCard = ({
               className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle rounded-full"
             />
           </div>
+          {currentDate === todayDate && (
+            <p className="absolute right-4 -top-3 rounded-md px-2 bg-[#68c58d]">
+              HOY
+            </p>
+          )}
           <div className="flex flex-col lg:gap-1">
             <h3 className="font-bold text-red lg:text-lg ">{name}</h3>
             <p className="font-medium lg:text-base lg:text-md">Fecha: {date}</p>
