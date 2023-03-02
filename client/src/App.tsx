@@ -6,6 +6,7 @@ import Trips from "./pages/Trips";
 import Trip from "./pages/Trip";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/viajes" element={<Trips />} />
-          <Route path="/viaje/:id" element={<Trip />} />
+          <Route path="/viajes/:id" element={<Trip />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/mi-perfil" element={<Profile />} />
           <Route path="/mi-perfil/editar-perfil" element={<EditProfile />} />
         </Routes>
