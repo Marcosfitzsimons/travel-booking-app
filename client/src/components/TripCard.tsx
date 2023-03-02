@@ -30,6 +30,7 @@ const TripCard = ({
   departureTime,
   to,
   price,
+  image,
   dateSelected,
 }: TripProps) => {
   const todayDate = format(new Date(), "dd/MM/yy");
@@ -37,14 +38,16 @@ const TripCard = ({
   return (
     <article className="relative bg-white/80 rounded-md shadow-md shadow-red/10 border-l-4 border-l-red mb-10 pb-2 dark:bg-[#262626] max-w-lg">
       <div className="px-4 pt-9 pb-4 flex flex-col gap-4 lg:px-10 lg:pt-6 lg:pb-6 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:border-none lg:pb-0 lg:gap-4">
-          <div className="inline-block overflow-hidden logo-container absolute w-12 top-[-1.5rem] left-4 lg:relative lg:w-20 lg:top-0 lg:left-0 rounded-full">
-            <img
-              src="https://github.com/shadcn.png"
-              alt="trip image"
-              className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle rounded-full"
-            />
-          </div>
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:border-none lg:pb-0 lg:gap-4">
+          {image && (
+            <div className="absolute w-14 top-[-1.7rem] left-4 rounded-full lg:w-24 lg:self-start lg:relative lg:top-0 lg:left-0 ">
+              <img
+                src={image}
+                alt="trip image"
+                className="w-14 h-14 rounded-full lg:rounded-md lg:w-24 lg:h-20"
+              />
+            </div>
+          )}
           {dateSelected === todayDate && (
             <p className="absolute right-4 -top-3 rounded-md px-2 bg-[#68c58d]">
               HOY
