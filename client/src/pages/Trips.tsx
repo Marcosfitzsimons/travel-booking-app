@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
@@ -31,7 +31,17 @@ const Trips = () => {
   const { data, loading, error, reFetch } = useFetch(
     "http://localhost:8800/api/trips"
   );
-  console.log(data);
+
+  const dateSelected = format(startDate, "dd/MM/yy");
+
+  const filteredTrips = data.filter(
+    (trip: TripProps) => trip.date === dateSelected
+  );
+  const highlightSelectedDate = {
+    backgroundColor: "#F0E68C",
+    fontWeight: "bold",
+    color: "#000000",
+  };
   return (
     <section className="">
       <div className="flex flex-col gap-2">
@@ -43,6 +53,10 @@ const Trips = () => {
             locale="es"
             className="cursor-pointer rounded-md border bg-white/80 shadow-md border-slate-400 dark:border-slate-700 p-2 dark:text-white dark:bg-zinc-900"
             selected={startDate}
+            minDate={new Date()}
+            InputProps={{
+              style: startDate ? highlightSelectedDate : {},
+            }}
             onChange={(date) => setStartDate(date)}
           />
         </div>
@@ -51,9 +65,17 @@ const Trips = () => {
             "loading"
           ) : (
             <>
-              {data.map((item: TripProps) => (
-                <TripCard key={item._id} {...item} />
-              ))}{" "}
+              {filteredTrips.length !== 0 ? (
+                filteredTrips.map((item: TripProps) => (
+                  <TripCard
+                    key={item._id}
+                    {...item}
+                    dateSelected={dateSelected}
+                  />
+                ))
+              ) : (
+                <p>No hay viajes disponibles para la fecha seleccionada.</p>
+              )}
             </>
           )}
         </div>
