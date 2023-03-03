@@ -1,6 +1,6 @@
 import { RoughNotation } from "react-rough-notation";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Bus, LogOut, User, UserCog } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -17,7 +17,19 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogOut = () => {
+    if (dispatch) {
+      dispatch({
+        type: "LOGOUT",
+      });
+      localStorage.removeItem("user");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    }
+  };
   return (
     <header className="fixed w-full z-10 backdrop-blur-md bg-[#ffffff40] dark:bg-black/50">
       <div className="w-[min(90%,1200px)] mx-auto py-3 flex justify-between items-center">
@@ -87,7 +99,7 @@ const Header = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem className="cursor-pointer p-0">
                   <Link
-                    to="/misviajes"
+                    to="/mis-viajes"
                     className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
                   >
                     <Bus className="w-4 h-4" />
@@ -107,6 +119,7 @@ const Header = () => {
                   <Link
                     to="/"
                     className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
+                    onClick={handleLogOut}
                   >
                     <LogOut className="w-4 h-4" />
                     Salir
