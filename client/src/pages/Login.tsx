@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
@@ -37,7 +37,10 @@ const Login = () => {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
         navigate("/viajes");
       } catch (err: any) {
-        dispatch({ type: "LOGIN_FAILURE", payload: err.response?.data });
+        dispatch({
+          type: "LOGIN_FAILURE",
+          payload: err.response?.data,
+        });
       }
     }
   };

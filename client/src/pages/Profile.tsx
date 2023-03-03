@@ -1,12 +1,14 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useContext } from "react";
 
 const Profile = () => {
-  const { loading, error, user } = useContext(AuthContext);
-
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  console.log(user);
+  if (!user) navigate("/login");
   return (
     <section className="section">
       <div className="">
@@ -22,29 +24,24 @@ const Profile = () => {
             <Avatar className="w-20 h-20">
               <AvatarImage
                 className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
-                src={user.image ? user.image : "https://i.pravatar.cc/200"}
+                src={!user ? "https://i.pravatar.cc/200" : user.image}
                 alt="avatar"
               />
               <AvatarFallback>?</AvatarFallback>
             </Avatar>
-            <p>{user.username}</p>
+            <p>{!user ? "" : user.username}</p>
             <div className="w-11/12 flex flex-col sm:gap-3">
               <div className="flex flex-col sm:flex-row sm:justify-between">
-                <p>Nombre: {user.name}</p>
-                <p>Apellido: {user.lastName}</p>
+                <p>Nombre: {!user ? "" : user.name}</p>
+                <p>Apellido: {!user ? "" : user.lastName}</p>
               </div>
               <div className="flex flex-col sm:flex-row sm:justify-between">
-                <p>Celular: {user.phone ? user.phone : "Agregar numero"}</p>
-                <p>Email: {user.email}</p>
+                <p>Celular: {!user ? "" : user.phone}</p>
+                <p>Email: {!user ? "" : user.email}</p>
               </div>
               <div className="flex flex-col sm:flex-row sm:justify-between">
-                <p>Dirrecion: {user.addressCda}</p>
-                <p>
-                  Dirrecion Capital:{" "}
-                  {user.addressCapital
-                    ? user.addressCapital
-                    : "Agregar direccion capital"}
-                </p>
+                <p>Dirrecion: {!user ? "" : user.addressCda}</p>
+                <p>Dirrecion Capital: {!user ? "" : user.addressCapital}</p>
               </div>
             </div>
           </div>
