@@ -28,6 +28,10 @@ const TripSchema = new mongoose.Schema({
     returnTime: {
         type: String,
     },
+    roundTrip: {
+        type: Boolean,
+        default: false,
+    },
     maxCapacity: {
         type: Number,
         required: true,
