@@ -1,29 +1,33 @@
 import { createContext, Dispatch, useEffect, useReducer } from "react";
-/* type User = {
-  id: "";
-  username: "";
-  password: "";
-  email: "";
-  tel: "";
-  isAdmin: "";
-                  Check if this is correct.
-}; */
+
+type User = {
+  username: string;
+  name: string;
+  lastName: string;
+  password: string;
+  email: string;
+  phone: number;
+  isAdmin: boolean;
+  image?: string;
+  addressCda: string;
+  addressCapital?: string;
+};
 interface AuthContextType {
-  user: string | null;
+  user: User | null;
   loading: boolean;
   error: string | null;
   dispatch?: Dispatch<AuthAction>;
 }
 
 interface AuthState {
-  user: string | null;
+  user: User | null;
   loading: boolean;
   error: string | null;
 }
 
 type AuthAction =
   | { type: "LOGIN_START" }
-  | { type: "LOGIN_SUCCESS"; payload: string }
+  | { type: "LOGIN_SUCCESS"; payload: User }
   | { type: "LOGIN_FAILURE"; payload: string }
   | { type: "LOGOUT" };
 
