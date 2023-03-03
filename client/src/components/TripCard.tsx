@@ -1,6 +1,14 @@
 import { format } from "date-fns";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
 
 interface Trip {
   _id: number;
@@ -8,6 +16,7 @@ interface Trip {
   type: string;
   date: string;
   from: string;
+  roundTrip: boolean;
   departureTime: string;
   to: string;
   returnTime?: string;
@@ -29,11 +38,21 @@ const TripCard = ({
   _id,
   departureTime,
   to,
+  returnTime,
+  roundTrip,
   price,
   image,
   dateSelected,
 }: TripProps) => {
   const todayDate = format(new Date(), "dd/MM/yy");
+
+  const [isRoundTrip, setIsRoundTrip] = useState(roundTrip);
+  const [selectedValue, setSelectedValue] = useState("ida");
+
+  const HandleSelectedChange = (selectedValue: string) => {
+    setSelectedValue(selectedValue);
+    setIsRoundTrip((prev) => !prev);
+  };
 
   return (
     <article className="relative bg-white/80 rounded-md shadow-md shadow-red/10 border-l-4 border-l-red mb-10 pb-2 dark:bg-[#262626] max-w-lg">
@@ -57,11 +76,28 @@ const TripCard = ({
             <h3 className="font-bold text-red lg:text-lg ">{name}</h3>
             <p className="font-medium lg:text-base lg:text-md">Fecha: {date}</p>
             <p className="font-medium lg:text-base lg:text-md">
-              Horario: {departureTime}
+              Salida: {departureTime}
             </p>
-            <p className="font-medium lg:text-base lg:text-md ">
-              Precio: ${price}
-            </p>
+            {isRoundTrip && <p>Vuelta: {returnTime}</p>}
+            <Select value={selectedValue} onValueChange={HandleSelectedChange}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="ida" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="ida">Ida</SelectItem>
+                <SelectItem value="vuelta">Ida y vuelta</SelectItem>
+              </SelectContent>
+            </Select>
+            {isRoundTrip ? (
+              <p>
+                Precio: ${price * 2}{" "}
+                <span className="text-red">Ida y vuelta</span>
+              </p>
+            ) : (
+              <p className="font-medium lg:text-base lg:text-md ">
+                Precio: ${price}
+              </p>
+            )}
           </div>
           <div className="self-end">
             <Button>
