@@ -1,9 +1,12 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
-import { Button } from "../components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 const Profile = () => {
+  const { loading, error, user } = useContext(AuthContext);
+
   return (
     <section className="section">
       <div className="">
@@ -19,24 +22,29 @@ const Profile = () => {
             <Avatar className="w-20 h-20">
               <AvatarImage
                 className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
-                src="https://github.com/shadcn.png"
-                alt="profile"
+                src={user.image ? user.image : "https://i.pravatar.cc/200"}
+                alt="avatar"
               />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback>?</AvatarFallback>
             </Avatar>
-            <p>Username</p>
+            <p>{user.username}</p>
             <div className="w-11/12 flex flex-col sm:gap-3">
               <div className="flex flex-col sm:flex-row sm:justify-between">
-                <p>Nombre: .......</p>
-                <p>Apellido: .......</p>
+                <p>Nombre: {user.name}</p>
+                <p>Apellido: {user.lastName}</p>
               </div>
               <div className="flex flex-col sm:flex-row sm:justify-between">
-                <p>Celular: .......</p>
-                <p>Email: .......</p>
+                <p>Celular: {user.phone ? user.phone : "Agregar numero"}</p>
+                <p>Email: {user.email}</p>
               </div>
               <div className="flex flex-col sm:flex-row sm:justify-between">
-                <p>Dirrecion: .......</p>
-                <p>Dirrecion Capital: .......</p>
+                <p>Dirrecion: {user.addressCda}</p>
+                <p>
+                  Dirrecion Capital:{" "}
+                  {user.addressCapital
+                    ? user.addressCapital
+                    : "Agregar direccion capital"}
+                </p>
               </div>
             </div>
           </div>
