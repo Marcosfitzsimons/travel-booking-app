@@ -1,9 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Moon, SunMedium } from "lucide-react";
-import { Toggle } from "./ui/toggle";
+import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "./ui/button";
 
-const themes = ["light", "dark"];
+const themeIconVariants = {
+  hidden: {
+    y: 30,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+  },
+  exit: {
+    opacity: 0,
+    y: -30,
+    transition: {
+      ease: "easeOut",
+    },
+  },
+};
 
 export default function ThemeToggle() {
   const [isMounted, setIsMounted] = useState(false);
@@ -39,45 +55,43 @@ export default function ThemeToggle() {
 
   return isMounted ? (
     <div className="">
-      {
-        <Button
-          aria-label="Toggle theme"
-          onClick={toggleTheme}
-          className="bg-[#6B46C1] px-[13px] py-[22px] dark:bg-[#ffc98e] hover:bg-[#6240b1] hover:dark:bg-[#F6AD55] hover:dark:text-black"
-        >
-          {theme === "dark" ? (
-            <SunMedium className="w-5 h-5" />
-          ) : (
-            <Moon className="w-5 h-5" fill="white" />
-          )}
-        </Button>
-      }
+      <AnimatePresence mode="wait">
+        {theme === "dark" ? (
+          <motion.div
+            variants={themeIconVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            key="sun"
+          >
+            <Button
+              aria-label="Toggle theme"
+              onClick={toggleTheme}
+              className="px-[13px] py-[22px] dark:bg-[#F6AD55] dark:text-white dark:hover:bg-[#F6AD55]"
+            >
+              <SunMedium className="w-5 h-5" />
+            </Button>
+          </motion.div>
+        ) : (
+          <motion.div
+            variants={themeIconVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            key="moon"
+          >
+            <Button
+              aria-label="Toggle theme"
+              onClick={toggleTheme}
+              className="bg-[#6B46C1] px-[13px] py-[22px] hover:bg-[#6240b1]"
+            >
+              <Moon className="w-5 h-5" fill="white" />
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   ) : (
     <div />
   );
 }
-/*
-
-<Toggle aria-label="Toggle theme" variant="default">
-<SunMedium className="w-4 h-4" />
-</Toggle>
-*/
-
-/*
-{themes.map((t) => {
-        const checked = t === theme;
-        return (
-          <button
-            key={t}
-            className={`${
-              checked ? "bg-white text-black" : ""
-            } cursor-pointer rounded-3xl p-2`}
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-          >
-            {t === "light" ? <IoSunny /> : <IoMoon />}
-          </button>
-        );
-      })}
-*/
