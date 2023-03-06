@@ -16,6 +16,7 @@ const themeIconVariants = {
     opacity: 0,
     y: -30,
     transition: {
+      duration: 0.3,
       ease: "easeOut",
     },
   },
@@ -67,7 +68,7 @@ export default function ThemeToggle() {
             <Button
               aria-label="Toggle theme"
               onClick={toggleTheme}
-              className="px-[13px] py-[22px] dark:bg-[#F6AD55] dark:text-white dark:hover:bg-[#F6AD55]"
+              className="px-[13px] py-[22px] bg-[#F6AD55] text-white dark:bg-[#F6AD55] dark:text-white dark:hover:bg-[#F6AD55]"
             >
               <SunMedium className="w-5 h-5" />
             </Button>
@@ -83,7 +84,7 @@ export default function ThemeToggle() {
             <Button
               aria-label="Toggle theme"
               onClick={toggleTheme}
-              className="bg-[#6B46C1] px-[13px] py-[22px] hover:bg-[#6240b1]"
+              className="bg-[#6B46C1] text-white dark:bg-[#6B46C1] dark:text-white px-[13px] py-[22px] hover:bg-[#6240b1]"
             >
               <Moon className="w-5 h-5" fill="white" />
             </Button>
