@@ -2,15 +2,13 @@ import { createContext, Dispatch, useEffect, useReducer } from "react";
 
 type User = {
   username: string;
-  name: string;
-  lastName: string;
-  password: string;
+  fullName: string;
   email: string;
   phone: number;
-  isAdmin: boolean;
   image?: string;
   addressCda: string;
   addressCapital?: string;
+  password: string;
 };
 interface AuthContextType {
   user: User | null;
