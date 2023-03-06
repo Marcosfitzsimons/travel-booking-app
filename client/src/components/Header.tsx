@@ -15,6 +15,7 @@ import {
 import ThemeToggle from "./ThemeToggle";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { Separator } from "./ui/separator";
 
 const Header = () => {
   const { user, dispatch } = useContext(AuthContext);
@@ -31,7 +32,7 @@ const Header = () => {
     }
   };
   return (
-    <header className="fixed w-full z-10 backdrop-blur-md bg-[#ffffff40] dark:bg-black/50">
+    <header className="fixed w-full bg-[#fafafa] border-b border-b-slate-300 dark:bg-[#262626] dark:border-b-neutral-600">
       <div className="w-[min(90%,1200px)] mx-auto py-3 flex justify-between items-center">
         <RoughNotation type="underline" show={true} color="#bd284d" padding={2}>
           <motion.div className="" whileHover={{ scale: 1.1 }}>
@@ -46,34 +47,42 @@ const Header = () => {
             </Link>
           </motion.div>
         </RoughNotation>
-        <div className=" flex items-center gap-2">
-          <div className="flex items-center gap-2">
-            <nav>
-              <ul className="hidden md:flex md:items-center md:gap-2 ">
-                <li>
-                  <a href="">Viajes</a>
-                </li>
-                <li>
-                  <a href="">Nosotros</a>
-                </li>
-              </ul>
-            </nav>
-            <ThemeToggle />
-          </div>
+        <div className="flex items-center gap-2">
+          <nav>
+            <ul className="hidden md:flex md:items-center md:gap-2 ">
+              <li>
+                <a href="">Viajes</a>
+              </li>
+              <li>
+                <a href="">Nosotros</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          <Separator
+            orientation="vertical"
+            className="bg-slate-300 dark:bg-neutral-600 h-8"
+          />
           {!user ? (
             <div className="flex items-center gap-1">
-              <Link
-                to="/login"
-                className="bg-black rounded-md px-5 py-2 text-white font-medium dark:bg-slate-700"
-              >
-                Entrar
-              </Link>
-              <Link
-                to="/register"
-                className="bg-black rounded-md px-5 py-2 text-white font-medium dark:bg-slate-700"
-              >
-                Registrarme
-              </Link>
+              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] dark:after:shadow-highlight dark:after:shadow-white/10 focus-within:after:shadow-[#77f6aa] after:transition">
+                <Button
+                  variant="default"
+                  className="relative bg-white rounded-lg border border-black/20 dark:shadow-input dark:shadow-black/5 dark:hover:text-white"
+                >
+                  <Link to="/login">Entrar</Link>
+                </Button>
+              </div>
+              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] dark:after:shadow-highlight dark:after:shadow-white/10 focus-within:after:shadow-[#77f6aa] after:transition">
+                <Button
+                  variant="default"
+                  className="relative bg-white rounded-lg border border-black/20 dark:shadow-input dark:shadow-black/5 dark:hover:text-white"
+                >
+                  <Link to="/register">Registrarme</Link>
+                </Button>
+              </div>
             </div>
           ) : (
             <DropdownMenu>

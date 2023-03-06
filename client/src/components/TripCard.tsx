@@ -1,6 +1,6 @@
 import { format } from "date-fns";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import {
   Select,
@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
+import { AuthContext } from "../context/AuthContext";
 
 interface Trip {
   _id: number;
@@ -49,13 +50,24 @@ const TripCard = ({
   const [isRoundTrip, setIsRoundTrip] = useState(roundTrip);
   const [selectedValue, setSelectedValue] = useState("ida");
 
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const HandleSelectedChange = (selectedValue: string) => {
     setSelectedValue(selectedValue);
     setIsRoundTrip((prev) => !prev);
   };
 
+  const handleReservar = () => {
+    if (user) {
+      navigate(`/viajes/${_id}`);
+    } else {
+      navigate("/login");
+    }
+  };
+
   return (
-    <article className="relative bg-white/80 rounded-md shadow-md shadow-red/10 border-l-4 border-l-red mb-10 pb-2 dark:bg-[#262626] max-w-lg">
+    <article className="relative bg-white/80 rounded-md shadow-md border border-slate-200 border-l-4 border-l-red mb-10 pb-2 dark:bg-neutral-900 dark:border-neutral-600 dark:border-l-red max-w-lg">
       <div className="px-4 pt-9 pb-4 flex flex-col gap-4 lg:px-10 lg:pt-6 lg:pb-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:border-none lg:pb-0 lg:gap-4">
           {image && (
@@ -68,7 +80,7 @@ const TripCard = ({
             </div>
           )}
           {dateSelected === todayDate && (
-            <p className="absolute right-4 -top-3 rounded-md px-2 bg-[#68c58d]">
+            <p className="absolute text-neutral-100 dark:text-white right-4 -top-3 rounded-md px-2 bg-[#7abe96]">
               HOY
             </p>
           )}
@@ -100,9 +112,7 @@ const TripCard = ({
             )}
           </div>
           <div className="self-end">
-            <Button>
-              <Link to={`/viajes/${_id}`}>Reservar</Link>
-            </Button>
+            <Button onClick={handleReservar}>Reservar</Button>
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
+import { Separator } from "../components/ui/separator";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { AuthContext } from "../context/AuthContext";
@@ -46,16 +47,24 @@ const Login = () => {
   };
 
   return (
-    <section className="">
+    <section className="section flex flex-col items-center lg:flex-row lg:justify-around">
+      <Separator
+        orientation="vertical"
+        className="h-48 bg-gradient-to-t from-neutral-400 to-[#fafafa] dark:from-neutral-200 dark:to-[#2c2c2c] lg:hidden"
+      />
       <div className="">
-        <h2 className="text-3xl font-medium text-center">Entra a tu cuenta</h2>
-        <p>Una vez dentro vas a poder reservar tu lugar.</p>
+        <h2 className="text-3xl py-2 font-medium text-center lg:text-start lg:px-3 dark:text-white">
+          Entra a tu cuenta
+        </h2>
+        <p className="text-center lg:text-start lg:px-3">
+          Una vez dentro de tu cuenta vas a poder reservar tu lugar.
+        </p>
         <form
           onSubmit={handleOnSubmit}
-          className="relative w-10/12 max-w-2xl mx-auto mt-6 p-3 py-6 rounded-md border border-slate-300 bg-white/80 flex flex-col gap-5 items-center dark:bg-[#262626] dark:border-zinc-700"
+          className="relative w-full mt-6 p-3 py-6 flex flex-col gap-5 items-center"
         >
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="username">Username</Label>
+          <div className="grid w-full items-center gap-3">
+            <Label htmlFor="username">Nombre de usuario</Label>
             <Input
               onChange={handleOnChange}
               type="text"
@@ -63,7 +72,7 @@ const Login = () => {
               placeholder="@yourusername"
             />
           </div>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
+          <div className="grid w-full items-center gap-3">
             <Label htmlFor="password">Contraseña</Label>
             <Input
               onChange={handleOnChange}
@@ -72,12 +81,45 @@ const Login = () => {
               placeholder="Tu contraseña"
             />
           </div>
-          <Button disabled={loading} className="">
+          <Button
+            disabled={loading}
+            className="w-full bg-black text-white dark:bg-white dark:text-black"
+          >
             Entrar
           </Button>
           {error && <span>{error.message}</span>}
+          <p className="lg:self-start">
+            ¿No tenes cuenta?{" "}
+            <Link to="/register" className="text-orange-700">
+              Crear una cuenta nueva
+            </Link>
+          </p>
         </form>
       </div>
+      <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6">
+        <Separator
+          orientation="vertical"
+          className="h-48 bg-gradient-to-t from-neutral-400 to-[#fafafa] lg:h-80 dark:from-neutral-200 dark:to-[#2c2c2c]"
+        />
+        <p className="font-serif tracking-wider lg:text-2xl cursor-default">
+          <span className="font-medium text-3xl">F</span>
+          <span className="inline-block rotate-3">a</span>
+          <span className="inline-block -rotate-6">b</span>
+          <span className="inline-block rotate-1">e</span>
+          <span className="font-medium text-3xl">B</span>
+          <span className="inline-block rotate-6">u</span>
+          <span className="inline-block -rotate-3">s</span>
+        </p>
+        <Separator
+          orientation="vertical"
+          className="h-52 bg-gradient-to-b from-neutral-800 to-[#fafafa] lg:h-80 dark:from-neutral-200 dark:to-[#2c2c2c]"
+        />
+      </div>
+
+      <Separator
+        orientation="vertical"
+        className="h-52 bg-gradient-to-b from-neutral-800 to-[#fafafa] dark:from-neutral-200 dark:to-[#2c2c2c] lg:hidden"
+      />
     </section>
   );
 };

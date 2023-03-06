@@ -2,7 +2,6 @@
 
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 .section {
   height: 90vh;
@@ -12,11 +11,17 @@
   padding-top: 150px;
 }
 
+.border {
+  background-clip: padding-box;
+}
+
+@tailwind utilities;
+
 @layer base {
   html {
     font-family: "Ubuntu", sans-serif;
   }
   body {
-    @apply bg-slate-200 dark:bg-dark-gray dark:text-white;
+    @apply bg-[#fafafa] dark:bg-[#262626] dark:text-neutral-200;
   }
 }
