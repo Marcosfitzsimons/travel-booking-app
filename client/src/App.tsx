@@ -7,6 +7,7 @@ import Trip from "./pages/Trip";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import MyTrips from "./pages/MyTrips";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/viajes/:id" element={<Trip />} />
           <Route path="/mis-viajes" element={<MyTrips />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/mi-perfil" element={<Profile />} />
           <Route path="/mi-perfil/editar-perfil" element={<EditProfile />} />
         </Routes>
