@@ -8,22 +8,31 @@ import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import MyTrips from "./pages/MyTrips";
+import MyTrips from "./components/MyTrips";
 import { Toaster } from "./components/ui/toaster";
+import { useState } from "react";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
+  const [isUserInfo, setIsUserInfo] = useState(true);
+
   return (
     <div className="">
-      <Header />
-      <main className="pt-20 w-[min(90%,1200px)] mx-auto py-2">
+      <Header setIsUserInfo={setIsUserInfo} />
+      <main className="pt-20 w-[min(90%,1000px)] mx-auto py-2">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/viajes" element={<Trips />} />
           <Route path="/viajes/:id" element={<Trip />} />
-          <Route path="/mis-viajes" element={<MyTrips />} />
+          <Route path="/nosotros" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/mi-perfil" element={<Profile />} />
+          <Route
+            path="/mi-perfil"
+            element={
+              <Profile isUserInfo={isUserInfo} setIsUserInfo={setIsUserInfo} />
+            }
+          />
           <Route path="/mi-perfil/editar-perfil" element={<EditProfile />} />
         </Routes>
       </main>
