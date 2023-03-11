@@ -16,11 +16,18 @@ const Home = () => {
         </h1>
         <p className="font-medium dark:text-slate-100">Carmen de Areco</p>
         <p className="font-medium dark:text-slate-100">
-          Somos una empresa familiar con más de 28 años de trayectoria.
+          Una empresa familiar con más de 28 años de trayectoria.
         </p>
-        <Link to="/viajes" className="py-1 px-4 rounded-md border border-red">
-          Viajes
-        </Link>
+        <div className="w-full max-w-md relative  after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] lg:w-56 dark:after:shadow-highlight dark:after:shadow-white/10 after:transition">
+          <Button
+            variant="default"
+            size="lg"
+            className="w-full max-w-md relative bg-dark-gray text-base text-white rounded-lg py-6 border border-black/20 lg:w-56 active:scale-100 hover:bg-transparent hover:border-dark-gray hover:text-black  dark:hover:text-white dark:hover:bg-transparent dark:hover:border-white dark:hover:white dark:shadow-input dark:shadow-black/5
+             dark:bg-white dark:text-black"
+          >
+            <Link to="/viajes">Próximos viajes</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
