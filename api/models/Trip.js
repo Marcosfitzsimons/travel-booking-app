@@ -5,10 +5,6 @@ const TripSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    type: { // special trip or daily trips.
-        type: String,
-        required: true,
-    },
     date: {
         type: String,
         required: true,
@@ -17,20 +13,20 @@ const TripSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    departureTime: {
-        type: String,
-        required: true,
-    },
     to: {
         type: String,
         required: true,
     },
-    returnTime: {
+    departureTime: {
+        type: String,
+        required: true,
+    },
+    arrivalTime: {
         type: String,
     },
-    roundTrip: {
-        type: Boolean,
-        default: false,
+    price: {
+        type: Number,
+        required: true,
     },
     maxCapacity: {
         type: Number,
@@ -38,10 +34,6 @@ const TripSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-    },
-    price: {
-        type: Number,
-        required: true,
     },
     available: {
         type: Boolean,
