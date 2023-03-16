@@ -20,10 +20,9 @@ interface Trip {
   type: string;
   date: string;
   from: string;
-  roundTrip: boolean;
   departureTime: string;
   to: string;
-  returnTime?: string;
+  arrivalTime: string;
   maxCapacity: number;
   image?: string;
   price: number;
@@ -42,27 +41,18 @@ const TripCard = ({
   _id,
   departureTime,
   to,
-  returnTime,
-  roundTrip,
+  arrivalTime,
   price,
   image,
   dateSelected,
 }: TripProps) => {
   const todayDate = format(new Date(), "dd/MM/yy");
 
-  const [isRoundTrip, setIsRoundTrip] = useState(roundTrip);
-  const [selectedValue, setSelectedValue] = useState("ida");
-
   const { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  const HandleSelectedChange = (selectedValue: string) => {
-    setSelectedValue(selectedValue);
-    setIsRoundTrip((prev) => !prev);
-  };
-
-  const handleReservar = () => {
+  const handleReservation = () => {
     if (user) {
       navigate(`/viajes/${_id}`);
     } else {
@@ -71,7 +61,7 @@ const TripCard = ({
   };
 
   return (
-    <article className="relative bg-white/80 rounded-md shadow-md border max-w-xl border-slate-200 border-l-4 border-l-slate-200 mb-10 pb-2 dark:bg-[#262626] dark:border-neutral-700 dark:border-l-neutral-900">
+    <article className="relative bg-white/80 rounded-md shadow-md border border-slate-200 border-l-4 border-l-slate-200 mb-10 pb-2 max-w-lg lg:max-w-xl dark:bg-[#262626] dark:border-neutral-700 dark:border-l-neutral-900">
       <div className="px-4 pt-9 pb-4 lg:px-5 lg:py-6">
         <div className="flex flex-col gap-2 lg:flex-row lg:gap-6 lg:items-center lg:justify-between lg:border-none lg:pb-0">
           {image && (
@@ -87,72 +77,49 @@ const TripCard = ({
               </Avatar>
             </div>
           )}
-          {dateSelected === todayDate && (
-            <p className="absolute text-[#3f8059] dark:text-[#7bfdaf] right-4 top-2 px-3 shadow-sm bg-[#6fe79f]/60 rounded-2xl border border-[#41865d] dark:bg-[#6fe79f]/10 dark:border-[#4cc97e]">
-              HOY
-            </p>
-          )}
+          <div className="absolute right-4 top-2 flex items-center gap-2">
+            <p className="font-medium text-lg dark:text-white">{date}</p>
+            {dateSelected === todayDate && (
+              <p className="text-[#3f8059] dark:text-[#7bfdaf] px-3 shadow-sm bg-[#6fe79f]/60 rounded-2xl border border-[#41865d] dark:bg-[#6fe79f]/10 dark:border-[#4cc97e]">
+                HOY
+              </p>
+            )}
+          </div>
+
           <div className="flex flex-col gap-3 lg:w-full">
             <div className="flex items-center gap-4">
               <h3 className="font-bold text-lg lg:text-xl dark:text-white">
                 {name}
               </h3>
-              <Select
-                value={selectedValue}
-                onValueChange={HandleSelectedChange}
-              >
-                <SelectTrigger className="w-[125px]">
-                  <SelectValue placeholder="ida" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="ida">Ida</SelectItem>
-                  <SelectItem value="vuelta">Ida y vuelta</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
-            <div className="flex flex-col w-full bg-[#fafafa] max-w-[22rem] gap-2 border border-slate-200 p-4 shadow-inner rounded-md lg:pr-16 dark:bg-neutral-900 dark:border-neutral-700">
-              <p className="lg:text-base lg:text-md">
-                <span className="dark:text-white font-medium">Fecha:</span>{" "}
-                {date}
-              </p>
-              <div className="flex items-center gap-2">
-                <p className="lg:text-base lg:text-md">
+            <div className="flex flex-col w-full bg-[#fafafa] gap-2 border border-slate-200 p-4 shadow-inner rounded-md lg:pr-16 lg:max-w-[22rem] dark:bg-neutral-900 dark:border-neutral-700">
+              <div className="flex flex-col gap-2">
+                <p className="lg:text-base lg:text-md flex items-center gap-1">
                   <span className="dark:text-white font-medium">Salida:</span>{" "}
                   {departureTime}
+                  <span>- {from}</span>
                 </p>
-                {selectedValue === "vuelta" && (
-                  <>
-                    <Separator
-                      orientation="horizontal"
-                      className="w-2 dark:bg-slate-500"
-                    />
-                    <p className="lg:text-base lg:text-md">
-                      <span className="dark:text-white font-medium">
-                        Vuelta:
-                      </span>{" "}
-                      {returnTime}
-                    </p>
-                  </>
+                {arrivalTime && (
+                  <p className="lg:text-base lg:text-md flex items-center gap-1">
+                    <span className="dark:text-white font-medium">
+                      Llegada:
+                    </span>{" "}
+                    {arrivalTime}
+                    <span>- {to}</span>
+                  </p>
                 )}
               </div>
-              {selectedValue === "vuelta" ? (
-                <p className="lg:text-base lg:text-md">
-                  <span className="dark:text-white font-medium">Precio: </span>{" "}
-                  ${price * 2} <span className="text-red">Ida y vuelta</span>
-                </p>
-              ) : (
-                <p className="lg:text-base lg:text-md">
-                  <span className="dark:text-white font-medium">Precio: </span>
-                  {price}
-                </p>
-              )}
+              <p className="lg:text-base lg:text-md">
+                <span className="dark:text-white font-medium">Precio: </span>$
+                {price}
+              </p>
             </div>
           </div>
           <div className="lg:self-end">
             <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[11px] dark:after:shadow-highlight dark:after:shadow-white/10 focus-within:after:shadow-[#77f6aa] after:transition">
               <Button
                 variant="default"
-                onClick={handleReservar}
+                onClick={handleReservation}
                 className="w-full relative rounded-xl text-neutral-300 bg-black hover:text-white dark:shadow-input dark:shadow-black/5 dark:hover:text-white"
               >
                 Reservar
