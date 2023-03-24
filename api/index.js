@@ -6,22 +6,14 @@ import mongoose from 'mongoose'
 import authRoute from './routes/auth.js'
 import usersRoute from './routes/users.js'
 import tripsRoute from './routes/trips.js'
-import seatsRoute from './routes/seats.js'
+import passengersRoute from './routes/passengers.js'
+import connectDB from './db/connect.js'
 
 const app = express()
 dotenv.config()
 
 // ignore warning
 mongoose.set('strictQuery', false)
-
-const connect = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO);
-        console.log('Connected to mongoDB.')
-    } catch (error) {
-        throw error
-    }
-}
 
 mongoose.connection.on('disconnected', () => {
     console.log('MongoDB disconnected')
@@ -39,7 +31,7 @@ app.use((req, res, next) => {
 app.use("/api/auth", authRoute)
 app.use("/api/users", usersRoute)
 app.use("/api/trips", tripsRoute)
-app.use("/api/seats", seatsRoute)
+app.use("/api/passengers", passengersRoute)
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500
@@ -52,7 +44,17 @@ app.use((err, req, res, next) => {
     })
 })
 
-app.listen(8800, () => {
-    connect()
-    console.log('Connected to backend!')
-})
+const port = process.env.PORT || 8800;
+
+const start = async () => {
+    try {
+        await connectDB(process.env.MONGO)
+        app.listen(port, () =>
+            console.log(`Connected to backend. Server is listening on port ${port}...`)
+        );
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+start();
