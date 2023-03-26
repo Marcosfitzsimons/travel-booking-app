@@ -34,9 +34,6 @@ const TripSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Ingresa capacidad maxima del viaje.']
     },
-    image: {
-        type: String,
-    },
     available: {
         type: Boolean,
         default: true,
