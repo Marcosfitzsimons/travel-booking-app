@@ -1,41 +1,38 @@
+import { StatusCodes } from 'http-status-codes';
+import { BadRequestError, NotFoundError } from '../errors/index.js'
 import User from "../models/User.js"
 
-export const updateUser = async (req, res, next) => {
-    try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
-        console.log(updatedUser)
-        res.status(200).json(updatedUser)
-    } catch (err) {
-        next(err)
-    }
+
+export const updateUser = async (req, res) => {
+    // Check on updated password to generate new token and not sent the password and isAdmin to the client.
+
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+    if (!updatedUser) throw new NotFoundError('Usuario no existe.')
+    res.status(StatusCodes.OK).json(updatedUser)
+
 }
 
-export const deleteUser = async (req, res, next) => {
-    try {
-        await User.findByIdAndDelete(req.params.id)
-        res.status(200).json('User has been deleted')
-    } catch (err) {
-        next(err)
-    }
+export const deleteUser = async (req, res) => {
+
+    const user = await User.findByIdAndDelete(req.params.id)
+    if (!user) throw new NotFoundError('Usuario no existe.')
+    res.status(StatusCodes.OK).json('Usuario eliminado con éxito.')
+
 }
 
 
-export const getUser = async (req, res, next) => {
+export const getUser = async (req, res) => {
 
-    try {
-        const user = await User.findById(req.params.id)
-        res.status(200).json(user)
-    } catch (err) {
-        next(err)
-    }
+    const user = await User.findById(req.params.id)
+    if (!user) throw new NotFoundError('Usuario no existe.')
+    res.status(StatusCodes.OK).json(user)
+
 }
 
-export const getUsers = async (req, res, next) => {
-    try {
-        const users = await User.find()
-        res.status(200).json(users)
-    } catch (err) {
-        next(err)
-    }
+export const getUsers = async (req, res) => {
+
+    const users = await User.find()
+    res.status(StatusCodes.OK).json(users)
+
 }
 

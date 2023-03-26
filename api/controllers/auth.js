@@ -28,12 +28,12 @@ export const login = async (req, res, next) => {
 
     let user = await User.findOne({ $or: [{ email: emailOrUsername }, { username: emailOrUsername }] });
 
-    if (!emailOrUsername) return next(createError(404, "Bad username or email"));
-    if (!user) return next(createError(404, "User not found!"));
+    if (!emailOrUsername) throw new BadRequestError('Ingresa tu nombre de usuario o email.')
+    if (!user) throw new UnauthenticatedError('Usuario no encontrado.')
 
     // bcrypt allow us to compare hash password with the password that is in the request.
     const isPasswordCorrect = await bcrypt.compare(userReqPassword, user.password)
-    if (!isPasswordCorrect) return next(createError(400, "Wrong password or username!"));
+    if (!isPasswordCorrect) throw new BadRequestError('Contraseña incorrecta.')
 
     const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT, { expiresIn: process.env.JWT_LIFETIME })
 

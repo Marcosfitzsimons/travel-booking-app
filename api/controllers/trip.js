@@ -1,54 +1,46 @@
 import { format } from "date-fns";
-import Passenger from "../models/Passenger.js"
+import { StatusCodes } from 'http-status-codes';
+import { BadRequestError, NotFoundError } from '../errors/index.js'
 import Trip from "../models/Trip.js"
 
-export const createTrip = async (req, res, next) => {
+export const createTrip = async (req, res) => {
     const newTrip = new Trip(req.body)
 
-    try {
-        const savedTrip = await newTrip.save()
-        res.status(200).json(savedTrip)
-    } catch (err) {
-        next(err)
-    }
+    const savedTrip = await newTrip.save()
+
+    res.status(StatusCodes.OK).json(savedTrip)
+
 }
 
-export const updateTrip = async (req, res, next) => {
-    try {
-        const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
-        res.status(200).json(updatedTrip)
-    } catch (err) {
-        next(err)
-    }
+export const updateTrip = async (req, res) => {
+    const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+    if (!updatedTrip) throw new NotFoundError('Viaje no existe')
+
+    res.status(StatusCodes.OK).json(updatedTrip)
+
 }
 
-export const deleteTrip = async (req, res, next) => {
-    try {
-        await Trip.findByIdAndDelete(req.params.id)
-        res.status(200).json('Trip has been deleted')
-    } catch (err) {
-        next(err)
-    }
+export const deleteTrip = async (req, res) => {
+    const trip = await Trip.findByIdAndDelete(req.params.id)
+    if (!trip) throw new NotFoundError('Viaje no existe')
+
+    res.status(StatusCodes.OK).json('Viaje ha sido eliminado.')
+
 }
 
 
-export const getTrip = async (req, res, next) => {
+export const getTrip = async (req, res) => {
 
-    try {
-        const trip = await Trip.findById(req.params.id)
-        res.status(200).json(trip)
-    } catch (err) {
-        next(err)
-    }
+    const trip = await Trip.findById(req.params.id)
+    if (!trip) throw new NotFoundError('Viaje no existe.')
+    res.status(StatusCodes.OK).json(trip)
+
 }
 
-export const getTrips = async (req, res, next) => {
+export const getTrips = async (req, res) => {
     // See the time of the current date -> Must be UTC-3
-    try {
-        const currentDate = format(new Date(), "dd/MM/yy");
-        const trips = await Trip.find({ date: { $gte: currentDate } }).sort('date')
-        res.status(200).json(trips)
-    } catch (err) {
-        next(err)
-    }
+    const currentDate = format(new Date(), "dd/MM/yy");
+    const trips = await Trip.find({ date: { $gte: currentDate } }).sort('date')
+    res.status(StatusCodes.OK).json(trips)
+
 }

@@ -2,7 +2,6 @@ import express from "express";
 import { deleteUser, getUser, getUsers, updateUser } from "../controllers/user.js";
 import { verifyAdmin, verifyUser } from "../middleware/verifyToken.js";
 
-// Initialize the router.
 const router = express.Router();
 
 /*

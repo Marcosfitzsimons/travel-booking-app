@@ -4,10 +4,8 @@ import { verifyAdmin, verifyUser } from '../middleware/verifyToken.js'
 
 const router = express.Router();
 
-// is working but to do: re check all. XD 
-
 // CREATE - OK
-router.post("/:tripid", verifyUser, createPassenger)
+router.post("/:id/:tripid", verifyUser, createPassenger)
 
 // UPDATE - OK
 router.put("/:id/:tripid", verifyAdmin, updatePassenger)

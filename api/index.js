@@ -3,8 +3,9 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
-// import notFoundMiddleware from './middleware/not-found.js';
-// import errorHandlerMiddleware from './middleware/error-handler.js';
+import notFoundMiddleware from './middleware/not-found.js';
+import errorHandlerMiddleware from './middleware/error-handler.js';
+import 'express-async-errors'
 import authRoute from './routes/auth.js'
 import usersRoute from './routes/users.js'
 import tripsRoute from './routes/trips.js'
@@ -26,10 +27,14 @@ app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
 
+
 app.use("/api/auth", authRoute)
 app.use("/api/users", usersRoute)
 app.use("/api/trips", tripsRoute)
 app.use("/api/passengers", passengersRoute)
+
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500
