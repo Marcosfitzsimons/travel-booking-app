@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+import Passenger from "../models/Passenger.js"
 import Trip from "../models/Trip.js"
 
 export const createTrip = async (req, res, next) => {
@@ -41,8 +43,10 @@ export const getTrip = async (req, res, next) => {
 }
 
 export const getTrips = async (req, res, next) => {
+    // See the time of the current date -> Must be UTC-3
     try {
-        const trips = await Trip.find()
+        const currentDate = format(new Date(), "dd/MM/yy");
+        const trips = await Trip.find({ date: { $gte: currentDate } }).sort('date')
         res.status(200).json(trips)
     } catch (err) {
         next(err)

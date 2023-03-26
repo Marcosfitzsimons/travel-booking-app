@@ -6,22 +6,6 @@ const PassengerSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User',
         required: [true, 'Please provide user']
-    },
-    fullName: {
-        type: String,
-        required: true
-    },
-    addressCda: {
-        type: String,
-        required: true
-    },
-    addressCapital: {
-        type: String,
-        required: true
-    },
-    phone: {
-        type: String,
-        required: true,
     }
 }, {
     timestamps: true,

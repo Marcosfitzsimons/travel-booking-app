@@ -9,7 +9,6 @@ type User = {
   addressCda: string;
   addressCapital?: string;
   password: string;
-  myTrips: [];
 };
 interface AuthContextType {
   user: User | null;
@@ -43,31 +42,24 @@ export const AuthContext = createContext<AuthContextType>(INITIAL_STATE);
 
 const AuthReducer = (state: AuthState, action: AuthAction) => {
   switch (action.type) {
-    case "LOGIN_START":
+    case "UPDATE_USER_START":
       return {
         user: null,
         loading: true,
         error: null,
       };
-    case "LOGIN_SUCCESS":
+    case "UPDATE_USER_SUCCESS":
       return {
         user: action.payload,
         loading: false,
         error: null,
       };
-    case "LOGIN_FAILURE":
+    case "UPDATE_USER_FAILURE":
       return {
         user: null,
         loading: false,
         error: action.payload,
       };
-    case "LOGOUT":
-      return {
-        user: null,
-        loading: false,
-        error: null,
-      };
-
     default:
       return state;
   }

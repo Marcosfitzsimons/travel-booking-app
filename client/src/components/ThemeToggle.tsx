@@ -68,7 +68,8 @@ export default function ThemeToggle() {
             <Button
               aria-label="Toggle theme"
               onClick={toggleTheme}
-              className="px-[13px] py-[22px] bg-[#F6AD55] text-white dark:bg-[#F6AD55] dark:text-white dark:hover:bg-[#F6AD55]"
+              variant="ghost"
+              className="w-8 h-8 rounded-md p-0 dark:text-white dark:hover:bg-blue-lagoon-900/70"
             >
               <SunMedium className="w-5 h-5" />
             </Button>
@@ -83,8 +84,9 @@ export default function ThemeToggle() {
           >
             <Button
               aria-label="Toggle theme"
+              variant="ghost"
               onClick={toggleTheme}
-              className="bg-[#6B46C1] text-white dark:bg-[#6B46C1] dark:text-white px-[13px] py-[22px] hover:bg-[#6240b1]"
+              className="w-8 h-8 rounded-md p-0 dark:text-white hover:bg-blue-lagoon-300/10"
             >
               <Moon className="w-5 h-5" fill="white" />
             </Button>

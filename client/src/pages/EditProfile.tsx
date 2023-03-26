@@ -17,6 +17,7 @@ import { toast } from "../hooks/ui/use-toast";
 import axios from "axios";
 import DefaultButton from "../components/DefaultButton";
 import BackButton from "../components/BackButton";
+import Cookies from "js-cookie";
 
 type User = {
   id: string;
@@ -55,6 +56,16 @@ const EditProfile = () => {
   };
   const navigate = useNavigate();
 
+  // const token = Cookies.get("access_token");
+
+  //  console.log(token);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer $token`,
+    },
+  };
+
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const token = localStorage.getItem("user"); // That is not the token that I want to send, the token is that token that I send as a cookie when I loggin succesfully?
@@ -65,11 +76,7 @@ const EditProfile = () => {
       const { data } = await axios.put(
         `http://localhost:8800/api/users/${user._id}`,
         { userData },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        } // STILL DOESN'T WORK
+        config
       );
 
       console.log(data);
@@ -84,7 +91,6 @@ const EditProfile = () => {
       });
     }
   };
-  console.log(user);
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -104,13 +110,13 @@ const EditProfile = () => {
 
   return (
     <section className="section">
-      <div className="">
-        <SectionTitle>Editar perfil</SectionTitle>
-        <div className="relative w-full shadow-md mx-auto mt-6 p-3 py-16 rounded-md border border-slate-300 bg-white/80 flex flex-col gap-5 items-center dark:bg-[#262626] dark:border-zinc-700">
+      <SectionTitle>Editar perfil</SectionTitle>
+      <div className="w-full mx-auto mt-6 bg-transparent flex flex-col gap-5 items-center">
+        <div className="w-full relative bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-8/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600">
           <div className="absolute top-4 left-4">
             <BackButton />
           </div>
-          <div className="w-11/12 flex flex-col items-center gap-5 md:w-7/12 md:py-12 md:px-4 md:rounded-md md:border md:bg-[#fafafa] md:border-neutral-400 md:dark:bg-neutral-900 md:dark:border-neutral-500">
+          <div className="w-full flex flex-col items-center gap-5">
             <form
               onSubmit={handleOnSubmit}
               className="w-full flex flex-col items-center gap-3"
@@ -143,7 +149,7 @@ const EditProfile = () => {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className="grid w-full max-w-md items-center gap-2">
                 <Label htmlFor="username">Username</Label>
                 <Input
                   type="text"
@@ -153,7 +159,7 @@ const EditProfile = () => {
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className="grid w-full max-w-md items-center gap-2">
                 <Label htmlFor="fullName">Nombre completo</Label>
                 <Input
                   type="text"
@@ -163,7 +169,7 @@ const EditProfile = () => {
                   onChange={(e) => setFullName(e.target.value)}
                 />
               </div>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className="grid w-full max-w-md items-center gap-2">
                 <Label htmlFor="password">Contraseña</Label>
                 <Input
                   type="password"
@@ -173,7 +179,7 @@ const EditProfile = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className="grid w-full max-w-md items-center gap-2">
                 <Label htmlFor="confirmPassword">Confirmar contrase</Label>
                 <Input
                   type="password"
@@ -183,7 +189,7 @@ const EditProfile = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className="grid w-full max-w-md items-center gap-2">
                 <Label htmlFor="tel">Celular</Label>
                 <Input
                   type="tel"
@@ -193,7 +199,7 @@ const EditProfile = () => {
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className="grid w-full max-w-md items-center gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   type="email"
@@ -203,7 +209,7 @@ const EditProfile = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className="grid w-full max-w-md items-center gap-2">
                 <Label htmlFor="address">Direccion (Carmen)</Label>
                 <Input
                   type="text"
@@ -213,7 +219,7 @@ const EditProfile = () => {
                   onChange={(e) => setAddressCda(e.target.value)}
                 />
               </div>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
+              <div className="grid w-full max-w-md items-center gap-2">
                 <Label htmlFor="address-cap">Direccion (Capital)</Label>
                 <Input
                   type="text"
@@ -223,7 +229,7 @@ const EditProfile = () => {
                   id="addressCapital"
                 />
               </div>
-              <div className="w-[min(24rem,100%)]">
+              <div className="w-[min(28rem,100%)]">
                 <DefaultButton>Guardar cambios</DefaultButton>
               </div>
             </form>

@@ -37,18 +37,18 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
   }, [user]);
 
   return (
-    <header className="fixed w-full z-50 bg-[#fafafa] dark:bg-[#0d0f12] border-b border-b-neutral-300 dark:border-b-neutral-600">
+    <header className="fixed w-full z-50 bg-[#fafafa] dark:bg-[#0d0f12] border-b border-b-blue-lagoon-700/50 dark:border-b-neutral-600">
       <div className="w-[min(90%,1000px)] mx-auto py-3 flex justify-between items-center">
         <Logo />
 
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
+          <div className="hidden md:flex md:items-center md:gap-2">
             <nav>
               <ul className="flex items-center gap-2 ">
                 <li>
                   <Link
                     to="/viajes"
-                    className="font-medium hover:text-slate-500 dark:text-white dark:hover:text-neutral-300"
+                    className="font-medium dark:text-white py-2 px-3 rounded-md hover:bg-blue-lagoon-300/10 dark:hover:bg-blue-lagoon-900/70"
                   >
                     Viajes
                   </Link>
@@ -56,7 +56,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                 <li>
                   <Link
                     to="/nosotros"
-                    className="hidden md:flex font-medium hover:text-slate-400 dark:text-white dark:hover:text-neutral-300"
+                    className="font-medium dark:text-white py-2 px-3 rounded-md hover:bg-blue-lagoon-300/10 dark:hover:bg-blue-lagoon-900/70"
                   >
                     Nosotros
                   </Link>
@@ -69,20 +69,18 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
           <Separator orientation="vertical" className="h-6" />
           {!user ? (
             <div className="flex items-center gap-1">
-              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[11px] dark:after:shadow-highlight dark:after:shadow-white/10 focus-within:after:shadow-[#77f6aa] after:transition">
-                <Button
-                  variant="default"
-                  className="relative rounded-xl bg-neutral-900 text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:hover:text-white"
-                >
-                  <Link to="/login">Entrar</Link>
+              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-white/10 focus-within:after:shadow-[#77f6aa] after:transition">
+                <Button className="h-8 p-0 relative bg-black text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white">
+                  <Link to="/login" className="py-2 px-4">
+                    Entrar
+                  </Link>
                 </Button>
               </div>
-              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[11px] dark:after:shadow-highlight dark:after:shadow-white/10 focus-within:after:shadow-[#77f6aa] after:transition">
-                <Button
-                  variant="default"
-                  className="relative rounded-xl bg-neutral-900 text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:hover:text-white"
-                >
-                  <Link to="/register">Registrarme</Link>
+              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 focus-within:after:shadow-[#77f6aa] after:transition">
+                <Button className="h-8 p-0 relative bg-blue-lagoon-500 text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-blue-lagoon-500">
+                  <Link to="/register" className="py-2 px-4">
+                    Registrarme
+                  </Link>
                 </Button>
               </div>
             </div>

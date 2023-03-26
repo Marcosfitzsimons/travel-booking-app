@@ -11,18 +11,17 @@ import SectionTitle from "../components/ui/SectionTitle";
 interface TripProps {
   _id: number;
   name: string;
-  type: string;
   date: string;
   from: string;
-  roundTrip: boolean;
-  departureTime: string;
   to: string;
+  departureTime: string;
+  arrivalTime: string;
   returnTime?: string;
   maxCapacity: number;
   image?: string;
   price: number;
   available: boolean;
-  seats: string[];
+  passengers: string[];
 }
 
 const Trips = () => {
@@ -40,7 +39,7 @@ const Trips = () => {
     (trip: TripProps) => trip.date === dateSelected
   );
   const highlightSelectedDate = {
-    backgroundColor: "#F0E68C",
+    backgroundColor: "#007287",
     fontWeight: "bold",
     color: "#000000",
   };
@@ -54,7 +53,7 @@ const Trips = () => {
           <DatePicker
             dateFormat={"dd/MM/yyyy"}
             locale="es"
-            className="cursor-pointer rounded-md border bg-white/80 shadow-md border-slate-300 dark:border-zinc-600 p-2 dark:text-white dark:bg-[#262626]"
+            className="cursor-pointer rounded-lg border border-blue-lagoon-700/50 bg-white/80 shadow-md shadow-blue-lagoon-500/10 dark:border-zinc-600 p-2 dark:text-white dark:bg-[#262626]"
             selected={startDate}
             minDate={new Date()}
             InputProps={{
@@ -63,7 +62,7 @@ const Trips = () => {
             onChange={(date) => setStartDate(date)}
           />
         </div>
-        <div className="mt-8 flex flex-col gap-2">
+        <div className="mt-8 flex flex-col gap-2 md:grid md:grid-cols-2 md:gap-5">
           {loading ? (
             "loading"
           ) : (

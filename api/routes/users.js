@@ -1,13 +1,13 @@
 import express from "express";
 import { deleteUser, getUser, getUsers, updateUser } from "../controllers/user.js";
-import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
+import { verifyAdmin, verifyUser } from "../middleware/verifyToken.js";
 
-
+// Initialize the router.
 const router = express.Router();
 
 /*
 router.get('/checkauthentication', verifyToken, (req, res, next) => {
-    res.send('Hello user, you are logged in')
+    res.send('Hello user, you are logged in' )
 })
 
 router.get('/checkuser/:id', verifyUser, (req, res, next) => {
@@ -21,6 +21,7 @@ router.get('/checkadmin/:id', verifyAdmin, (req, res, next) => {
 
 // UPDATE  
 router.put("/:id", verifyUser, updateUser)
+// router.put("/:id", verifyUser, addTripToUser)
 
 // DELETE
 router.delete("/:id", verifyUser, deleteUser)

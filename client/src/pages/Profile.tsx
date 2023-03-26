@@ -26,11 +26,11 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
       <div className="">
         <SectionTitle>Mi cuenta</SectionTitle>
         <nav className="mx-auto flex items-center justify-center">
-          <ul className="flex items-center gap-2 rounded-xl px-3 py-2 border border-slate-400 bg-white/10 shadow-sm dark:bg-[#353535]/80 dark:border-neutral-500">
+          <ul className="flex items-center gap-2 rounded-full px-3 py-2 border border-blue-lagoon-200 bg-white shadow-sm shadow-blue-lagoon-500/10 dark:bg-transparent dark:border-neutral-600">
             <li
               className={
                 isUserInfo
-                  ? "rounded-md shadow-sm px-3 py-1 bg-white dark:bg-neutral-900/70"
+                  ? "rounded-full shadow-sm px-4 py-1 border border-blue-lagoon-200 bg-blue-lagoon-300/10 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400"
                   : "px-2"
               }
             >
@@ -39,8 +39,8 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                 onClick={() => setIsUserInfo(true)}
                 className={`text-sm ${
                   isUserInfo
-                    ? "text-black font-medium dark:text-white"
-                    : "text-slate-600 dark:text-neutral-200 dark:hover:text-white"
+                    ? "font-medium dark:text-white"
+                    : "dark:hover:text-white"
                 } md:text-base`}
               >
                 Mi perfil
@@ -49,7 +49,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
             <li
               className={
                 !isUserInfo
-                  ? "rounded-md shadow-sm px-3 py-1 bg-white dark:bg-neutral-900/70"
+                  ? "rounded-full shadow-sm px-4 py-1 border border-blue-lagoon-200 bg-blue-lagoon-300/10 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400"
                   : "px-2"
               }
             >
@@ -58,8 +58,8 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                 onClick={() => setIsUserInfo(false)}
                 className={`text-sm ${
                   !isUserInfo
-                    ? "text-black font-medium dark:text-white"
-                    : "text-slate-600 dark:text-neutral-200 dark:hover:text-white"
+                    ? "font-medium dark:text-white"
+                    : "dark:hover:text-white"
                 } md:text-base`}
               >
                 Mis viajes

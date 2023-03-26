@@ -6,6 +6,7 @@ import { Separator } from "../components/ui/separator";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { AuthContext } from "../context/AuthContext";
+import Cookies from "js-cookie";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
 
@@ -38,6 +39,7 @@ const Login = () => {
           credentials
         );
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+
         navigate("/viajes");
       } catch (err: any) {
         dispatch({
@@ -49,7 +51,7 @@ const Login = () => {
   };
 
   return (
-    <section className="section flex flex-col items-center lg:flex-row lg:justify-around">
+    <section className="section flex flex-col items-center lg:flex-row lg:justify-around lg:gap-20">
       <Separator
         orientation="vertical"
         className="h-52 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"

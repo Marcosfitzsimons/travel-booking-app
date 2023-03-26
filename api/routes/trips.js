@@ -1,6 +1,6 @@
 import express from "express";
-import { createTrip, deleteTrip, getTrip, getTrips, getTripSeats, updateTrip } from "../controllers/trip.js";
-import { verifyAdmin, verifyUser } from '../utils/verifyToken.js'
+import { createTrip, deleteTrip, getTrip, getTrips, updateTrip } from "../controllers/trip.js";
+import { verifyAdmin, verifyUser } from '../middleware/verifyToken.js'
 
 const router = express.Router();
 
@@ -8,14 +8,13 @@ const router = express.Router();
 router.post("/", verifyAdmin, createTrip)
 
 // UPDATE
-router.put("/:id", verifyAdmin, updateTrip)
+router.put("/:id", verifyUser, updateTrip)
 
 // DELETE
 router.delete("/:id", verifyAdmin, deleteTrip)
 
 // GET
 router.get("/:id", getTrip)
-router.get("/seat/:id", getTripSeats)
 
 // GET ALL
 router.get("/", getTrips)
