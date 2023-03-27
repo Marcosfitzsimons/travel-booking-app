@@ -1,15 +1,8 @@
 import { format } from "date-fns";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import {
-  Bus,
-  CalendarClock,
-  AlertCircle,
-  Ticket,
-  CalendarDays,
-} from "lucide-react";
+import { AlertCircle, Ticket, CalendarDays, Watch } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -17,7 +10,6 @@ import {
   TooltipTrigger,
 } from "../components/ui/tooltip";
 import DefaultButton from "./DefaultButton";
-import { Button } from "./ui/button";
 
 interface Trip {
   _id: number;
@@ -107,11 +99,11 @@ const TripCard = ({
             </div>
           </div>
           <div className="absolute right-4 top-2 flex items-center gap-2">
-            <p className="font-medium flex items-center gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
-              <CalendarDays className="w-6 h-6" /> {date}
+            <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
+              <CalendarDays className="w-5 h-5" /> {date}
             </p>
             {dateSelected === todayDate && (
-              <p className="text-[#256840] px-3 font-medium shadow-sm bg-green-300/30 rounded-2xl border border-blue-lagoon-200 dark:bg-[#6fe79f]/10 dark:border-[#4cc97e] dark:text-[#7bfdaf]">
+              <p className="text-[#256840] px-3 select-none font-medium shadow-sm bg-green-300/30 rounded-2xl border border-blue-lagoon-200 dark:bg-[#6fe79f]/10 dark:border-[#4cc97e] dark:text-[#7bfdaf]">
                 HOY
               </p>
             )}
@@ -126,14 +118,14 @@ const TripCard = ({
             <div className="flex flex-col w-full bg-[#fafafa] gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-neutral-900 dark:border-blue-lagoon-900/50">
               <div className="flex flex-col gap-2">
                 <p className="flex items-center gap-1">
-                  <CalendarClock className="w-6 h-6 text-blue-lagoon-800 dark:text-white" />
+                  <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
                   <span className="dark:text-white font-medium">Salida:</span>{" "}
                   {departureTime}
                   <span>- {from}</span>
                 </p>
                 {arrivalTime && (
                   <p className="lg:text-base lg:text-md flex items-center gap-1">
-                    <CalendarClock className="w-6 h-6 text-blue-lagoon-800 dark:text-white" />
+                    <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
                     <span className="dark:text-white font-medium">
                       Llegada:
                     </span>{" "}
@@ -158,7 +150,7 @@ const TripCard = ({
                   </p>
                 )}
                 <p className="flex items-center gap-1">
-                  <Ticket className="text-blue-lagoon-800 dark:text-white" />
+                  <Ticket className="text-blue-lagoon-800 dark:text-white h-5 w-5" />
                   <span className="dark:text-white font-medium">Precio: </span>$
                   {price}
                 </p>
