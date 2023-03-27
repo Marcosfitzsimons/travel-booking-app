@@ -12,7 +12,7 @@ import DefaultButton from "../components/DefaultButton";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    username: undefined,
+    emailOrUsername: undefined,
     email: undefined,
     password: undefined,
   });
@@ -68,12 +68,12 @@ const Login = () => {
           className="relative w-full mt-6 p-3 py-6 flex flex-col gap-5 items-center"
         >
           <div className="grid w-full items-center gap-3">
-            <Label htmlFor="username">Nombre de usuario</Label>
+            <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
             <Input
               onChange={handleOnChange}
               type="text"
-              id="username"
-              placeholder="@yourusername"
+              id="emailOrUsername"
+              placeholder="example@correo.com"
             />
           </div>
           <div className="grid w-full items-center gap-3">
