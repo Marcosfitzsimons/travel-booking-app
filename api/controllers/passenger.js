@@ -2,12 +2,21 @@ import { StatusCodes } from 'http-status-codes';
 import { BadRequestError, NotFoundError } from '../errors/index.js'
 import Passenger from '../models/Passenger.js'
 import Trip from '../models/Trip.js'
+import User from '../models/User.js';
+
 
 
 export const createPassenger = async (req, res, next) => {
     req.body.createdBy = req.user.id
+
     const tripId = req.params.tripid;
     const newPassenger = new Passenger(req.body)
+
+    // Push the trip to user's myTrips array
+
+    await User.findByIdAndUpdate(req.user.id, {
+        $push: { myTrips: tripId },
+    });
 
     const savedPassenger = await newPassenger.save()
     const trip = await Trip.findById(tripId).populate('passengers');
@@ -18,6 +27,7 @@ export const createPassenger = async (req, res, next) => {
         await Trip.findByIdAndUpdate(tripId, {
             $push: { passengers: savedPassenger },
         })
+
     } catch (err) {
         next(err)
     }
