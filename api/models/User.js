@@ -33,15 +33,14 @@ const UserSchema = new mongoose.Schema({
         minLength: 3,
         maxLength: 40,
     },
-    addressCapital: {
-        type: String,
-        required: [true, 'Por favor, escribí tu dirreción (Capital).'],
-        minLength: 3,
-        maxLength: 40,
-    },
     phone: {
         type: Number,
         required: [true, 'Por favor, escribí tu número celular.'],
+    },
+    addressCapital: {
+        type: String,
+        minLength: 3,
+        maxLength: 40,
     },
     image: {
         type: String,
