@@ -44,7 +44,6 @@ export const getUser = async (req, res) => {
                 price: trip.price,
                 maxCapacity: trip.maxCapacity,
                 available: trip.available
-                // add any other properties you want to display about the trip
             })),
         }
     })
