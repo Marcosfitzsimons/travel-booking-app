@@ -23,9 +23,31 @@ export const deleteUser = async (req, res) => {
 
 export const getUser = async (req, res) => {
 
-    const user = await User.findById(req.params.id)
+    const user = await User.findById(req.params.id).populate('myTrips');
     if (!user) throw new NotFoundError('Usuario no existe.')
-    res.status(StatusCodes.OK).json(user)
+    res.status(StatusCodes.OK).json({
+        user: {
+            username: user.username,
+            fullName: user.fullName,
+            email: user.email,
+            addressCda: user.addressCda,
+            addressCapital: user.addressCapital,
+            phone: user.phone,
+            myTrips: user.myTrips.map(trip => ({
+                id: trip._id,
+                name: trip.name,
+                date: trip.date,
+                from: trip.from,
+                to: trip.to,
+                departureTime: trip.departureTime,
+                arrivalTime: trip.arrivalTime,
+                price: trip.price,
+                maxCapacity: trip.maxCapacity,
+                available: trip.available
+                // add any other properties you want to display about the trip
+            })),
+        }
+    })
 
 }
 
