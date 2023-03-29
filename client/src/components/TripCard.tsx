@@ -115,7 +115,7 @@ const TripCard = ({
                 {name}
               </h3>
             </div>
-            <div className="flex flex-col w-full bg-[#fafafa] gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-neutral-900 dark:border-blue-lagoon-900/50">
+            <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
               <div className="flex flex-col gap-2">
                 <p className="flex items-center gap-1">
                   <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />

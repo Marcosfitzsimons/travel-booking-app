@@ -2,16 +2,18 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { Input } from "../components/ui/input";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/ui/SectionTitle";
-import { AlertCircle, Watch, CalendarDays, Ticket } from "lucide-react";
+import { AlertCircle, Watch, CalendarDays, Ticket, MapPin } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "../components/ui/tooltip";
+import { Button } from "../components/ui/button";
+import DefaultButton from "../components/DefaultButton";
+import { toast } from "../hooks/ui/use-toast";
 
 const INITIAL_VALUES = {
   name: "",
@@ -53,11 +55,29 @@ const Trip = () => {
     fetchData();
   }, []);
 
-  const handleConfirm = () => {
-    if (user) {
+  const config = {
+    headers: {
+      Authorization: `Bearer $token`,
+    },
+  };
+
+  const handleOnConfirm = async () => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:8800/api/passengers/${user._id}/${tripId}`,
+        user
+      );
+
+      console.log(data);
+      toast({
+        description: "Lugar guardado con éxito.",
+      });
       navigate("/mi-perfil");
-    } else {
-      navigate("/login");
+    } catch (err: any) {
+      toast({
+        variant: "destructive",
+        description: "Error al guardar lugar, intente más tarde.",
+      });
     }
   };
 
@@ -110,8 +130,8 @@ const Trip = () => {
                   </div>
                 </div>
                 <div className="absolute right-4 top-2 flex items-center gap-2">
-                  <p className="font-medium flex items-center gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
-                    <CalendarDays className="w-6 h-6" /> {data.date}
+                  <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
+                    <CalendarDays className="w-5 h-5" /> {data.date}
                   </p>
                 </div>
 
@@ -121,10 +141,10 @@ const Trip = () => {
                       {data.name}
                     </h3>
                   </div>
-                  <div className="flex flex-col w-full bg-[#fafafa] gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-neutral-900 dark:border-blue-lagoon-900/50">
+                  <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
                     <div className="flex flex-col gap-2">
                       <p className="flex items-center gap-1">
-                        <Watch className="w-6 h-6 text-blue-lagoon-800 dark:text-white" />
+                        <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
                         <span className="dark:text-white font-medium">
                           Salida:
                         </span>{" "}
@@ -133,7 +153,7 @@ const Trip = () => {
                       </p>
                       {data.arrivalTime && (
                         <p className="lg:text-base lg:text-md flex items-center gap-1">
-                          <Watch className="w-6 h-6 text-blue-lagoon-800 dark:text-white" />
+                          <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
                           <span className="dark:text-white font-medium">
                             Llegada:
                           </span>{" "}
@@ -158,18 +178,56 @@ const Trip = () => {
                         </p>
                       )}
                       <p className="flex items-center gap-1">
-                        <Ticket className="text-blue-lagoon-800 dark:text-white" />
+                        <Ticket className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
                         <span className="dark:text-white font-medium">
                           Precio:{" "}
                         </span>
                         ${data.price}
                       </p>
+                      <div className="flex flex-col gap-1 px-2 py-1 rounded-md border border-blue-lagoon-200 bg-blue-lagoon-300/10">
+                        <h4 className="font-medium text-blue-lagoon-800 dark:text-white">
+                          Mis datos:
+                        </h4>
+                        <ul>
+                          <li>
+                            <p className="flex items-center gap-[2px] text-sm">
+                              <MapPin className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                              <span className="font-medium text-blue-lagoon-800 dark:text-white">
+                                Dirreción (Carmen):
+                              </span>{" "}
+                              {user && user.addressCda}
+                            </p>
+                          </li>
+                          <li>
+                            <p className="flex items-center gap-[2px] text-sm">
+                              <MapPin className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                              <span className="font-medium text-blue-lagoon-800 dark:text-white">
+                                Dirreción (Capital):
+                              </span>{" "}
+                              {user && user.addressCapital}
+                            </p>
+                          </li>
+                        </ul>
+                        <Button
+                          onClick={() => navigate("/mi-perfil/editar-perfil")}
+                          className="mt-1 h-7 border border-blue-lagoon-200 bg-white/50 hover:bg-white dark:bg-black/40 dark:hover:text-white"
+                        >
+                          Editar
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center justify-between lg:self-end">
-                  <button>Cancelar</button>
-                  <button>Confirmar</button>
+                <div className="flex items-center justify-between mt-3">
+                  <button
+                    onClick={() => navigate("/viajes")}
+                    className="text-red-600"
+                  >
+                    Cancelar
+                  </button>
+                  <div className="" onClick={handleOnConfirm}>
+                    <DefaultButton>Confirmar</DefaultButton>
+                  </div>
                 </div>
               </div>
             </div>

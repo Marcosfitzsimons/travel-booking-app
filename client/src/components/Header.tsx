@@ -28,6 +28,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
       dispatch({
         type: "LOGOUT",
       });
+      localStorage.removeItem("token");
       localStorage.removeItem("user");
     }
   };

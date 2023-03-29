@@ -27,6 +27,12 @@ app.use(cors())
 app.use(cookieParser())
 app.use(express.json())
 
+/*
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+})); 
+*/
 
 app.use("/api/auth", authRoute)
 app.use("/api/users", usersRoute)
@@ -46,9 +52,6 @@ app.use((err, req, res, next) => {
         stack: err.stack,
     })
 })
-
-// app.use(notFoundMiddleware);
-// app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 8800;
 

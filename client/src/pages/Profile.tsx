@@ -30,7 +30,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
             <li
               className={
                 isUserInfo
-                  ? "rounded-full shadow-sm px-4 py-1 border border-blue-lagoon-200 bg-blue-lagoon-300/10 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400"
+                  ? "rounded-full shadow-sm px-4 py-1 border border-blue-lagoon-200 bg-blue-lagoon-300/10"
                   : "px-2"
               }
             >
@@ -49,7 +49,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
             <li
               className={
                 !isUserInfo
-                  ? "rounded-full shadow-sm px-4 py-1 border border-blue-lagoon-200 bg-blue-lagoon-300/10 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400"
+                  ? "rounded-full shadow-sm px-4 py-1 border border-blue-lagoon-200 bg-blue-lagoon-300/10"
                   : "px-2"
               }
             >
