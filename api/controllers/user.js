@@ -1,14 +1,24 @@
 import { StatusCodes } from 'http-status-codes';
+import bcrypt, { hash } from "bcrypt";
 import { BadRequestError, NotFoundError } from '../errors/index.js'
 import User from "../models/User.js"
 
-
 export const updateUser = async (req, res) => {
-    // Check on updated password to generate new token and not sent the password and isAdmin to the client.
+    const user = await User.findById(req.params.id)
+    if (!user) throw new NotFoundError('User not found')
 
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+    const { password: passwordUser, ...otherDetails } = req.body.userData;
+    if (!req.body.userData) throw new NotFoundError('User data not found.')
+
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(passwordUser, salt);
+
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, { $set: { password: hash, ...otherDetails } }, { new: true })
     if (!updatedUser) throw new NotFoundError('Usuario no existe.')
-    res.status(StatusCodes.OK).json(updatedUser)
+
+    const { password, isAdmin, ...userData } = updatedUser._doc
+
+    res.status(StatusCodes.OK).json(userData)
 
 }
 
