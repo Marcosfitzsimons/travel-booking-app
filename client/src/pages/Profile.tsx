@@ -32,9 +32,38 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
     if (!user) navigate("/login");
   }, [user]);
 
+  const sectionVariants = {
+    hidden: {
+      y: 20,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.9,
+        ease: "backInOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        duration: 0.3,
+        ease: "backInOut",
+      },
+    },
+  };
+
   return (
     <section className="section">
-      <div className="">
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className=""
+      >
         <SectionTitle>Mi cuenta</SectionTitle>
         <nav className="mx-auto flex items-center justify-center">
           <ul className="flex items-center gap-2 rounded-full px-3 py-2 border border-blue-lagoon-200 bg-white shadow-sm shadow-blue-lagoon-500/10 dark:bg-transparent dark:border-neutral-600">
@@ -78,12 +107,14 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
             </li>
           </ul>
         </nav>
-        {isUserInfo ? (
-          <UserInfo userData={userData} loading={loading} />
-        ) : (
-          <MyTrips userTrips={userTrips} loading={loading} />
-        )}
-      </div>
+        <AnimatePresence mode="wait">
+          {isUserInfo ? (
+            <UserInfo key="userinfo" userData={userData} loading={loading} />
+          ) : (
+            <MyTrips key="mytrips" userTrips={userTrips} loading={loading} />
+          )}
+        </AnimatePresence>
+      </motion.div>
     </section>
   );
 };

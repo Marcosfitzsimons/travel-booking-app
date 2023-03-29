@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
 import { AlertCircleIcon, CalendarDays, Ticket, Watch } from "lucide-react";
+import { motion } from "framer-motion";
 import BackButton from "./BackButton";
 import {
   Tooltip,
@@ -10,9 +9,38 @@ import {
 } from "./ui/tooltip";
 
 const MyTrips = ({ userTrips, loading }) => {
+  const sectionVariants = {
+    hidden: {
+      y: 20,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.9,
+        ease: "backInOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        duration: 0.3,
+        ease: "backInOut",
+      },
+    },
+  };
+
   return (
     <section className="w-full mx-auto mt-6  bg-transparent flex flex-col gap-5 items-center">
-      <div className="relative w-full bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-7/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600">
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="relative w-full bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-7/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600"
+      >
         <div className="absolute top-3 left-3">
           <BackButton />
         </div>
@@ -144,7 +172,7 @@ const MyTrips = ({ userTrips, loading }) => {
             )}
           </>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -83,9 +84,38 @@ const Trip = () => {
     }
   };
 
+  const sectionVariants = {
+    hidden: {
+      y: 20,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.9,
+        ease: "backInOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        duration: 0.3,
+        ease: "backInOut",
+      },
+    },
+  };
+
   return (
     <section className="section">
-      <div className="flex flex-col gap-10">
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="flex flex-col gap-10"
+      >
         <SectionTitle>Confirmar lugar</SectionTitle>
         {loading ? (
           "loading"
@@ -235,7 +265,7 @@ const Trip = () => {
             </div>
           </article>
         )}
-      </div>
+      </motion.div>
     </section>
   );
 };

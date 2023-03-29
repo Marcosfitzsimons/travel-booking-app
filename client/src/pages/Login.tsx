@@ -1,12 +1,11 @@
 import axios from "axios";
+import { motion } from "framer-motion";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../components/ui/button";
 import { Separator } from "../components/ui/separator";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { AuthContext } from "../context/AuthContext";
-import Cookies from "js-cookie";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
 
@@ -50,67 +49,98 @@ const Login = () => {
     }
   };
 
-  return (
-    <section className="section flex flex-col items-center lg:flex-row lg:justify-around lg:gap-20">
-      <Separator
-        orientation="vertical"
-        className="h-52 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
-      />
-      <div className="">
-        <h2 className="text-3xl py-2 font-medium text-center lg:text-start lg:px-3 dark:text-white">
-          Entra a tu cuenta
-        </h2>
-        <p className="text-center lg:text-start lg:px-3">
-          Una vez dentro de tu cuenta vas a poder reservar tu lugar.
-        </p>
-        <form
-          onSubmit={handleOnSubmit}
-          className="relative w-full mt-6 p-3 py-6 flex flex-col gap-5 items-center"
-        >
-          <div className="grid w-full items-center gap-3">
-            <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
-            <Input
-              onChange={handleOnChange}
-              type="text"
-              id="emailOrUsername"
-              placeholder="example@correo.com"
-            />
-          </div>
-          <div className="grid w-full items-center gap-3">
-            <Label htmlFor="password">Contraseña</Label>
-            <Input
-              onChange={handleOnChange}
-              type="password"
-              id="password"
-              placeholder="Tu contraseña"
-            />
-          </div>
-          <DefaultButton>Entrar</DefaultButton>
-          {error && <span>{error.message}</span>}
-          <p className="lg:self-start">
-            ¿No tenes cuenta?{" "}
-            <Link to="/register" className="font-medium text-blue-lagoon-500">
-              Crear una cuenta nueva
-            </Link>
-          </p>
-        </form>
-      </div>
-      <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6">
-        <Separator
-          orientation="vertical"
-          className="h-80 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12]"
-        />
-        <Logo />
-        <Separator
-          orientation="vertical"
-          className="h-80 bg-gradient-to-b from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12]"
-        />
-      </div>
+  const sectionVariants = {
+    hidden: {
+      y: 20,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.9,
+        ease: "backInOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        duration: 0.3,
+        ease: "backInOut",
+      },
+    },
+  };
 
-      <Separator
-        orientation="vertical"
-        className="h-52 bg-gradient-to-b from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
-      />
+  return (
+    <section className="">
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="flex flex-col items-center lg:flex-row lg:justify-around lg:gap-20"
+      >
+        <Separator
+          orientation="vertical"
+          className="h-52 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
+        />
+        <div className="">
+          <h2 className="text-3xl py-2 font-medium text-center lg:text-start lg:px-3 dark:text-white">
+            Entra a tu cuenta
+          </h2>
+          <p className="text-center lg:text-start lg:px-3">
+            Una vez dentro de tu cuenta vas a poder reservar tu lugar.
+          </p>
+          <form
+            onSubmit={handleOnSubmit}
+            className="relative w-full mt-6 p-3 py-6 flex flex-col gap-5 items-center"
+          >
+            <div className="grid w-full items-center gap-3">
+              <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
+              <Input
+                onChange={handleOnChange}
+                type="text"
+                id="emailOrUsername"
+                placeholder="example@correo.com"
+              />
+            </div>
+            <div className="grid w-full items-center gap-3">
+              <Label htmlFor="password">Contraseña</Label>
+              <Input
+                onChange={handleOnChange}
+                type="password"
+                id="password"
+                placeholder="Tu contraseña"
+              />
+            </div>
+            <DefaultButton>Entrar</DefaultButton>
+            {error && <span>{error.message}</span>}
+            <p className="lg:self-start">
+              ¿No tenes cuenta?{" "}
+              <Link to="/register" className="font-medium text-blue-lagoon-500">
+                Crear una cuenta nueva
+              </Link>
+            </p>
+          </form>
+        </div>
+        <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6">
+          <Separator
+            orientation="vertical"
+            className="h-80 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12]"
+          />
+          <Logo />
+          <Separator
+            orientation="vertical"
+            className="h-80 bg-gradient-to-b from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12]"
+          />
+        </div>
+
+        <Separator
+          orientation="vertical"
+          className="h-52 bg-gradient-to-b from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
+        />
+      </motion.div>
     </section>
   );
 };

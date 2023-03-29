@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { ArrowLeft, Edit, Pencil, Edit2, User } from "lucide-react";
+import { motion } from "framer-motion";
+import { Pencil, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
-import { Button } from "../components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -10,14 +10,13 @@ import {
 } from "../components/ui/tooltip";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/ui/SectionTitle";
 import { toast } from "../hooks/ui/use-toast";
 import axios from "axios";
 import DefaultButton from "../components/DefaultButton";
 import BackButton from "../components/BackButton";
-import Cookies from "js-cookie";
 
 type User = {
   id: string;
@@ -102,135 +101,166 @@ const EditProfile = () => {
     }
   }, [user]);
 
+  const sectionVariants = {
+    hidden: {
+      y: 20,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.9,
+        ease: "backInOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        duration: 0.3,
+        ease: "backInOut",
+      },
+    },
+  };
+
   return (
-    <section className="section">
-      <SectionTitle>Editar perfil</SectionTitle>
-      <div className="w-full mx-auto mt-6 bg-transparent flex flex-col gap-5 items-center">
-        <div className="w-full relative bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-8/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600">
-          <div className="absolute top-4 left-4">
-            <BackButton />
-          </div>
-          <div className="w-full flex flex-col items-center gap-5">
-            <form
-              onSubmit={handleOnSubmit}
-              className="w-full flex flex-col items-center gap-3"
-            >
-              <div className="relative">
-                <Avatar className="w-32 h-32">
-                  <AvatarImage
-                    className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
-                    src={image}
-                    alt="avatar"
+    <section className="">
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className=""
+      >
+        <SectionTitle>Editar perfil</SectionTitle>
+        <div className="w-full mx-auto mt-6 bg-transparent flex flex-col gap-5 items-center">
+          <div className="w-full relative bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-8/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600">
+            <div className="absolute top-4 left-4">
+              <BackButton />
+            </div>
+            <div className="w-full flex flex-col items-center gap-5">
+              <form
+                onSubmit={handleOnSubmit}
+                className="w-full flex flex-col items-center gap-3"
+              >
+                <div className="relative">
+                  <Avatar className="w-32 h-32">
+                    <AvatarImage
+                      className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
+                      src={image}
+                      alt="avatar"
+                    />
+                    <AvatarFallback>
+                      {" "}
+                      <User className="w-12 h-12" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button
+                          type="button"
+                          className="absolute -bottom-1 -right-1 rounded-full p-2 bg-slate-800 border-2 border-[#fdfafa] dark:border-[#262626] dark:bg-white"
+                        >
+                          <Pencil className="w-4 h-4 text-slate-200 dark:text-slate-700" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Editar imagen</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <div className="grid w-full max-w-md items-center gap-2">
+                  <Label htmlFor="username">Username</Label>
+                  <Input
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
-                  <AvatarFallback>
-                    {" "}
-                    <User className="w-12 h-12" />
-                  </AvatarFallback>
-                </Avatar>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <button
-                        type="button"
-                        className="absolute -bottom-1 -right-1 rounded-full p-2 bg-slate-800 border-2 border-[#fdfafa] dark:border-[#262626] dark:bg-white"
-                      >
-                        <Pencil className="w-4 h-4 text-slate-200 dark:text-slate-700" />
-                      </button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Editar imagen</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-              </div>
-              <div className="grid w-full max-w-md items-center gap-2">
-                <Label htmlFor="username">Username</Label>
-                <Input
-                  type="text"
-                  id="username"
-                  name="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </div>
-              <div className="grid w-full max-w-md items-center gap-2">
-                <Label htmlFor="fullName">Nombre completo</Label>
-                <Input
-                  type="text"
-                  id="fullName"
-                  name="fullName"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                />
-              </div>
-              <div className="grid w-full max-w-md items-center gap-2">
-                <Label htmlFor="password">Contraseña</Label>
-                <Input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div className="grid w-full max-w-md items-center gap-2">
-                <Label htmlFor="confirmPassword">Confirmar contrase</Label>
-                <Input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </div>
-              <div className="grid w-full max-w-md items-center gap-2">
-                <Label htmlFor="tel">Celular</Label>
-                <Input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-              <div className="grid w-full max-w-md items-center gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="grid w-full max-w-md items-center gap-2">
-                <Label htmlFor="address">Direccion (Carmen)</Label>
-                <Input
-                  type="text"
-                  id="address"
-                  name="address"
-                  value={addressCda}
-                  onChange={(e) => setAddressCda(e.target.value)}
-                />
-              </div>
-              <div className="grid w-full max-w-md items-center gap-2">
-                <Label htmlFor="address-cap">Direccion (Capital)</Label>
-                <Input
-                  type="text"
-                  name="addressCapital"
-                  value={addressCapital}
-                  onChange={(e) => setAddressCapital(e.target.value)}
-                  id="addressCapital"
-                />
-              </div>
-              {error && <span>{error.message}</span>}
-              <div className="w-[min(28rem,100%)]">
-                <DefaultButton>Guardar cambios</DefaultButton>
-              </div>
-            </form>
+                </div>
+                <div className="grid w-full max-w-md items-center gap-2">
+                  <Label htmlFor="fullName">Nombre completo</Label>
+                  <Input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                  />
+                </div>
+                <div className="grid w-full max-w-md items-center gap-2">
+                  <Label htmlFor="password">Contraseña</Label>
+                  <Input
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div className="grid w-full max-w-md items-center gap-2">
+                  <Label htmlFor="confirmPassword">Confirmar contrase</Label>
+                  <Input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </div>
+                <div className="grid w-full max-w-md items-center gap-2">
+                  <Label htmlFor="tel">Celular</Label>
+                  <Input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+                <div className="grid w-full max-w-md items-center gap-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="grid w-full max-w-md items-center gap-2">
+                  <Label htmlFor="address">Direccion (Carmen)</Label>
+                  <Input
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={addressCda}
+                    onChange={(e) => setAddressCda(e.target.value)}
+                  />
+                </div>
+                <div className="grid w-full max-w-md items-center gap-2">
+                  <Label htmlFor="address-cap">Direccion (Capital)</Label>
+                  <Input
+                    type="text"
+                    name="addressCapital"
+                    value={addressCapital}
+                    onChange={(e) => setAddressCapital(e.target.value)}
+                    id="addressCapital"
+                  />
+                </div>
+                {error && <span>{error.message}</span>}
+                <div className="w-[min(28rem,100%)]">
+                  <DefaultButton>Guardar cambios</DefaultButton>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

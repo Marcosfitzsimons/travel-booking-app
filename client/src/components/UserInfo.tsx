@@ -1,6 +1,6 @@
 import { User } from "lucide-react";
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import BackButton from "./BackButton";
 import DefaultButton from "./DefaultButton";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -12,9 +12,38 @@ const UserInfo = ({ userData, loading }) => {
     navigate("/mi-perfil/editar-perfil");
   };
 
+  const sectionVariants = {
+    hidden: {
+      y: 20,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.9,
+        ease: "backInOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        duration: 0.3,
+        ease: "backInOut",
+      },
+    },
+  };
+
   return (
     <div className="w-full mx-auto mt-6 bg-transparent flex flex-col gap-5 items-center">
-      <div className="w-full relative bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-7/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600">
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="w-full relative bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-7/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600"
+      >
         <div className="absolute top-3 left-3">
           <BackButton />
         </div>
@@ -58,7 +87,7 @@ const UserInfo = ({ userData, loading }) => {
         <div className="w-[min(24rem,100%)]" onClick={goToEditProfile}>
           <DefaultButton>Editar perfil</DefaultButton>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

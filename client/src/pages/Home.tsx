@@ -1,11 +1,42 @@
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const sectionVariants = {
+    hidden: {
+      y: 20,
+      opacity: 0,
+    },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.9,
+        ease: "backInOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        duration: 0.3,
+        ease: "backInOut",
+      },
+    },
+  };
+
   return (
     <div className="section hero">
-      <div className="flex flex-col items-center gap-5 text-center">
+      <motion.div
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="flex flex-col items-center gap-5 text-center"
+      >
         <h1 className="font-serif tracking-wider text-6xl">
           <span className="font-medium text-[4rem]">F</span>
           <span className="inline-block rotate-3">a</span>
@@ -27,7 +58,7 @@ const Home = () => {
             Viajes disponibles
           </Button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

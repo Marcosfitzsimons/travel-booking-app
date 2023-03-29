@@ -132,7 +132,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   </DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer p-0">
                     <Link
-                      to="/"
+                      to="/login"
                       className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
                       onClick={handleLogOut}
                     >
