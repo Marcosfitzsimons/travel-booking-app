@@ -13,7 +13,6 @@ import DefaultButton from "../components/DefaultButton";
 const Login = () => {
   const [credentials, setCredentials] = useState({
     emailOrUsername: undefined,
-    email: undefined,
     password: undefined,
   });
 
@@ -39,7 +38,8 @@ const Login = () => {
           credentials
         );
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-
+        const token = res.data.token;
+        localStorage.setItem("token", token);
         navigate("/viajes");
       } catch (err: any) {
         dispatch({
