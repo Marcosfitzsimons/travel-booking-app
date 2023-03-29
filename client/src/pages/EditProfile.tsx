@@ -43,7 +43,7 @@ const EditProfile = () => {
   const [addressCapital, setAddressCapital] = useState("");
   const [image, setImage] = useState("");
 
-  const { user } = useContext(AuthContext);
+  const { user, error } = useContext(AuthContext);
   const userData = {
     username: username,
     fullName: fullName,
@@ -56,48 +56,41 @@ const EditProfile = () => {
   };
   const navigate = useNavigate();
 
-  // const token = Cookies.get("access_token");
-
-  //  console.log(token);
-
-  const config = {
-    headers: {
-      Authorization: `Bearer $token`,
-    },
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
   };
-
+  // Update the user data when I click onSubmit button. -> AuthContext ?
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const token = localStorage.getItem("user"); // That is not the token that I want to send, the token is that token that I send as a cookie when I loggin succesfully?
-    console.log(token);
-    // Add credentials: error is 401: You are not authenticated! or cookies or JWT tokens or I DON'T KNOW!
-    // How to send token with the request: req.cookies.access_token
+    localStorage.removeItem("user");
     try {
       const { data } = await axios.put(
         `http://localhost:8800/api/users/${user._id}`,
         { userData },
-        config
+        { headers }
       );
-
       console.log(data);
+      localStorage.setItem("user", JSON.stringify(data));
       toast({
         description: "Cambios guardados con exito.",
       });
       navigate("/mi-perfil");
     } catch (err: any) {
+      console.log(err);
       toast({
         variant: "destructive",
         description: "Error al guardar los cambios, intentar mas tarde.",
       });
     }
   };
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
     } else {
       setUsername(user.username);
       setFullName(user.fullName);
-      setPassword(user.password);
       setEmail(user.email);
       setPhone(user.phone);
       setAddressCda(user.addressCda);
@@ -229,6 +222,7 @@ const EditProfile = () => {
                   id="addressCapital"
                 />
               </div>
+              {error && <span>{error.message}</span>}
               <div className="w-[min(28rem,100%)]">
                 <DefaultButton>Guardar cambios</DefaultButton>
               </div>
