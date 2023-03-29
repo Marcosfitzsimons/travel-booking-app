@@ -5,20 +5,37 @@ import jwt from 'jsonwebtoken'
 import User from "../models/User.js"
 
 export const register = async (req, res, next) => {
+    const { fullName, username, email, password, addressCda, phone } = req.body
+
+    if (!fullName || !email || !username || !password || !addressCda || !phone) throw new BadRequestError('Por favor, completar todos los datos antes de enviar.')
+
+    const emailExists = await User.findOne({ email })
+    if (emailExists) throw new BadRequestError('Email ya está en uso.')
+
+    const usernameExists = await User.findOne({ username })
+    if (usernameExists) throw new BadRequestError('Nombre de usuario ya está en uso.')
+
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
-    const newUser = new User({
-        fullName: req.body.fullName,
-        username: req.body.username,
-        email: req.body.email,
+    const user = new User({
+        fullName: fullName,
+        username: username,
+        email: email,
         password: hash,
-        addressCda: req.body.addressCda,
-        phone: req.body.phone
+        addressCda: addressCda,
+        phone: phone
     })
 
-    await newUser.save()
-    res.status(StatusCodes.CREATED).send('User has been created.')
+    await user.save()
+
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT, { expiresIn: process.env.JWT_LIFETIME })
+    const { password: userPassword, isAdmin, ...otherDetails } = user._doc
+
+    res.status(StatusCodes.CREATED).json({
+        ...otherDetails,
+        token: token
+    })
 
 }
 
@@ -37,11 +54,10 @@ export const login = async (req, res, next) => {
     const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT, { expiresIn: process.env.JWT_LIFETIME })
 
     const { password, isAdmin, ...otherDetails } = user._doc
-    res.cookie("access_token", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-    }).status(StatusCodes.OK).json({ ...otherDetails })
 
+    res.status(StatusCodes.CREATED).json({
+        ...otherDetails,
+        token: token
+    })
 }
 
