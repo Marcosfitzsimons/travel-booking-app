@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className="section hero">
       <div className="flex flex-col items-center gap-5 text-center">
@@ -18,14 +19,12 @@ const Home = () => {
         <p className="font-medium dark:text-slate-100">
           Una empresa familiar con más de 28 años de trayectoria.
         </p>
-        <div className="w-full max-w-md relative  after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] lg:w-56 dark:after:shadow-highlight dark:after:shadow-white/10 after:transition">
+        <div className="">
           <Button
-            variant="default"
-            size="lg"
-            className="w-full max-w-md relative bg-dark-gray text-base text-white rounded-lg py-6 border border-black/20 lg:w-56 active:scale-100 hover:bg-transparent hover:border-dark-gray hover:text-black  dark:hover:text-white dark:hover:bg-transparent dark:hover:border-white dark:hover:white dark:shadow-input dark:shadow-black/5
-             dark:bg-white dark:text-black"
+            onClick={() => navigate("/viajes")}
+            className="mt-1 h-10 border border-blue-lagoon-200 bg-blue-lagoon-200/10 hover:bg-white dark:bg-blue-lagoon-800/20 dark:hover:text-white"
           >
-            <Link to="/viajes">Próximos viajes</Link>
+            Viajes disponibles
           </Button>
         </div>
       </div>
