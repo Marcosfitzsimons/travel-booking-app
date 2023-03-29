@@ -60,7 +60,8 @@ const EditProfile = () => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
-  // Update the user data when I click onSubmit button. -> AuthContext ?
+  // When I submit the data, I want to update that placeholder data
+  // just how I did in the profile section with myTrips and userData.
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     localStorage.removeItem("user");

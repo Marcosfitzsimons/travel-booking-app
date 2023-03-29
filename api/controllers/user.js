@@ -3,6 +3,7 @@ import bcrypt, { hash } from "bcrypt";
 import { BadRequestError, NotFoundError } from '../errors/index.js'
 import User from "../models/User.js"
 
+// add validation 
 export const updateUser = async (req, res) => {
     const user = await User.findById(req.params.id)
     if (!user) throw new NotFoundError('User not found')

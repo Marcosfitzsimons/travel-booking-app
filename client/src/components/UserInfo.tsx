@@ -1,11 +1,9 @@
-import { ArrowLeft, User } from "lucide-react";
-import React, { useContext } from "react";
+import { User } from "lucide-react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
 import BackButton from "./BackButton";
 import DefaultButton from "./DefaultButton";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
 
 const UserInfo = ({ userData, loading }) => {
   const navigate = useNavigate();
