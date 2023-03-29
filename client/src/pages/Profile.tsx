@@ -26,7 +26,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
   useEffect(() => {
     setUserTrips(data.user?.myTrips);
     setUserData(data.user);
-  }, [data]);
+  }, [data, user]);
 
   useEffect(() => {
     if (!user) navigate("/login");
