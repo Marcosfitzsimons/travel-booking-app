@@ -7,8 +7,7 @@ import DefaultButton from "./DefaultButton";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 
-const UserInfo = () => {
-  const { user } = useContext(AuthContext);
+const UserInfo = ({ userData, loading }) => {
   const navigate = useNavigate();
 
   const goToEditProfile = () => {
@@ -24,46 +23,39 @@ const UserInfo = () => {
         <Avatar className="w-32 h-32">
           <AvatarImage
             className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
-            src={!user ? "" : user?.image}
+            src={userData?.image}
             alt="avatar"
           />
           <AvatarFallback>
             <User className="w-12 h-12" />
           </AvatarFallback>
         </Avatar>
-        <div className="flex flex-col items-center">
-          <h4 className="font-medium text-xl">{!user ? "" : user.fullName}</h4>
-          <h4 className="text-[#737373]">@{!user ? "" : user.username}</h4>
-        </div>
-        <div className="flex flex-col w-full bg-[#fafafa] gap-2 max-w-sm border border-blue-lagoon-700/50 items-start p-4 shadow-inner rounded-md dark:bg-[#0d0f12] dark:border-blue-lagoon-900/50">
-          {!user ? (
-            ""
-          ) : (
-            <p>
-              <span className="font-medium">Email:</span> {user.email}
-            </p>
-          )}
-          {!user ? (
-            ""
-          ) : (
-            <p>
-              <span className="font-medium">Celular:</span> {user.phone}
-            </p>
-          )}
-          {!user ? (
-            ""
-          ) : (
-            <p>
-              <span className="font-medium">Dirrección (Carmen):</span>{" "}
-              {user.addressCda}
-            </p>
-          )}
-          {user?.addressCapital ? (
-            <p>Dirrecion Capital: {!user ? "" : user.addressCapital}</p>
-          ) : (
-            ""
-          )}
-        </div>
+        {loading ? (
+          <div className="">loading...</div>
+        ) : (
+          <>
+            <div className="flex flex-col items-center">
+              <h4 className="font-medium text-xl">{userData?.fullName}</h4>
+              <h4 className="text-[#737373]">@{userData?.username}</h4>
+            </div>
+            <div className="flex flex-col w-full bg-[#fafafa] gap-2 max-w-sm border border-blue-lagoon-700/50 items-start p-4 shadow-inner rounded-md dark:bg-[#0d0f12] dark:border-blue-lagoon-900/50">
+              <p>
+                <span className="font-medium">Email:</span> {userData?.email}
+              </p>
+              <p>
+                <span className="font-medium">Celular:</span> {userData?.phone}
+              </p>
+
+              <p>
+                <span className="font-medium">Dirrección (Carmen):</span>{" "}
+                {userData?.addressCda}
+              </p>
+              {userData?.addressCapital && (
+                <p>Dirrecion Capital: {userData?.addressCapital}</p>
+              )}
+            </div>
+          </>
+        )}
 
         <div className="w-[min(24rem,100%)]" onClick={goToEditProfile}>
           <DefaultButton>Editar perfil</DefaultButton>

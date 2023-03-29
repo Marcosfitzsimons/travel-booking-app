@@ -1,10 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/ui/SectionTitle";
 import MyTrips from "../components/MyTrips";
 import UserInfo from "../components/UserInfo";
+import useFetch from "../hooks/useFetch";
 
 type ProfileProps = {
   isUserInfo: boolean;
@@ -12,10 +13,20 @@ type ProfileProps = {
 };
 
 const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
+  const [userTrips, setUserTrips] = useState([]);
+  const [userData, setUserData] = useState({});
   const { user } = useContext(AuthContext);
-  console.log(user);
+
+  const url = `http://localhost:8800/api/users/${user._id}`;
+
+  const { data, loading, error } = useFetch(url);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setUserTrips(data.user?.myTrips);
+    setUserData(data.user);
+  }, [data]);
 
   useEffect(() => {
     if (!user) navigate("/login");
@@ -67,7 +78,11 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
             </li>
           </ul>
         </nav>
-        {isUserInfo ? <UserInfo /> : <MyTrips />}
+        {isUserInfo ? (
+          <UserInfo userData={userData} loading={loading} />
+        ) : (
+          <MyTrips userTrips={userTrips} loading={loading} />
+        )}
       </div>
     </section>
   );

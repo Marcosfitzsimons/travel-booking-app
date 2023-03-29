@@ -9,21 +9,7 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 
-import useFetch from "../hooks/useFetch";
-
-const MyTrips = () => {
-  const [userTrips, setUserTrips] = useState([]);
-  const { user } = useContext(AuthContext);
-
-  const url = `http://localhost:8800/api/users/${user._id}`;
-
-  const { data, loading, error } = useFetch(url);
-
-  useEffect(() => {
-    setUserTrips(data.user?.myTrips);
-  }, [data]);
-  console.log(data.user?.myTrips);
-  // user.myTrips is an array of travel ID. Fix how to get the travel info and not only the travel ID of mytrip array.
+const MyTrips = ({ userTrips, loading }) => {
   return (
     <section className="w-full mx-auto mt-6  bg-transparent flex flex-col gap-5 items-center">
       <div className="relative w-full bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-7/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600">
