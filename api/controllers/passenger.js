@@ -12,17 +12,18 @@ export const createPassenger = async (req, res, next) => {
     const tripId = req.params.tripid;
     const newPassenger = new Passenger(req.body)
 
+    const savedPassenger = await newPassenger.save()
+    const trip = await Trip.findById(tripId).populate('passengers');
+
+    const isCreated = trip.passengers.find(passenger => passenger.createdBy == req.user.id)
+    if (isCreated) throw new BadRequestError('Usuario ya tiene boleto para este viaje.')
+
     // Push the trip to user's myTrips array
 
     await User.findByIdAndUpdate(req.user.id, {
         $push: { myTrips: tripId },
     });
 
-    const savedPassenger = await newPassenger.save()
-    const trip = await Trip.findById(tripId).populate('passengers');
-
-    const isCreated = trip.passengers.find(passenger => passenger.createdBy == req.user.id)
-    if (isCreated) throw new BadRequestError('Usuario ya tiene boleto para este viaje.')
     try {
         await Trip.findByIdAndUpdate(tripId, {
             $push: { passengers: savedPassenger },
