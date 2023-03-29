@@ -6,6 +6,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Por favor, escribí tu username.'],
         minLength: 3,
         maxLength: 15,
+        trim: true,
         unique: true,
     },
     fullName: {
@@ -19,6 +20,7 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Por favor, escribí tu email.'],
         minLength: 3,
         maxLength: 40,
+        trim: true,
         match: [/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Por favor, escribí un email válido.'],
         unique: true,
     },
@@ -26,6 +28,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Por favor, escribí tu contraseña.'],
         minLength: 3,
+        trim: true,
     },
     addressCda: {
         type: String,
