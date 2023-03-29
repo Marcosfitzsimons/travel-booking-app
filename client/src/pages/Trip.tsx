@@ -55,17 +55,17 @@ const Trip = () => {
     fetchData();
   }, []);
 
-  const config = {
-    headers: {
-      Authorization: `Bearer $token`,
-    },
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
   };
 
   const handleOnConfirm = async () => {
     try {
       const { data } = await axios.post(
         `http://localhost:8800/api/passengers/${user._id}/${tripId}`,
-        user
+        {},
+        { headers }
       );
 
       console.log(data);
@@ -74,9 +74,12 @@ const Trip = () => {
       });
       navigate("/mi-perfil");
     } catch (err: any) {
+      console.log(err);
       toast({
         variant: "destructive",
-        description: "Error al guardar lugar, intente más tarde.",
+        description: err.response.data.msg
+          ? err.response.data.msg
+          : "Error al guardar lugar, intente más tarde.",
       });
     }
   };
