@@ -17,6 +17,7 @@ import { toast } from "../hooks/ui/use-toast";
 import axios from "axios";
 import DefaultButton from "../components/DefaultButton";
 import BackButton from "../components/BackButton";
+import { Button } from "../components/ui/button";
 
 type User = {
   id: string;
@@ -59,8 +60,6 @@ const EditProfile = () => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
-  // When I submit the data, I want to update that placeholder data
-  // just how I did in the profile section with myTrips and userData.
   const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     localStorage.removeItem("user");
@@ -137,14 +136,14 @@ const EditProfile = () => {
         <div className="w-full mx-auto mt-6 bg-transparent flex flex-col gap-5 items-center">
           <div className="w-full relative bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-8/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600">
             <div className="absolute top-4 left-4">
-              <BackButton />
+              <BackButton toProfile={true} />
             </div>
             <div className="w-full flex flex-col items-center gap-5">
               <form
                 onSubmit={handleOnSubmit}
                 className="w-full flex flex-col items-center gap-3"
               >
-                <div className="relative">
+                <div className="relative flex flex-col items-center">
                   <Avatar className="w-32 h-32">
                     <AvatarImage
                       className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
@@ -156,21 +155,14 @@ const EditProfile = () => {
                       <User className="w-12 h-12" />
                     </AvatarFallback>
                   </Avatar>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          type="button"
-                          className="absolute -bottom-1 -right-1 rounded-full p-2 bg-slate-800 border-2 border-[#fdfafa] dark:border-[#262626] dark:bg-white"
-                        >
-                          <Pencil className="w-4 h-4 text-slate-200 dark:text-slate-700" />
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Editar imagen</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+
+                  <Button
+                    type="button"
+                    className="h-7 px-3 py-2 absolute flex items-center gap-1 text-sm -bottom-1 bg-white/80  rounded-lg border border-blue-lagoon-200 shadow-sm shadow-blue-lagoon-900/30 hover:bg-white hover:border-blue-lagoon-600/50  dark:bg-blue-lagoon-900/20 dark:border-blue-lagoon-200"
+                  >
+                    <Pencil className="w-4 h-4" />
+                    Editar
+                  </Button>
                 </div>
                 <div className="grid w-full max-w-md items-center gap-2">
                   <Label htmlFor="username">Username</Label>

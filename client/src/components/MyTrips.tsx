@@ -39,11 +39,8 @@ const MyTrips = ({ userTrips, loading }) => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="relative w-full bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-7/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600"
+        className="relative w-full flex flex-col"
       >
-        <div className="absolute top-3 left-3">
-          <BackButton />
-        </div>
         {loading ? (
           "loading"
         ) : (
@@ -53,7 +50,7 @@ const MyTrips = ({ userTrips, loading }) => {
                 {userTrips.map((trip) => (
                   <article
                     key={trip.id}
-                    className="w-full relative bg-blue-lagoon-300/10 border border-blue-lagoon-700/50 rounded-md shadow-md mb-10 pb-2 max-w-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300"
+                    className="w-full relative bg-white/80 border border-blue-lagoon-500/20 rounded-md shadow-md mb-10 pb-2 max-w-md dark:bg-[#262626] dark:border-blue-lagoon-100/20"
                   >
                     <div className="px-4 pt-9 pb-4">
                       <div className="flex flex-col gap-2">

@@ -57,7 +57,7 @@ const TripCard = ({
   };
 
   return (
-    <article className="relative bg-white/80 rounded-md shadow-md mb-10 pb-2 max-w-md dark:bg-[#262626]">
+    <article className="relative bg-white/80  border border-blue-lagoon-500/20 rounded-md shadow-md mb-10 pb-2 max-w-md dark:bg-[#262626] dark:border-blue-lagoon-100/20">
       <div className="px-4 pt-9 pb-4">
         <div className="flex flex-col gap-2">
           <div className="absolute top-[.2rem] left-7 lg:left-8 lg:top-[2px]">
