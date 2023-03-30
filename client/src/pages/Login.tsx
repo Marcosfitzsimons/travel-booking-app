@@ -1,3 +1,4 @@
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import { motion } from "framer-motion";
 import React, { useContext, useState } from "react";
@@ -9,32 +10,36 @@ import { AuthContext } from "../context/AuthContext";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
 
+type User = {
+  emailOrUsername: String;
+  password: String;
+};
+
 const Login = () => {
-  const [credentials, setCredentials] = useState({
-    emailOrUsername: undefined,
-    password: undefined,
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      emailOrUsername: "",
+      password: "",
+    },
   });
 
-  const { loading, error, dispatch } = useContext(AuthContext);
+  const [err, setErr] = useState<null | string>(null);
+
+  const { loading, dispatch } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCredentials((prev) => ({
-      ...prev,
-      [e.target.id]: e.target.value,
-    }));
-  };
-
-  const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleOnSubmit = async (data: User) => {
     if (dispatch) {
       dispatch({ type: "LOGIN_START" });
       try {
         const res = await axios.post(
           "http://localhost:8800/api/auth/login",
-          credentials
+          data
         );
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
         const token = res.data.token;
@@ -45,6 +50,8 @@ const Login = () => {
           type: "LOGIN_FAILURE",
           payload: err.response?.data,
         });
+        const errorMsg = err.response.data.msg;
+        setErr(errorMsg);
       }
     }
   };
@@ -93,29 +100,59 @@ const Login = () => {
             Una vez dentro de tu cuenta vas a poder reservar tu lugar.
           </p>
           <form
-            onSubmit={handleOnSubmit}
+            onSubmit={handleSubmit(handleOnSubmit)}
             className="relative w-full mt-6 p-3 py-6 flex flex-col gap-5 items-center"
           >
-            <div className="grid w-full items-center gap-3">
+            <div className="grid w-full items-center gap-2">
               <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
               <Input
-                onChange={handleOnChange}
                 type="text"
                 id="emailOrUsername"
-                placeholder="example@correo.com"
+                {...register("emailOrUsername", {
+                  required: {
+                    value: true,
+                    message: "Por favor, ingresa tu email o nombre de usuario.",
+                  },
+                  minLength: {
+                    value: 3,
+                    message: "Email o nombre de usuario demasiado corto.",
+                  },
+                  maxLength: {
+                    value: 25,
+                    message: "Email o nombre de usuario demasiado largo.",
+                  },
+                })}
               />
+              {errors.emailOrUsername && (
+                <p className="text-red-600">{errors.emailOrUsername.message}</p>
+              )}
             </div>
-            <div className="grid w-full items-center gap-3">
+            <div className="grid w-full items-center gap-2">
               <Label htmlFor="password">Contraseña</Label>
               <Input
-                onChange={handleOnChange}
                 type="password"
                 id="password"
-                placeholder="Tu contraseña"
+                {...register("password", {
+                  required: {
+                    value: true,
+                    message: "Por favor, ingresa tu contraseña",
+                  },
+                  minLength: {
+                    value: 3,
+                    message: "Contraseña no puede ser tan corta.",
+                  },
+                  maxLength: {
+                    value: 25,
+                    message: "Contraseña no puede ser tan larga.",
+                  },
+                })}
               />
+              {errors.password && (
+                <p className="text-red-600">{errors.password.message}</p>
+              )}
             </div>
+            {err && <p className="text-red-600 self-start">{err}</p>}
             <DefaultButton>Entrar</DefaultButton>
-            {error && <span>{error.message}</span>}
             <p className="lg:self-start">
               ¿No tenes cuenta?{" "}
               <Link to="/register" className="font-medium text-blue-lagoon-500">
