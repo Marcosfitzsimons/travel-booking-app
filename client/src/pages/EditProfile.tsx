@@ -133,11 +133,12 @@ const EditProfile = () => {
         className=""
       >
         <SectionTitle>Editar perfil</SectionTitle>
-        <div className="w-full mx-auto mt-6 bg-transparent flex flex-col gap-5 items-center">
-          <div className="w-full relative bg-white rounded-md border border-blue-lagoon-700/50 px-3 py-16 flex flex-col items-center gap-5 md:w-8/12 md:py-12 dark:bg-[#262626] dark:border-neutral-600">
-            <div className="absolute top-4 left-4">
-              <BackButton toProfile={true} />
-            </div>
+
+        <div className="w-full mt-5 mb-16 flex flex-col items-center gap-5">
+          <div className="self-start">
+            <BackButton toProfile={true} />
+          </div>
+          <div className="w-full flex flex-col items-center gap-5 md:w-8/12">
             <div className="w-full flex flex-col items-center gap-5">
               <form
                 onSubmit={handleOnSubmit}
@@ -152,13 +153,13 @@ const EditProfile = () => {
                     />
                     <AvatarFallback>
                       {" "}
-                      <User className="w-12 h-12" />
+                      <User className="w-12 h-12 dark:text-blue-lagoon-100" />
                     </AvatarFallback>
                   </Avatar>
 
                   <Button
                     type="button"
-                    className="h-7 px-3 py-2 absolute flex items-center gap-1 text-sm -bottom-1 bg-white/80  rounded-lg border border-blue-lagoon-200 shadow-sm shadow-blue-lagoon-900/30 hover:bg-white hover:border-blue-lagoon-600/50  dark:bg-blue-lagoon-900/20 dark:border-blue-lagoon-200"
+                    className="h-7 px-3 py-2 absolute flex items-center gap-1 text-sm -bottom-1 bg-white/50 rounded-lg border border-blue-lagoon-200 backdrop-blur-sm shadow-sm shadow-blue-lagoon-900/30 hover:bg-white hover:border-blue-lagoon-600/50 dark:text-blue-lagoon-100  dark:bg-blue-lagoon-900/10 dark:border-blue-lagoon-300/50 dark:hover:text-white dark:hover:bg-blue-lagoon-900/60"
                   >
                     <Pencil className="w-4 h-4" />
                     Editar

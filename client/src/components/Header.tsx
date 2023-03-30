@@ -92,11 +92,11 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   <Avatar>
                     <AvatarImage src={user.image} />
                     <AvatarFallback>
-                      <User />
+                      <User className="dark:text-blue-lagoon-100" />
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent align="end" className="  ">
                   <DropdownMenuLabel className="dark:text-white">
                     Mi Cuenta
                   </DropdownMenuLabel>
@@ -104,7 +104,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   <DropdownMenuItem className="cursor-pointer p-0">
                     <Link
                       to="/mi-perfil"
-                      className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
+                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
                       onClick={() => setIsUserInfo(true)}
                     >
                       <User className="w-4 h-4" />
@@ -115,7 +115,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                     <Link
                       to="/mi-perfil"
                       onClick={() => setIsUserInfo(false)}
-                      className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
+                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
                     >
                       <Bus className="w-4 h-4" />
                       Mis viajes
@@ -124,7 +124,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   <DropdownMenuItem className="cursor-pointer p-0">
                     <Link
                       to="/mi-perfil/editar-perfil"
-                      className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
+                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
                     >
                       <UserCog className="w-4 h-4" />
                       Configuración
@@ -133,7 +133,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   <DropdownMenuItem className="cursor-pointer p-0">
                     <Link
                       to="/login"
-                      className="py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent"
+                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
                       onClick={handleLogOut}
                     >
                       <LogOut className="w-4 h-4" />

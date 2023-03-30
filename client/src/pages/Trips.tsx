@@ -59,7 +59,7 @@ const Trips = () => {
   );
 
   return (
-    <section className="section">
+    <section className="">
       <motion.div
         variants={sectionVariants}
         initial="hidden"
