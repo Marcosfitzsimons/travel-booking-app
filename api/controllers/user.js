@@ -8,13 +8,10 @@ export const updateUser = async (req, res) => {
     const user = await User.findById(req.params.id)
     if (!user) throw new NotFoundError('User not found')
 
-    const { password: passwordUser, ...otherDetails } = req.body.userData;
-    if (!req.body.userData) throw new NotFoundError('User data not found.')
+    const { ...userDetails } = req.body.data;
+    if (!req.body.data) throw new NotFoundError('User data not found.')
 
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(passwordUser, salt);
-
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, { $set: { password: hash, ...otherDetails } }, { new: true })
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, { $set: { ...userDetails } }, { new: true })
     if (!updatedUser) throw new NotFoundError('Usuario no existe.')
 
     const { password, isAdmin, ...userData } = updatedUser._doc
