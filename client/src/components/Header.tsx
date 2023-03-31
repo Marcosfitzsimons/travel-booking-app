@@ -1,5 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Bus, LogOut, User, UserCog } from "lucide-react";
+import {
+  Bus,
+  CalendarRange,
+  ClipboardList,
+  LogOut,
+  Menu,
+  Star,
+  User,
+  UserCog,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
@@ -40,32 +49,66 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
   return (
     <header className="fixed w-full z-50 bg-[#fafafa] dark:bg-[#0d0f12] border-b border-b-blue-lagoon-700/50 dark:border-b-neutral-600">
       <div className="w-[min(90%,1000px)] mx-auto py-3 flex justify-between items-center">
-        <Logo />
-
-        <div className="flex items-center gap-4">
-          <div className="hidden md:flex md:items-center md:gap-2">
-            <nav>
-              <ul className="flex items-center gap-2 ">
-                <li>
+        <div className="flex items-center gap-2">
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger className="lg:hidden" asChild>
+                <Button
+                  variant="ghost"
+                  className="relative top-[1px] w-8 h-8 rounded-md p-0 dark:hover:text-white dark:hover:bg-blue-lagoon-900/70"
+                >
+                  <Menu />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start">
+                <DropdownMenuItem className="cursor-pointer p-0">
                   <Link
                     to="/viajes"
-                    className="font-medium dark:text-white py-2 px-3 rounded-md hover:bg-blue-lagoon-300/10 dark:hover:bg-blue-lagoon-900/70"
+                    onClick={() => setIsUserInfo(false)}
+                    className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
                   >
                     Viajes
                   </Link>
-                </li>
-                <li>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem className="cursor-pointer p-0">
                   <Link
                     to="/nosotros"
-                    className="font-medium dark:text-white py-2 px-3 rounded-md hover:bg-blue-lagoon-300/10 dark:hover:bg-blue-lagoon-900/70"
+                    className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
                   >
                     Nosotros
                   </Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <Separator orientation="vertical" className="h-6" />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            ""
+          )}
+
+          <Logo />
+        </div>
+        <div className="flex items-center gap-2">
+          <nav className="hidden lg:flex">
+            <ul className="flex items-center">
+              <li>
+                <Link
+                  to="/viajes"
+                  className="font-medium dark:text-white py-2 px-2 rounded-md hover:bg-blue-lagoon-300/10 dark:hover:bg-blue-lagoon-900/70"
+                >
+                  Viajes
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/nosotros"
+                  className="font-medium dark:text-white py-2 px-2 rounded-md hover:bg-blue-lagoon-300/10 dark:hover:bg-blue-lagoon-900/70"
+                >
+                  Nosotros
+                </Link>
+              </li>
+            </ul>
+          </nav>
+          <Separator orientation="vertical" className="hidden h-6 lg:flex" />
           <ThemeToggle />
           <Separator orientation="vertical" className="h-6" />
           {!user ? (
@@ -86,7 +129,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="ml-2">
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
@@ -117,7 +160,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                       onClick={() => setIsUserInfo(false)}
                       className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
                     >
-                      <Bus className="w-4 h-4" />
+                      <ClipboardList className="w-4 h-4" />
                       Mis viajes
                     </Link>
                   </DropdownMenuItem>

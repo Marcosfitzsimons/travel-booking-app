@@ -21,14 +21,14 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
 
   const navigate = useNavigate();
 
-  const url = `http://localhost:8800/api/users/${user._id}`;
+  const url = `http://localhost:8800/api/users/${user?._id}`;
 
   const { data, loading, error } = useFetch(url);
 
   useEffect(() => {
     setUserTrips(data.user?.myTrips);
     setUserData(data.user);
-  }, [data, user]);
+  }, [data]);
 
   useEffect(() => {
     if (!user) navigate("/login");

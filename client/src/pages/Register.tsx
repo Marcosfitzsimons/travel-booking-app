@@ -38,7 +38,7 @@ const Register = () => {
     },
   });
 
-  const { loading, error, dispatch } = useContext(AuthContext);
+  const { loading, dispatch } = useContext(AuthContext);
   const [err, setErr] = useState<null | string>(null);
 
   const { toast } = useToast();

@@ -118,7 +118,7 @@ const Login = () => {
                     message: "Email o nombre de usuario demasiado corto.",
                   },
                   maxLength: {
-                    value: 25,
+                    value: 40,
                     message: "Email o nombre de usuario demasiado largo.",
                   },
                 })}

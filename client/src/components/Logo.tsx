@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Logo = () => {
   return (
-    <Link to="/" className="font-serif tracking-wider dark:text-white">
+    <Link to="/" className="font-serif tracking-wider dark:hover:text-white">
       <span className="font-medium text-xl">F</span>
       <span className="inline-block rotate-3">a</span>
       <span className="inline-block -rotate-6">b</span>
