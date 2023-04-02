@@ -93,13 +93,15 @@ const TripCard = ({
                   <span>- {from}</span>
                 </p>
                 {arrivalTime && (
-                  <p className="lg:text-base lg:text-md flex items-center gap-1">
-                    <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
-                    <span className="dark:text-white font-medium">
-                      Llegada:
-                    </span>{" "}
-                    {arrivalTime}
-                    <span>- {to}</span>
+                  <div className=" flex items-center gap-1">
+                    <p className="flex items-center gap-1">
+                      <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
+                      <span className="dark:text-white font-medium">
+                        Llegada:
+                      </span>{" "}
+                      {arrivalTime}
+                      <span>- {to}</span>
+                    </p>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
@@ -108,15 +110,15 @@ const TripCard = ({
                             <span className="sr-only">Alert Circle</span>
                           </button>
                         </TooltipTrigger>
-                        <TooltipContent>
-                          <p>
+                        <TooltipContent className="">
+                          <p className="">
                             El horario de llegada estimado es aproximado y puede
                             variar
                           </p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
-                  </p>
+                  </div>
                 )}
                 <p className="flex items-center gap-1">
                   <Ticket className="text-blue-lagoon-800 dark:text-white h-5 w-5" />

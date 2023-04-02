@@ -65,7 +65,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   <Link
                     to="/viajes"
                     onClick={() => setIsUserInfo(false)}
-                    className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
+                    className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
                   >
                     Viajes
                   </Link>
@@ -74,7 +74,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                 <DropdownMenuItem className="cursor-pointer p-0">
                   <Link
                     to="/nosotros"
-                    className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
+                    className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
                   >
                     Nosotros
                   </Link>
@@ -93,7 +93,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
               <li>
                 <Link
                   to="/viajes"
-                  className="font-medium dark:text-white py-2 px-2 rounded-md hover:bg-blue-lagoon-300/10 dark:hover:bg-blue-lagoon-900/70"
+                  className="font-medium py-2 px-2 rounded-md hover:bg-blue-lagoon-300/10 dark:text-white dark:hover:bg-blue-lagoon-900/70"
                 >
                   Viajes
                 </Link>
@@ -101,7 +101,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
               <li>
                 <Link
                   to="/nosotros"
-                  className="font-medium dark:text-white py-2 px-2 rounded-md hover:bg-blue-lagoon-300/10 dark:hover:bg-blue-lagoon-900/70"
+                  className="font-medium  py-2 px-2 rounded-md hover:bg-blue-lagoon-300/10 dark:text-white dark:hover:bg-blue-lagoon-900/70"
                 >
                   Nosotros
                 </Link>
@@ -147,7 +147,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   <DropdownMenuItem className="cursor-pointer p-0">
                     <Link
                       to="/mi-perfil"
-                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
+                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/30"
                       onClick={() => setIsUserInfo(true)}
                     >
                       <User className="w-4 h-4" />
@@ -158,7 +158,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                     <Link
                       to="/mi-perfil"
                       onClick={() => setIsUserInfo(false)}
-                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
+                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/30"
                     >
                       <ClipboardList className="w-4 h-4" />
                       Mis viajes
@@ -167,7 +167,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   <DropdownMenuItem className="cursor-pointer p-0">
                     <Link
                       to="/mi-perfil/editar-perfil"
-                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
+                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/30"
                     >
                       <UserCog className="w-4 h-4" />
                       Configuración
@@ -176,7 +176,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   <DropdownMenuItem className="cursor-pointer p-0">
                     <Link
                       to="/login"
-                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:bg-blue-lagoon-900/60"
+                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/30 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/30"
                       onClick={handleLogOut}
                     >
                       <LogOut className="w-4 h-4" />
