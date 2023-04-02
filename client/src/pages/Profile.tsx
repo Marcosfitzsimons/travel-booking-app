@@ -10,6 +10,7 @@ import useFetch from "../hooks/useFetch";
 import BackButton from "../components/BackButton";
 import { Separator } from "../components/ui/separator";
 import Loading from "../components/Loading";
+import axios from "axios";
 
 type ProfileProps = {
   isUserInfo: boolean;
@@ -17,20 +18,36 @@ type ProfileProps = {
 };
 
 const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
-  const [userTrips, setUserTrips] = useState([]);
-  const [userData, setUserData] = useState({});
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<unknown | boolean>(false);
+
   const { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
   console.log("userprofile re-render");
-  const url = `http://localhost:8800/api/users/${user?._id}`;
-
-  const { data, loading, error } = useFetch(url);
 
   useEffect(() => {
-    setUserTrips(data.user?.myTrips);
-    setUserData(data.user);
-  }, [data]);
+    const fetchData = async () => {
+      setLoading(true);
+      setLoading(true);
+      try {
+        const token = localStorage.getItem("token");
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+        const res = await axios.get(
+          `http://localhost:8800/api/users/${user?._id}`,
+          { headers }
+        );
+        setData(res.data.user);
+      } catch (err) {
+        setError(err);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (!user) navigate("/login");
@@ -121,15 +138,11 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
             </div>
             <AnimatePresence mode="wait">
               {isUserInfo ? (
-                <UserInfo
-                  key="userinfo"
-                  userData={userData}
-                  loading={loading}
-                />
+                <UserInfo key="userinfo" userData={data} loading={loading} />
               ) : (
                 <MyTrips
                   key="mytrips"
-                  userTrips={userTrips}
+                  userTrips={data.myTrips}
                   loading={loading}
                 />
               )}

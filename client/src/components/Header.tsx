@@ -40,6 +40,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
     }
+    navigate("/login");
   };
 
   useEffect(() => {
