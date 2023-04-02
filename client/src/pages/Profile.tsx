@@ -8,6 +8,8 @@ import MyTrips from "../components/MyTrips";
 import UserInfo from "../components/UserInfo";
 import useFetch from "../hooks/useFetch";
 import BackButton from "../components/BackButton";
+import { Separator } from "../components/ui/separator";
+import Loading from "../components/Loading";
 
 type ProfileProps = {
   isUserInfo: boolean;
@@ -20,7 +22,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
   const { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
-
+  console.log("userprofile re-render");
   const url = `http://localhost:8800/api/users/${user?._id}`;
 
   const { data, loading, error } = useFetch(url);
@@ -59,73 +61,82 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
 
   return (
     <section className="">
-      <motion.div
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        className=""
-      >
-        <SectionTitle>Mi cuenta</SectionTitle>
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col items-center">
-            <div className="self-start my-4">
-              <BackButton toProfile={false} />
+      <SectionTitle>Mi cuenta</SectionTitle>
+      {loading ? (
+        <Loading />
+      ) : (
+        <motion.div
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          className=""
+        >
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col items-center">
+              <div className="self-start my-4 mb-6">
+                <BackButton toProfile={false} />
+              </div>
+              <nav className="flex items-center justify-center">
+                <ul className="flex items-center gap-4 px-5 py-2 rounded-lg bg-white shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 dark:text-blue-lagoon-100  dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300/80">
+                  <li className="relative">
+                    <button
+                      tabIndex={0}
+                      onClick={() => setIsUserInfo(true)}
+                      className={`font-medium ${
+                        isUserInfo ? "dark:text-white" : "dark:hover:text-white"
+                      }`}
+                    >
+                      <RoughNotation
+                        type="underline"
+                        show={isUserInfo}
+                        color="#99ccd5"
+                      >
+                        Mi perfil
+                      </RoughNotation>
+                    </button>
+                  </li>
+                  <Separator orientation="vertical" className="h-5 w-[1px]" />
+                  <li className="relative">
+                    <button
+                      tabIndex={0}
+                      onClick={() => setIsUserInfo(false)}
+                      className={`font-medium ${
+                        !isUserInfo
+                          ? "dark:text-white"
+                          : "dark:hover:text-white"
+                      }`}
+                    >
+                      <RoughNotation
+                        type="underline"
+                        show={!isUserInfo}
+                        color="#99ccd5"
+                      >
+                        Mis viajes
+                      </RoughNotation>
+                    </button>
+                  </li>
+                </ul>
+              </nav>
             </div>
-            <nav className="flex items-center justify-center">
-              <ul className="flex items-center gap-6 px-3 py-2">
-                <li className="relative">
-                  <button
-                    tabIndex={0}
-                    onClick={() => setIsUserInfo(true)}
-                    className={` ${
-                      isUserInfo
-                        ? "font-medium dark:text-white"
-                        : "dark:hover:text-white"
-                    }`}
-                  >
-                    <RoughNotation
-                      type="box"
-                      show={isUserInfo}
-                      color="#99ccd5"
-                      padding={10}
-                    >
-                      Mi perfil
-                    </RoughNotation>
-                  </button>
-                </li>
-                <li className="relative">
-                  <button
-                    tabIndex={0}
-                    onClick={() => setIsUserInfo(false)}
-                    className={`${
-                      !isUserInfo
-                        ? "font-medium dark:text-white"
-                        : "dark:hover:text-white"
-                    }`}
-                  >
-                    <RoughNotation
-                      type="box"
-                      show={!isUserInfo}
-                      color="#99ccd5"
-                      padding={10}
-                    >
-                      Mis viajes
-                    </RoughNotation>
-                  </button>
-                </li>
-              </ul>
-            </nav>
+            <AnimatePresence mode="wait">
+              {isUserInfo ? (
+                <UserInfo
+                  key="userinfo"
+                  userData={userData}
+                  loading={loading}
+                />
+              ) : (
+                <MyTrips
+                  key="mytrips"
+                  userTrips={userTrips}
+                  loading={loading}
+                />
+              )}
+            </AnimatePresence>
           </div>
-          <AnimatePresence mode="wait">
-            {isUserInfo ? (
-              <UserInfo key="userinfo" userData={userData} loading={loading} />
-            ) : (
-              <MyTrips key="mytrips" userTrips={userTrips} loading={loading} />
-            )}
-          </AnimatePresence>
-        </div>
-      </motion.div>
+        </motion.div>
+      )}
     </section>
   );
 };

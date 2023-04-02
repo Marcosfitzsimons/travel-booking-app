@@ -14,6 +14,7 @@ import {
 import { Button } from "../components/ui/button";
 import DefaultButton from "../components/DefaultButton";
 import { toast } from "../hooks/ui/use-toast";
+import Loading from "../components/Loading";
 
 const INITIAL_VALUES = {
   name: "",
@@ -61,6 +62,7 @@ const Trip = () => {
   };
 
   const handleOnConfirm = async () => {
+    setLoading(true);
     try {
       const { data } = await axios.post(
         `http://localhost:8800/api/passengers/${user._id}/${tripId}`,
@@ -72,8 +74,10 @@ const Trip = () => {
       toast({
         description: "Lugar guardado con éxito.",
       });
+      setLoading(false);
       navigate("/mi-perfil");
     } catch (err: any) {
+      setLoading(false);
       console.log(err);
       toast({
         variant: "destructive",
@@ -118,7 +122,7 @@ const Trip = () => {
       >
         <SectionTitle>Confirmar lugar</SectionTitle>
         {loading ? (
-          "loading"
+          <Loading />
         ) : (
           <article className="relative bg-white/80 rounded-md shadow-md mb-10 pb-2 max-w-md dark:bg-[#262626]">
             <div className="px-4 pt-9 pb-4">
@@ -153,13 +157,15 @@ const Trip = () => {
                         <span>- {data.from}</span>
                       </p>
                       {data.arrivalTime && (
-                        <p className="lg:text-base lg:text-md flex items-center gap-1">
-                          <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
-                          <span className="dark:text-white font-medium">
-                            Llegada:
-                          </span>{" "}
-                          {data.arrivalTime}
-                          <span>- {data.to}</span>
+                        <div className=" flex items-center gap-1">
+                          <p className="flex items-center gap-1">
+                            <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
+                            <span className="dark:text-white font-medium">
+                              Llegada:
+                            </span>{" "}
+                            {data.arrivalTime}
+                            <span>- {data.to}</span>
+                          </p>
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
@@ -176,7 +182,7 @@ const Trip = () => {
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
-                        </p>
+                        </div>
                       )}
                       <p className="flex items-center gap-1">
                         <Ticket className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
