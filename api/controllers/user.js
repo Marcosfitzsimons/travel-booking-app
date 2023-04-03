@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
-import bcrypt, { hash } from "bcrypt";
-import { BadRequestError, NotFoundError } from '../errors/index.js'
+import { format } from "date-fns";
+import { NotFoundError } from '../errors/index.js'
 import User from "../models/User.js"
 
 // add validation 
@@ -33,6 +33,14 @@ export const getUser = async (req, res) => {
 
     const user = await User.findById(req.params.id).populate('myTrips');
     if (!user) throw new NotFoundError('Usuario no existe.')
+
+    // See the time of the current date -> Must be UTC-3
+    // const currentDate = new Date().toLocaleString('en-US', { timeZone: 'UTC-3' });
+    // const formattedCurrentDate = new Date(currentDate);
+
+    // const filteredMyTrips = user.myTrips.filter(trip => new Date(trip.date) >= formattedCurrentDate)
+    // console.log(filteredMyTrips)
+
     res.status(StatusCodes.OK).json({
         user: {
             username: user.username,

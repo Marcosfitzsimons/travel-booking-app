@@ -65,23 +65,23 @@ const UserInfo = ({ userData, loading }) => {
             </div>
             <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-blue-lagoon-700/50 items-start p-4 shadow-inner rounded-md dark:bg-black dark:border-blue-lagoon-200">
               <li className="flex items-center gap-1">
-                <Mail className="h-5 w-5" />
+                <Mail className="h-4 w-4" />
                 <span className="font-medium">Email:</span>
                 {userData?.email}
               </li>
               <li className="flex items-center gap-1">
-                <Phone className="h-5 w-5" />
+                <Phone className="h-4 w-4" />
                 <span className="font-medium">Celular:</span> {userData?.phone}
               </li>
 
               <li className="flex items-center gap-1 shrink-0">
-                <MapPin className="w-5 h-5 shrink-0" />
+                <MapPin className="w-4 h-4 shrink-0" />
                 <span className="font-medium shrink-0">Dirrección Carmen:</span>
                 <span className="shrink-0">{userData?.addressCda}</span>
               </li>
               {userData?.addressCapital && (
                 <li className="flex items-center gap-1 shrink-0">
-                  <MapPin className="w-5 h-5 shrink-0" />
+                  <MapPin className="w-4 h-4 shrink-0" />
                   <span className="font-medium shrink-0">
                     Dirrecion Capital:
                   </span>

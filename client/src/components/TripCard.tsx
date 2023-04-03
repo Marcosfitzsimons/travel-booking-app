@@ -26,9 +26,7 @@ interface Trip {
   passengers: string[];
 }
 
-type TripProps = Trip & {
-  dateSelected: string | null;
-};
+type TripProps = Trip;
 
 const TripCard = ({
   name,
@@ -40,7 +38,6 @@ const TripCard = ({
   arrivalTime,
   price,
   maxCapacity,
-  dateSelected,
 }: TripProps) => {
   const todayDate = format(new Date(), "dd/MM/yy");
 
@@ -57,7 +54,7 @@ const TripCard = ({
   };
 
   return (
-    <article className="relative bg-white/80 border border-blue-lagoon-500/20 rounded-md shadow-md mb-10 pb-2 max-w-md dark:bg-[#262626] dark:border-blue-lagoon-100/20">
+    <article className="relative bg-white/80 border border-blue-lagoon-500/20 rounded-md shadow-md mb-10 pb-2 max-w-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
       <div className="px-4 pt-9 pb-4">
         <div className="flex flex-col gap-2">
           <div className="absolute top-[.6rem] left-5">
@@ -71,7 +68,7 @@ const TripCard = ({
             <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
               <CalendarDays className="w-5 h-5" /> {date}
             </p>
-            {dateSelected === todayDate && (
+            {date === todayDate && (
               <p className="text-[#256840] px-3 select-none font-medium shadow-sm bg-green-300/30 rounded-2xl border border-blue-lagoon-200 dark:bg-[#6fe79f]/10 dark:border-[#4cc97e] dark:text-[#7bfdaf]">
                 HOY
               </p>

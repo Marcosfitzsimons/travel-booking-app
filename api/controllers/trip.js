@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { StatusCodes } from 'http-status-codes';
-import { BadRequestError, NotFoundError } from '../errors/index.js'
+import { NotFoundError } from '../errors/index.js'
 import Trip from "../models/Trip.js"
 
 export const createTrip = async (req, res) => {
@@ -40,7 +40,9 @@ export const getTrip = async (req, res) => {
 export const getTrips = async (req, res) => {
     // See the time of the current date -> Must be UTC-3
     const currentDate = format(new Date(), "dd/MM/yy");
+    console.log(currentDate)
     const trips = await Trip.find({ date: { $gte: currentDate } }).sort('date')
+    // console.log(trips) 
     res.status(StatusCodes.OK).json(trips)
 
 }

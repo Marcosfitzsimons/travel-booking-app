@@ -1,4 +1,10 @@
-import { AlertCircle, CalendarDays, Ticket, Watch } from "lucide-react";
+import {
+  AlertCircle,
+  CalendarDays,
+  XOctagon,
+  Ticket,
+  Watch,
+} from "lucide-react";
 import { motion } from "framer-motion";
 import {
   Tooltip,
@@ -6,6 +12,22 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+
+interface TripProps {
+  id: number;
+  name: string;
+  date: string;
+  from: string;
+  to: string;
+  departureTime: string;
+  arrivalTime: string;
+  returnTime?: string;
+  maxCapacity: number;
+  image?: string;
+  price: number;
+  available: boolean;
+  passengers: string[];
+}
 
 const MyTrips = ({ userTrips, loading }) => {
   const sectionVariants = {
@@ -30,7 +52,7 @@ const MyTrips = ({ userTrips, loading }) => {
       },
     },
   };
-
+  console.log(userTrips);
   return (
     <section className="w-full mx-auto mt-6  bg-transparent flex flex-col gap-5 items-center">
       <motion.div
@@ -46,10 +68,10 @@ const MyTrips = ({ userTrips, loading }) => {
           <>
             {userTrips && userTrips.length > 0 ? (
               <>
-                {userTrips.map((trip) => (
+                {userTrips.map((trip: TripProps) => (
                   <article
                     key={trip.id}
-                    className="w-full relative bg-white/80 border border-blue-lagoon-500/20 rounded-md shadow-md mb-10 pb-2 max-w-md dark:bg-[#262626] dark:border-blue-lagoon-100/20"
+                    className="w-full relative bg-white/80 border border-blue-lagoon-500/20 rounded-md shadow-md mb-10 pb-2 max-w-md  dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300"
                   >
                     <div className="px-4 pt-9 pb-4">
                       <div className="flex flex-col gap-2">
@@ -133,9 +155,9 @@ const MyTrips = ({ userTrips, loading }) => {
                 ))}
               </>
             ) : (
-              <div className="">
-                <p>No tenes viajes reservados.</p>
-              </div>
+              <p className="mx-auto mb-[20rem] lg:mb-[28rem]">
+                No tenes lugares reservados.
+              </p>
             )}
           </>
         )}

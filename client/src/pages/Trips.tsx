@@ -48,21 +48,25 @@ const sectionVariants = {
 };
 
 const Trips = () => {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(null);
   const { data, loading, error, reFetch } = useFetch(
     "http://localhost:8800/api/trips"
   );
 
-  const dateSelected = format(startDate, "dd/MM/yy");
-
-  const filteredTrips = data.filter(
-    (trip: TripProps) => trip.date === dateSelected
-  );
+  let filteredTrips;
+  let dateSelected: string;
+  if (startDate) {
+    dateSelected = format(startDate, "dd/MM/yy");
+    console.log(typeof dateSelected);
+    filteredTrips = data.filter(
+      (trip: TripProps) => trip.date === dateSelected
+    );
+  }
 
   return (
     <section className="">
       <SectionTitle>Próximos viajes:</SectionTitle>
-      <div className="flex items-center gap-3 w-[min(90%,320px)] sm:w-[min(80%,320px)]">
+      <div className="flex items-center justify-between gap-3 w-[min(100%,285px)] sm:w-[min(80%,320px)]">
         <p className="shrink-0">Buscar por fecha:</p>
         <DatePickerContainer
           startDate={startDate}
@@ -77,22 +81,34 @@ const Trips = () => {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="flex flex-col gap-2"
+          className="flex flex-col w-full gap-2"
         >
-          <div className="mt-8 flex flex-col gap-2 md:grid md:grid-cols-2 md:gap-5">
-            <>
-              {filteredTrips.length !== 0 ? (
-                filteredTrips.map((item: TripProps) => (
-                  <TripCard
-                    key={item._id}
-                    {...item}
-                    dateSelected={dateSelected}
-                  />
-                ))
-              ) : (
-                <p>No hay viajes disponibles para la fecha seleccionada.</p>
-              )}
-            </>
+          <div className="mt-8 flex flex-col gap-2 md:grid md:grid-cols-2">
+            {filteredTrips ? (
+              <>
+                {filteredTrips.length !== 0 ? (
+                  filteredTrips.map((item: TripProps) => (
+                    <TripCard key={item._id} {...item} />
+                  ))
+                ) : (
+                  <p className="mb-[20rem] lg:mb-[28rem]">
+                    No hay viajes disponibles para la fecha seleccionada.
+                  </p>
+                )}
+              </>
+            ) : (
+              <>
+                {data.length !== 0 ? (
+                  data.map((trip: TripProps) => (
+                    <TripCard key={trip._id} {...trip} />
+                  ))
+                ) : (
+                  <p className="mb-[20rem] lg:mb-[28rem]">
+                    No hay viajes disponibles.
+                  </p>
+                )}
+              </>
+            )}
           </div>
         </motion.div>
       )}

@@ -15,8 +15,7 @@ import { Button } from "../components/ui/button";
 import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
 
-type User = {
-  id: string | undefined;
+type UserData = {
   username: string | undefined;
   fullName: string | undefined;
   email: string | undefined;
@@ -56,7 +55,7 @@ const EditProfile = () => {
   };
   console.log("editProfile re-render");
 
-  const handleOnSubmit = async (data: User) => {
+  const handleOnSubmit = async (data: UserData) => {
     localStorage.removeItem("user");
     setIsLoading(true);
     try {
