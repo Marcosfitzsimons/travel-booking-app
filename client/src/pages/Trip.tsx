@@ -32,6 +32,26 @@ const INITIAL_VALUES = {
   maxCapacity: "",
 };
 
+const sectionVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeIn",
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.2,
+      ease: "backInOut",
+    },
+  },
+};
+
 const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const [data, setData] = useState(INITIAL_VALUES);
   const [loading, setLoading] = useState(false);
@@ -91,29 +111,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
           : "Error al guardar lugar, intente más tarde.",
       });
     }
-  };
-
-  const sectionVariants = {
-    hidden: {
-      y: 20,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.9,
-        ease: "backInOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: -10,
-      transition: {
-        duration: 0.3,
-        ease: "backInOut",
-      },
-    },
   };
 
   return (

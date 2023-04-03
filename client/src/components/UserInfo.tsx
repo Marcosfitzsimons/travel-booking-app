@@ -32,24 +32,22 @@ interface UserInfoProps {
   userData: UserData;
 }
 
-const sectionVariants = {
+const tripVariants = {
   hidden: {
-    y: 20,
     opacity: 0,
   },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.9,
-      ease: "backInOut",
+      duration: 0.4,
+      ease: "easeIn",
     },
   },
   exit: {
     opacity: 0,
-    y: -10,
     transition: {
-      duration: 0.3,
+      duration: 0.2,
       ease: "backInOut",
     },
   },
@@ -66,7 +64,7 @@ const UserInfo = ({ userData }: UserInfoProps) => {
   return (
     <div className="w-full mt-5 mb-16 bg-transparent flex flex-col gap-5">
       <motion.div
-        variants={sectionVariants}
+        variants={tripVariants}
         initial="hidden"
         animate="visible"
         exit="exit"

@@ -3,22 +3,19 @@ import { motion } from "framer-motion";
 const AboutUs = () => {
   const sectionVariants = {
     hidden: {
-      y: 20,
       opacity: 0,
     },
     visible: {
-      y: 0,
       opacity: 1,
       transition: {
-        duration: 0.9,
-        ease: "backInOut",
+        duration: 0.4,
+        ease: "easeIn",
       },
     },
     exit: {
       opacity: 0,
-      y: -10,
       transition: {
-        duration: 0.3,
+        duration: 0.2,
         ease: "backInOut",
       },
     },

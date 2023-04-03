@@ -1,17 +1,6 @@
 import { AlertCircle, CalendarDays, Ticket, Watch } from "lucide-react";
 import { motion } from "framer-motion";
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "./ui/alert-dialog";
-import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -52,24 +41,22 @@ interface myTripsProps {
   setIsUserInfo: (value: boolean) => void;
 }
 
-const sectionVariants = {
+const tripVariants = {
   hidden: {
-    y: 20,
     opacity: 0,
   },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.9,
-      ease: "backInOut",
+      duration: 0.4,
+      ease: "easeIn",
     },
   },
   exit: {
     opacity: 0,
-    y: -10,
     transition: {
-      duration: 0.3,
+      duration: 0.2,
       ease: "backInOut",
     },
   },
@@ -118,7 +105,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
   return (
     <section className="w-full mx-auto mt-6  bg-transparent flex flex-col gap-5 items-center">
       <motion.div
-        variants={sectionVariants}
+        variants={tripVariants}
         initial="hidden"
         animate="visible"
         exit="exit"

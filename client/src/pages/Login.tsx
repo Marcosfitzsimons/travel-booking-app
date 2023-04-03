@@ -15,6 +15,26 @@ type User = {
   password: String;
 };
 
+const sectionVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeIn",
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.2,
+      ease: "backInOut",
+    },
+  },
+};
+
 const Login = () => {
   const {
     register,
@@ -54,29 +74,6 @@ const Login = () => {
         setErr(errorMsg);
       }
     }
-  };
-
-  const sectionVariants = {
-    hidden: {
-      y: 20,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.9,
-        ease: "backInOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: -10,
-      transition: {
-        duration: 0.3,
-        ease: "backInOut",
-      },
-    },
   };
 
   return (
