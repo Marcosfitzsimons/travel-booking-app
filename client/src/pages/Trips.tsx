@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns"; // use it to format the date and to filter by each trip. format(startDate, "dd/MM/yyyy") -> dd/MM/yyyy
 import TripCard from "../components/TripCard";
@@ -26,22 +26,19 @@ interface TripProps {
 
 const sectionVariants = {
   hidden: {
-    y: 20,
     opacity: 0,
   },
   visible: {
-    y: 0,
     opacity: 1,
     transition: {
-      duration: 0.9,
-      ease: "backInOut",
+      duration: 0.4,
+      ease: "easeIn",
     },
   },
   exit: {
     opacity: 0,
-    y: -10,
     transition: {
-      duration: 0.3,
+      duration: 0.2,
       ease: "backInOut",
     },
   },
@@ -49,6 +46,7 @@ const sectionVariants = {
 
 const Trips = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
+  console.log("trips page re-render");
   const { data, loading, error, reFetch } = useFetch(
     "http://localhost:8800/api/trips"
   );
@@ -86,27 +84,61 @@ const Trips = () => {
           <div className="mt-8 flex flex-col gap-2 md:grid md:grid-cols-2">
             {filteredTrips ? (
               <>
-                {filteredTrips.length !== 0 ? (
-                  filteredTrips.map((item: TripProps) => (
-                    <TripCard key={item._id} {...item} />
-                  ))
-                ) : (
-                  <p className="mb-[20rem] lg:mb-[28rem]">
-                    No hay viajes disponibles para la fecha seleccionada.
-                  </p>
-                )}
+                <AnimatePresence>
+                  {filteredTrips.length !== 0 ? (
+                    filteredTrips.map((item: TripProps) => (
+                      <motion.div
+                        variants={sectionVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        exit="exit"
+                        key={item._id}
+                      >
+                        <TripCard {...item} />
+                      </motion.div>
+                    ))
+                  ) : (
+                    <motion.p
+                      variants={sectionVariants}
+                      initial="hidden"
+                      animate="visible"
+                      key="empty-filtered-trip"
+                      exit="exit"
+                      className="mb-[20rem] lg:mb-[28rem]"
+                    >
+                      No hay viajes disponibles para la fecha seleccionada.
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </>
             ) : (
               <>
-                {data.length !== 0 ? (
-                  data.map((trip: TripProps) => (
-                    <TripCard key={trip._id} {...trip} />
-                  ))
-                ) : (
-                  <p className="mb-[20rem] lg:mb-[28rem]">
-                    No hay viajes disponibles.
-                  </p>
-                )}
+                <AnimatePresence>
+                  {data.length !== 0 ? (
+                    data.map((trip: TripProps) => (
+                      <motion.div
+                        variants={sectionVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        exit="exit"
+                        key={trip._id}
+                      >
+                        <TripCard {...trip} />
+                      </motion.div>
+                    ))
+                  ) : (
+                    <motion.p
+                      className="mb-[20rem] lg:mb-[28rem]"
+                      variants={sectionVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      key="empty-trip"
+                    >
+                      No hay viajes disponibles.
+                    </motion.p>
+                  )}
+                </AnimatePresence>
               </>
             )}
           </div>
