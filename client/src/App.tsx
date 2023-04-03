@@ -26,7 +26,10 @@ function App() {
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<Home />} />
             <Route path="/viajes" element={<Trips />} />
-            <Route path="/viajes/:id" element={<Trip />} />
+            <Route
+              path="/viajes/:id"
+              element={<Trip setIsUserInfo={setIsUserInfo} />}
+            />
             <Route path="/nosotros" element={<AboutUs />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

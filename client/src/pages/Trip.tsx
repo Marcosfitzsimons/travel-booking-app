@@ -16,6 +16,10 @@ import DefaultButton from "../components/DefaultButton";
 import { toast } from "../hooks/ui/use-toast";
 import Loading from "../components/Loading";
 
+type ProfileProps = {
+  setIsUserInfo: (value: boolean) => void;
+};
+
 const INITIAL_VALUES = {
   name: "",
   date: "",
@@ -28,7 +32,7 @@ const INITIAL_VALUES = {
   maxCapacity: "",
 };
 
-const Trip = () => {
+const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const [data, setData] = useState(INITIAL_VALUES);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | boolean>(false);
@@ -75,6 +79,7 @@ const Trip = () => {
         description: "Lugar guardado con éxito.",
       });
       setLoading(false);
+      setIsUserInfo(false);
       navigate("/mi-perfil");
     } catch (err: any) {
       setLoading(false);

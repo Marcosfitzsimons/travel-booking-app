@@ -17,8 +17,42 @@ type ProfileProps = {
   setIsUserInfo: (value: boolean) => void;
 };
 
+const INITIAL_STATES = {
+  _id: "",
+  addressCapital: "",
+  addressCda: "",
+  email: "",
+  fullName: "",
+  myTrips: [],
+  phone: undefined,
+  username: "",
+};
+
+const sectionVariants = {
+  hidden: {
+    y: 20,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.9,
+      ease: "backInOut",
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    transition: {
+      duration: 0.3,
+      ease: "backInOut",
+    },
+  },
+};
+
 const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState(INITIAL_STATES);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | boolean>(false);
 
@@ -52,29 +86,6 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
   useEffect(() => {
     if (!user) navigate("/login");
   }, [user]);
-
-  const sectionVariants = {
-    hidden: {
-      y: 20,
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.9,
-        ease: "backInOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: -10,
-      transition: {
-        duration: 0.3,
-        ease: "backInOut",
-      },
-    },
-  };
 
   return (
     <section className="">
@@ -138,12 +149,13 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
             </div>
             <AnimatePresence mode="wait">
               {isUserInfo ? (
-                <UserInfo key="userinfo" userData={data} loading={loading} />
+                <UserInfo key="userinfo" userData={data} />
               ) : (
                 <MyTrips
                   key="mytrips"
+                  userData={data}
+                  setIsUserInfo={setIsUserInfo}
                   userTrips={data.myTrips}
-                  loading={loading}
                 />
               )}
             </AnimatePresence>

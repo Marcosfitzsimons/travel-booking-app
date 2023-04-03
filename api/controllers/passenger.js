@@ -57,17 +57,19 @@ export const deletePassenger = async (req, res, next) => {
     const userId = req.params.id
 
     const trip = await Trip.findById(tripId).populate('passengers');
+
     const passenger = trip.passengers.find(passenger => passenger.createdBy == userId)
-
     if (!passenger) throw new NotFoundError('Pasajero no existe en este viaje.')
+    await Passenger.findByIdAndDelete(passenger._id)
 
-    try {
-        await Passenger.findByIdAndDelete(passenger._id)
-        trip.passengers.pull(passenger._id);
-        await trip.save();
-    } catch (err) {
-        next(err)
-    }
+    trip.passengers.pull(passenger._id);
+    await trip.save();
+
+    const user = await User.findById(userId).populate('myTrips');
+    const userTrip = user.myTrips.find(userTrip => userTrip._id == tripId)
+    user.myTrips.pull(userTrip._id)
+    await user.save();
+
     res.status(StatusCodes.OK).json('Pasaje cancelado con éxito.')
 
 }
