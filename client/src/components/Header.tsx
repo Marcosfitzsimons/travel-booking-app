@@ -30,6 +30,7 @@ type HeaderProps = {
 };
 
 const Header = ({ setIsUserInfo }: HeaderProps) => {
+  console.log("header re-render");
   const { user, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
   const handleLogOut = () => {
