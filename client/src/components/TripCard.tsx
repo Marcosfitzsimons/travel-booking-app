@@ -40,6 +40,7 @@ const TripCard = ({
   maxCapacity,
 }: TripProps) => {
   const todayDate = format(new Date(), "dd/MM/yy");
+  const formattedDate = format(new Date(date), "dd/MM/yy");
 
   const { user } = useContext(AuthContext);
 
@@ -66,9 +67,9 @@ const TripCard = ({
           </div>
           <div className="absolute right-4 top-2 flex items-center gap-2">
             <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
-              <CalendarDays className="w-5 h-5" /> {date}
+              <CalendarDays className="w-5 h-5" /> {formattedDate}
             </p>
-            {date === todayDate && (
+            {formattedDate === todayDate && (
               <p className="text-[#256840] px-3 select-none font-medium shadow-sm bg-green-300/30 rounded-2xl border border-blue-lagoon-200 dark:bg-[#6fe79f]/10 dark:border-[#4cc97e] dark:text-[#7bfdaf]">
                 HOY
               </p>

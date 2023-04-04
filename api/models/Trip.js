@@ -7,7 +7,7 @@ const TripSchema = new mongoose.Schema({
         required: [true, 'Ingresa nombre del viaje.']
     },
     date: {
-        type: String,
+        type: Date,
         required: [true, 'Ingresa fecha del viaje.']
     },
     from: {

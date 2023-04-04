@@ -1,5 +1,6 @@
 import axios from "axios";
 import { motion } from "framer-motion";
+import { format } from "date-fns";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -59,7 +60,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const location = useLocation();
   const path = location.pathname;
   const tripId = path.split("/")[2];
-
+  console.log(data);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -70,8 +71,8 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         const res = await axios.get(
           `http://localhost:8800/api/trips/${tripId}`
         );
-        setData(res.data);
-        console.log(res.data);
+        const formattedDate = format(new Date(res.data.date), "dd/MM/yy");
+        setData({ ...res.data, date: formattedDate });
       } catch (err) {
         setError(err);
       }

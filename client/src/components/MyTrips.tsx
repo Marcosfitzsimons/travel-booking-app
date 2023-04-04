@@ -1,11 +1,11 @@
 import { AlertCircle, CalendarDays, Ticket, Watch } from "lucide-react";
+import { format } from "date-fns";
 import { motion } from "framer-motion";
 import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -146,7 +146,8 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                       </div>
                       <div className="absolute right-4 top-2 flex items-center gap-2">
                         <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
-                          <CalendarDays className="w-5 h-5" /> {trip.date}
+                          <CalendarDays className="w-5 h-5" />{" "}
+                          {format(new Date(trip.date), "dd/MM/yy")}
                         </p>
                       </div>
 

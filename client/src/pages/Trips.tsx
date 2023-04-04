@@ -56,9 +56,10 @@ const Trips = () => {
   if (startDate) {
     dateSelected = format(startDate, "dd/MM/yy");
     console.log(typeof dateSelected);
-    filteredTrips = data.filter(
-      (trip: TripProps) => trip.date === dateSelected
-    );
+    filteredTrips = data.filter((trip: TripProps) => {
+      const formattedDate = format(new Date(trip.date), "dd/MM/yy");
+      return formattedDate === dateSelected;
+    });
   }
 
   return (
