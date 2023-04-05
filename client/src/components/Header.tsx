@@ -1,11 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import {
-  Bus,
-  CalendarRange,
+  AlignCenter,
   ClipboardList,
   LogOut,
-  Menu,
-  Star,
   User,
   UserCog,
 } from "lucide-react";
@@ -59,7 +56,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   variant="ghost"
                   className="relative top-[1px] w-8 h-8 rounded-md p-0 dark:hover:text-white dark:hover:bg-blue-lagoon-900/70"
                 >
-                  <Menu />
+                  <AlignCenter />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start">

@@ -1,5 +1,4 @@
 import { DotWave } from "@uiball/loaders";
-import React from "react";
 
 const Loading = () => {
   const theme = localStorage.getItem("theme");
