@@ -1,5 +1,5 @@
 import Featured from "../components/Featured";
-import Table from "../components/Table";
+import List from "../components/List";
 import Widget from "../components/Widget";
 
 const Home = () => {
@@ -14,8 +14,10 @@ const Home = () => {
         <Featured />
       </div>
       <article className="p-5 border">
-        <h3>Ultimos movimientos</h3>
-        <Table />
+        <h3 className="font-bold text-blue-lagoon-800/30 mb-4">
+          Ultimos movimientos
+        </h3>
+        <List />
       </article>
     </section>
   );
