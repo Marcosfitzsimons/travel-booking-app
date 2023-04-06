@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.16",
+    "@mui/x-data-grid": "^6.0.4",
     "@radix-ui/react-progress": "^1.0.2",
     "@uiball/loaders": "^1.2.6",
     "class-variance-authority": "^0.5.1",
