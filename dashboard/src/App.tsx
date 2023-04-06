@@ -1,17 +1,14 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
-import Trips from "./pages/Trips";
-import Trip from "./pages/Trip";
 import Login from "./pages/Login";
-import Footer from "./components/Footer";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
-import Users from "./pages/Users";
-import User from "./pages/User";
-import NewUser from "./pages/NewUser";
-import NewTrip from "./pages/NewTrip";
+import New from "./pages/New";
+import Single from "./pages/Single";
+import List from "./pages/List";
 
 function App() {
+  /* Delete frmer motion */
   return (
     <div className="App flex">
       <SideBar />
@@ -23,19 +20,23 @@ function App() {
               <Route index element={<Home />} />
               <Route path="login" element={<Login />} />
               <Route path="usuarios">
-                <Route index element={<Users />} />
-                <Route path=":id" element={<User />} />
-                <Route path="usuario-nuevo" element={<NewUser />} />
+                <Route index element={<List />} />
+                <Route path=":id" element={<Single />} />
+                <Route path="usuario-nuevo" element={<New />} />
               </Route>
               <Route path="viajes">
-                <Route index element={<Trips />} />
-                <Route path=":id" element={<Trip />} />
-                <Route path="viaje-nuevo" element={<NewTrip />} />
+                <Route index element={<List />} />
+                <Route path=":id" element={<Single />} />
+                <Route path="viaje-nuevo" element={<New />} />
+              </Route>
+              <Route path="pasajeros">
+                <Route index element={<List />} />
+                <Route path=":id" element={<Single />} />
+                <Route path="viaje-nuevo" element={<New />} />
               </Route>
             </Route>
           </Routes>
         </main>
-        <Footer />
       </div>
     </div>
   );
