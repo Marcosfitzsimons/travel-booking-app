@@ -1,5 +1,6 @@
-import { LayoutDashboard, User, Map, LogOut } from "lucide-react";
+import { LayoutDashboard, User, Map, LogOut, Ticket } from "lucide-react";
 import Logo from "./Logo";
+import { Link } from "react-router-dom";
 
 const SideBar = () => {
   return (
@@ -7,14 +8,16 @@ const SideBar = () => {
       <div className="w-full flex items-center justify-center py-[15px] border-b border-b-blue-lagoon-700/50 dark:border-b-neutral-600 ">
         <Logo />
       </div>
-      <div className="flex flex-col gap-5 px-4 mt-6">
+      <div className="w-full max-w-[12rem] flex flex-col gap-5 px-4 mt-6">
         <div className="flex flex-col gap-1">
           <p className="text-blue-lagoon-800/30 uppercase font-bold text-sm">
             Principal
           </p>
-          <div className="px-2 flex items-center gap-2">
-            <LayoutDashboard className="h-5 w-5" />
-            <a href="#">Dashboard</a>
+          <div className="relative flex items-center gap-2">
+            <LayoutDashboard className="absolute left-2 h-5 w-5" />
+            <Link to="/" className="z-20 w-full pl-8">
+              Dashboard
+            </Link>
           </div>
         </div>
         <nav className="">
@@ -22,15 +25,24 @@ const SideBar = () => {
             <p className="text-blue-lagoon-800/30 uppercase font-bold text-sm">
               Listas
             </p>
-            <li className="px-2 flex items-center gap-2">
-              <User className="h-5 w-5" />
-              <a href="#">Usuarios</a>
+            <li className="relative flex items-center gap-2">
+              <User className="absolute left-2 h-5 w-5" />
+              <Link to="/usuarios" className="z-20 w-full pl-8">
+                Usuarios
+              </Link>
             </li>
-            <li className="px-2 flex items-center gap-2">
-              <Map className="h-5 w-5" />
-              <a href="#">Viajes</a>
+            <li className="relative flex items-center gap-2">
+              <Map className="absolute left-2 h-5 w-5" />
+              <Link to="/viajes" className="z-20 w-full pl-8">
+                Viajes
+              </Link>
             </li>
-            {/* Reservas / Pasajes */}
+            <li className="relative flex items-center gap-2">
+              <Ticket className="absolute left-2 h-5 w-5" />
+              <Link to="/pasajeros" className="z-20 w-full pl-8">
+                Pasajeros
+              </Link>
+            </li>
           </ul>
         </nav>
         <div className="">
@@ -38,13 +50,17 @@ const SideBar = () => {
             <p className="text-blue-lagoon-800/30 uppercase font-bold text-sm">
               Admin
             </p>
-            <li className="px-2 flex items-center gap-2">
-              <User className="h-5 w-5" />
-              <a href="#">Perfil</a>
+            <li className="relative flex items-center gap-2">
+              <User className="absolute left-2 h-5 w-5" />
+              <Link to="/mi-perfil" className="w-full pl-8 z-20">
+                Perfil
+              </Link>
             </li>
-            <li className="px-2 flex items-center gap-2">
-              <LogOut className="h-5 w-5" />
-              <a href="#">Salir</a>
+            <li className="relative flex items-center gap-2">
+              <LogOut className="absolute left-2 h-5 w-5" />
+              <Link to="/login" className="w-full pl-8 z-20">
+                Salir
+              </Link>
             </li>
           </ul>
         </div>
