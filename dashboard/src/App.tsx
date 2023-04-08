@@ -6,6 +6,7 @@ import SideBar from "./components/SideBar";
 import New from "./pages/New";
 import Single from "./pages/Single";
 import List from "./pages/List";
+import { tripInputs, userInputs } from "./formSource";
 
 function App() {
   /* Delete frmer motion */
@@ -22,12 +23,22 @@ function App() {
               <Route path="usuarios">
                 <Route index element={<List />} />
                 <Route path=":id" element={<Single />} />
-                <Route path="usuario-nuevo" element={<New />} />
+                <Route
+                  path="usuario-nuevo"
+                  element={
+                    <New inputs={userInputs} title="Crear usuario nuevo" />
+                  }
+                />
               </Route>
               <Route path="viajes">
                 <Route index element={<List />} />
                 <Route path=":id" element={<Single />} />
-                <Route path="viaje-nuevo" element={<New />} />
+                <Route
+                  path="viaje-nuevo"
+                  element={
+                    <New inputs={tripInputs} title="Crear viaje nuevo" />
+                  }
+                />
               </Route>
               <Route path="pasajeros">
                 <Route index element={<List />} />

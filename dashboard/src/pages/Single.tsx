@@ -8,9 +8,9 @@ const Single = () => {
         <div className="absolute top-5 right-5 py-1 text-white px-2 bg-blue-lagoon-900 rounded-md">
           Editar
         </div>
-        <h2>Información</h2>
+        <h1>Información</h1>
         <div className="flex gap-3">
-          <img src="#" alt="d#" />
+          <img src="https://i.pravatar.cc/300" alt="avatar" />
           <div className="">
             <h3>Jane Doe</h3>
             <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-blue-lagoon-700/50 items-start p-4 shadow-inner rounded-md dark:bg-black dark:border-blue-lagoon-200">
