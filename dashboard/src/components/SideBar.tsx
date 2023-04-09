@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const SideBar = () => {
   return (
-    <div className="flex-[1] flex flex-col bg-[#fafafa] dark:bg-[#0d0f12] h-screen border-r border-r-blue-lagoon-700/50 dark:border-r-neutral-600">
+    <div className="hidden flex-[1] bg-[#fafafa] dark:bg-[#0d0f12] h-screen border-r border-r-blue-lagoon-700/50 dark:border-r-neutral-600 lg:flex lg:flex-col">
       <div className="w-full flex items-center justify-center py-[15px] border-b border-b-blue-lagoon-700/50 dark:border-b-neutral-600 ">
         <Logo />
       </div>
