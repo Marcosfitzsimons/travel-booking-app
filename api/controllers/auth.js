@@ -19,12 +19,9 @@ export const register = async (req, res, next) => {
     const hash = bcrypt.hashSync(req.body.password, salt);
 
     const user = new User({
-        fullName: fullName,
-        username: username,
-        email: email,
+        ...req.body,
         password: hash,
-        addressCda: addressCda,
-        phone: phone
+
     })
 
     await user.save()
@@ -33,7 +30,7 @@ export const register = async (req, res, next) => {
     const { password: userPassword, isAdmin, ...otherDetails } = user._doc
 
     res.status(StatusCodes.CREATED).json({
-        ...otherDetails,
+        details: { ...otherDetails },
         token: token
     })
 
@@ -56,8 +53,9 @@ export const login = async (req, res, next) => {
     const { password, isAdmin, ...otherDetails } = user._doc
 
     res.status(StatusCodes.CREATED).json({
-        ...otherDetails,
-        token: token
+        details: { ...otherDetails },
+        token: token,
+        isAdmin
     })
 }
 
