@@ -74,7 +74,7 @@ const Register = () => {
         );
         const token = res.data.token;
         localStorage.setItem("token", token);
-        dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
         toast({
           description: "Registro exitoso. Ahora podes reservar tu lugar.",
         });

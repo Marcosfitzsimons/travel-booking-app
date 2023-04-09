@@ -61,7 +61,7 @@ const Login = () => {
           "http://localhost:8800/api/auth/login",
           data
         );
-        dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
         const token = res.data.token;
         localStorage.setItem("token", token);
         navigate("/viajes");
