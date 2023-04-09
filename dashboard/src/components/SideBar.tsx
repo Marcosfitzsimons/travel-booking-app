@@ -27,19 +27,19 @@ const SideBar = () => {
             </p>
             <li className="relative flex items-center gap-2">
               <User className="absolute left-2 h-5 w-5" />
-              <Link to="/usuarios" className="z-20 w-full pl-8">
+              <Link to="/users" className="z-20 w-full pl-8">
                 Usuarios
               </Link>
             </li>
             <li className="relative flex items-center gap-2">
               <Map className="absolute left-2 h-5 w-5" />
-              <Link to="/viajes" className="z-20 w-full pl-8">
+              <Link to="/trips" className="z-20 w-full pl-8">
                 Viajes
               </Link>
             </li>
             <li className="relative flex items-center gap-2">
               <Ticket className="absolute left-2 h-5 w-5" />
-              <Link to="/pasajeros" className="z-20 w-full pl-8">
+              <Link to="/passengers" className="z-20 w-full pl-8">
                 Pasajeros
               </Link>
             </li>
