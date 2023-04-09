@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Moon, SunMedium } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "./ui/button";
 
 const themeIconVariants = {
@@ -56,43 +55,41 @@ export default function ThemeToggle() {
 
   return isMounted ? (
     <div className="">
-      <AnimatePresence mode="wait">
-        {theme === "dark" ? (
-          <motion.div
-            variants={themeIconVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            key="sun"
+      {theme === "dark" ? (
+        <div
+          variants={themeIconVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          key="sun"
+        >
+          <Button
+            aria-label="Toggle theme"
+            onClick={toggleTheme}
+            variant="ghost"
+            className="w-8 h-8 rounded-md p-0 dark:hover:text-white dark:hover:bg-blue-lagoon-900/70"
           >
-            <Button
-              aria-label="Toggle theme"
-              onClick={toggleTheme}
-              variant="ghost"
-              className="w-8 h-8 rounded-md p-0 dark:hover:text-white dark:hover:bg-blue-lagoon-900/70"
-            >
-              <SunMedium className="w-5 h-5" />
-            </Button>
-          </motion.div>
-        ) : (
-          <motion.div
-            variants={themeIconVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            key="moon"
+            <SunMedium className="w-5 h-5" />
+          </Button>
+        </div>
+      ) : (
+        <div
+          variants={themeIconVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          key="moon"
+        >
+          <Button
+            aria-label="Toggle theme"
+            variant="ghost"
+            onClick={toggleTheme}
+            className="w-8 h-8 rounded-md p-0 dark:text-white hover:bg-blue-lagoon-300/10"
           >
-            <Button
-              aria-label="Toggle theme"
-              variant="ghost"
-              onClick={toggleTheme}
-              className="w-8 h-8 rounded-md p-0 dark:text-white hover:bg-blue-lagoon-300/10"
-            >
-              <Moon className="w-5 h-5" fill="white" />
-            </Button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <Moon className="w-5 h-5" fill="white" />
+          </Button>
+        </div>
+      )}
     </div>
   ) : (
     <div />
