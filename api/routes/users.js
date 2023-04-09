@@ -20,7 +20,6 @@ router.get('/checkadmin/:id', verifyAdmin, (req, res, next) => {
 
 // UPDATE  
 router.put("/:id", verifyUser, updateUser)
-// router.put("/:id", verifyUser, addTripToUser)
 
 // DELETE
 router.delete("/:id", verifyUser, deleteUser)
