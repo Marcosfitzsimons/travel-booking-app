@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Header from "./components/Header";
@@ -7,9 +7,18 @@ import New from "./pages/New";
 import Single from "./pages/Single";
 import List from "./pages/List";
 import { tripInputs, userInputs } from "./formSource";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  /* Delete frmer motion */
+  const ProtectedRoute = ({ children }) => {
+    const { user } = useContext(AuthContext);
+    if (!user) {
+      return <Navigate to="/login" />;
+    }
+    return children;
+  };
+
   return (
     <div className="App flex">
       <SideBar />
@@ -18,32 +27,93 @@ function App() {
         <main className="pt-6 w-[min(90%,1200px)] mx-auto py-2">
           <Routes>
             <Route path="/">
-              <Route index element={<Home />} />
               <Route path="login" element={<Login />} />
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="usuarios">
-                <Route index element={<List />} />
-                <Route path=":id" element={<Single />} />
+                <Route
+                  index
+                  element={
+                    <ProtectedRoute>
+                      <List />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path=":id"
+                  element={
+                    <ProtectedRoute>
+                      <Single />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route
                   path="usuario-nuevo"
                   element={
-                    <New inputs={userInputs} title="Crear usuario nuevo" />
+                    <ProtectedRoute>
+                      <New inputs={userInputs} title="Crear usuario nuevo" />
+                    </ProtectedRoute>
                   }
                 />
               </Route>
               <Route path="viajes">
-                <Route index element={<List />} />
-                <Route path=":id" element={<Single />} />
+                <Route
+                  index
+                  element={
+                    <ProtectedRoute>
+                      <List />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path=":id"
+                  element={
+                    <ProtectedRoute>
+                      <Single />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route
                   path="viaje-nuevo"
                   element={
-                    <New inputs={tripInputs} title="Crear viaje nuevo" />
+                    <ProtectedRoute>
+                      <New inputs={tripInputs} title="Crear viaje nuevo" />
+                    </ProtectedRoute>
                   }
                 />
               </Route>
+
               <Route path="pasajeros">
-                <Route index element={<List />} />
-                <Route path=":id" element={<Single />} />
-                <Route path="viaje-nuevo" element={<New />} />
+                <Route
+                  index
+                  element={
+                    <ProtectedRoute>
+                      <List />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path=":id"
+                  element={
+                    <ProtectedRoute>
+                      <Single />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="viaje-nuevo"
+                  element={
+                    <ProtectedRoute>
+                      <New />
+                    </ProtectedRoute>
+                  }
+                />
               </Route>
             </Route>
           </Routes>
