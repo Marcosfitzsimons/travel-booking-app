@@ -4,7 +4,8 @@ import { NotFoundError } from '../errors/index.js'
 import Trip from "../models/Trip.js"
 
 export const createTrip = async (req, res) => {
-    const date = parse(req.body.date, "dd/MM/yy", new Date());
+    const date = parse(req.body.date, "dd/MM/yyyy", new Date());
+    console.log(date)
     const newTrip = new Trip({
         ...req.body,
         date: date
