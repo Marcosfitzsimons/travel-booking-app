@@ -1,14 +1,17 @@
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Toaster } from "./components/ui/toaster";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
-import New from "./pages/New";
+import NewTrip from "./pages/NewTrip";
+import NewUser from "./pages/NewUser";
 import Single from "./pages/Single";
 import List from "./pages/List";
-import { tripInputs, userInputs } from "./formSource";
-import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import { passengerInputs, tripInputs, userInputs } from "./formSource";
+import { passengerColumns, tripColumns, userColumns } from "./datatablesource";
 
 function App() {
   const ProtectedRoute = ({ children }) => {
@@ -36,12 +39,16 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="usuarios">
+              <Route path="users">
                 <Route
                   index
                   element={
                     <ProtectedRoute>
-                      <List />
+                      <List
+                        columns={userColumns}
+                        title="Usuarios"
+                        linkText="Crear usuario"
+                      />
                     </ProtectedRoute>
                   }
                 />
@@ -54,20 +61,27 @@ function App() {
                   }
                 />
                 <Route
-                  path="usuario-nuevo"
+                  path="new"
                   element={
                     <ProtectedRoute>
-                      <New inputs={userInputs} title="Crear usuario nuevo" />
+                      <NewUser
+                        inputs={userInputs}
+                        title="Crear usuario nuevo"
+                      />
                     </ProtectedRoute>
                   }
                 />
               </Route>
-              <Route path="viajes">
+              <Route path="trips">
                 <Route
                   index
                   element={
                     <ProtectedRoute>
-                      <List />
+                      <List
+                        columns={tripColumns}
+                        title="Viajes"
+                        linkText="Crear viaje"
+                      />
                     </ProtectedRoute>
                   }
                 />
@@ -80,21 +94,25 @@ function App() {
                   }
                 />
                 <Route
-                  path="viaje-nuevo"
+                  path="new"
                   element={
                     <ProtectedRoute>
-                      <New inputs={tripInputs} title="Crear viaje nuevo" />
+                      <NewTrip inputs={tripInputs} title="Crear viaje nuevo" />
                     </ProtectedRoute>
                   }
                 />
               </Route>
 
-              <Route path="pasajeros">
+              <Route path="passengers">
                 <Route
                   index
                   element={
                     <ProtectedRoute>
-                      <List />
+                      <List
+                        title="Pasajeros"
+                        columns={passengerColumns}
+                        linkText="Crear pasajero"
+                      />
                     </ProtectedRoute>
                   }
                 />
@@ -107,10 +125,13 @@ function App() {
                   }
                 />
                 <Route
-                  path="viaje-nuevo"
+                  path="new"
                   element={
                     <ProtectedRoute>
-                      <New />
+                      <NewUser
+                        inputs={passengerInputs}
+                        title="Crear pasajero nuevo"
+                      />
                     </ProtectedRoute>
                   }
                 />
@@ -119,6 +140,7 @@ function App() {
           </Routes>
         </main>
       </div>
+      <Toaster />
     </div>
   );
 }
