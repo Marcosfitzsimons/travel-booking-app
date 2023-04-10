@@ -5,16 +5,12 @@ import Widget from "../components/Widget";
 const Home = () => {
   return (
     <section>
-      <div className="flex flex-col gap-5 lg:flex-row">
+      <div className="flex flex-col gap-5 lg:flex-row lg:justify-between">
         <Widget type="user" />
         <Widget type="trip" />
-        <Widget type="earning" />
       </div>
-      <div className="my-6 w-full flex justify-center items-center">
-        <Featured />
-      </div>
-      <article className="p-5 border">
-        <h3 className="font-bold text-blue-lagoon-800/30 mb-4">
+      <article className="my-5 p-5 rounded-md shadow-md bg-white/80 border border-blue-lagoon-500/20 dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
+        <h3 className="font-bold text-blue-lagoon-600 mb-4 dark:text-blue-lagoon-300">
           Ultimos movimientos
         </h3>
         <List />

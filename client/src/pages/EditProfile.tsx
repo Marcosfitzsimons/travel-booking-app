@@ -61,7 +61,7 @@ const EditProfile = () => {
     try {
       const res = await axios.put(
         `http://localhost:8800/api/users/${user?._id}`,
-        { data },
+        { userData: data },
         { headers }
       );
       localStorage.setItem("user", JSON.stringify(res.data));

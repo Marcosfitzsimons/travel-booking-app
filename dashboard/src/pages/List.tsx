@@ -1,10 +1,10 @@
 import Datatable from "../components/Datatable";
 
-const List = () => {
+const List = ({ title, columns, linkText }) => {
   return (
     <section className="flex flex-col gap-5">
-      <h1>Usuarios/Viajes/Pasajeros</h1>
-      <Datatable />
+      <h1>{title}</h1>
+      <Datatable columns={columns} linkText={linkText} />
     </section>
   );
 };

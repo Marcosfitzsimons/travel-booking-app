@@ -1,6 +1,6 @@
 import NewUserForm from "../components/NewUserForm";
 
-const New = ({ inputs, title }) => {
+const NewUser = ({ inputs, title }) => {
   return (
     <section className="flex flex-col gap-5">
       <h1>{title}</h1>
@@ -11,4 +11,4 @@ const New = ({ inputs, title }) => {
   );
 };
 
-export default New;
+export default NewUser;

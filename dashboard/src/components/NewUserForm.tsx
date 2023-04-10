@@ -20,7 +20,7 @@ type User = {
   password: string;
 };
 
-const NewForm = ({ inputs }) => {
+const NewUserForm = ({ inputs }) => {
   // Add react-hook-form validations.
   const [image, setImage] = useState("");
   const [err, setErr] = useState<null | string>(null);
@@ -67,11 +67,12 @@ const NewForm = ({ inputs }) => {
       });
       navigate("/users");
     } catch (err: any) {
+      console.log(err);
+      const errorMsg = err.response.data.err.message;
+      setErr(errorMsg);
       toast({
         description: "Error al crear usuario. Intentar más tarde.",
       });
-      const errorMsg = err.response.data.msg;
-      setErr(errorMsg);
     }
   };
 
@@ -142,4 +143,4 @@ const NewForm = ({ inputs }) => {
   );
 };
 
-export default NewForm;
+export default NewUserForm;

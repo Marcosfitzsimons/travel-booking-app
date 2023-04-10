@@ -40,10 +40,19 @@ const Login = () => {
           "http://localhost:8800/api/auth/login",
           data
         );
-        dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-        const token = res.data.token;
-        localStorage.setItem("token", token);
-        navigate("/viajes");
+        if (res.data.isAdmin) {
+          dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+          const token = res.data.token;
+          localStorage.setItem("token", token);
+          navigate("/");
+        } else {
+          const errorMsg = "No estás autorizado.";
+          setErr(errorMsg);
+          dispatch({
+            type: "LOGIN_FAILURE",
+            payload: { message: "No estás autorizado." },
+          });
+        }
       } catch (err: any) {
         dispatch({
           type: "LOGIN_FAILURE",
