@@ -20,7 +20,6 @@ interface Trip {
   to: string;
   arrivalTime: string;
   maxCapacity: number;
-  image?: string;
   price: number;
   available: boolean;
   passengers: string[];
