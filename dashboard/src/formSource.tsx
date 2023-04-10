@@ -5,36 +5,124 @@ export const userInputs = [
     id: "username",
     label: "Username",
     type: "text",
-    placeholder: "john_doe",
+    placeholder: "yourusername",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresa tu nombre de usuario.",
+      },
+      minLength: {
+        value: 3,
+        message: "Nombre de usuario no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 15,
+        message: "Nombre de usuario no puede ser tan largo.",
+      },
+    },
   },
   {
     id: "fullName",
     label: "Nombre completo",
     type: "text",
-    placeholder: "john_doe",
+    placeholder: "John Doe",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresa tu nombre completo.",
+      },
+      minLength: {
+        value: 3,
+        message: "Nombre y apellido no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 25,
+        message: "Nombre y apellido no puede ser tan largo.",
+      },
+    },
   },
   {
     id: "email",
     label: "Email",
     type: "email",
     placeholder: "john_doe@gmail.com",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresa tu email.",
+      },
+      minLength: {
+        value: 3,
+        message: "Email no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 40,
+        message: "Email no puede ser tan largo.",
+      },
+    },
   },
   {
     id: "phone",
     label: "Phone",
     type: "text",
     placeholder: "+1 234 567 89",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresa tu número celular.",
+      },
+      minLength: {
+        value: 3,
+        message: "Número celular no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 25,
+        message: "Número celular no puede ser tan largo.",
+      },
+      pattern: {
+        value: /^[0-9]+$/,
+        message: "Número celular debe incluir solo números.",
+      },
+    },
   },
   {
     id: "password",
     label: "Password",
     type: "password",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresa tu contraseña.",
+      },
+      minLength: {
+        value: 3,
+        message: "Contraseña no puede ser tan corta.",
+      },
+      maxLength: {
+        value: 25,
+        message: "Contraseña no puede ser tan larga.",
+      },
+    },
   },
   {
     id: "addressCda",
     label: "Direccion Carmen",
     type: "text",
     placeholder: "Matheu 88",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresa tu domicilio.",
+      },
+      minLength: {
+        value: 3,
+        message: "Domicilio no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 25,
+        message: "Domicilio no puede ser tan largo.",
+      },
+    },
   },
   {
     id: "addressCapital",
@@ -42,12 +130,13 @@ export const userInputs = [
     type: "text",
     placeholder: "Dr. Lemon 448",
   },
-
   {
-    id: "file",
+    id: "image",
     label: "Subir",
     type: "file",
     icon: <Upload className="w-4 h-4" />,
+
+    // check validation
   },
 ];
 
@@ -57,45 +146,146 @@ export const tripInputs = [
     label: "Nombre del viaje",
     type: "text",
     placeholder: "De carmen a Capital",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar nombre del viaje.",
+      },
+      minLength: {
+        value: 3,
+        message: "Nombre del viaje no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 30,
+        message: "Nombre del viaje no puede ser tan largo.",
+      },
+    },
   },
   {
     id: "date",
     label: "Fecha",
     type: "text",
     placeholder: "03/04/23",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar fecha del viaje.",
+      },
+    },
   },
   {
     id: "from",
     label: "Desde",
     type: "text",
     placeholder: "Carmen",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar lugar de salida.",
+      },
+      minLength: {
+        value: 3,
+        message: "Lugar de salida no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 25,
+        message: "Lugar de salida no puede ser tan largo.",
+      },
+    },
   },
   {
     id: "to",
     label: "Hasta",
     type: "text",
     placeholder: "Capital",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar lugar de llegada.",
+      },
+      minLength: {
+        value: 3,
+        message: "Lugar de llegada no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 25,
+        message: "Lugar de llegada no puede ser tan largo.",
+      },
+    },
   },
   {
-    id: "maxCapacity",
-    label: "Capacidad maxima",
-    type: "number",
-    placeholder: "15",
+    id: "departureTime",
+    label: "Horario de salida",
+    type: "text",
+    placeholder: "08:00",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar horario de salida.",
+      },
+      minLength: {
+        value: 3,
+        message: "Horario de salida no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 25,
+        message: "Horario de salida no puede ser tan largo.",
+      },
+    },
+  },
+  {
+    id: "arrivalTime",
+    label: "Horario de llegada",
+    type: "text",
+    placeholder: "11:00",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar horario de llegada.",
+      },
+      minLength: {
+        value: 3,
+        message: "Horario de llegada no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 25,
+        message: "Horario de llegada no puede ser tan largo.",
+      },
+    },
   },
   {
     id: "price",
     label: "Precio",
     type: "number",
     placeholder: "2500",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar precio/persona del viaje.",
+      },
+    },
+  },
+  {
+    id: "maxCapacity",
+    label: "Capacidad maxima",
+    type: "number",
+    placeholder: "15",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar capacidad máxima de personas del viaje.",
+      },
+    },
   },
 ];
 
-export const PassengerInputs = [
+// to do
+export const passengerInputs = [
   {
     id: "name",
     label: "Name",
     type: "text",
-    placeholder: "My Hotel",
+    placeholder: "My passenger",
   },
   {
     id: "type",
@@ -138,32 +328,5 @@ export const PassengerInputs = [
     label: "Price",
     type: "text",
     placeholder: "100",
-  },
-];
-
-export const roomInputs = [
-  {
-    id: "title",
-    label: "Title",
-    type: "text",
-    placeholder: "2 bed room",
-  },
-  {
-    id: "desc",
-    label: "Description",
-    type: "text",
-    placeholder: "King size bed, 1 bathroom",
-  },
-  {
-    id: "price",
-    label: "Price",
-    type: "number",
-    placeholder: "100",
-  },
-  {
-    id: "maxPeople",
-    label: "Max People",
-    type: "number",
-    placeholder: "2",
   },
 ];
