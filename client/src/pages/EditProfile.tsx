@@ -26,12 +26,11 @@ type UserData = {
 };
 
 const EditProfile = () => {
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState<File | string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
-
   const { user } = useContext(AuthContext);
-
+  console.log(typeof image);
   const {
     register,
     handleSubmit,
@@ -146,7 +145,11 @@ const EditProfile = () => {
                     <Avatar className="w-32 h-32">
                       <AvatarImage
                         className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
-                        src={image ? URL.createObjectURL(image) : ""}
+                        src={
+                          image instanceof File
+                            ? URL.createObjectURL(image)
+                            : user?.image
+                        }
                         alt="avatar"
                       />
                       <AvatarFallback>
@@ -168,7 +171,12 @@ const EditProfile = () => {
                         className="hidden"
                         {...register("image", {
                           onChange: (e) => {
-                            setImage(e.target.files[0]);
+                            const file = e.target.files[0];
+                            if (file instanceof File) {
+                              setImage(file);
+                            } else {
+                              console.error("Invalid file type");
+                            }
                           },
                         })}
                       />
