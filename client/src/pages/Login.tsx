@@ -58,7 +58,7 @@ const Login = () => {
       dispatch({ type: "LOGIN_START" });
       try {
         const res = await axios.post(
-          "http://localhost:8800/api/auth/login",
+          "https://travel-booking-api-production.up.railway.app/api/auth/login",
           data
         );
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });

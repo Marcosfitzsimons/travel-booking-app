@@ -29,6 +29,7 @@ type HeaderProps = {
 const Header = ({ setIsUserInfo }: HeaderProps) => {
   console.log("header re-render");
   const { user, dispatch } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const handleLogOut = () => {
     if (dispatch) {
@@ -132,7 +133,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
-                    <AvatarImage src={user.image} />
+                    <AvatarImage src={user.image} alt="avatar picture" />
                     <AvatarFallback>
                       <User className="dark:text-blue-lagoon-100" />
                     </AvatarFallback>

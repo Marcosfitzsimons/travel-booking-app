@@ -66,7 +66,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
           Authorization: `Bearer ${token}`,
         };
         const res = await axios.get(
-          `http://localhost:8800/api/users/${user?._id}`,
+          `https://travel-booking-api-production.up.railway.app/api/users/${user?._id}`,
           { headers }
         );
         setData(res.data.user);

@@ -48,7 +48,7 @@ const Trips = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   console.log("trips page re-render");
   const { data, loading, error, reFetch } = useFetch(
-    "http://localhost:8800/api/trips"
+    "https://travel-booking-api-production.up.railway.app/api/trips"
   );
 
   let filteredTrips;

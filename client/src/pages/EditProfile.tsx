@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Pencil, User } from "lucide-react";
+import { Pencil, Upload, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -26,6 +26,7 @@ type UserData = {
 };
 
 const EditProfile = () => {
+  const [image, setImage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
 
@@ -58,10 +59,21 @@ const EditProfile = () => {
   const handleOnSubmit = async (data: UserData) => {
     localStorage.removeItem("user");
     setIsLoading(true);
+
+    const imgData = new FormData();
+    imgData.append("file", image);
+    imgData.append("upload_preset", "upload");
+
     try {
+      const uploadRes = await axios.post(
+        "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
+        imgData
+      );
+      const { url } = uploadRes.data;
+
       const res = await axios.put(
-        `http://localhost:8800/api/users/${user?._id}`,
-        { userData: data },
+        `https://travel-booking-api-production.up.railway.app/api/users/${user?._id}`,
+        { userData: { ...data, image: url } },
         { headers }
       );
       localStorage.setItem("user", JSON.stringify(res.data));
@@ -134,22 +146,36 @@ const EditProfile = () => {
                     <Avatar className="w-32 h-32">
                       <AvatarImage
                         className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
-                        src={user ? user.image : ""}
+                        src={image ? URL.createObjectURL(image) : ""}
                         alt="avatar"
                       />
                       <AvatarFallback>
-                        {" "}
                         <User className="w-12 h-12 dark:text-blue-lagoon-100" />
                       </AvatarFallback>
                     </Avatar>
 
-                    <Button
-                      type="button"
-                      className="h-7 px-3 py-2 absolute flex items-center gap-1 text-sm -bottom-1 bg-white/50 rounded-lg border border-blue-lagoon-200 backdrop-blur-sm shadow-sm shadow-blue-lagoon-900/30 hover:bg-white hover:border-blue-lagoon-600/50 dark:text-blue-lagoon-100  dark:bg-blue-lagoon-900/10 dark:border-blue-lagoon-300/50 dark:hover:text-white dark:hover:bg-blue-lagoon-900/60"
-                    >
-                      <Pencil className="w-4 h-4" />
-                      Editar
-                    </Button>
+                    <div className="absolute -bottom-1 ">
+                      <Label
+                        htmlFor="image"
+                        className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 bg-white/50 backdrop-blur-sm  hover:bg-white hover:border-blue-lagoon-600/50 dark:text-blue-lagoon-100 dark:bg-blue-lagoon-600/30 dark:hover:border-blue-lagoon-200"
+                      >
+                        Subir <Upload className="w-4 h-4" />
+                      </Label>
+                      <Input
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        className="hidden"
+                        {...register("image", {
+                          onChange: (e) => {
+                            setImage(e.target.files[0]);
+                          },
+                        })}
+                      />
+                      {errors.image && (
+                        <p className="text-red-600">{errors.image.message}</p>
+                      )}
+                    </div>
                   </div>
                   <div className="grid w-full max-w-md items-center gap-2">
                     <Label htmlFor="username">Username</Label>
