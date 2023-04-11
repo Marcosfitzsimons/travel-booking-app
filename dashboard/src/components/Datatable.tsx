@@ -1,17 +1,17 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns } from "../datatablesource";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import useFetch from "../hooks/useFetch";
 import axios from "axios";
-import { format } from "date-fns";
 
 const Datatable = ({ columns, linkText }) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
+
+  const navigate = useNavigate();
 
   const baseUrl = `http://localhost:8800/api/${path}`;
 
@@ -31,6 +31,10 @@ const Datatable = ({ columns, linkText }) => {
     } catch (err) {}
   };
 
+  const handleSinglePage = (id) => {
+    navigate(`/${path}/${id}`);
+  };
+
   const actionColumn = [
     {
       field: "action",
@@ -39,12 +43,12 @@ const Datatable = ({ columns, linkText }) => {
       renderCell: (params) => {
         return (
           <div className="flex items-center gap-2">
-            <Link
-              to="/usuarios/test"
+            <Button
+              onClick={() => handleSinglePage(params.row._id)}
               className="py-1 px-2 rounded-md border border-blue-lagoon-900/70"
             >
               View
-            </Link>
+            </Button>
             <Button
               className="py-1 px-2 rounded-md border border-red-600"
               onClick={() => handleDelete(params.row._id)}
