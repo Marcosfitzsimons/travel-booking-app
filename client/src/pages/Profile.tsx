@@ -60,7 +60,6 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      setLoading(true);
       try {
         const token = localStorage.getItem("token");
         const headers = {

@@ -82,9 +82,9 @@ const UserInfo = ({ userData }: UserInfoProps) => {
         </Avatar>
 
         <div className="flex flex-col items-center">
-          <h4 className="font-medium text-xl dark:text-white ">
+          <h3 className="font-medium text-xl dark:text-white ">
             {userData?.fullName}
-          </h4>
+          </h3>
           <h4 className="text-[#737373]">@{userData?.username}</h4>
         </div>
         <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-blue-lagoon-700/50 items-start p-4 shadow-inner rounded-md dark:bg-black dark:border-blue-lagoon-200">
