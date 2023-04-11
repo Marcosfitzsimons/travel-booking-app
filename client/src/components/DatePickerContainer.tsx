@@ -4,7 +4,7 @@ import { registerLocale, setDefaultLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import { CalendarDays } from "lucide-react";
 
-const DatePickerContainer = ({ startDate, setStartDate }) => {
+const DatePickerContainer = ({ startDate, setStartDate }: any) => {
   setDefaultLocale("es");
   registerLocale("es", es);
 
@@ -30,9 +30,6 @@ after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] afte
         selected={startDate}
         placeholderText="Seleccionar fecha"
         minDate={new Date()}
-        InputProps={{
-          style: startDate ? highlightSelectedDate : {},
-        }}
         onChange={(date) => setStartDate(date)}
       />
     </div>

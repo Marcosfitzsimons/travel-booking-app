@@ -90,7 +90,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `http://localhost:8800/api/passengers/${user._id}/${tripId}`,
+        `http://localhost:8800/api/passengers/${user?._id}/${tripId}`,
         {},
         { headers }
       );
