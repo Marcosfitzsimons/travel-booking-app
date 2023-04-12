@@ -11,6 +11,7 @@ import {
   TooltipTrigger,
 } from "../components/ui/tooltip";
 import DefaultButton from "./DefaultButton";
+import miniBus from "../assets/minibus1-sm.png";
 
 interface Trip {
   _id: number;
@@ -64,7 +65,7 @@ const TripCard = ({
         <div className="flex flex-col gap-2">
           <div className="absolute top-[.6rem] left-5">
             <img
-              src="./minibus1-sm.png"
+              src={miniBus}
               alt="combi"
               className="w-10 h-9 lg:w-12 lg:h-11"
             />
