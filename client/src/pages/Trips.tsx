@@ -63,7 +63,7 @@ const Trips = () => {
   }
 
   return (
-    <section className="">
+    <section className="section">
       <SectionTitle>Próximos viajes:</SectionTitle>
       <div className="flex items-center justify-between gap-3 w-[min(100%,285px)] sm:w-[min(80%,320px)]">
         <p className="shrink-0">Buscar por fecha:</p>
@@ -80,9 +80,8 @@ const Trips = () => {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="flex flex-col w-full gap-2"
         >
-          <div className="mt-8 flex flex-col gap-2 md:grid md:grid-cols-2">
+          <div className="mt-8 flex flex-col items-center gap-5 md:grid md:justify-items-center md:grid-cols-2">
             {filteredTrips ? (
               <>
                 <AnimatePresence>
@@ -93,6 +92,7 @@ const Trips = () => {
                         initial="hidden"
                         whileInView="visible"
                         exit="exit"
+                        className="w-full max-w-md"
                         key={item._id}
                       >
                         <TripCard {...item} />
@@ -121,6 +121,7 @@ const Trips = () => {
                         variants={sectionVariants}
                         initial="hidden"
                         whileInView="visible"
+                        className="w-full max-w-md"
                         exit="exit"
                         key={trip._id}
                       >
