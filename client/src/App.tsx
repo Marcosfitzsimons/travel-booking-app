@@ -1,5 +1,6 @@
+import React, { ReactElement, useContext } from "react";
 import { useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -13,11 +14,24 @@ import Register from "./pages/Register";
 import { Toaster } from "./components/ui/toaster";
 import AboutUs from "./pages/AboutUs";
 import NotFound from "./pages/NotFound";
+import { AuthContext } from "./context/AuthContext";
+
+type Props = {
+  children: ReactElement;
+};
 
 function App() {
   const [isUserInfo, setIsUserInfo] = useState(true);
 
   const location = useLocation();
+
+  const ProtectedRoute = ({ children }: Props) => {
+    const { user } = useContext(AuthContext);
+    if (!user) {
+      return <Navigate to="/login" />;
+    }
+    return <>children</>;
+  };
 
   return (
     <div className="">
@@ -32,20 +46,33 @@ function App() {
             <Route path="/viajes" element={<Trips />} />
             <Route
               path="/viajes/:id"
-              element={<Trip setIsUserInfo={setIsUserInfo} />}
+              element={
+                <ProtectedRoute>
+                  <Trip setIsUserInfo={setIsUserInfo} />
+                </ProtectedRoute>
+              }
             />
             <Route path="/nosotros" element={<AboutUs />} />
 
             <Route
               path="/mi-perfil"
               element={
-                <Profile
-                  isUserInfo={isUserInfo}
-                  setIsUserInfo={setIsUserInfo}
-                />
+                <ProtectedRoute>
+                  <Profile
+                    isUserInfo={isUserInfo}
+                    setIsUserInfo={setIsUserInfo}
+                  />
+                </ProtectedRoute>
               }
             />
-            <Route path="/mi-perfil/editar-perfil" element={<EditProfile />} />
+            <Route
+              path="/mi-perfil/editar-perfil"
+              element={
+                <ProtectedRoute>
+                  <EditProfile />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </AnimatePresence>
       </main>
