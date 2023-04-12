@@ -7,11 +7,13 @@ import Header from "./components/Header";
 import SideBar from "./components/SideBar";
 import NewTrip from "./pages/NewTrip";
 import NewUser from "./pages/NewUser";
-import Single from "./pages/Single";
+import SingleUser from "./pages/SingleUser";
 import List from "./pages/List";
 import { AuthContext } from "./context/AuthContext";
 import { passengerInputs, tripInputs, userInputs } from "./formSource";
 import { passengerColumns, tripColumns, userColumns } from "./datatablesource";
+import SingleTrip from "./pages/SingleTrip";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const ProtectedRoute = ({ children }) => {
@@ -29,6 +31,7 @@ function App() {
         <Header />
         <main className="pt-6 w-[min(90%,1200px)] mx-auto py-2">
           <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route path="/">
               <Route path="login" element={<Login />} />
               <Route
@@ -56,7 +59,7 @@ function App() {
                   path=":id"
                   element={
                     <ProtectedRoute>
-                      <Single />
+                      <SingleUser />
                     </ProtectedRoute>
                   }
                 />
@@ -89,7 +92,7 @@ function App() {
                   path=":id"
                   element={
                     <ProtectedRoute>
-                      <Single />
+                      <SingleTrip />
                     </ProtectedRoute>
                   }
                 />
@@ -120,7 +123,7 @@ function App() {
                   path=":id"
                   element={
                     <ProtectedRoute>
-                      <Single />
+                      <SingleUser />
                     </ProtectedRoute>
                   }
                 />

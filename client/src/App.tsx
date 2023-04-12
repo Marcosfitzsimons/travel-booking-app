@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "./components/ui/toaster";
 import AboutUs from "./pages/AboutUs";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [isUserInfo, setIsUserInfo] = useState(true);
@@ -24,6 +25,9 @@ function App() {
       <main className="pt-20 w-[min(90%,1000px)] mx-auto py-2">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
+            <Route path="*" element={<NotFound />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/" element={<Home />} />
             <Route path="/viajes" element={<Trips />} />
             <Route
@@ -31,8 +35,7 @@ function App() {
               element={<Trip setIsUserInfo={setIsUserInfo} />}
             />
             <Route path="/nosotros" element={<AboutUs />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+
             <Route
               path="/mi-perfil"
               element={
