@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, ReactElement } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "./components/ui/toaster";
 import Home from "./pages/Home";
@@ -15,8 +15,12 @@ import { passengerColumns, tripColumns, userColumns } from "./datatablesource";
 import SingleTrip from "./pages/SingleTrip";
 import NotFound from "./pages/NotFound";
 
+type Props = {
+  children: ReactElement;
+};
+
 function App() {
-  const ProtectedRoute = ({ children }) => {
+  const ProtectedRoute = ({ children }: Props) => {
     const { user } = useContext(AuthContext);
     if (!user) {
       return <Navigate to="/login" />;
