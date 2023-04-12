@@ -53,7 +53,6 @@ const EditProfile = () => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
-  console.log("editProfile re-render");
 
   const handleOnSubmit = async (data: UserData) => {
     localStorage.removeItem("user");
@@ -76,7 +75,6 @@ const EditProfile = () => {
           description: "Cambios guardados con exito.",
         });
         setTimeout(() => {
-          navigate("/mi-perfil");
           navigate(0);
         }, 2000);
       } else {
@@ -97,7 +95,6 @@ const EditProfile = () => {
           description: "Cambios guardados con exito.",
         });
         setTimeout(() => {
-          navigate("/mi-perfil");
           navigate(0);
         }, 2000);
       }
@@ -111,12 +108,6 @@ const EditProfile = () => {
       });
     }
   };
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, []);
 
   const sectionVariants = {
     hidden: {

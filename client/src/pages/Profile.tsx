@@ -54,9 +54,6 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
 
   const { user } = useContext(AuthContext);
 
-  const navigate = useNavigate();
-  console.log("userprofile re-render");
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -77,11 +74,6 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
     };
     fetchData();
   }, []);
-
-  useEffect(() => {
-    if (!user) navigate("/login");
-  }, [user]);
-
   return (
     <section className="">
       <SectionTitle>Mi cuenta</SectionTitle>

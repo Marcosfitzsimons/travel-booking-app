@@ -61,7 +61,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const location = useLocation();
   const path = location.pathname;
   const tripId = path.split("/")[2];
-  console.log(data);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -96,7 +95,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         { headers }
       );
 
-      console.log(data);
       toast({
         description: "Lugar guardado con éxito.",
       });
