@@ -27,7 +27,6 @@ type HeaderProps = {
 };
 
 const Header = ({ setIsUserInfo }: HeaderProps) => {
-  console.log("header re-render");
   const { user, dispatch } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -41,10 +40,6 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
     }
     navigate("/login");
   };
-
-  useEffect(() => {
-    if (!user) navigate("/login");
-  }, [user]);
 
   return (
     <header className="fixed w-full z-50 bg-[#fafafa] dark:bg-[#0d0f12] border-b border-b-blue-lagoon-700/50 dark:border-b-neutral-600">
@@ -113,14 +108,14 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
           <Separator orientation="vertical" className="h-6" />
           {!user ? (
             <div className="flex items-center gap-1">
-              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-white/10 focus-within:after:shadow-[#77f6aa] after:transition">
+              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-white/10 focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 after:transition">
                 <Button className="h-8 p-0 relative bg-black text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white">
                   <Link to="/login" className="py-2 px-4">
                     Entrar
                   </Link>
                 </Button>
               </div>
-              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 focus-within:after:shadow-[#77f6aa] after:transition">
+              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20  focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 after:transition">
                 <Button className="h-8 p-0 relative bg-blue-lagoon-500 text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-blue-lagoon-500">
                   <Link to="/register" className="py-2 px-4">
                     Registrarme
