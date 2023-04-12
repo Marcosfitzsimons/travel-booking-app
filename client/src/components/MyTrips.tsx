@@ -78,6 +78,7 @@ const tripVariants = {
 
 const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
   const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState<null | string>(null);
   const userId = userData._id;
 
   const navigate = useNavigate();
@@ -92,7 +93,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
     const tripId = e.target.id;
     try {
       const { data } = await axios.delete(
-        `http://localhost:8800/api/passengers/${userId}/${tripId}`,
+        `https://travel-booking-api-production.up.railway.app/api/passengers/${userId}/${tripId}`,
         { headers }
       );
 
@@ -104,18 +105,17 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
       setIsUserInfo(false);
       navigate("/viajes");
     } catch (err: any) {
-      setLoading(false);
       console.log(err);
+      setLoading(false);
+      setErr(err.message);
       toast({
         variant: "destructive",
-        description: err.response.data.msg
-          ? err.response.data.msg
-          : "Error al cancelar lugar, intente más tarde.",
+        description: `Error al cancelar lugar, intente más tarde. ${
+          err ? `"${err}"` : ""
+        }`,
       });
     }
   };
-
-  console.log(userTrips);
   return (
     <section className="w-full mx-auto mt-6  bg-transparent flex flex-col gap-5 items-center">
       {loading ? (
