@@ -70,7 +70,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://travel-booking-api-production.up.railway.app/api/trips/${tripId}`
+          `https://travel-booking-api-production.up.railway.app/api/trips/${tripId}`
         );
         const formattedDate = format(new Date(res.data.date), "dd/MM/yy");
         setData({ ...res.data, date: formattedDate });
