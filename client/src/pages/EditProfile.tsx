@@ -171,9 +171,10 @@ const EditProfile = () => {
                     <div className="absolute -bottom-1 ">
                       <Label
                         htmlFor="image"
-                        className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 bg-white/50 backdrop-blur-sm  hover:bg-white hover:border-blue-lagoon-600/50 dark:text-blue-lagoon-100 dark:bg-blue-lagoon-600/30 dark:hover:border-blue-lagoon-200"
+                        className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
                       >
-                        Subir <Upload className="w-4 h-4" />
+                        Subir{" "}
+                        <Upload className="w-4 h-4 dark:text-blue-lagoon-100" />
                       </Label>
                       <Input
                         type="file"

@@ -51,7 +51,7 @@ const Home = () => {
         <div className="">
           <Button
             onClick={() => navigate("/viajes")}
-            className="mt-1 h-10 border border-blue-lagoon-200 bg-blue-lagoon-200/10 hover:bg-white dark:bg-blue-lagoon-800/20 dark:hover:text-white"
+            className="mt-1 h-10 border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
           >
             Viajes disponibles
           </Button>

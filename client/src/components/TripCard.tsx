@@ -1,9 +1,9 @@
 import { format } from "date-fns";
 import moment from "moment-timezone";
 import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { AlertCircle, Ticket, CalendarDays, Watch } from "lucide-react";
+import { AlertCircle, DollarSign, CalendarDays, Clock } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -12,6 +12,7 @@ import {
 } from "../components/ui/tooltip";
 import DefaultButton from "./DefaultButton";
 import miniBus from "../assets/minibus1-sm.png";
+import { Button } from "./ui/button";
 
 interface Trip {
   _id: number;
@@ -60,7 +61,7 @@ const TripCard = ({
 
   return (
     <article className="w-full relative bg-white/80 border border-blue-lagoon-500/20 rounded-md shadow-md pb-2 max-w-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
-      <div className="px-4 pt-9 pb-4">
+      <div className="px-4 pt-9 ">
         <div className="flex flex-col gap-2">
           <div className="absolute top-[.6rem] left-5">
             <img
@@ -89,7 +90,7 @@ const TripCard = ({
             <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
               <div className="flex flex-col gap-2">
                 <p className="flex items-center gap-1">
-                  <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
+                  <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
                   <span className="dark:text-white font-medium">Salida:</span>{" "}
                   {departureTime}
                   <span>- {from}</span>
@@ -97,7 +98,7 @@ const TripCard = ({
                 {arrivalTime && (
                   <div className=" flex items-center gap-1">
                     <p className="flex items-center gap-1">
-                      <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
+                      <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
                       <span className="dark:text-white font-medium">
                         Llegada:
                       </span>{" "}
@@ -123,16 +124,21 @@ const TripCard = ({
                   </div>
                 )}
                 <p className="flex items-center gap-1">
-                  <Ticket className="text-blue-lagoon-800 dark:text-white h-5 w-5" />
+                  <DollarSign className="text-blue-lagoon-800 dark:text-white h-4 w-4" />
                   <span className="dark:text-white font-medium">Precio: </span>$
                   {price}
                 </p>
               </div>
             </div>
           </div>
-          <div className="lg:self-end">
-            <div className="w-[min(30rem,100%)]" onClick={handleReservation}>
-              <DefaultButton>Reservar</DefaultButton>
+          <div className="py-1 lg:self-end lg:py-2">
+            <div
+              className="w-[min(30rem,100%)] relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:h-8"
+              onClick={handleReservation}
+            >
+              <Button className="relative w-full bg-blue-lagoon-500 text-slate-100  hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-blue-lagoon-500 lg:h-8">
+                Reservar
+              </Button>
             </div>
           </div>
         </div>
