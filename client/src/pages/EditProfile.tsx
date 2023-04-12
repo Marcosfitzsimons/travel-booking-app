@@ -64,23 +64,43 @@ const EditProfile = () => {
     imgData.append("upload_preset", "upload");
 
     try {
-      const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
-        imgData
-      );
-      const { url } = uploadRes.data;
+      if (!image) {
+        const res = await axios.put(
+          `https://travel-booking-api-production.up.railway.app/api/users/${user?._id}`,
+          { userData: { ...data } },
+          { headers }
+        );
+        localStorage.setItem("user", JSON.stringify(res.data));
+        setIsLoading(false);
+        toast({
+          description: "Cambios guardados con exito.",
+        });
+        setTimeout(() => {
+          navigate("/mi-perfil");
+          navigate(0);
+        }, 2000);
+      } else {
+        const uploadRes = await axios.post(
+          "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
+          imgData
+        );
+        const { url } = uploadRes.data;
 
-      const res = await axios.put(
-        `https://travel-booking-api-production.up.railway.app/api/users/${user?._id}`,
-        { userData: { ...data, image: url } },
-        { headers }
-      );
-      localStorage.setItem("user", JSON.stringify(res.data));
-
-      setIsLoading(false);
-      toast({
-        description: "Cambios guardados con exito.",
-      });
+        const res = await axios.put(
+          `https://travel-booking-api-production.up.railway.app/api/users/${user?._id}`,
+          { userData: { ...data, image: url } },
+          { headers }
+        );
+        localStorage.setItem("user", JSON.stringify(res.data));
+        setIsLoading(false);
+        toast({
+          description: "Cambios guardados con exito.",
+        });
+        setTimeout(() => {
+          navigate("/mi-perfil");
+          navigate(0);
+        }, 2000);
+      }
     } catch (err: any) {
       const errorMsg = err.response.data.msg;
       setIsLoading(false);
