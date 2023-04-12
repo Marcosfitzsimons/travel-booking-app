@@ -47,7 +47,7 @@ const sectionVariants = {
 
 const Trips = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
-  console.log("trips page re-render");
+
   const { data, loading, error, reFetch } = useFetch(
     "https://travel-booking-api-production.up.railway.app/api/trips"
   );
@@ -56,14 +56,11 @@ const Trips = () => {
   let dateSelected: string;
   if (startDate) {
     dateSelected = format(startDate, "dd/MM/yy");
-    console.log(`dateSelected: ${dateSelected}`);
-    filteredTrips = data.filter((trip: TripProps) => {
-      console.log(`tripDate from db: ${trip.date}`);
 
+    filteredTrips = data.filter((trip: TripProps) => {
       const momentDate = moment.utc(trip.date).add(1, "day").toDate();
       const date = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
       const formattedDate = moment(date).format("DD/MM/YY");
-      console.log(`formatted tripDate: ${formattedDate}`);
 
       return formattedDate === dateSelected;
     });

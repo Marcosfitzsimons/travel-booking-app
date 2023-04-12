@@ -45,7 +45,6 @@ const TripCard = ({
   const momentDate = moment.utc(date).add(1, "day").toDate();
   const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
   const formattedDate = moment(newDate).format("DD/MM/YY");
-  console.log(`formatted tripDate: ${formattedDate}`);
 
   const { user } = useContext(AuthContext);
 
