@@ -90,7 +90,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `http://travel-booking-api-production.up.railway.app/api/passengers/${user?._id}/${tripId}`,
+        `https://travel-booking-api-production.up.railway.app/api/passengers/${user?._id}/${tripId}`,
         {},
         { headers }
       );
