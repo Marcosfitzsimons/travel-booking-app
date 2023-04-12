@@ -69,7 +69,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:8800/api/trips/${tripId}`
+          `http://travel-booking-api-production.up.railway.app/api/trips/${tripId}`
         );
         const formattedDate = format(new Date(res.data.date), "dd/MM/yy");
         setData({ ...res.data, date: formattedDate });
@@ -90,7 +90,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `http://localhost:8800/api/passengers/${user?._id}/${tripId}`,
+        `http://travel-booking-api-production.up.railway.app/api/passengers/${user?._id}/${tripId}`,
         {},
         { headers }
       );
