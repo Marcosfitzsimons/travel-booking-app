@@ -23,7 +23,7 @@ import axios from "axios";
 import { toast } from "../hooks/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import DefaultButton from "./DefaultButton";
+import miniBus from "../assets/minibus1-sm.png";
 
 type TripProps = {
   id: string;
@@ -139,7 +139,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                     <div className="flex flex-col gap-2">
                       <div className="absolute top-[.6rem] left-5">
                         <img
-                          src="./minibus1-sm.png"
+                          src={miniBus}
                           alt="combi"
                           className="w-10 h-9 lg:w-12 lg:h-11"
                         />

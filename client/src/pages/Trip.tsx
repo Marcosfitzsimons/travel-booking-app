@@ -16,6 +16,7 @@ import { Button } from "../components/ui/button";
 import DefaultButton from "../components/DefaultButton";
 import { toast } from "../hooks/ui/use-toast";
 import Loading from "../components/Loading";
+import miniBus from "../assets/minibus1-sm.png";
 
 type ProfileProps = {
   setIsUserInfo: (value: boolean) => void;
@@ -132,7 +133,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
               <div className="flex flex-col gap-2">
                 <div className="absolute top-[.6rem] left-5">
                   <img
-                    src="../../public/minibus1-sm.png"
+                    src={miniBus}
                     alt="combi"
                     className="w-10 h-9 lg:w-12 lg:h-11"
                   />
