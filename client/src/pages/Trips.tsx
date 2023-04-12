@@ -1,4 +1,5 @@
 import { useState } from "react";
+import moment from "moment-timezone";
 import { AnimatePresence, motion } from "framer-motion";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns"; // use it to format the date and to filter by each trip. format(startDate, "dd/MM/yyyy") -> dd/MM/yyyy
@@ -55,9 +56,15 @@ const Trips = () => {
   let dateSelected: string;
   if (startDate) {
     dateSelected = format(startDate, "dd/MM/yy");
-    console.log(typeof dateSelected);
+    console.log(`dateSelected: ${dateSelected}`);
     filteredTrips = data.filter((trip: TripProps) => {
-      const formattedDate = format(new Date(trip.date), "dd/MM/yy");
+      console.log(`tripDate from db: ${trip.date}`);
+
+      const momentDate = moment.utc(trip.date).add(1, "day").toDate();
+      const date = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
+      const formattedDate = moment(date).format("DD/MM/YY");
+      console.log(`formatted tripDate: ${formattedDate}`);
+
       return formattedDate === dateSelected;
     });
   }
@@ -65,7 +72,7 @@ const Trips = () => {
   return (
     <section className="section">
       <SectionTitle>Próximos viajes:</SectionTitle>
-      <div className="flex items-center justify-between gap-3 w-[min(100%,285px)] sm:w-[min(80%,320px)]">
+      <div className="flex items-center justify-between gap-3 w-[min(100%,320px)] sm:w-[min(80%,320px)]">
         <p className="shrink-0">Buscar por fecha:</p>
         <DatePickerContainer
           startDate={startDate}
