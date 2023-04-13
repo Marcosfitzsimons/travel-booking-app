@@ -9,12 +9,16 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Header = () => {
+  const { user } = useContext(AuthContext);
+
   return (
-    <header className="bg-[#fafafa] dark:bg-[#0d0f12] border-b border-b-blue-lagoon-700/50 dark:border-b-neutral-600">
-      <div className="w-[min(90%,1200px)] mx-auto py-2 flex items-center justify-between z-50 lg:py-[12.5px]">
-        <div className="lg:hidden w-auto">
+    <header className="bg-[#fafafa] dark:bg-[#0d0f12]">
+      <div className="w-[min(100%,1200px)] mx-auto py-2 flex items-center justify-between z-50 lg:py-[12.5px]">
+        <div>
           <Logo />
         </div>
         <div className="flex items-center gap-1">

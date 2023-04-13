@@ -1,16 +1,32 @@
 import { LayoutDashboard, User, Map, LogOut, Ticket } from "lucide-react";
 import Logo from "./Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const SideBar = () => {
-  return (
-    <div className="hidden flex-[1] bg-[#fafafa] dark:bg-[#0d0f12] h-screen border-r border-r-blue-lagoon-700/50 dark:border-r-neutral-600 lg:flex lg:flex-col">
-      <div className="w-full flex items-center justify-center py-[15px] border-b border-b-blue-lagoon-700/50 dark:border-b-neutral-600 ">
-        <Logo />
-      </div>
-      <div className="w-full max-w-[12rem] flex flex-col gap-5 px-4 mt-6">
+  const { user, dispatch } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    if (dispatch) {
+      dispatch({
+        type: "LOGOUT",
+      });
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    }
+    navigate("/login");
+  };
+
+  return !user ? (
+    <div className=""></div>
+  ) : (
+    <div className="hidden flex-[1] h-screen dark:text-blue-lagoon-100 lg:flex lg:flex-col lg:items-end lg:py-[200px] lg:pr-10">
+      <div className="w-full max-w-[12rem] rounded-md flex flex-col mx-auto gap-5 p-5 mt-6 bg-white/40 border border-blue-lagoon-100 dark:border-blue-lagoon-200 dark:bg-black">
         <div className="flex flex-col gap-1">
-          <p className="text-blue-lagoon-800/30 uppercase font-bold text-sm">
+          <p className="text-blue-lagoon-800/30 uppercase font-bold text-sm dark:text-white">
             Principal
           </p>
           <div className="relative flex items-center gap-2">
@@ -22,7 +38,7 @@ const SideBar = () => {
         </div>
         <nav className="">
           <ul className="flex flex-col gap-1">
-            <p className="text-blue-lagoon-800/30 uppercase font-bold text-sm">
+            <p className="text-blue-lagoon-800/30 uppercase font-bold text-sm dark:text-white">
               Listas
             </p>
             <li className="relative flex items-center gap-2">
@@ -45,25 +61,27 @@ const SideBar = () => {
             </li>
           </ul>
         </nav>
-        <div className="">
-          <ul className="flex flex-col gap-1">
-            <p className="text-blue-lagoon-800/30 uppercase font-bold text-sm">
-              Admin
-            </p>
-            <li className="relative flex items-center gap-2">
-              <User className="absolute left-2 h-5 w-5" />
-              <Link to="/mi-perfil" className="w-full pl-8 z-20">
-                Perfil
-              </Link>
-            </li>
-            <li className="relative flex items-center gap-2">
-              <LogOut className="absolute left-2 h-5 w-5" />
-              <Link to="/login" className="w-full pl-8 z-20">
-                Salir
-              </Link>
-            </li>
-          </ul>
-        </div>
+        <ul className="flex flex-col gap-1">
+          <p className="text-blue-lagoon-800/30 uppercase font-bold text-sm dark:text-white">
+            Admin
+          </p>
+          <li className="relative flex items-center gap-2">
+            <User className="absolute left-2 h-5 w-5" />
+            <Link to="/mi-perfil" className="w-full pl-8 z-20">
+              Perfil
+            </Link>
+          </li>
+          <li className="relative flex items-center gap-2">
+            <LogOut className="absolute left-2 h-5 w-5" />
+            <Link
+              to="/login"
+              onClick={handleLogOut}
+              className="w-full pl-8 z-20"
+            >
+              Salir
+            </Link>
+          </li>
+        </ul>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Separator } from "../components/ui/separator";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -37,7 +37,7 @@ const Login = () => {
       dispatch({ type: "LOGIN_START" });
       try {
         const res = await axios.post(
-          "http://localhost:8800/api/auth/login",
+          "https://travel-booking-api-production.up.railway.app/api/auth/login",
           data
         );
         if (res.data.isAdmin) {
@@ -50,7 +50,7 @@ const Login = () => {
           setErr(errorMsg);
           dispatch({
             type: "LOGIN_FAILURE",
-            payload: { message: "No estás autorizado." },
+            payload: "No estás autorizado.",
           });
         }
       } catch (err: any) {

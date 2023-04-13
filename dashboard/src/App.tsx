@@ -31,11 +31,11 @@ function App() {
   };
 
   return (
-    <div className="App flex">
+    <div className="App flex w-[min(90%,1400px)] mx-auto">
       <SideBar />
       <div className="flex-[6]">
         <Header />
-        <main className="pt-6 w-[min(90%,1200px)] mx-auto py-2">
+        <main className="pt-6 w-[min(100%,1200px)] mx-auto py-2">
           <Routes>
             <Route path="*" element={<NotFound />} />
             <Route path="/">
