@@ -25,7 +25,7 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
 
   const navigate = useNavigate();
 
-  const baseUrl = `http://localhost:8800/api/${path}`;
+  const baseUrl = `https://travel-booking-api-production.up.railway.app/api/${path}`;
 
   const { data, loading, error } = useFetch(baseUrl);
 
@@ -36,9 +36,12 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`http://localhost:8800/api/${path}/${id}`, {
-        headers,
-      });
+      await axios.delete(
+        `https://travel-booking-api-production.up.railway.app/api/${path}/${id}`,
+        {
+          headers,
+        }
+      );
       setList(list.filter((item) => item._id !== id));
     } catch (err) {}
   };
@@ -103,7 +106,7 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
         pageSizeOptions={[9]}
         checkboxSelection
         getRowId={(row) => row._id}
-        className="text-blue-lagoon-800 dark:text-neutral-200"
+        className="text-blue-lagoon-800 dark:text-neutral-200 w-[min(100%,1200px)]"
       />
     </div>
   );

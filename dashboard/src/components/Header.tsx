@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <header className="bg-[#fafafa] dark:bg-[#0d0f12]">
-      <div className="w-[min(100%,1200px)] mx-auto py-2 flex items-center justify-between z-50 lg:py-[12.5px]">
+      <div className="w-[min(100%,1200px)] py-2 flex items-center justify-between z-50 lg:py-[12.5px]">
         <div>
           <Logo />
         </div>
