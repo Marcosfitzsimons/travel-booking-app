@@ -55,7 +55,6 @@ const tripVariants = {
 
 const UserInfo = ({ userData }: UserInfoProps) => {
   const navigate = useNavigate();
-  console.log(userData);
 
   const goToEditProfile = () => {
     navigate("/mi-perfil/editar-perfil");

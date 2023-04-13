@@ -6,12 +6,11 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import SectionTitle from "../components/ui/SectionTitle";
+import SectionTitle from "../components/SectionTitle";
 import { toast } from "../hooks/ui/use-toast";
 import axios from "axios";
 import DefaultButton from "../components/DefaultButton";
 import BackButton from "../components/BackButton";
-import { Button } from "../components/ui/button";
 import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
 
@@ -74,9 +73,9 @@ const EditProfile = () => {
         toast({
           description: "Cambios guardados con exito.",
         });
-        setTimeout(() => {
+        /*         setTimeout(() => {
           navigate(0);
-        }, 2000);
+        }, 2000); */
       } else {
         const uploadRes = await axios.post(
           "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
@@ -94,9 +93,9 @@ const EditProfile = () => {
         toast({
           description: "Cambios guardados con exito.",
         });
-        setTimeout(() => {
+        /*         setTimeout(() => {
           navigate(0);
-        }, 2000);
+        }, 2000); */
       }
     } catch (err: any) {
       const errorMsg = err.response.data.msg;

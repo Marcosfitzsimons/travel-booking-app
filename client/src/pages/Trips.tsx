@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns"; // use it to format the date and to filter by each trip. format(startDate, "dd/MM/yyyy") -> dd/MM/yyyy
 import TripCard from "../components/TripCard";
 import useFetch from "../hooks/useFetch";
-import SectionTitle from "../components/ui/SectionTitle";
+import SectionTitle from "../components/SectionTitle";
 import DatePickerContainer from "../components/DatePickerContainer";
 import Loading from "../components/Loading";
 

@@ -3,7 +3,7 @@ import { RoughNotation } from "react-rough-notation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import SectionTitle from "../components/ui/SectionTitle";
+import SectionTitle from "../components/SectionTitle";
 import MyTrips from "../components/MyTrips";
 import UserInfo from "../components/UserInfo";
 import BackButton from "../components/BackButton";

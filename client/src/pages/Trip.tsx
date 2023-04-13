@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import SectionTitle from "../components/ui/SectionTitle";
+import SectionTitle from "../components/SectionTitle";
 import { AlertCircle, Watch, CalendarDays, Ticket, MapPin } from "lucide-react";
 import {
   Tooltip,
