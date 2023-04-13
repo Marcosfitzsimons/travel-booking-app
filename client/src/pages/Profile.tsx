@@ -88,7 +88,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
         >
           <div className="flex flex-col gap-3">
             <div className="flex flex-col items-center">
-              <div className="self-start my-4 mb-6">
+              <div className="self-start mb-2">
                 <BackButton toProfile={false} />
               </div>
               <nav className="flex items-center justify-center">

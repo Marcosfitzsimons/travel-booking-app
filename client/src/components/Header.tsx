@@ -17,7 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import ThemeToggle from "./ThemeToggle";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Separator } from "./ui/separator";
 import Logo from "./Logo";
