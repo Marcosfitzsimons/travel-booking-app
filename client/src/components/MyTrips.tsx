@@ -133,14 +133,14 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="relative w-full flex flex-col"
+          className="w-full flex flex-col items-center gap-5 md:grid md:justify-items-center md:grid-cols-2"
         >
           {userTrips && userTrips.length > 0 ? (
             <>
               {userTrips.map((trip: TripProps) => (
                 <article
                   key={trip.id}
-                  className="w-full relative bg-white/80 border border-blue-lagoon-500/20 rounded-md shadow-md mb-10 pb-2 max-w-md  dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300"
+                  className="w-full relative bg-white/80 border border-blue-lagoon-500/20 rounded-md shadow-md mb-10 pb-2 max-w-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300"
                 >
                   <div className="px-4 pt-9 pb-4">
                     <div className="flex flex-col gap-2">
