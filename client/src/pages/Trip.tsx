@@ -17,6 +17,7 @@ import DefaultButton from "../components/DefaultButton";
 import { toast } from "../hooks/ui/use-toast";
 import Loading from "../components/Loading";
 import miniBus from "../assets/minibus1-sm.png";
+import moment from "moment-timezone";
 
 type ProfileProps = {
   setIsUserInfo: (value: boolean) => void;
@@ -71,7 +72,9 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         const res = await axios.get(
           `https://travel-booking-api-production.up.railway.app/api/trips/${tripId}`
         );
-        const formattedDate = format(new Date(res.data.date), "dd/MM/yy");
+        const momentDate = moment.utc(res.data.date).add(1, "day").toDate();
+        const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
+        const formattedDate = moment(newDate).format("DD/MM/YY");
         setData({ ...res.data, date: formattedDate });
       } catch (err) {
         setError(err);

@@ -25,6 +25,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import miniBus from "../assets/minibus1-sm.png";
 import DefaultButton from "./DefaultButton";
+import moment from "moment-timezone";
 
 type TripProps = {
   id: string;
@@ -115,6 +116,13 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
       });
     }
   };
+
+  const formatDate = (date: string) => {
+    const momentDate = moment.utc(date).add(1, "day").toDate();
+    const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
+    const formattedDate = moment(newDate).format("DD/MM/YY");
+    return formattedDate;
+  };
   return (
     <section className="min-h-[70vh] w-full mx-auto mt-6 bg-transparent flex flex-col gap-5 items-center">
       {loading ? (
@@ -146,7 +154,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                       <div className="absolute right-4 top-2 flex items-center gap-2">
                         <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
                           <CalendarDays className="w-5 h-5" />{" "}
-                          {format(new Date(trip.date), "dd/MM/yy")}
+                          {formatDate(trip.date)}
                         </p>
                       </div>
 
