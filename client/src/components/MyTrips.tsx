@@ -6,6 +6,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -224,8 +225,12 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                           <AlertDialogContent>
                             <AlertDialogHeader>
                               <AlertDialogTitle>
-                                ¿Estás seguro? Perderás tu lugar en el viaje.
+                                ¿Estás seguro?
                               </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                Esta acción no podrá deshacerse. Esto eliminará
+                                permanentemente tu lugar en el viaje.
+                              </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter className="flex flex-col-reverse gap-1 md:flex-row md:justify-end">
                               <AlertDialogCancel className="md:w-auto" asChild>
