@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { RoughNotation } from "react-rough-notation";
 import { AnimatePresence, motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/SectionTitle";
 import MyTrips from "../components/MyTrips";

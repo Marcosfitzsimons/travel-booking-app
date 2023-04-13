@@ -1,7 +1,5 @@
 import { ChevronsLeft } from "lucide-react";
-import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "./ui/button";
 
 type ButtonProps = {
   toProfile: boolean;

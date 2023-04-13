@@ -13,6 +13,3 @@ const SectionTitle = ({ children }: MyComponentProps) => {
 };
 
 export default SectionTitle;
-
-// <RoughNotation type="underline" show={true} color="#bd284d" padding={5}>
-// </RoughNotation>

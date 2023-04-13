@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { motion } from "framer-motion";
-import { Pencil, Upload, User } from "lucide-react";
+import { Upload, User, X } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -29,7 +29,6 @@ const EditProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
   const { user } = useContext(AuthContext);
-  console.log(typeof image);
   const {
     register,
     handleSubmit,
@@ -45,8 +44,6 @@ const EditProfile = () => {
       image: user?.image,
     },
   });
-
-  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
   const headers = {
