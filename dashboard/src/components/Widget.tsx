@@ -47,7 +47,7 @@ const Widget = ({ type }: WidgetProps) => {
   return (
     <article className="w-full flex justify-between gap-5 flex-1 p-5 rounded-md shadow-md bg-white/80 border border-blue-lagoon-500/20 lg:max-w-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
       <div className="flex flex-col gap-4 justify-between">
-        <span className="font-bold text-blue-lagoon-600 uppercase dark:text-blue-lagoon-300">
+        <span className="font-bold text-blue-lagoon-600 uppercase dark:text-white">
           {data.title}
         </span>
         <span className="font-light text-2xl">

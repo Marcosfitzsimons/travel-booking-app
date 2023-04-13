@@ -1,4 +1,5 @@
 import Datatable from "../components/Datatable";
+import SectionTitle from "../components/SectionTitle";
 
 interface UserColumn {
   field: string;
@@ -16,7 +17,7 @@ type ListProps = {
 const List = ({ title, columns, linkText }: ListProps) => {
   return (
     <section className="flex flex-col gap-5">
-      <h1>{title}</h1>
+      <SectionTitle>{title}</SectionTitle>
       <Datatable columns={columns} linkText={linkText} />
     </section>
   );

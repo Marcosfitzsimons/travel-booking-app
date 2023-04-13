@@ -33,9 +33,9 @@ function App() {
   return (
     <div className="App flex w-[min(90%,1200px)] mx-auto">
       <SideBar />
-      <div className="flex-[6]">
+      <div className="flex-[6] w-[min(100%,1000px)]">
         <Header />
-        <main className="pt-6 w-[min(100%,1200px)] py-2">
+        <main className="pt-6 py-2">
           <Routes>
             <Route path="*" element={<NotFound />} />
             <Route path="/">

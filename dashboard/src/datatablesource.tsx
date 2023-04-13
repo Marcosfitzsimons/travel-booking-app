@@ -3,7 +3,6 @@ import { format } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
 
 export const userColumns = [
-  { field: "_id", headerName: "ID", width: 200 },
   {
     field: "user",
     headerName: "Usuario",
@@ -54,7 +53,6 @@ export const userColumns = [
 ];
 
 export const tripColumns = [
-  { field: "_id", headerName: "ID", width: 200 },
   { field: "name", headerName: "Nombre", width: 150 },
   {
     field: "date",

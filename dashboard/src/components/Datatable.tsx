@@ -1,6 +1,14 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { UserPlus } from "lucide-react";
+import {
+  Edit,
+  Eye,
+  Plus,
+  PlusCircle,
+  Trash,
+  Trash2,
+  UserPlus,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import useFetch from "../hooks/useFetch";
@@ -46,30 +54,33 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
     } catch (err) {}
   };
 
-  const handleSinglePage = (id: string) => {
-    navigate(`/${path}/${id}`);
-  };
-
   const actionColumn = [
     {
       field: "action",
-      headerName: "Action",
-      width: 200,
+      headerName: "Acción",
+      width: 180,
       renderCell: (params) => {
         return (
           <div className="flex items-center gap-2">
-            <Button
-              onClick={() => handleSinglePage(params.row._id)}
-              className="py-1 px-2 rounded-md border border-blue-lagoon-900/70"
-            >
-              View
-            </Button>
-            <Button
-              className="py-1 px-2 rounded-md border border-red-600"
-              onClick={() => handleDelete(params.row._id)}
-            >
-              Delete
-            </Button>
+            <div className="relative flex items-center">
+              <Eye className="absolute cursor-pointer left-2 h-4 w-4" />
+              <Link
+                to={`/${path}/${params.row._id}`}
+                className={`px-3 pl-7 rounded-md border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80`}
+              >
+                Ver
+              </Link>
+            </div>
+            <div className="relative flex items-center">
+              {/* Add alert in onClick delete button */}
+              <Trash2 className="absolute cursor-pointer left-2 h-4 w-4" />
+              <button
+                onClick={() => handleDelete(params.row._id)}
+                className={`px-2 pl-7 rounded-md border border-red-500 bg-red-500 hover:border-blue-lagoon-600/50 dark:border-red-600 dark:bg-red-600 dark:hover:border-blue-lagoon-300/80`}
+              >
+                Borrar
+              </button>
+            </div>
           </div>
         );
       },
@@ -84,10 +95,16 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
     <div className="h-[400px] w-full">
       <div className="w-full my-3 flex items-center justify-end">
         <div className="relative">
-          <UserPlus className="-z-10 absolute left-2 h-5 w-5" />
+          {path === "users" ? (
+            <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
+          ) : (
+            <PlusCircle className="absolute cursor-pointer left-3 top-[4px] h-4 w-4" />
+          )}
           <Link
             to={`/${path}/new`}
-            className="px-2 py-1 w-full pl-8 max-w-[10rem] rounded-md border"
+            className={`px-3 py-1 ${
+              path === "users" ? "pl-9" : "pl-8"
+            } rounded-md border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80`}
           >
             {linkText}
           </Link>
@@ -95,7 +112,7 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
       </div>
       <DataGrid
         rows={list}
-        columns={columns.concat(actionColumn)}
+        columns={actionColumn.concat(columns)}
         initialState={{
           pagination: {
             paginationModel: {
@@ -106,7 +123,7 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
         pageSizeOptions={[9]}
         checkboxSelection
         getRowId={(row) => row._id}
-        className="text-blue-lagoon-800 dark:text-neutral-200 w-[min(100%,1200px)]"
+        className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-transparent dark:text-neutral-100"
       />
     </div>
   );
