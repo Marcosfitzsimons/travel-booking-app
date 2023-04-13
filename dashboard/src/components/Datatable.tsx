@@ -1,18 +1,21 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  Edit,
-  Eye,
-  Plus,
-  PlusCircle,
-  Trash,
-  Trash2,
-  UserPlus,
-} from "lucide-react";
+import { Eye, PlusCircle, Trash2, UserPlus } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Button } from "./ui/button";
 import useFetch from "../hooks/useFetch";
 import axios from "axios";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../components/ui/alert-dialog";
+import { Button } from "@mui/material";
 
 interface UserColumn {
   field: string;
@@ -71,16 +74,39 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
                 Ver
               </Link>
             </div>
-            <div className="relative flex items-center">
-              {/* Add alert in onClick delete button */}
-              <Trash2 className="absolute cursor-pointer left-2 h-4 w-4" />
-              <button
-                onClick={() => handleDelete(params.row._id)}
-                className={`px-2 pl-7 rounded-md border border-red-500 bg-red-500 hover:border-blue-lagoon-600/50 dark:border-red-600 dark:bg-red-600 dark:hover:border-blue-lagoon-300/80`}
-              >
-                Borrar
-              </button>
-            </div>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <div className="relative flex items-center">
+                  <Trash2 className="absolute cursor-pointer left-2 h-4 w-4" />
+                  <button
+                    className={`px-2 pl-7 rounded-md border border-red-500 bg-red-500 hover:border-blue-lagoon-600/50 dark:border-red-600 dark:bg-red-600 dark:hover:border-blue-lagoon-300/80`}
+                  >
+                    Borrar
+                  </button>
+                </div>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Esta acción no podrá deshacerse. Esto eliminará
+                    permanentemente el {path === "users" ? "usuario" : "viaje"}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter className="flex flex-col-reverse gap-1 md:flex-row md:justify-end">
+                  <AlertDialogCancel className="md:w-auto">
+                    No, volver al listado de{" "}
+                    {path === "users" ? "usuarios" : "viajes"}
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={() => handleDelete(params.row._id)}
+                    className="md:w-auto"
+                  >
+                    Si, borrar {path === "users" ? "usuario" : "viaje"}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         );
       },
