@@ -14,6 +14,8 @@ import { passengerInputs, tripInputs, userInputs } from "./formSource";
 import { passengerColumns, tripColumns, userColumns } from "./datatablesource";
 import SingleTrip from "./pages/SingleTrip";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 
 type Props = {
   children: ReactElement;
@@ -109,7 +111,6 @@ function App() {
                   }
                 />
               </Route>
-
               <Route path="passengers">
                 <Route
                   index
@@ -143,6 +144,23 @@ function App() {
                   }
                 />
               </Route>
+
+              <Route
+                path="/mi-perfil"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/mi-perfil/editar-perfil"
+                element={
+                  <ProtectedRoute>
+                    <EditProfile />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
           </Routes>
         </main>
