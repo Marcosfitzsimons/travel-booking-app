@@ -6,7 +6,19 @@ import { Button } from "./ui/button";
 import useFetch from "../hooks/useFetch";
 import axios from "axios";
 
-const Datatable = ({ columns, linkText }) => {
+interface UserColumn {
+  field: string;
+  headerName: string;
+  width: number;
+  renderCell?: (params: any) => JSX.Element;
+}
+
+type DataTableProps = {
+  columns: UserColumn[];
+  linkText: string;
+};
+
+const Datatable = ({ columns, linkText }: DataTableProps) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
@@ -22,7 +34,7 @@ const Datatable = ({ columns, linkText }) => {
     Authorization: `Bearer ${token}`,
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     try {
       await axios.delete(`http://localhost:8800/api/${path}/${id}`, {
         headers,
@@ -31,7 +43,7 @@ const Datatable = ({ columns, linkText }) => {
     } catch (err) {}
   };
 
-  const handleSinglePage = (id) => {
+  const handleSinglePage = (id: string) => {
     navigate(`/${path}/${id}`);
   };
 
