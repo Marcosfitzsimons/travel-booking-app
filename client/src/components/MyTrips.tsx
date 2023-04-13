@@ -24,6 +24,7 @@ import { toast } from "../hooks/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import miniBus from "../assets/minibus1-sm.png";
+import DefaultButton from "./DefaultButton";
 
 type TripProps = {
   id: string;
@@ -92,12 +93,10 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
     setLoading(true);
     const tripId = e.target.id;
     try {
-      const { data } = await axios.delete(
+      await axios.delete(
         `https://travel-booking-api-production.up.railway.app/api/passengers/${userId}/${tripId}`,
         { headers }
       );
-
-      console.log(data);
       toast({
         description: "Lugar cancelado con éxito.",
       });
@@ -117,7 +116,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
     }
   };
   return (
-    <section className="w-full mx-auto mt-6  bg-transparent flex flex-col gap-5 items-center">
+    <section className="min-h-[70vh] w-full mx-auto mt-6 bg-transparent flex flex-col gap-5 items-center">
       {loading ? (
         <Loading />
       ) : (
@@ -243,9 +242,17 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
               ))}
             </>
           ) : (
-            <p className="mx-auto mb-[20rem] lg:mb-[28rem]">
-              No tenes lugares reservados.
-            </p>
+            <div className="mx-auto flex flex-col items-center gap-3">
+              <p>No tenes lugares reservados.</p>
+              <div
+                className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 h-8"
+                onClick={() => navigate("/viajes")}
+              >
+                <Button className="relative bg-blue-lagoon-500 text-slate-100  hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-blue-lagoon-500 h-8">
+                  Reservar ahora
+                </Button>
+              </div>
+            </div>
           )}
         </motion.div>
       )}
