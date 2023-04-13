@@ -1,6 +1,3 @@
-import React from "react";
-// import { RoughNotation } from "react-rough-notation";
-
 interface MyComponentProps {
   children: React.ReactNode;
 }
