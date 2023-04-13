@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/SectionTitle";
-import { AlertCircle, Watch, CalendarDays, Ticket, MapPin } from "lucide-react";
+import { AlertCircle, CalendarDays, MapPin, Clock } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -13,11 +13,11 @@ import {
   TooltipTrigger,
 } from "../components/ui/tooltip";
 import { Button } from "../components/ui/button";
-import DefaultButton from "../components/DefaultButton";
 import { toast } from "../hooks/ui/use-toast";
 import Loading from "../components/Loading";
 import miniBus from "../assets/minibus1-sm.png";
 import moment from "moment-timezone";
+import { DollarSign } from "lucide-react";
 
 type ProfileProps = {
   setIsUserInfo: (value: boolean) => void;
@@ -129,7 +129,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         {loading ? (
           <Loading />
         ) : (
-          <article className="relative bg-white/80 rounded-md border border-blue-lagoon-500/20 shadow-md mb-10 pb-2 max-w-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
+          <article className="w-full relative mx-auto bg-white/80 rounded-md border border-blue-lagoon-500/20 shadow-md mb-10 pb-2 max-w-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
             <div className="px-4 pt-9 pb-4">
               <div className="flex flex-col gap-2">
                 <div className="absolute top-[.6rem] left-5">
@@ -154,7 +154,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                   <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
                     <div className="flex flex-col gap-2">
                       <p className="flex items-center gap-1">
-                        <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
+                        <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
                         <span className="dark:text-white font-medium">
                           Salida:
                         </span>{" "}
@@ -164,7 +164,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                       {data.arrivalTime && (
                         <div className=" flex items-center gap-1">
                           <p className="flex items-center gap-1">
-                            <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
+                            <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
                             <span className="dark:text-white font-medium">
                               Llegada:
                             </span>{" "}
@@ -190,7 +190,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                         </div>
                       )}
                       <p className="flex items-center gap-1">
-                        <Ticket className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
+                        <DollarSign className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
                         <span className="dark:text-white font-medium">
                           Precio:{" "}
                         </span>
@@ -237,8 +237,15 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                   >
                     Cancelar
                   </button>
-                  <div className="" onClick={handleOnConfirm}>
-                    <DefaultButton>Confirmar</DefaultButton>
+                  <div className="">
+                    <div
+                      className="w-[min(30rem,100%)] h-8 relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 "
+                      onClick={handleOnConfirm}
+                    >
+                      <Button className="relative w-full h-8 bg-blue-lagoon-500 text-slate-100  hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-blue-lagoon-500 ">
+                        Confirmar
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>

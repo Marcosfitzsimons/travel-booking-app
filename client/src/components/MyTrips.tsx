@@ -1,5 +1,4 @@
-import { AlertCircle, CalendarDays, Ticket, Watch } from "lucide-react";
-import { format } from "date-fns";
+import { AlertCircle, DollarSign, CalendarDays, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   AlertDialog,
@@ -25,7 +24,6 @@ import { toast } from "../hooks/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import miniBus from "../assets/minibus1-sm.png";
-import DefaultButton from "./DefaultButton";
 import moment from "moment-timezone";
 
 type TripProps = {
@@ -168,7 +166,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                         <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
                           <div className="flex flex-col gap-2">
                             <p className="flex items-center gap-1">
-                              <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
+                              <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
                               <span className="dark:text-white font-medium">
                                 Salida:
                               </span>{" "}
@@ -178,7 +176,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                             {trip.arrivalTime && (
                               <div className=" flex items-center gap-1">
                                 <p className="flex items-center gap-1">
-                                  <Watch className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
+                                  <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
                                   <span className="dark:text-white font-medium">
                                     Llegada:
                                   </span>{" "}
@@ -206,7 +204,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                               </div>
                             )}
                             <p className="flex items-center gap-1">
-                              <Ticket className="w-5 h-5 text-blue-lagoon-800 dark:text-white" />
+                              <DollarSign className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
                               <span className="dark:text-white font-medium">
                                 Precio:{" "}
                               </span>

@@ -10,7 +10,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../components/ui/tooltip";
-import DefaultButton from "./DefaultButton";
 import miniBus from "../assets/minibus1-sm.png";
 import { Button } from "./ui/button";
 
