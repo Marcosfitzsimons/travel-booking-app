@@ -132,7 +132,7 @@ const EditProfile = () => {
                         htmlFor="image"
                         className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
                       >
-                        Subir{" "}
+                        Subir
                         <Upload className="w-4 h-4 dark:text-blue-lagoon-100" />
                       </Label>
                       <Input

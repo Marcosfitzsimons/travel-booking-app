@@ -8,6 +8,7 @@ import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { User } from "lucide-react";
 import { useToast } from "../hooks/ui/use-toast";
+import DefaultButton from "./DefaultButton";
 
 type User = {
   username: string;
@@ -21,8 +22,7 @@ type User = {
 };
 
 const NewUserForm = ({ inputs }) => {
-  // Add react-hook-form validations.
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState<File | string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
   const filteredInputs = inputs.filter((input) => input.id !== "image");
@@ -60,10 +60,13 @@ const NewUserForm = ({ inputs }) => {
       );
       const { url } = uploadRes.data;
 
-      await axios.post("http://localhost:8800/api/auth/register", {
-        ...data,
-        image: url,
-      });
+      await axios.post(
+        "https://travel-booking-api-production.up.railway.app/api/auth/register",
+        {
+          ...data,
+          image: url,
+        }
+      );
 
       setIsLoading(false);
       toast({
@@ -91,7 +94,7 @@ const NewUserForm = ({ inputs }) => {
           <Avatar className="w-32 h-32 relative">
             <AvatarImage
               className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle object-cover"
-              src={image ? URL.createObjectURL(image) : ""}
+              src={image instanceof File ? URL.createObjectURL(image) : image}
               alt="avatar"
             />
             <AvatarFallback>
@@ -100,7 +103,7 @@ const NewUserForm = ({ inputs }) => {
           </Avatar>
           <div className="absolute bottom-0">
             <Label
-              className="flex items-center gap-2 cursor-pointer py-1 px-2 rounded-md border bg-white/80 "
+              className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
               htmlFor={imageInput.id}
             >
               {imageInput.label} {imageInput.icon}
@@ -112,7 +115,12 @@ const NewUserForm = ({ inputs }) => {
               id={imageInput.id}
               {...register(imageInput.id, {
                 onChange: (e) => {
-                  setImage(e.target.files[0]);
+                  const file = e.target.files[0];
+                  if (file instanceof File) {
+                    setImage(file);
+                  } else {
+                    console.error("Invalid file type");
+                  }
                 },
               })}
             />
@@ -121,7 +129,7 @@ const NewUserForm = ({ inputs }) => {
             )}
           </div>
         </div>
-        <div className="w-full flex flex-col items-center lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
+        <div className="w-full flex flex-col items-center gap-2 lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
           {filteredInputs.map((input) => (
             <div key={input.id} className="grid w-full items-center gap-2">
               <Label htmlFor={input.id}>{input.label}</Label>
@@ -137,8 +145,8 @@ const NewUserForm = ({ inputs }) => {
             </div>
           ))}
           {err && <p className="text-red-600 self-start">{err}</p>}
-          <div className="mt-2 lg:flex lg:self-end justify-end">
-            <Button className="">Crear usuario</Button>
+          <div className="w-full mt-2 lg:flex lg:self-end lg:justify-end">
+            <DefaultButton>Crear usuario</DefaultButton>
           </div>
         </div>
       </form>
