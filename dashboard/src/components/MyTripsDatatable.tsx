@@ -94,7 +94,7 @@ const MyTripsDatatable = ({ columns, userTrips, userData }: DataTableProps) => {
       field: "action",
       headerName: "Acción",
       width: 180,
-      renderCell: (params) => {
+      renderCell: (params: any) => {
         return (
           <div className="flex items-center gap-2">
             <AlertDialog>
