@@ -15,9 +15,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../components/ui/alert-dialog";
-import { Button } from "@mui/material";
 
-interface UserColumn {
+interface Column {
   field: string;
   headerName: string;
   width: number;
@@ -25,7 +24,7 @@ interface UserColumn {
 }
 
 type DataTableProps = {
-  columns: UserColumn[];
+  columns: Column[];
   linkText: string;
 };
 

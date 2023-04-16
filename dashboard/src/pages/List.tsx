@@ -1,7 +1,7 @@
 import Datatable from "../components/Datatable";
 import SectionTitle from "../components/SectionTitle";
 
-interface UserColumn {
+interface Column {
   field: string;
   headerName: string;
   width: number;
@@ -10,7 +10,7 @@ interface UserColumn {
 
 type ListProps = {
   title: string;
-  columns: UserColumn[];
+  columns: Column[];
   linkText: string;
 };
 
