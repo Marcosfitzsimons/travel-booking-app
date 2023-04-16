@@ -1,15 +1,14 @@
 import { Link } from "react-router-dom";
+import logo from "../assets/fabebus-logo.jpg";
 
 const Logo = () => {
   return (
-    <Link to="/" className="font-serif tracking-wider dark:hover:text-white">
-      <span className="font-medium text-xl">F</span>
-      <span className="inline-block rotate-3">a</span>
-      <span className="inline-block -rotate-6">b</span>
-      <span className="inline-block rotate-1">e</span>
-      <span className="font-medium text-xl">B</span>
-      <span className="inline-block rotate-6">u</span>
-      <span className="inline-block -rotate-3">s</span>
+    <Link to="/" className="relative w-12 aspect-square lg:w-14">
+      <img
+        src={logo}
+        className="rounded-full object-cover w-12 aspect-square lg:w-14"
+        alt="fabebus logo"
+      />
     </Link>
   );
 };
