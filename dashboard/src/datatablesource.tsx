@@ -1,6 +1,13 @@
 import { User } from "lucide-react";
-import { format } from "date-fns";
+import moment from "moment-timezone";
 import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
+
+const formatDate = (date: string) => {
+  const momentDate = moment.utc(date).add(1, "day").toDate();
+  const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
+  const formattedDate = moment(newDate).format("DD/MM/YY");
+  return formattedDate;
+};
 
 export const userColumns = [
   {
@@ -59,11 +66,7 @@ export const tripColumns = [
     headerName: "Fecha",
     width: 140,
     renderCell: (params) => {
-      return (
-        <p>
-          {params.row.date ? format(new Date(params.row.date), "dd/MM/yy") : ""}
-        </p>
-      );
+      return <p>{params.row.date ? formatDate(params.row.date) : ""}</p>;
     },
   },
   { field: "from", headerName: "Lugar de salida", width: 140 },
