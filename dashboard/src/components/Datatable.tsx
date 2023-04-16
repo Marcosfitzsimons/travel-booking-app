@@ -34,8 +34,6 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
 
-  const navigate = useNavigate();
-
   const baseUrl = `https://travel-booking-api-production.up.railway.app/api/${path}`;
 
   const { data, loading, error } = useFetch(baseUrl);
@@ -130,7 +128,7 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
             to={`/${path}/new`}
             className={`px-3 py-1 ${
               path === "users" ? "pl-9" : "pl-8"
-            } rounded-md border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80`}
+            } rounded-md border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80`}
           >
             {linkText}
           </Link>
@@ -149,7 +147,7 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
         pageSizeOptions={[9]}
         checkboxSelection
         getRowId={(row) => row._id}
-        className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-transparent dark:text-neutral-100"
+        className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
       />
     </div>
   );

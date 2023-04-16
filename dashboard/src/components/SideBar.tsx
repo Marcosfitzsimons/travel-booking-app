@@ -1,5 +1,4 @@
 import { LayoutDashboard, User, Map, LogOut, Ticket } from "lucide-react";
-import Logo from "./Logo";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -24,7 +23,7 @@ const SideBar = () => {
     <div className=""></div>
   ) : (
     <div className="hidden flex-[1] h-screen dark:text-blue-lagoon-100 lg:flex lg:flex-col lg:items-end lg:py-[200px] lg:pr-10">
-      <div className="w-full max-w-[12rem] rounded-md flex flex-col mx-auto gap-5 p-5 mt-6 bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-black">
+      <div className="w-full max-w-[12rem] rounded-md flex flex-col mx-auto gap-5 p-5 mt-6 bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414]">
         <div className="flex flex-col gap-1">
           <p className="text-blue-lagoon-800/30 uppercase font-bold text-sm dark:text-white">
             Principal

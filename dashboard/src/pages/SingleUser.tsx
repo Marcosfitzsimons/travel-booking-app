@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Mail, MapPin, Phone, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
-import { Button } from "../components/ui/button";
+import SectionTitle from "../components/SectionTitle";
+import DefaultButton from "../components/DefaultButton";
+import Datatable from "../components/Datatable";
 
 const INITIAL_STATES = {
   _id: "",
@@ -32,9 +34,12 @@ const SingleUser = () => {
         const headers = {
           Authorization: `Bearer ${token}`,
         };
-        const res = await axios.get(`http://localhost:8800/api/users/${id}`, {
-          headers,
-        });
+        const res = await axios.get(
+          `https://travel-booking-api-production.up.railway.app/api/users/${id}`,
+          {
+            headers,
+          }
+        );
         setData(res.data.user);
         console.log(res.data.user);
       } catch (err) {
@@ -46,9 +51,9 @@ const SingleUser = () => {
   }, []);
 
   return (
-    <section className="flex flex-col items-center gap-5">
-      <h1>Información del usuario:</h1>
-      <div className="relative flex flex-col gap-3 p-5 w-full max-w-lg rounded-md border ">
+    <section className="flex flex-col gap-3">
+      <SectionTitle>Información del usuario:</SectionTitle>
+      <div className="relative self-center flex flex-col gap-3 p-5 w-full max-w-lg rounded-md">
         <div className="flex flex-col items-center gap-3">
           <div className="w-full relative flex flex-col items-center lg:basis-1/3">
             <Avatar className="w-32 h-32">
@@ -66,39 +71,46 @@ const SingleUser = () => {
             <h3 className="font-medium text-xl dark:text-white ">
               {data?.fullName}
             </h3>
-            <h4 className="text-[#737373]">{data?.username}</h4>
+            <h4 className="text-[#737373]">@{data?.username}</h4>
           </div>
-          <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-blue-lagoon-700/50 items-start p-4 shadow-inner rounded-md dark:bg-black dark:border-blue-lagoon-200">
-            <li className="flex items-center gap-1">
-              <Mail className="h-4 w-4" />
-              <span className="font-medium">Email:</span>
-              {data?.email}
-            </li>
-            <li className="flex items-center gap-1">
-              <Phone className="h-4 w-4" />
-              <span className="font-medium">Celular:</span> {data?.phone}
-            </li>
+          <div className="w-full flex flex-col items-center gap-5">
+            <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 border border-blue-lagoon-500/20 items-start p-4 shadow-inner rounded-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
+              <li className="flex items-center gap-1">
+                <Mail className="h-4 w-4" />
+                <span className="font-medium">Email:</span>
+                {data?.email}
+              </li>
+              <li className="flex items-center gap-1">
+                <Phone className="h-4 w-4" />
+                <span className="font-medium">Celular:</span> {data?.phone}
+              </li>
 
-            <li className="flex items-center gap-1 shrink-0">
-              <MapPin className="w-4 h-4 shrink-0" />
-              <span className="font-medium shrink-0">Dirrección Carmen:</span>
-              <span className="shrink-0">{data?.addressCda}</span>
-            </li>
+              <li className="flex items-center gap-1 shrink-0">
+                <MapPin className="w-4 h-4 shrink-0" />
+                <span className="font-medium shrink-0">Dirrección Carmen:</span>
+                <span className="shrink-0">{data?.addressCda}</span>
+              </li>
 
-            <li className="flex items-center gap-1 shrink-0">
-              <MapPin className="w-4 h-4 shrink-0" />
-              <span className="font-medium shrink-0">Dirrecion Capital:</span>
-              <span className="shrink-0">{data?.addressCapital}</span>
-            </li>
-          </ul>
-          <Button className="w-[min(24rem,100%)]">Editar</Button>
+              <li className="flex items-center gap-1 shrink-0">
+                <MapPin className="w-4 h-4 shrink-0" />
+                <span className="font-medium shrink-0">Dirrecion Capital:</span>
+                <span className="shrink-0">{data?.addressCapital}</span>
+              </li>
+            </ul>
+            <div className="w-full lg:h-7 lg:w-auto lg:self-end">
+              <DefaultButton>Editar</DefaultButton>
+            </div>
+          </div>
         </div>
       </div>
       <article className="p-5 border">
         <h3 className="font-bold text-blue-lagoon-800/30 mb-4">
           Próximos viajes del usuario:
         </h3>
-        <p>List with latest transactions, or next trips.</p>
+        {/* 
+        Columns: ID viaje, 
+        <Datatable columns={columns} linkText={linkText} />
+        */}
       </article>
     </section>
   );
