@@ -152,7 +152,6 @@ const SingleTrip = () => {
         {data.passengers && data.passengers.length > 0 ? (
           <PassengersDatatable
             tripPassengers={data.passengers}
-            tripData={data}
             columns={passengerColumns}
           />
         ) : (

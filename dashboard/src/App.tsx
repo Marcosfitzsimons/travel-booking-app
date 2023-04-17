@@ -56,7 +56,7 @@ function App() {
                       <List
                         columns={userColumns}
                         title="Usuarios"
-                        linkText="Crear usuario"
+                        linkText="Agregar usuario"
                       />
                     </ProtectedRoute>
                   }
@@ -89,7 +89,7 @@ function App() {
                       <List
                         columns={tripColumns}
                         title="Viajes"
-                        linkText="Crear viaje"
+                        linkText="Agregar viaje"
                       />
                     </ProtectedRoute>
                   }
@@ -106,7 +106,7 @@ function App() {
                   path="new"
                   element={
                     <ProtectedRoute>
-                      <NewTrip inputs={tripInputs} title="Crear viaje nuevo" />
+                      <NewTrip inputs={tripInputs} title="Crear viaje" />
                     </ProtectedRoute>
                   }
                 />
@@ -138,7 +138,7 @@ function App() {
                     <ProtectedRoute>
                       <NewUser
                         inputs={passengerInputs}
-                        title="Crear pasajero nuevo"
+                        title="Agregar pasajero"
                       />
                     </ProtectedRoute>
                   }

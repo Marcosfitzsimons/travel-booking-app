@@ -14,25 +14,10 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import { toast } from "../hooks/ui/use-toast";
-import { Link } from "react-router-dom";
 
 type Passenger = {
   _id: string;
   createdBy: UserData;
-};
-
-type Trip = {
-  _id: string;
-  name: string;
-  date: string;
-  from: string;
-  to: string;
-  departureTime: string;
-  arrivalTime: string;
-  maxCapacity: number | undefined;
-  price: number | undefined;
-  available: boolean;
-  passengers: Passenger[];
 };
 
 type UserData = {
@@ -42,7 +27,7 @@ type UserData = {
   email: string;
   fullName: string;
   image?: string;
-  myTrips: TripProps[];
+  myTrips: Trip[];
   phone: undefined | number;
   username: string;
 };
@@ -56,15 +41,10 @@ interface Column {
 
 type DataTableProps = {
   columns: Column[];
-  tripData: Trip;
   tripPassengers: Passenger[];
 };
 
-const PassengersDatable = ({
-  columns,
-  tripPassengers,
-  tripData,
-}: DataTableProps) => {
+const PassengersDatable = ({ columns, tripPassengers }: DataTableProps) => {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
   const [list, setList] = useState(tripPassengers);
@@ -105,7 +85,7 @@ const PassengersDatable = ({
     {
       field: "action",
       headerName: "Acción",
-      width: 180,
+      width: 140,
       renderCell: (params: any) => {
         return (
           <div className="flex items-center gap-2">
