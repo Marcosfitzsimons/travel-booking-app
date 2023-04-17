@@ -94,7 +94,10 @@ const Profile = () => {
                 </li>
               </ul>
 
-              <div className="w-[min(24rem,100%)]" onClick={goToEditProfile}>
+              <div
+                className="w-[min(24rem,100%)] flex justify-center"
+                onClick={goToEditProfile}
+              >
                 <DefaultButton>Editar perfil</DefaultButton>
               </div>
             </div>
