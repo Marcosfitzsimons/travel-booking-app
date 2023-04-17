@@ -61,7 +61,7 @@ const Profile = () => {
         <>
           <div className="flex flex-col gap-3">
             <div className="self-start my-4 mb-6">
-              <BackButton toProfile={false} />
+              <BackButton linkTo="/" />
             </div>
 
             <div className="w-full relative flex flex-col items-center gap-5 md:w-7/12 md:mx-auto">

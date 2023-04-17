@@ -103,7 +103,7 @@ const EditProfile = () => {
         <div className="">
           <div className="w-full mt-5 mb-16 flex flex-col items-center gap-5">
             <div className="self-start">
-              <BackButton toProfile={true} />
+              <BackButton linkTo="/mi-perfil" />
             </div>
             <div className="w-full flex flex-col items-center gap-5 md:w-8/12">
               <div className="w-full flex flex-col items-center gap-5">
