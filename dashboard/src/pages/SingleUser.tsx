@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import SectionTitle from "../components/SectionTitle";
 import DefaultButton from "../components/DefaultButton";
 import { tripColumns } from "../datatablesource";
-import MyTripsDatatable from "../components/MyTripsDataTable";
+import MyTripsDatatable from "../components/MyTripsDatatable";
 import BackButton from "../components/BackButton";
 
 const INITIAL_STATES = {
