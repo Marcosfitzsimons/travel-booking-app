@@ -8,6 +8,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -52,15 +53,16 @@ const SingleUser = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
-      username: data?.username,
-      fullName: data?.fullName,
-      email: data?.email,
-      phone: data?.phone,
-      image: data?.image,
-      addressCda: data?.addressCda,
-      addressCapital: data?.addressCapital,
+      username: "",
+      fullName: "",
+      email: "",
+      phone: "",
+      image: "",
+      addressCda: "",
+      addressCapital: "",
     },
   });
 
@@ -91,6 +93,9 @@ const SingleUser = () => {
         toast({
           description: "Cambios guardados con exito.",
         });
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
       } else {
         const uploadRes = await axios.post(
           "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
@@ -108,6 +113,9 @@ const SingleUser = () => {
         toast({
           description: "Cambios guardados con exito.",
         });
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
       }
     } catch (err: any) {
       const errorMsg = err.response.data.msg;
@@ -131,7 +139,16 @@ const SingleUser = () => {
           }
         );
         setData(res.data.user);
-        console.log(res.data.user);
+        const userData = res.data.user;
+        reset({
+          username: userData.username,
+          email: userData.email,
+          fullName: userData.fullName,
+          phone: userData.phone,
+          addressCda: userData.addressCda,
+          addressCapital: userData.addressCapital,
+          image: userData.image ? userData.image : "",
+        });
       } catch (err) {
         setErr(err);
       }
@@ -417,9 +434,11 @@ const SingleUser = () => {
                         )}
                       </div>
                       {err && <p className="text-red-600 self-start">{err}</p>}
-                      <div className="w-[min(28rem,100%)] flex justify-center">
-                        <DefaultButton>Guardar cambios</DefaultButton>
-                      </div>
+                      <DialogFooter>
+                        <div className="w-[min(28rem,100%)] flex justify-center">
+                          <DefaultButton>Guardar cambios</DefaultButton>
+                        </div>
+                      </DialogFooter>
                     </form>
                   </div>
                 </div>
