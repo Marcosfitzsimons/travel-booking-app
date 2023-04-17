@@ -52,12 +52,6 @@ const SideBar = () => {
                 Viajes
               </Link>
             </li>
-            <li className="relative flex items-center gap-2">
-              <Ticket className="absolute left-2 h-5 w-5" />
-              <Link to="/passengers" className="z-20 w-full pl-8">
-                Pasajeros
-              </Link>
-            </li>
           </ul>
         </nav>
         <ul className="flex flex-col gap-1">
