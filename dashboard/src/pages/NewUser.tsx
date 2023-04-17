@@ -1,3 +1,4 @@
+import BackButton from "../components/BackButton";
 import NewUserForm from "../components/NewUserForm";
 import SectionTitle from "../components/SectionTitle";
 
@@ -37,7 +38,10 @@ const NewUser = ({ inputs, title }: NewUserProps) => {
   return (
     <section className="flex flex-col gap-5">
       <SectionTitle>{title}</SectionTitle>
-      <div className="p-5 rounded-md bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-black">
+      <div className="self-start mb-2">
+        <BackButton linkTo="/users" />
+      </div>
+      <div className="p-5 rounded-md bg-white/40 border border-blue-lagoon-500/20 shadow-md dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-black">
         <NewUserForm inputs={inputs} />
       </div>
     </section>

@@ -7,6 +7,7 @@ import SectionTitle from "../components/SectionTitle";
 import DefaultButton from "../components/DefaultButton";
 import { tripColumns } from "../datatablesource";
 import MyTripsDatatable from "../components/MyTripsDataTable";
+import BackButton from "../components/BackButton";
 
 const INITIAL_STATES = {
   _id: "",
@@ -54,6 +55,9 @@ const SingleUser = () => {
   return (
     <section className="flex flex-col gap-3">
       <SectionTitle>Información del usuario:</SectionTitle>
+      <div className="self-start mb-2">
+        <BackButton linkTo="/users" />
+      </div>
       <div className="relative self-center flex flex-col gap-3 p-5 w-full max-w-lg rounded-md">
         <div className="flex flex-col items-center gap-3">
           <div className="w-full relative flex flex-col items-center lg:basis-1/3">
@@ -98,7 +102,7 @@ const SingleUser = () => {
                 <span className="shrink-0">{data?.addressCapital}</span>
               </li>
             </ul>
-            <div className="w-full lg:h-7 lg:w-auto lg:self-end">
+            <div className="w-full lg:h-7 lg:flex lg:justify-center lg:w-[12rem]">
               <DefaultButton>Editar</DefaultButton>
             </div>
           </div>
