@@ -153,6 +153,7 @@ const SingleTrip = () => {
           <PassengersDatatable
             tripPassengers={data.passengers}
             columns={passengerColumns}
+            tripId={id}
           />
         ) : (
           <div className="mx-auto flex flex-col items-center gap-3">

@@ -42,21 +42,25 @@ interface Column {
 type DataTableProps = {
   columns: Column[];
   tripPassengers: Passenger[];
+  tripId: string | undefined;
 };
 
-const PassengersDatable = ({ columns, tripPassengers }: DataTableProps) => {
+const PassengersDatable = ({
+  columns,
+  tripPassengers,
+  tripId,
+}: DataTableProps) => {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
   const [list, setList] = useState(tripPassengers);
 
   // get the id of the user
-  const userId = "123135345634634534";
   const token = localStorage.getItem("token");
   const headers = {
     Authorization: `Bearer ${token}`,
   };
 
-  const handleDelete = async (tripId: string) => {
+  const handleDelete = async (userId: string) => {
     setLoading(true);
     try {
       await axios.delete(
@@ -67,7 +71,7 @@ const PassengersDatable = ({ columns, tripPassengers }: DataTableProps) => {
         description: "Lugar cancelado con éxito.",
       });
       setLoading(false);
-      setList(list.filter((item) => item.id !== tripId));
+      setList(list.filter((item) => item.createdBy._id !== userId));
     } catch (err: any) {
       console.log(err);
       setLoading(false);
@@ -110,10 +114,10 @@ const PassengersDatable = ({ columns, tripPassengers }: DataTableProps) => {
                 </AlertDialogHeader>
                 <AlertDialogFooter className="flex flex-col-reverse gap-1 md:flex-row md:justify-end">
                   <AlertDialogCancel className="md:w-auto">
-                    No, volver al perfil del usuario.
+                    No, volver a información del viaje.
                   </AlertDialogCancel>
                   <AlertDialogAction
-                    onClick={() => handleDelete(params.row.id)}
+                    onClick={() => handleDelete(params.row.createdBy._id)}
                     className="md:w-auto"
                   >
                     Si, borrar pasajero
@@ -128,22 +132,28 @@ const PassengersDatable = ({ columns, tripPassengers }: DataTableProps) => {
   ];
 
   return (
-    <div className="h-[400px] w-full">
-      <DataGrid
-        rows={list}
-        columns={actionColumn.concat(columns)}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 9,
+    <div className={`${list.length > 0 ? "h-[400px]" : ""} w-full`}>
+      {list.length > 0 ? (
+        <DataGrid
+          rows={list}
+          columns={actionColumn.concat(columns)}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 9,
+              },
             },
-          },
-        }}
-        pageSizeOptions={[9]}
-        checkboxSelection
-        getRowId={(row) => row._id}
-        className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
-      />
+          }}
+          pageSizeOptions={[9]}
+          checkboxSelection
+          getRowId={(row) => row._id}
+          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+        />
+      ) : (
+        <div className="mx-auto flex flex-col items-center gap-3">
+          <p>El viaje no tiene pasajeros por el momento.</p>
+        </div>
+      )}
     </div>
   );
 };
