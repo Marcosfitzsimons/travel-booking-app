@@ -1,5 +1,5 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Eye, PlusCircle, Trash2, UserPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";

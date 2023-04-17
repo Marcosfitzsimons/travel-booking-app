@@ -165,7 +165,7 @@ export const tripInputs = [
     id: "date",
     label: "Fecha",
     type: "text",
-    placeholder: "03/04/23",
+    placeholder: "03/04/2023",
     validation: {
       required: {
         value: true,
