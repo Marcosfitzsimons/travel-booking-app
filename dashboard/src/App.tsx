@@ -10,7 +10,7 @@ import NewUser from "./pages/NewUser";
 import SingleUser from "./pages/SingleUser";
 import List from "./pages/List";
 import { AuthContext } from "./context/AuthContext";
-import { passengerInputs, tripInputs, userInputs } from "./formSource";
+import { tripInputs, userInputs } from "./formSource";
 import { passengerColumns, tripColumns, userColumns } from "./datatablesource";
 import SingleTrip from "./pages/SingleTrip";
 import NotFound from "./pages/NotFound";
@@ -136,10 +136,7 @@ function App() {
                   path="new"
                   element={
                     <ProtectedRoute>
-                      <NewUser
-                        inputs={passengerInputs}
-                        title="Agregar pasajero"
-                      />
+                      <NewUser inputs={tripInputs} title="Agregar pasajero" />
                     </ProtectedRoute>
                   }
                 />
