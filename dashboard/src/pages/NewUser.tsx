@@ -1,7 +1,39 @@
 import NewUserForm from "../components/NewUserForm";
 import SectionTitle from "../components/SectionTitle";
 
-const NewUser = ({ inputs, title }) => {
+interface InputValidation {
+  required: {
+    value: boolean;
+    message: string;
+  };
+  minLength: {
+    value: number;
+    message: string;
+  };
+  maxLength: {
+    value: number;
+    message: string;
+  };
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
+}
+
+interface UserInput {
+  id: string;
+  label: string;
+  type: string;
+  placeholder?: string;
+  validation?: InputValidation;
+}
+
+type NewUserProps = {
+  inputs: UserInput[];
+  title: string;
+};
+
+const NewUser = ({ inputs, title }: NewUserProps) => {
   return (
     <section className="flex flex-col gap-5">
       <SectionTitle>{title}</SectionTitle>
