@@ -3,7 +3,6 @@ import { Upload, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/SectionTitle";
 import { toast } from "../hooks/ui/use-toast";
@@ -257,7 +256,7 @@ const EditProfile = () => {
                     )}
                   </div>
                   {err && <p className="text-red-600 self-start">{err}</p>}
-                  <div className="w-[min(28rem,100%)]">
+                  <div className="w-[min(28rem,100%)] flex justify-center">
                     <DefaultButton>Guardar cambios</DefaultButton>
                   </div>
                 </form>
