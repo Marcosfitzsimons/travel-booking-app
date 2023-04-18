@@ -16,6 +16,7 @@ import SingleTrip from "./pages/SingleTrip";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
+import SinglePassenger from "./pages/SinglePassenger";
 
 type Props = {
   children: ReactElement;
@@ -113,22 +114,10 @@ function App() {
               </Route>
               <Route path="passengers">
                 <Route
-                  index
+                  path=":userId/:tripId"
                   element={
                     <ProtectedRoute>
-                      <List
-                        title="Pasajeros"
-                        columns={passengerColumns}
-                        linkText="Crear pasajero"
-                      />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path=":id"
-                  element={
-                    <ProtectedRoute>
-                      <SingleUser />
+                      <SinglePassenger />
                     </ProtectedRoute>
                   }
                 />

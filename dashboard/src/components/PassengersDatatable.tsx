@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Trash2 } from "lucide-react";
+import { Eye, Trash2 } from "lucide-react";
 import axios from "axios";
 import {
   AlertDialog,
@@ -14,6 +14,7 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import { toast } from "../hooks/ui/use-toast";
+import { Link } from "react-router-dom";
 
 type Passenger = {
   _id: string;
@@ -54,7 +55,6 @@ const PassengersDatable = ({
   const [err, setErr] = useState<null | string>(null);
   const [list, setList] = useState(tripPassengers);
 
-  // get the id of the user
   const token = localStorage.getItem("token");
   const headers = {
     Authorization: `Bearer ${token}`,
@@ -89,10 +89,19 @@ const PassengersDatable = ({
     {
       field: "action",
       headerName: "Acción",
-      width: 140,
+      width: 180,
       renderCell: (params: any) => {
         return (
           <div className="flex items-center gap-2">
+            <div className="relative flex items-center">
+              <Eye className="absolute cursor-pointer left-2 h-4 w-4" />
+              <Link
+                to={`/passengers/${params.row.createdBy._id}/${tripId}`}
+                className={`px-3 pl-7 rounded-md border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80`}
+              >
+                Ver
+              </Link>
+            </div>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
