@@ -8,7 +8,7 @@ const Logo = () => {
       to="/"
       className="rounded-full relative after:absolute after:-inset-[3px] after:rounded-full after:border after:shadow-inner after:shadow-white  after:border-gray-100 dark:after:shadow-none"
     >
-      <Avatar className="">
+      <Avatar className="lg:h-12 lg:w-12">
         <AvatarImage
           src={logo}
           alt="fabebus logo"
