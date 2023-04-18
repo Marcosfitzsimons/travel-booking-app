@@ -1,21 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import moment from "moment-timezone";
 import axios from "axios";
-
-import SectionTitle from "../components/SectionTitle";
 import { passengerColumns } from "../datatablesource";
 import BackButton from "../components/BackButton";
 import PassengersDatatable from "../components/PassengersDatatable";
-import {
-  CalendarDays,
-  Clock,
-  DollarSign,
-  User,
-  UserPlus,
-  Users,
-} from "lucide-react";
-import moment from "moment-timezone";
+import { CalendarDays, Clock, DollarSign, UserPlus, Users } from "lucide-react";
 import miniBus from "../assets/minibus1-sm.png";
+import SectionTitle from "../components/SectionTitle";
 
 const INITIAL_STATES = {
   _id: "",
