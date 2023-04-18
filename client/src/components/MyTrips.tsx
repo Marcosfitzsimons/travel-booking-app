@@ -253,7 +253,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
               ))}
             </>
           ) : (
-            <div className="mx-auto flex flex-col items-center gap-3">
+            <div className="flex flex-col items-center gap-3 md:col-start-1 md:col-end-3">
               <p>No tenes lugares reservados.</p>
               <div
                 className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 h-8"
