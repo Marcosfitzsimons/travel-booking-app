@@ -1,16 +1,21 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/fabebus-logo.jpg";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const Logo = () => {
   return (
-    <Link to="/" className="font-serif tracking-wider dark:hover:text-white">
-      <span className="font-medium text-xl">F</span>
-      <span className="inline-block rotate-3">a</span>
-      <span className="inline-block -rotate-6">b</span>
-      <span className="inline-block rotate-1">e</span>
-      <span className="font-medium text-xl">B</span>
-      <span className="inline-block rotate-6">u</span>
-      <span className="inline-block -rotate-3">s</span>
+    <Link
+      to="/"
+      className="rounded-full relative after:absolute after:-inset-[3px] after:rounded-full after:border after:shadow-inner after:shadow-white  after:border-gray-100 dark:after:shadow-none"
+    >
+      <Avatar className="">
+        <AvatarImage
+          src={logo}
+          alt="fabebus logo"
+          className="object-cover z-40"
+        />
+        <AvatarFallback>Logo</AvatarFallback>
+      </Avatar>
     </Link>
   );
 };
