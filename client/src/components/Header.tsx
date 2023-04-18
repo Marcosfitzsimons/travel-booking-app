@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import {
   AlignCenter,
+  ArrowDown,
+  ChevronDown,
   ClipboardList,
   LogOut,
   User,
@@ -25,7 +27,7 @@ import Logo from "./Logo";
 type HeaderProps = {
   setIsUserInfo: (value: boolean) => void;
 };
-
+// Add arrow to avatar dropdown menu :)
 const Header = ({ setIsUserInfo }: HeaderProps) => {
   const { user, dispatch } = useContext(AuthContext);
 
@@ -44,7 +46,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
   return (
     <header className="fixed w-full z-50 bg-[#fafafa] dark:bg-[#0d0f12] border-b border-b-blue-lagoon-700/50 dark:border-b-neutral-600">
       <div className="w-[min(90%,1000px)] mx-auto py-3 flex justify-between items-center">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center flex-row-reverse gap-2">
           {user ? (
             <DropdownMenu>
               <DropdownMenuTrigger className="lg:hidden" asChild>
@@ -79,7 +81,6 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
           ) : (
             ""
           )}
-
           <Logo />
         </div>
         <div className="flex items-center gap-2">
@@ -126,13 +127,14 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
           ) : (
             <div className="ml-2">
               <DropdownMenu>
-                <DropdownMenuTrigger>
+                <DropdownMenuTrigger className="flex items-center gap-1 hover:text-blue-lagoon-600 dark:hover:text-white">
                   <Avatar>
                     <AvatarImage src={user.image} alt="avatar picture" />
                     <AvatarFallback>
                       <User className="dark:text-blue-lagoon-100" />
                     </AvatarFallback>
                   </Avatar>
+                  <ChevronDown />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="  ">
                   <DropdownMenuLabel className="dark:text-white">
