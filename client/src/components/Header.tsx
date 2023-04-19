@@ -1,7 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import {
-  AlignCenter,
-  ArrowDown,
   ChevronDown,
   ClipboardList,
   LogOut,
@@ -48,36 +46,13 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
       <div className="w-[min(90%,1000px)] mx-auto py-3 flex justify-between items-center">
         <div className="flex items-center flex-row-reverse gap-2">
           {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger className="lg:hidden" asChild>
-                <Button
-                  variant="ghost"
-                  className="relative top-[1px] w-8 h-8 rounded-md p-0 dark:hover:text-white dark:hover:bg-blue-lagoon-900/70"
-                >
-                  <AlignCenter />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start">
-                <DropdownMenuItem className="cursor-pointer p-0">
-                  <Link
-                    to="/viajes"
-                    onClick={() => setIsUserInfo(false)}
-                    className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
-                  >
-                    Viajes
-                  </Link>
-                </DropdownMenuItem>
-
-                <DropdownMenuItem className="cursor-pointer p-0">
-                  <Link
-                    to="/nosotros"
-                    className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
-                  >
-                    Nosotros
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <Link
+              to="/viajes"
+              onClick={() => setIsUserInfo(false)}
+              className="rounded-md px-2 font-medium flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/50 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50 lg:hidden"
+            >
+              Viajes
+            </Link>
           ) : (
             ""
           )}
@@ -89,7 +64,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
               <li>
                 <Link
                   to="/viajes"
-                  className="font-medium py-2 px-2 rounded-md hover:bg-blue-lagoon-300/10 dark:text-white dark:hover:bg-blue-lagoon-900/70"
+                  className="font-medium rounded-md py-1 px-3 hover:bg-blue-lagoon-300/10 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
                 >
                   Viajes
                 </Link>
@@ -97,7 +72,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
               <li>
                 <Link
                   to="/nosotros"
-                  className="font-medium  py-2 px-2 rounded-md hover:bg-blue-lagoon-300/10 dark:text-white dark:hover:bg-blue-lagoon-900/70"
+                  className="font-medium rounded-md py-1 px-3 hover:bg-blue-lagoon-300/10 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
                 >
                   Nosotros
                 </Link>
