@@ -128,7 +128,7 @@ const SingleTrip = () => {
       <div className="w-full flex items-center justify-end relative">
         <div className="flex items-center relative">
           <Link
-            to="/passengers/new"
+            to={`/passengers/newPassenger/${id}`}
             className="px-3 py-1 pl-9 rounded-md border border-blue-lagoon-200 shadow-md bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80"
           >
             <UserPlus className="w-5 h-5 absolute left-3 top-[6px] dark:text-blue-lagoon-100 cursor-pointer" />
