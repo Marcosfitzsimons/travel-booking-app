@@ -128,13 +128,13 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
             <div className="ml-2">
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1 hover:text-blue-lagoon-600 dark:hover:text-white">
-                  <Avatar>
+                  <Avatar className="w-8 h-8">
                     <AvatarImage src={user.image} alt="avatar picture" />
                     <AvatarFallback>
                       <User className="dark:text-blue-lagoon-100" />
                     </AvatarFallback>
                   </Avatar>
-                  <ChevronDown />
+                  <ChevronDown className="w-5 h-5" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="  ">
                   <DropdownMenuLabel className="dark:text-white">
