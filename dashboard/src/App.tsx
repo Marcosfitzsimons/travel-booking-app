@@ -11,7 +11,7 @@ import SingleUser from "./pages/SingleUser";
 import List from "./pages/List";
 import { AuthContext } from "./context/AuthContext";
 import { tripInputs, userInputs } from "./formSource";
-import { passengerColumns, tripColumns, userColumns } from "./datatablesource";
+import { tripColumns, userColumns } from "./datatablesource";
 import SingleTrip from "./pages/SingleTrip";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
@@ -123,10 +123,13 @@ function App() {
                   }
                 />
                 <Route
-                  path="new"
+                  path="newPassenger/:id"
                   element={
                     <ProtectedRoute>
-                      <NewPassenger title="Agregar pasajero" />
+                      <NewPassenger
+                        title="Agregar pasajero"
+                        columns={userColumns}
+                      />
                     </ProtectedRoute>
                   }
                 />
