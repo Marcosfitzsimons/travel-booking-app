@@ -8,6 +8,8 @@ import { Label } from "../components/ui/label";
 import { AuthContext } from "../context/AuthContext";
 import Logo from "../components/Logo";
 import { Button } from "../components/ui/button";
+import DefaultButton from "../components/DefaultButton";
+import SectionTitle from "../components/SectionTitle";
 
 type User = {
   emailOrUsername: String;
@@ -71,10 +73,13 @@ const Login = () => {
           orientation="vertical"
           className="h-52 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
         />
-        <div className="w-full max-w-sm">
-          <h2 className="text-3xl py-2 font-medium text-center lg:text-start lg:px-3 dark:text-white">
-            Entra a tu cuenta
+        <div className="w-full max-w-md">
+          <h2 className="text-3xl uppercase py-2 font-medium text-center lg:text-start lg:px-3 dark:text-white">
+            Panel de Administrador
           </h2>
+          <p className="text-center lg:text-start lg:px-3 dark:text-white">
+            Entrá para administrar tu aplicación
+          </p>
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
             className="relative w-full mt-6 p-3 py-6 flex flex-col gap-5 items-center"
@@ -128,7 +133,7 @@ const Login = () => {
               )}
             </div>
             {err && <p className="text-red-600 self-start">{err}</p>}
-            <Button>Entrar</Button>
+            <DefaultButton>Entrar</DefaultButton>
           </form>
         </div>
         <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6">
