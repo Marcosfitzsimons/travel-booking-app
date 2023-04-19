@@ -73,22 +73,17 @@ const NewPassenger = ({ title, columns }: NewPassengerProps) => {
         <BackButton linkTo={`/trips/${tripId}`} />{" "}
       </div>
       <div className="p-5 rounded-md bg-white/40 border border-blue-lagoon-500/20 shadow-md dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-black">
-        <h2 className="text-xl">Listado de usuarios:</h2>
-        <p className="text-sm lg:text-base">
-          Selecciona un usuario para agregar al viaje.
-        </p>
         <div className="">
-          <Label>Buscar por Nombre de Usuario o Email</Label>
-          <Input />
+          <h2 className="text-xl lg:text-2xl">Listado de usuarios</h2>
+          <p className="text-sm lg:text-base">
+            Selecciona un usuario para agregar al viaje.
+          </p>
         </div>
-        <UsersDatatable columns={columns} />
-        {/* 
-            Show a list of users 
-            with a search bar to search by Username or Email and when an User is selected,
-            add it to the trip passengers array. 
-            [ -CREATE NEW PASSENGER WITH THE USER INFORMATION. ]
-            [ -ADD TRIP TO USER MYTRIPS ARRAY. ]
-        */}
+        <div className="flex flex-col gap-1 my-4 max-w-md">
+          <Label>Buscar por Nombre de Usuario o Email:</Label>
+          <Input placeholder="not working yet..." />
+        </div>
+        <UsersDatatable columns={columns} tripId={tripId} />
       </div>
     </section>
   );
