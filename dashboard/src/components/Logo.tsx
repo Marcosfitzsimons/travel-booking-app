@@ -1,14 +1,21 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/fabebus-logo.jpg";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 const Logo = () => {
   return (
-    <Link to="/" className="relative w-12 aspect-square lg:w-14">
-      <img
-        src={logo}
-        className="rounded-full object-cover w-12 aspect-square lg:w-14"
-        alt="fabebus logo"
-      />
+    <Link
+      to="/"
+      className="rounded-full relative after:absolute after:-inset-[3px] after:rounded-full after:border after:shadow-inner after:shadow-white  after:border-gray-100 dark:after:shadow-none"
+    >
+      <Avatar className="lg:h-12 lg:w-12">
+        <AvatarImage
+          src={logo}
+          alt="fabebus logo"
+          className="object-cover z-40"
+        />
+        <AvatarFallback>Logo</AvatarFallback>
+      </Avatar>
     </Link>
   );
 };

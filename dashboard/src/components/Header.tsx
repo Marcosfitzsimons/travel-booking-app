@@ -18,9 +18,7 @@ const Header = () => {
   return (
     <header className="bg-[#fafafa] dark:bg-[#0d0f12]">
       <div className="py-2 flex items-center justify-between z-50 lg:py-[12.5px]">
-        <div>
-          <Logo />
-        </div>
+        <Logo />
         <div className="flex items-center gap-1">
           <div className="relative top-[1px]">
             <ThemeToggle />
