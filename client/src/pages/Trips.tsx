@@ -88,7 +88,7 @@ const Trips = () => {
           <div className="mt-8 flex flex-col items-center gap-5 md:grid md:justify-items-center md:grid-cols-2">
             {filteredTrips ? (
               <>
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {filteredTrips.length !== 0 ? (
                     filteredTrips.map((item: TripProps) => (
                       <motion.div
@@ -109,7 +109,7 @@ const Trips = () => {
                       animate="visible"
                       key="empty-filtered-trip"
                       exit="exit"
-                      className="mb-[20rem] lg:mb-[28rem]"
+                      className="w-full mb-[20rem] lg:mb-[28rem]"
                     >
                       No hay viajes disponibles para la fecha seleccionada.
                     </motion.p>
@@ -118,7 +118,7 @@ const Trips = () => {
               </>
             ) : (
               <>
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                   {data.length !== 0 ? (
                     data.map((trip: TripProps) => (
                       <motion.div
@@ -134,7 +134,7 @@ const Trips = () => {
                     ))
                   ) : (
                     <motion.p
-                      className="mb-[20rem] lg:mb-[28rem]"
+                      className="w-full mb-[20rem] lg:mb-[28rem]"
                       variants={sectionVariants}
                       initial="hidden"
                       animate="visible"
