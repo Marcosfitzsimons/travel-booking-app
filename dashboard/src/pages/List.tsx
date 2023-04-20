@@ -23,7 +23,9 @@ const List = ({ title, columns, linkText }: ListProps) => {
   return (
     <section className="flex flex-col gap-5">
       <SectionTitle>{title}</SectionTitle>
-      <Widget type={path === "users" ? "user" : "trip"} />
+      <div className="self-center">
+        <Widget type={path === "users" ? "user" : "trip"} />
+      </div>
       {path === "users" ? (
         <UsersDatatable columns={columns} linkText={linkText} />
       ) : (

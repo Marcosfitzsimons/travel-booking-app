@@ -4,8 +4,6 @@ import SectionTitle from "../components/SectionTitle";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment-timezone";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
 import NewPassengerDatatable from "../components/NewPassengerDatatable";
 interface Column {
   field: string;
