@@ -28,7 +28,7 @@ type UserData = {
   email: string | undefined;
   addressCda: string | undefined;
   addressCapital?: string | undefined;
-  phone: number | undefined;
+  phone: string | undefined;
   image?: string | undefined;
 };
 
@@ -48,7 +48,7 @@ const SingleUser = () => {
   const [data, setData] = useState(INITIAL_STATES);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<File | string>("");
-  const [err, setErr] = useState<unknown | boolean>(false);
+  const [err, setErr] = useState<React.ReactNode>(false);
   const {
     register,
     handleSubmit,

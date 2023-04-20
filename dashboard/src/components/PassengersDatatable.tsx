@@ -94,10 +94,10 @@ const PassengersDatable = ({
         return (
           <div className="flex items-center gap-2">
             <div className="relative flex items-center">
-              <Eye className="absolute cursor-pointer left-2 h-4 w-4" />
+              <Eye className="absolute left-2 h-4 w-4" />
               <Link
                 to={`/passengers/${params.row.createdBy._id}/${tripId}`}
-                className={`px-3 pl-7 rounded-md border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80`}
+                className="px-3 pl-7 rounded-md z-20 border border-blue-lagoon-200 bg-transprent hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-transparent"
               >
                 Ver
               </Link>

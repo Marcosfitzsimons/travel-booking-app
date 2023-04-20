@@ -20,6 +20,17 @@ import {
 import { toast } from "../hooks/ui/use-toast";
 import DatePickerContainer from "./DatePickerContainer";
 
+type Trip = {
+  _id: string;
+  name: string;
+  date: string;
+  from: string;
+  departureTime: string;
+  to: string;
+  arrivalTime: string;
+  maxCapacity: string;
+  price: string;
+};
 interface Column {
   field: string;
   headerName: string;
@@ -32,20 +43,18 @@ type DataTableProps = {
   linkText: string;
 };
 
-const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
-  const location = useLocation();
-  let path = location.pathname.split("/")[1];
-  if (path !== "users") {
-    path = "trips";
-  }
+type ExtendedColumn = Column & {
+  renderCell?: (params: any) => JSX.Element;
+};
 
+const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
-  const [list, setList] = useState([]);
-  const [filteredList, setFilteredList] = useState([]);
+  const [list, setList] = useState<Trip[]>([]);
+  const [filteredList, setFilteredList] = useState<Trip[]>([]);
 
-  const baseUrl = `https://travel-booking-api-production.up.railway.app/api/${path}`;
+  const baseUrl = `https://travel-booking-api-production.up.railway.app/api/trips`;
 
   const { data, loading, error } = useFetch(baseUrl);
 
@@ -57,10 +66,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   const handleDelete = async (id: string) => {
     setIsLoading(true);
     try {
-      await axios.delete(
-        `https://travel-booking-api-production.up.railway.app/api/${path}/${id}`,
-        { headers }
-      );
+      await axios.delete(`${baseUrl}/${id}`, { headers });
       toast({
         description: "Viaje eliminado con éxito.",
       });
@@ -79,12 +85,12 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
     }
   };
 
-  let filteredTrips;
+  let filteredTrips: Trip[];
   let dateSelected: string;
   if (startDate) {
     dateSelected = format(startDate, "dd/MM/yy");
 
-    filteredTrips = filteredList.filter((trip: TripProps) => {
+    filteredTrips = filteredList.filter((trip: Trip) => {
       const momentDate = moment.utc(trip.date).add(1, "day").toDate();
       const date = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
       const formattedDate = moment(date).format("DD/MM/YY");
@@ -93,19 +99,19 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
     });
   }
 
-  const actionColumn = [
+  const actionColumn: ExtendedColumn[] = [
     {
       field: "action",
       headerName: "Acción",
       width: 180,
-      renderCell: (params) => {
+      renderCell: (params: any) => {
         return (
           <div className="flex items-center gap-2">
             <div className="relative flex items-center">
-              <Eye className="absolute cursor-pointer left-2 h-4 w-4" />
+              <Eye className="absolute left-2 h-4 w-4" />
               <Link
-                to={`/${path}/${params.row._id}`}
-                className={`px-3 pl-7 rounded-md border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80`}
+                to={`/trips/${params.row._id}`}
+                className="px-3 bg-transparent pl-7 z-20 rounded-md border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-transparent"
               >
                 Ver
               </Link>
@@ -126,19 +132,18 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
                   <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
                   <AlertDialogDescription>
                     Esta acción no podrá deshacerse. Esto eliminará
-                    permanentemente el {path === "users" ? "usuario" : "viaje"}
+                    permanentemente este viaje.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter className="flex flex-col-reverse gap-1 md:flex-row md:justify-end">
                   <AlertDialogCancel className="md:w-auto">
-                    No, volver al listado de{" "}
-                    {path === "users" ? "usuarios" : "viajes"}
+                    No, volver al listado de viajes
                   </AlertDialogCancel>
                   <AlertDialogAction
                     onClick={() => handleDelete(params.row._id)}
                     className="md:w-auto"
                   >
-                    Si, borrar {path === "users" ? "usuario" : "viaje"}
+                    Si, borrar viaje
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
@@ -164,17 +169,11 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
             setStartDate={setStartDate}
           />
         </div>
-        <div className="relative md:self-end md::my-1">
-          {path === "users" ? (
-            <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
-          ) : (
-            <PlusCircle className="absolute cursor-pointer left-3 top-[4px] h-4 w-4" />
-          )}
+        <div className="relative flex items-center md:self-end md::my-1 bg-white rounded-md dark:bg-transparent">
+          <PlusCircle className="absolute left-3 h-4 w-4" />
           <Link
-            to={`/${path}/new`}
-            className={`px-3 py-1 ${
-              path === "users" ? "pl-9" : "pl-8"
-            } rounded-md border border-blue-lagoon-200 shadow-md bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80`}
+            to="/trips/new"
+            className="px-3 py-1 pl-8 rounded-md bg-transparent z-20 border border-blue-lagoon-200 shadow-md hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80 dark:bg-transparent"
           >
             {linkText}
           </Link>

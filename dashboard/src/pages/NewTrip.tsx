@@ -3,6 +3,7 @@ import NewTripForm from "../components/NewTripForm";
 import SectionTitle from "../components/SectionTitle";
 
 type Trip = {
+  id: string;
   name: string;
   date: string;
   from: string;

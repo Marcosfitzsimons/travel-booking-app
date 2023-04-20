@@ -1,21 +1,34 @@
 import { useState } from "react";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import DefaultButton from "./DefaultButton";
 
-type SearchUserInputProps = {};
+type User = {
+  _id: string | undefined;
+  username: string | undefined;
+  fullName: string | undefined;
+  email: string | undefined;
+  addressCda: string | undefined;
+  addressCapital?: string | undefined;
+  phone: number | undefined;
+  image?: string | undefined;
+};
+
+type SearchUserInputProps = {
+  list: User[];
+  setFilteredList: (users: User[]) => void;
+};
 const SearchUserInput = ({ list, setFilteredList }: SearchUserInputProps) => {
   const [searchInput, setSearchInput] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const inputValue = searchInput.trim().toLocaleLowerCase();
     const matchingUsers = list.filter((user) => {
       return (
-        user.username.toLowerCase().includes(inputValue) ||
-        user.fullName.toLowerCase().includes(inputValue) ||
-        user.email.toLowerCase().includes(inputValue)
+        user.username?.toLowerCase().includes(inputValue) ||
+        user.fullName?.toLowerCase().includes(inputValue) ||
+        user.email?.toLowerCase().includes(inputValue)
       );
     });
     setFilteredList(matchingUsers);
