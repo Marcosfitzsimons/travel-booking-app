@@ -1,4 +1,4 @@
-import Datatable from "../components/Datatable";
+import UserDatatable from "../components/UserDatatable";
 import SectionTitle from "../components/SectionTitle";
 
 interface Column {
@@ -18,7 +18,8 @@ const List = ({ title, columns, linkText }: ListProps) => {
   return (
     <section className="flex flex-col gap-5">
       <SectionTitle>{title}</SectionTitle>
-      <Datatable columns={columns} linkText={linkText} />
+      {/* UsersDatatable or tripsDatatable render conditionally */}
+      <UserDatatable columns={columns} linkText={linkText} />
     </section>
   );
 };

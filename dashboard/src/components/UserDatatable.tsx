@@ -14,7 +14,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../components/ui/alert-dialog";
+} from "./ui/alert-dialog";
+import SearchUserInput from "./SearchUserInput";
 
 interface Column {
   field: string;
@@ -28,10 +29,11 @@ type DataTableProps = {
   linkText: string;
 };
 
-const Datatable = ({ columns, linkText }: DataTableProps) => {
+const UserDatatable = ({ columns, linkText }: DataTableProps) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
 
   const baseUrl = `https://travel-booking-api-production.up.railway.app/api/${path}`;
 
@@ -116,8 +118,9 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
 
   return (
     <div className="h-[400px] w-full">
-      <div className="w-full my-3 flex items-center justify-end">
-        <div className="relative">
+      <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <SearchUserInput list={list} setFilteredList={setFilteredList} />
+        <div className="relative md:self-end md::my-1">
           {path === "users" ? (
             <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
           ) : (
@@ -133,23 +136,41 @@ const Datatable = ({ columns, linkText }: DataTableProps) => {
           </Link>
         </div>
       </div>
-      <DataGrid
-        rows={list}
-        columns={actionColumn.concat(columns)}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 9,
+      {filteredList.length > 0 ? (
+        <DataGrid
+          rows={filteredList}
+          columns={actionColumn.concat(columns)}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 9,
+              },
             },
-          },
-        }}
-        pageSizeOptions={[9]}
-        checkboxSelection
-        getRowId={(row) => row._id}
-        className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 shadow-md border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
-      />
+          }}
+          pageSizeOptions={[9]}
+          checkboxSelection
+          getRowId={(row) => row._id}
+          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 shadow-md border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+        />
+      ) : (
+        <DataGrid
+          rows={list}
+          columns={actionColumn.concat(columns)}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 9,
+              },
+            },
+          }}
+          pageSizeOptions={[9]}
+          checkboxSelection
+          getRowId={(row) => row._id}
+          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 shadow-md border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+        />
+      )}
     </div>
   );
 };
 
-export default Datatable;
+export default UserDatatable;

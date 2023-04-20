@@ -51,6 +51,7 @@ function App() {
                 }
               />
               <Route path="users">
+                {/* Add search bar to search by email or username or full name */}
                 <Route
                   index
                   element={
@@ -84,6 +85,7 @@ function App() {
                 />
               </Route>
               <Route path="trips">
+                {/* Add search bar to search by trip date */}
                 <Route
                   index
                   element={
