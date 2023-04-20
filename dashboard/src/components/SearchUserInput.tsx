@@ -21,15 +21,16 @@ const SearchUserInput = ({ list, setFilteredList }: SearchUserInputProps) => {
     setFilteredList(matchingUsers);
   };
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-1">
-      <div className="flex flex-col gap-2">
-        <Label>Buscar por nombre de usuario, email, o nombre:</Label>
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-center">
+    <form onSubmit={handleSubmit} className="">
+      <div className="w-full flex flex-col gap-2 md:flex-row md:items-center">
+        <Label>Ingresa nombre de usuario, email, o nombre:</Label>
+        <div className="flex flex-col gap-1 md:flex-row md:items-center">
           <div className="">
             <Input
               type="search"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
+              className="w-[]"
             />
           </div>
           <div className="md:w-[80px]">

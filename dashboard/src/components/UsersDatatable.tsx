@@ -118,11 +118,11 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
 
   return (
     <div className="h-[400px] w-full">
-      <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div className="w-full my-3 flex flex-col items-center gap-3 md:flex-row md:items-center md:justify-between">
         <SearchUserInput list={list} setFilteredList={setFilteredList} />
-        <div className="relative md:self-end md:my-1">
+        <div className="relative my-1 self-end">
           {path === "users" ? (
-            <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
+            <UserPlus className="absolute cursor-pointer left-3 top-[2px] h-5 w-5" />
           ) : (
             <PlusCircle className="absolute cursor-pointer left-3 top-[4px] h-4 w-4" />
           )}
