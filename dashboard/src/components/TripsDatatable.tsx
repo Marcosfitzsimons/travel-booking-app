@@ -16,6 +16,7 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import SearchTripInput from "./SearchTripInput";
+import { toast } from "../hooks/ui/use-toast";
 
 interface Column {
   field: string;
@@ -35,6 +36,9 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   if (path !== "users") {
     path = "trips";
   }
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [err, setErr] = useState<null | string>(null);
   const [list, setList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
 
@@ -48,17 +52,29 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   };
 
   const handleDelete = async (id: string) => {
+    setIsLoading(true);
     try {
       await axios.delete(
         `https://travel-booking-api-production.up.railway.app/api/${path}/${id}`,
-        {
-          headers,
-        }
+        { headers }
       );
+      toast({
+        description: "Viaje eliminado con éxito.",
+      });
+      setIsLoading(false);
       setList(list.filter((item) => item._id !== id));
-    } catch (err) {}
+    } catch (err: any) {
+      console.log(err);
+      setIsLoading(false);
+      setErr(err.message);
+      toast({
+        variant: "destructive",
+        description: `Error al eliminar el viaje, intente más tarde. ${
+          err ? `"${err}"` : ""
+        }`,
+      });
+    }
   };
-
   const actionColumn = [
     {
       field: "action",
