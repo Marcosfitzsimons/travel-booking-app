@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import moment from "moment-timezone";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import UsersDatatable from "../components/UsersDatatable";
+import NewPassengerDatatable from "../components/NewPassengerDatatable";
 interface Column {
   field: string;
   headerName: string;
@@ -72,19 +72,8 @@ const NewPassenger = ({ title, columns }: NewPassengerProps) => {
       <div className="self-start mb-2">
         <BackButton linkTo={`/trips/${tripId}`} />{" "}
       </div>
-      <div className="p-5 rounded-md bg-white/40 border border-blue-lagoon-500/20 shadow-md dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-black">
-        <div className="">
-          <h2 className="text-xl lg:text-2xl">Listado de usuarios</h2>
-          <p className="text-sm lg:text-base">
-            Selecciona un usuario para agregar al viaje.
-          </p>
-        </div>
-        <div className="flex flex-col gap-1 my-4 max-w-md">
-          <Label>Buscar por Nombre de Usuario o Email:</Label>
-          <Input placeholder="not working yet..." />
-        </div>
-        <UsersDatatable columns={columns} tripId={tripId} />
-      </div>
+
+      <NewPassengerDatatable columns={columns} tripId={tripId} />
     </section>
   );
 };
