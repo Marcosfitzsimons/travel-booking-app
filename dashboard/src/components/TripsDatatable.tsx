@@ -31,7 +31,10 @@ type DataTableProps = {
 
 const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   const location = useLocation();
-  const path = location.pathname.split("/")[1];
+  let path = location.pathname.split("/")[1];
+  if (path !== "users") {
+    path = "trips";
+  }
   const [list, setList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
 

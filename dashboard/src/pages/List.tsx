@@ -1,6 +1,8 @@
 import UsersDatatable from "../components/UsersDatatable";
 import SectionTitle from "../components/SectionTitle";
 import TripsDatatable from "../components/TripsDatatable";
+import { useLocation } from "react-router-dom";
+import Widget from "../components/Widget";
 
 interface Column {
   field: string;
@@ -16,13 +18,16 @@ type ListProps = {
 };
 
 const List = ({ title, columns, linkText }: ListProps) => {
+  const location = useLocation();
+  const path = location.pathname.split("/")[1];
   return (
     <section className="flex flex-col gap-5">
       <SectionTitle>{title}</SectionTitle>
-      {title === "Viajes" ? (
-        <TripsDatatable columns={columns} linkText={linkText} />
-      ) : (
+      <Widget type={path === "users" ? "user" : "trip"} />
+      {path === "users" ? (
         <UsersDatatable columns={columns} linkText={linkText} />
+      ) : (
+        <TripsDatatable columns={columns} linkText={linkText} />
       )}
     </section>
   );

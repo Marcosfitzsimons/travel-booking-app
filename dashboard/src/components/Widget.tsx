@@ -8,7 +8,6 @@ type WidgetProps = {
 
 const INITIAL_STATES = {
   title: "",
-  isMoney: false,
   link: "",
   to: "",
   icon: <HelpCircle />,
@@ -26,7 +25,6 @@ const Widget = ({ type }: WidgetProps) => {
       case "user":
         setData({
           title: "Usuarios",
-          isMoney: false,
           link: "Ver todos los usuarios",
           to: "/users",
           icon: <User />,
@@ -35,7 +33,6 @@ const Widget = ({ type }: WidgetProps) => {
       case "trip":
         setData({
           title: "Viajes",
-          isMoney: false,
           link: "Ver todos los viajes",
           to: "/trips",
           icon: <Map />,
@@ -47,12 +44,14 @@ const Widget = ({ type }: WidgetProps) => {
   return (
     <article className="w-full flex justify-between gap-5 flex-1 p-5 rounded-md shadow-md bg-white/80 border border-blue-lagoon-500/20 lg:max-w-md dark:bg-[#141414] dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
       <div className="flex flex-col gap-4 justify-between">
-        <span className="font-bold text-blue-lagoon-600 uppercase dark:text-white">
+        <h4 className="font-bold text-blue-lagoon-600 uppercase dark:text-white">
           {data.title}
-        </span>
-        <span className="font-light text-2xl">
-          {data.isMoney && "$"} {amount}
-        </span>
+        </h4>
+        <p className="font-medium">
+          Total de{" "}
+          {type === "user" ? "usuarios registrados:" : "viajes disponibles:"}{" "}
+          <span className="font-light">{amount}</span>
+        </p>
         <Link to={data.to} className="underline rounded-md">
           {data.link}
         </Link>
