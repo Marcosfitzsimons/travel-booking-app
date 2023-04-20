@@ -1,5 +1,6 @@
-import UserDatatable from "../components/UserDatatable";
+import UsersDatatable from "../components/UsersDatatable";
 import SectionTitle from "../components/SectionTitle";
+import TripsDatatable from "../components/TripsDatatable";
 
 interface Column {
   field: string;
@@ -18,8 +19,11 @@ const List = ({ title, columns, linkText }: ListProps) => {
   return (
     <section className="flex flex-col gap-5">
       <SectionTitle>{title}</SectionTitle>
-      {/* UsersDatatable or tripsDatatable render conditionally */}
-      <UserDatatable columns={columns} linkText={linkText} />
+      {title === "Viajes" ? (
+        <TripsDatatable columns={columns} linkText={linkText} />
+      ) : (
+        <UsersDatatable columns={columns} linkText={linkText} />
+      )}
     </section>
   );
 };
