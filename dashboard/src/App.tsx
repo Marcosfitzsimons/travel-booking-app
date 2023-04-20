@@ -1,7 +1,6 @@
 import { useContext, ReactElement } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Toaster } from "./components/ui/toaster";
-import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
@@ -45,9 +44,21 @@ function App() {
               <Route
                 index
                 element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
+                  <List
+                    columns={tripColumns}
+                    title="Viajes"
+                    linkText="Agregar viaje"
+                  />
+                }
+              />
+              <Route
+                index
+                element={
+                  <List
+                    columns={tripColumns}
+                    title="Viajes"
+                    linkText="Agregar viaje"
+                  />
                 }
               />
               <Route path="users">
