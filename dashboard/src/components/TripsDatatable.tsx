@@ -2,6 +2,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link, useLocation } from "react-router-dom";
 import { Eye, PlusCircle, Trash2, UserPlus } from "lucide-react";
 import { useEffect, useState } from "react";
+import moment from "moment-timezone";
+import { format } from "date-fns"; // use it to format the date and to filter by each trip. format(startDate, "dd/MM/yyyy") -> dd/MM/yyyy
 import useFetch from "../hooks/useFetch";
 import axios from "axios";
 import {
@@ -15,8 +17,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import SearchTripInput from "./SearchTripInput";
 import { toast } from "../hooks/ui/use-toast";
+import DatePickerContainer from "./DatePickerContainer";
 
 interface Column {
   field: string;
@@ -37,6 +39,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
     path = "trips";
   }
 
+  const [startDate, setStartDate] = useState<Date | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
   const [list, setList] = useState([]);
@@ -75,6 +78,21 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
       });
     }
   };
+
+  let filteredTrips;
+  let dateSelected: string;
+  if (startDate) {
+    dateSelected = format(startDate, "dd/MM/yy");
+
+    filteredTrips = filteredList.filter((trip: TripProps) => {
+      const momentDate = moment.utc(trip.date).add(1, "day").toDate();
+      const date = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
+      const formattedDate = moment(date).format("DD/MM/YY");
+      setFilteredList(filteredTrips);
+      return formattedDate === dateSelected;
+    });
+  }
+
   const actionColumn = [
     {
       field: "action",
@@ -138,7 +156,14 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   return (
     <div className="h-[400px] w-full">
       <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <SearchTripInput list={list} setFilteredList={setFilteredList} />
+        <div className="flex items-center justify-between gap-3 w-[min(100%,320px)] sm:w-[min(80%,320px)]">
+          <p className="shrink-0">Buscar por fecha:</p>
+          {/* Add functionality */}
+          <DatePickerContainer
+            startDate={startDate}
+            setStartDate={setStartDate}
+          />
+        </div>
         <div className="relative md:self-end md::my-1">
           {path === "users" ? (
             <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
