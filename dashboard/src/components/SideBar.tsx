@@ -23,7 +23,7 @@ const SideBar = () => {
     <div className=""></div>
   ) : (
     <div className="hidden flex-[1] h-screen dark:text-blue-lagoon-100 lg:flex lg:flex-col lg:items-end lg:py-[200px] lg:pr-10">
-      <div className="w-full max-w-[12rem] rounded-md flex flex-col mx-auto shadow-md gap-5 p-5 mt-6 bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-black">
+      <div className="w-full max-w-[12rem] rounded-md flex flex-col mx-auto shadow-md gap-5 p-5 mt-6 bg-white/40 border border-border-color dark:border-border-color-dark dark:bg-black/40">
         <nav className="">
           <ul className="flex flex-col">
             <p className="text-blue-lagoon-900 uppercase pb-1 font-bold text-sm dark:text-white">
