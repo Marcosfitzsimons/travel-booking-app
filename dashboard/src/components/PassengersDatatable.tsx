@@ -97,7 +97,7 @@ const PassengersDatable = ({
               <Eye className="absolute left-2 h-4 w-4" />
               <Link
                 to={`/passengers/${params.row.createdBy._id}/${tripId}`}
-                className="px-3 pl-7 rounded-md z-20 border border-blue-lagoon-200 bg-transprent hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-transparent"
+                className="px-[9px] pl-[25px] z-20 rounded-md border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 hover:bg-white/30 hover:text-blue-lagoon-400 dark:border-blue-lagoon-300/60 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10 dark:hover:text-inherit"
               >
                 Ver
               </Link>
@@ -105,10 +105,8 @@ const PassengersDatable = ({
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <Trash2 className="absolute cursor-pointer text-white left-2 h-4 w-4" />
-                  <button
-                    className={`px-2 pl-7 text-white font-medium rounded-md border border-red-500 bg-red-500 hover:border-blue-lagoon-600/50 dark:border-red-600 dark:bg-red-600 dark:hover:border-blue-lagoon-300/80`}
-                  >
+                  <button className="px-2 pl-[25px] rounded-md border border-red-600 bg-red-500 text-white dark:bg-red-600 dark:hover:border-blue-lagoon-300/80">
+                    <Trash2 className="absolute text-white left-2 top-[2px] h-4 w-4" />
                     Borrar
                   </button>
                 </div>
@@ -156,7 +154,21 @@ const PassengersDatable = ({
           pageSizeOptions={[9]}
           checkboxSelection
           getRowId={(row) => row._id}
-          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+          sx={{
+            "&>.MuiDataGrid-main": {
+              "&>.MuiDataGrid-columnHeaders": {
+                borderBottom: "none",
+              },
+
+              "& div div div div >.MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+            },
+            "&>.MuiDataGrid-footerContainer": {
+              borderTop: "none",
+            },
+          }}
+          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <div className="mx-auto flex flex-col items-center gap-3">

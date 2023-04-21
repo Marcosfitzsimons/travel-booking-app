@@ -83,10 +83,8 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
             <Dialog>
               <DialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <Plus className="absolute cursor-pointer left-2 h-4 w-4" />
-                  <button
-                    className={`px-3 pl-7 rounded-md border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80`}
-                  >
+                  <button className="px-[9px] pl-[25px] z-20 rounded-md border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 hover:bg-white/30 hover:text-blue-lagoon-400 dark:border-blue-lagoon-300/60 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10 dark:hover:text-inherit">
+                    <Plus className="absolute left-2 top-[3px] h-4 w-4" />
                     Agregar
                   </button>
                 </div>
@@ -191,7 +189,21 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
           pageSizeOptions={[9]}
           checkboxSelection
           getRowId={(row) => row._id}
-          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 shadow-md border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+          sx={{
+            "&>.MuiDataGrid-main": {
+              "&>.MuiDataGrid-columnHeaders": {
+                borderBottom: "none",
+              },
+
+              "& div div div div >.MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+            },
+            "&>.MuiDataGrid-footerContainer": {
+              borderTop: "none",
+            },
+          }}
+          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <DataGrid
@@ -207,7 +219,21 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
           pageSizeOptions={[9]}
           checkboxSelection
           getRowId={(row) => row._id}
-          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 shadow-md border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+          sx={{
+            "&>.MuiDataGrid-main": {
+              "&>.MuiDataGrid-columnHeaders": {
+                borderBottom: "none",
+              },
+
+              "& div div div div >.MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+            },
+            "&>.MuiDataGrid-footerContainer": {
+              borderTop: "none",
+            },
+          }}
+          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       )}
     </div>

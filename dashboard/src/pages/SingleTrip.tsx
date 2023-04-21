@@ -125,34 +125,44 @@ const SingleTrip = () => {
           </div>
         </div>
       </article>
-      <div className="w-full flex items-center justify-end relative">
-        <div className="flex items-center relative">
-          <Link
-            to={`/passengers/newPassenger/${id}`}
-            className="px-3 py-1 pl-9 rounded-md border border-blue-lagoon-200 shadow-md bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80"
-          >
-            <UserPlus className="w-5 h-5 absolute left-3 top-[6px] dark:text-blue-lagoon-100 cursor-pointer" />
-            Agregar pasajero
-          </Link>
-        </div>
-      </div>
-      <article className="p-5 rounded-md shadow-md bg-white/80 border border-blue-lagoon-500/20 dark:bg-[#141414] dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
-        <h3 className="font-bold text-blue-lagoon-600 uppercase dark:text-white mb-4">
+      <div className="w-full flex justify-between items-end">
+        <h3 className="font-bold text-blue-lagoon-600 uppercase dark:text-white">
           Pasajeros:
         </h3>
-
-        {data.passengers && data.passengers.length > 0 ? (
-          <PassengersDatatable
-            tripPassengers={data.passengers}
-            columns={passengerColumns}
-            tripId={id}
-          />
-        ) : (
-          <div className="mx-auto flex flex-col items-center gap-3">
-            <p>El viaje no tiene pasajeros por el momento.</p>
+        <div className="flex flex-col items-end gap-1 sm:flex-row sm:gap-2">
+          <div className="flex items-center gap-1 text-sm lg:text-base">
+            <Users className="hidden sm:flex sm:h-5 sm:w-5" />
+            <p className="font-medium">Pasajeros:</p>
+            <p className="font-light flex items-center lg:gap-1">
+              <span className="w-3 h-3 rounded-full bg-green-500"></span>
+              {data.passengers.length}/{data.maxCapacity}
+            </p>
           </div>
-        )}
-      </article>
+          <div className="w-full flex items-center justify-end relative">
+            <div className="flex items-center relative">
+              <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
+              <Link
+                to={`/passengers/newPassenger/${id}`}
+                className="px-3 py-1 pl-9 z-20 bg-transparent rounded-md border border-blue-lagoon-200 shadow-md hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10"
+              >
+                Agregar pasajero
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {data.passengers && data.passengers.length > 0 ? (
+        <PassengersDatatable
+          tripPassengers={data.passengers}
+          columns={passengerColumns}
+          tripId={id}
+        />
+      ) : (
+        <div className="mx-auto flex flex-col items-center gap-3">
+          <p>El viaje no tiene pasajeros por el momento.</p>
+        </div>
+      )}
     </section>
   );
 };

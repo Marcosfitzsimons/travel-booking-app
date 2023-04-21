@@ -1,6 +1,6 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { Eye, Trash2, UserPlus } from "lucide-react";
+import { Eye, Trash2, User, UserPlus, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import axios from "axios";
@@ -75,10 +75,10 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
         return (
           <div className="flex items-center gap-2">
             <div className="relative flex items-center">
-              <Eye className="absolute left-2 h-4 w-4" />
+              <Eye className="absolute left-2 top-[2px] h-4 w-4" />
               <Link
                 to={`/users/${params.row._id}`}
-                className="px-3 bg-transparent pl-7 z-20 rounded-md border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-transparent"
+                className="px-[9px] pl-[25px] z-20 rounded-md border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 hover:bg-white/30 hover:text-blue-lagoon-400 dark:border-blue-lagoon-300/60 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10 dark:hover:text-inherit"
               >
                 Ver
               </Link>
@@ -86,10 +86,8 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <Trash2 className="absolute cursor-pointer left-2 h-4 w-4" />
-                  <button
-                    className={`px-2 pl-7 rounded-md border border-red-500 bg-red-500 hover:border-blue-lagoon-600/50 dark:border-red-600 dark:bg-red-600 dark:hover:border-blue-lagoon-300/80`}
-                  >
+                  <button className="px-2 pl-[25px] rounded-md border border-red-600 bg-red-500 text-white dark:bg-red-600 dark:hover:border-blue-lagoon-300/80">
+                    <Trash2 className="absolute text-white left-2 top-[2px] h-4 w-4" />
                     Borrar
                   </button>
                 </div>
@@ -127,16 +125,28 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
 
   return (
     <div className="h-[400px] w-full">
-      <div className="w-full my-3 flex flex-col items-center gap-3 md:flex-row md:items-center md:justify-between">
+      <div className="w-full my-3 flex flex-col items-center gap-3 md:flex-row md:items-end md:justify-between">
         <SearchUserInput list={list} setFilteredList={setFilteredList} />
-        <div className="relative flex items-center my-1 self-end bg-white rounded-md dark:bg-transparent">
-          <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
-          <Link
-            to="/users/new"
-            className="px-3 py-1 pl-9 z-20 bg-transparent rounded-md border border-blue-lagoon-200 shadow-md hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80 dark:bg-transparent"
-          >
-            {linkText}
-          </Link>
+        <div className="w-full flex items-end justify-between sm:w-auto sm:gap-3">
+          <div className="flex items-center gap-1 text-sm lg:text-base">
+            <Users className="h-5 w-5" />
+            <p className="font-medium">
+              Usuarios{" "}
+              <span className="hidden sm:inline-flex">registrados</span>:
+            </p>
+            <p className="font-light flex items-center lg:gap-1">
+              <span className="w-3 h-3 rounded-full bg-green-500"></span>111
+            </p>
+          </div>
+          <div className="relative flex items-center self-end bg-white rounded-md dark:bg-transparent">
+            <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
+            <Link
+              to="/users/new"
+              className="px-3 py-1 pl-9 z-20 bg-transparent rounded-md border border-blue-lagoon-200 shadow-md hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10"
+            >
+              {linkText}
+            </Link>
+          </div>
         </div>
       </div>
       {filteredList.length > 0 ? (
@@ -150,10 +160,24 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
               },
             },
           }}
+          sx={{
+            "&>.MuiDataGrid-main": {
+              "&>.MuiDataGrid-columnHeaders": {
+                borderBottom: "none",
+              },
+
+              "& div div div div >.MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+            },
+            "&>.MuiDataGrid-footerContainer": {
+              borderTop: "none",
+            },
+          }}
           pageSizeOptions={[9]}
           checkboxSelection
           getRowId={(row) => row._id ?? ""}
-          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 shadow-md border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <DataGrid
@@ -166,10 +190,24 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
               },
             },
           }}
+          sx={{
+            "&>.MuiDataGrid-main": {
+              "&>.MuiDataGrid-columnHeaders": {
+                borderBottom: "none",
+              },
+
+              "& div div div div >.MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+            },
+            "&>.MuiDataGrid-footerContainer": {
+              borderTop: "none",
+            },
+          }}
           pageSizeOptions={[9]}
           checkboxSelection
           getRowId={(row) => row._id ?? ""} // ?? operator is used to provide a default value of an empty string '' if row._id is null or undefined.
-          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 shadow-md border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       )}
     </div>

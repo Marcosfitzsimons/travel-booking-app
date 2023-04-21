@@ -447,22 +447,21 @@ const SingleUser = () => {
           </div>
         </div>
       </div>
-      <article className="p-5 rounded-md shadow-md bg-white/80 border border-blue-lagoon-500/20 dark:bg-[#141414] dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
-        <h3 className="font-bold text-blue-lagoon-600 uppercase dark:text-white mb-4">
-          Próximos viajes del usuario:
-        </h3>
-        {data.myTrips && data.myTrips.length > 0 ? (
-          <MyTripsDatatable
-            userTrips={data.myTrips}
-            userData={data}
-            columns={tripColumns}
-          />
-        ) : (
-          <div className="mx-auto flex flex-col items-center gap-3">
-            <p>Usuario no tiene viajes reservados.</p>
-          </div>
-        )}
-      </article>
+
+      <h3 className="font-bold text-blue-lagoon-600 uppercase dark:text-white mb-4">
+        Próximos viajes del usuario:
+      </h3>
+      {data.myTrips && data.myTrips.length > 0 ? (
+        <MyTripsDatatable
+          userTrips={data.myTrips}
+          userData={data}
+          columns={tripColumns}
+        />
+      ) : (
+        <div className="mx-auto flex flex-col items-center gap-3">
+          <p>Usuario no tiene viajes reservados.</p>
+        </div>
+      )}
     </section>
   );
 };

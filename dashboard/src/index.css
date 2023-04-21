@@ -25,6 +25,21 @@
 
 /* material ui data grid */
 
+/* root */
+/* Fix bordercolor */
+.MuiDataGrid-root
+  .MuiDataGrid-root--densityStandard
+  .MuiDataGrid-withBorderColor
+  .css-1kicwkw-MuiDataGrid-root {
+  border-color: red;
+}
+.css-1kicwkw-MuiDataGrid-root {
+  border-color: red;
+}
+.MuiDataGrid-withBorderColor {
+  border-color: red;
+}
+
 /* main */
 
 .MuiDataGrid-main {
@@ -40,7 +55,7 @@
 /* header */
 
 .MuiDataGrid-columnHeaders {
-  background-color: rgb(0 90 122 / 0.2);
+  background-color: #f4fbfc;
 }
 
 .MuiDataGrid-columnHeaders .MuiDataGrid-columnHeaderTitle {
@@ -48,17 +63,24 @@
 }
 
 .dark .MuiDataGrid-columnHeaders {
-  background-color: rgb(0 62 74 / 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* row */
 
+.MuiDataGrid-row {
+  background-color: #fdfdfd;
+}
 .MuiDataGrid-row:nth-child(2n) {
   background-color: #fafafa;
 }
 
 .dark .MuiDataGrid-row:nth-child(2n) {
   background-color: #191919;
+}
+
+.dark .MuiDataGrid-row {
+  background-color: #212121;
 }
 
 .dark .css-1kicwkw-MuiDataGrid-root .MuiDataGrid-row:hover,

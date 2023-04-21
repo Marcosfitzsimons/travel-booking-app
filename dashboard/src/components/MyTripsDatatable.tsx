@@ -100,10 +100,8 @@ const MyTripsDatatable = ({ columns, userTrips, userData }: DataTableProps) => {
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <Trash2 className="absolute cursor-pointer left-2 h-4 w-4" />
-                  <button
-                    className={`px-2 pl-7 rounded-md border border-red-500 bg-red-500 hover:border-blue-lagoon-600/50 dark:border-red-600 dark:bg-red-600 dark:hover:border-blue-lagoon-300/80`}
-                  >
+                  <button className="px-2 pl-[25px] rounded-md border border-red-600 bg-red-500 text-white dark:bg-red-600 dark:hover:border-blue-lagoon-300/80">
+                    <Trash2 className="absolute text-white left-2 top-[2px] h-4 w-4" />
                     Borrar
                   </button>
                 </div>
@@ -150,7 +148,21 @@ const MyTripsDatatable = ({ columns, userTrips, userData }: DataTableProps) => {
         pageSizeOptions={[9]}
         checkboxSelection
         getRowId={(row) => row.id}
-        className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+        sx={{
+          "&>.MuiDataGrid-main": {
+            "&>.MuiDataGrid-columnHeaders": {
+              borderBottom: "none",
+            },
+
+            "& div div div div >.MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+          },
+          "&>.MuiDataGrid-footerContainer": {
+            borderTop: "none",
+          },
+        }}
+        className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
       />
     </div>
   );
