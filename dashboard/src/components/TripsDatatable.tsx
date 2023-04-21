@@ -1,6 +1,6 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { Link, useLocation } from "react-router-dom";
-import { Eye, PlusCircle, Trash2, UserPlus } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Eye, PlusCircle, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import moment from "moment-timezone";
 import { format } from "date-fns"; // use it to format the date and to filter by each trip. format(startDate, "dd/MM/yyyy") -> dd/MM/yyyy
@@ -111,7 +111,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
               <Eye className="absolute left-2 h-4 w-4" />
               <Link
                 to={`/trips/${params.row._id}`}
-                className="px-3 bg-transparent pl-7 z-20 rounded-md border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-transparent"
+                className="px-3 bg-transparent pl-7 z-20 rounded-md border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-transparent"
               >
                 Ver
               </Link>
@@ -193,7 +193,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
           pageSizeOptions={[9]}
           checkboxSelection
           getRowId={(row) => row._id}
-          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 shadow-md border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 shadow-md border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300"
         />
       ) : (
         <DataGrid
@@ -209,7 +209,21 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
           pageSizeOptions={[9]}
           checkboxSelection
           getRowId={(row) => row._id}
-          className="w-[min(100%,1000px)] text-blue-lagoon-800 bg-white/40 shadow-md border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] dark:text-neutral-100"
+          sx={{
+            "&>.MuiDataGrid-main": {
+              "&>.MuiDataGrid-columnHeaders": {
+                borderBottom: "none",
+              },
+
+              "& div div div div >.MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+            },
+            "&>.MuiDataGrid-footerContainer": {
+              borderTop: "none",
+            },
+          }}
+          className="w-[min(100%,1000px)] shadow-md border-[#007F9633] dark:border-blue-lagoon-900/40 dark:text-neutral-100"
         />
       )}
     </div>
