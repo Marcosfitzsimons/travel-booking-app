@@ -55,11 +55,12 @@
 /* header */
 
 .MuiDataGrid-columnHeaders {
-  background-color: #f4fbfc;
+  background-color: #005f71;
 }
 
 .MuiDataGrid-columnHeaders .MuiDataGrid-columnHeaderTitle {
   font-weight: 600;
+  color: white;
 }
 
 .dark .MuiDataGrid-columnHeaders {
