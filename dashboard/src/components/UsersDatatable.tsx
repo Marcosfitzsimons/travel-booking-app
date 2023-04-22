@@ -16,6 +16,7 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import SearchUserInput from "./SearchUserInput";
+import { toast } from "../hooks/ui/use-toast";
 
 type User = {
   _id: string | undefined;
@@ -47,6 +48,8 @@ type ExtendedColumn = Column & {
 const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
   const [list, setList] = useState<User[]>([]);
   const [filteredList, setFilteredList] = useState<User[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState<any>(false);
 
   const baseUrl = `https://travel-booking-api-production.up.railway.app/api/users`;
 
@@ -58,12 +61,25 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
   };
 
   const handleDelete = async (id: string) => {
+    setIsLoading(true);
     try {
       await axios.delete(`${baseUrl}/${id}`, {
         headers,
       });
       setList(list.filter((item) => item._id !== id));
-    } catch (err) {}
+      setIsLoading(false);
+      toast({
+        description: "Usuario eliminado con éxito.",
+      });
+    } catch (err: any) {
+      const errorMsg = err.response.data.msg;
+      setIsLoading(false);
+      setIsError(errorMsg);
+      toast({
+        variant: "destructive",
+        description: "Error al eliminar usuario, intentar más tarde.",
+      });
+    }
   };
 
   const actionColumn: ExtendedColumn[] = [
@@ -126,17 +142,20 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
   return (
     <div className="h-[400px] w-full">
       <div className="w-full my-3 flex flex-col items-center gap-3 md:flex-row md:items-end md:justify-between">
-        <SearchUserInput list={list} setFilteredList={setFilteredList} />
+        <div className="flex flex-col gap-1">
+          {error && <p className="text-red-500 order-2">{error.message}</p>}
+          {isError && <p className="text-red-500 order-2">{isError}</p>}
+          {isLoading && <p className="text-red-500 order-2">is loading...</p>}
+          <SearchUserInput list={list} setFilteredList={setFilteredList} />
+        </div>
         <div className="w-full flex items-end justify-between sm:w-auto sm:gap-3">
           <div className="flex items-center gap-1 text-sm lg:text-base">
-            <Users className="h-5 w-5" />
+            <Users className="animate-pulse h-5 w-5" />
             <p className="font-medium">
               Usuarios{" "}
               <span className="hidden sm:inline-flex">registrados</span>:
             </p>
-            <p className="font-light flex items-center lg:gap-1">
-              <span className="w-3 h-3 rounded-full bg-green-500"></span>111
-            </p>
+            <p className="font-light">{list.length > 0 && list.length}</p>
           </div>
           <div className="relative flex items-center self-end bg-white rounded-md dark:bg-transparent">
             <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />

@@ -54,28 +54,42 @@ const NewUserForm = ({ inputs }) => {
     imgData.append("file", image);
     imgData.append("upload_preset", "upload");
     try {
-      const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
-        imgData
-      );
-      const { url } = uploadRes.data;
+      if (!image) {
+        await axios.post(
+          "https://travel-booking-api-production.up.railway.app/api/auth/register",
+          {
+            ...data,
+          }
+        );
+        setIsLoading(false);
+        toast({
+          description: "Usuario creado con éxito.",
+        });
+      } else {
+        const uploadRes = await axios.post(
+          "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
+          imgData
+        );
+        const { url } = uploadRes.data;
 
-      await axios.post(
-        "https://travel-booking-api-production.up.railway.app/api/auth/register",
-        {
-          ...data,
-          image: url,
-        }
-      );
+        await axios.post(
+          "https://travel-booking-api-production.up.railway.app/api/auth/register",
+          {
+            ...data,
+            image: url,
+          }
+        );
 
-      setIsLoading(false);
-      toast({
-        description: "Usuario creado con éxito.",
-      });
+        setIsLoading(false);
+        toast({
+          description: "Usuario creado con éxito.",
+        });
+      }
+
       navigate("/users");
     } catch (err: any) {
       console.log(err);
-      const errorMsg = err.response.data.err.message;
+      const errorMsg = err.response.data.msg;
       setIsLoading(false);
       setErr(errorMsg);
       toast({

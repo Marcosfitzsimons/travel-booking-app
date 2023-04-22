@@ -7,9 +7,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { AuthContext } from "../context/AuthContext";
 import Logo from "../components/Logo";
-import { Button } from "../components/ui/button";
 import DefaultButton from "../components/DefaultButton";
-import SectionTitle from "../components/SectionTitle";
 
 type User = {
   emailOrUsername: String;
@@ -133,7 +131,9 @@ const Login = () => {
               )}
             </div>
             {err && <p className="text-red-600 self-start">{err}</p>}
-            <DefaultButton>Entrar</DefaultButton>
+            <DefaultButton loading={loading}>
+              {loading ? "Entrando..." : "Entrar"}
+            </DefaultButton>
           </form>
         </div>
         <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6">

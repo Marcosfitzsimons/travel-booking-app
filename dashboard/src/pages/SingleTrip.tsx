@@ -131,10 +131,9 @@ const SingleTrip = () => {
         </h3>
         <div className="flex flex-col items-end gap-1 sm:flex-row sm:gap-2">
           <div className="flex items-center gap-1 text-sm lg:text-base">
-            <Users className="hidden sm:flex sm:h-5 sm:w-5" />
+            <Users className="animate-pulse h-4 w-4 lg:w-5 lg:h-5" />
             <p className="font-medium">Pasajeros:</p>
             <p className="font-light flex items-center lg:gap-1">
-              <span className="w-3 h-3 rounded-full bg-green-500"></span>
               {data.passengers.length}/{data.maxCapacity}
             </p>
           </div>

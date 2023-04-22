@@ -171,7 +171,12 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
             <Map className="hidden sm:flex sm:h-5 sm:w-5" />
             <p className="font-medium">Viajes disponibles:</p>
             <p className="font-light flex items-center lg:gap-1">
-              <span className="w-3 h-3 rounded-full bg-green-500"></span>111
+              <span
+                className={`animate-pulse w-3 h-3 rounded-full ${
+                  list.length > 0 ? "bg-green-500" : "bg-red-600"
+                }`}
+              ></span>
+              {list.length}
             </p>
           </div>
           <div className="relative flex items-center md:self-end bg-white rounded-md dark:bg-transparent">

@@ -62,7 +62,7 @@ const EditProfile = () => {
         localStorage.setItem("user", JSON.stringify(res.data));
         setIsLoading(false);
         toast({
-          description: "Cambios guardados con exito.",
+          description: "Cambios guardados con éxito.",
         });
       } else {
         const uploadRes = await axios.post(
@@ -79,7 +79,7 @@ const EditProfile = () => {
         localStorage.setItem("user", JSON.stringify(res.data));
         setIsLoading(false);
         toast({
-          description: "Cambios guardados con exito.",
+          description: "Cambios guardados con éxito.",
         });
       }
     } catch (err: any) {
@@ -88,7 +88,7 @@ const EditProfile = () => {
       setErr(errorMsg);
       toast({
         variant: "destructive",
-        description: "Error al guardar los cambios, intentar mas tarde.",
+        description: "Error al guardar los cambios, intentar más tarde.",
       });
     }
   };
