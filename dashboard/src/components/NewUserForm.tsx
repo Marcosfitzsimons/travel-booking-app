@@ -4,11 +4,39 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { User } from "lucide-react";
 import { useToast } from "../hooks/ui/use-toast";
 import DefaultButton from "./DefaultButton";
+import { Upload } from "lucide-react";
+
+interface InputValidation {
+  required: {
+    value: boolean;
+    message: string;
+  };
+  minLength: {
+    value: number;
+    message: string;
+  };
+  maxLength: {
+    value: number;
+    message: string;
+  };
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
+}
+
+interface UserInput {
+  id: any;
+  label: string;
+  type: string;
+  placeholder?: string;
+  validation?: InputValidation;
+  icon?: any;
+}
 
 type User = {
   username: string;
@@ -21,12 +49,22 @@ type User = {
   password: string;
 };
 
-const NewUserForm = ({ inputs }) => {
+type NewUserFormProps = {
+  inputs: UserInput[];
+};
+
+const NewUserForm = ({ inputs }: NewUserFormProps) => {
   const [image, setImage] = useState<File | string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
-  const filteredInputs = inputs.filter((input) => input.id !== "image");
-  const imageInput = inputs.find((input) => input.id === "image");
+
+  let imageInput: UserInput = {
+    id: "imageInput",
+    label: "Subir",
+    type: "file",
+    icon: <Upload className="w-4 h-4" />,
+    // check validation
+  };
 
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -44,7 +82,7 @@ const NewUserForm = ({ inputs }) => {
       phone: null,
       addressCda: "",
       addressCapital: "",
-      image: "",
+      imageInput: "",
     },
   });
 
@@ -79,13 +117,11 @@ const NewUserForm = ({ inputs }) => {
             image: url,
           }
         );
-
         setIsLoading(false);
         toast({
           description: "Usuario creado con éxito.",
         });
       }
-
       navigate("/users");
     } catch (err: any) {
       console.log(err);
@@ -138,13 +174,13 @@ const NewUserForm = ({ inputs }) => {
                 },
               })}
             />
-            {errors[imageInput.id] && (
-              <p className="text-red-600">{errors[imageInput.id].message}</p>
+            {errors.imageInput && (
+              <p className="text-red-600">{errors.imageInput.message}</p>
             )}
           </div>
         </div>
         <div className="w-full flex flex-col items-center gap-2 lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
-          {filteredInputs.map((input) => (
+          {inputs.map((input) => (
             <div key={input.id} className="grid w-full items-center gap-2">
               <Label htmlFor={input.id}>{input.label}</Label>
               <Input
@@ -153,14 +189,18 @@ const NewUserForm = ({ inputs }) => {
                 placeholder={input.placeholder}
                 {...register(input.id, input.validation)}
               />
-              {errors[input.id] && (
-                <p className="text-red-600">{errors[input.id].message}</p>
+              {errors[input.id as keyof typeof errors] && (
+                <p className="text-red-600">
+                  {errors[input.id as keyof typeof errors]?.message}
+                </p>
               )}
             </div>
           ))}
           {err && <p className="text-red-600 self-start">{err}</p>}
           <div className="w-full mt-2 lg:flex lg:self-end lg:justify-end">
-            <DefaultButton>Crear usuario</DefaultButton>
+            <DefaultButton loading={isLoading}>
+              {isLoading ? "Creando..." : "Crear usuario"}
+            </DefaultButton>
           </div>
         </div>
       </form>

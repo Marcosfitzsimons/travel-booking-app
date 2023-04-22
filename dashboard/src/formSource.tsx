@@ -130,19 +130,12 @@ export const userInputs = [
     type: "text",
     placeholder: "Dr. Lemon 448",
   },
-  {
-    id: "image",
-    label: "Subir",
-    type: "file",
-    icon: <Upload className="w-4 h-4" />,
-
-    // check validation
-  },
 ];
 
 export const tripInputs = [
   {
     id: "name",
+    name: "name",
     label: "Nombre del viaje",
     type: "text",
     placeholder: "De carmen a Capital",
@@ -163,6 +156,7 @@ export const tripInputs = [
   },
   {
     id: "date",
+    name: "date",
     label: "Fecha",
     type: "text",
     placeholder: "03/04/2023",
@@ -175,6 +169,7 @@ export const tripInputs = [
   },
   {
     id: "from",
+    name: "from",
     label: "Desde",
     type: "text",
     placeholder: "Carmen",
@@ -195,6 +190,7 @@ export const tripInputs = [
   },
   {
     id: "to",
+    name: "to",
     label: "Hasta",
     type: "text",
     placeholder: "Capital",
@@ -215,6 +211,7 @@ export const tripInputs = [
   },
   {
     id: "departureTime",
+    name: "departureTime",
     label: "Horario de salida",
     type: "text",
     placeholder: "08:00",
@@ -235,6 +232,7 @@ export const tripInputs = [
   },
   {
     id: "arrivalTime",
+    name: "arrivalTime",
     label: "Horario de llegada",
     type: "text",
     placeholder: "11:00",
@@ -255,6 +253,7 @@ export const tripInputs = [
   },
   {
     id: "price",
+    name: "price",
     label: "Precio",
     type: "number",
     placeholder: "2500",
@@ -267,6 +266,7 @@ export const tripInputs = [
   },
   {
     id: "maxCapacity",
+    name: "maxCapacity",
     label: "Capacidad maxima",
     type: "number",
     placeholder: "15",

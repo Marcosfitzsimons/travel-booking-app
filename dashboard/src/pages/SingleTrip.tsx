@@ -8,6 +8,7 @@ import PassengersDatatable from "../components/PassengersDatatable";
 import { CalendarDays, Clock, DollarSign, UserPlus, Users } from "lucide-react";
 import miniBus from "../assets/minibus1-sm.png";
 import SectionTitle from "../components/SectionTitle";
+import Loading from "../components/Loading";
 
 const INITIAL_STATES = {
   _id: "",
@@ -50,6 +51,7 @@ const SingleTrip = () => {
         setData({ ...res.data, date: formattedDate });
       } catch (err) {
         setError(err);
+        console.log(error);
       }
       setLoading(false);
     };
@@ -62,105 +64,113 @@ const SingleTrip = () => {
       <div className="self-start mb-2">
         <BackButton linkTo="/trips" />
       </div>
-      <article className="w-full relative mx-auto bg-white/80 rounded-md border border-blue-lagoon-500/20 shadow-md mb-10 pb-2 max-w-md dark:bg-[#141414] dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
-        <div className="px-4 pt-9 pb-4">
-          <div className="flex flex-col gap-2">
-            <div className="absolute top-[.6rem] left-5">
-              <img
-                src={miniBus}
-                alt="combi"
-                className="w-10 h-9 lg:w-12 lg:h-11"
-              />
-            </div>
-            <div className="absolute right-4 top-2 flex items-center gap-2">
-              <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
-                <CalendarDays className="w-4 h-4 relative bottom-[1px]" />{" "}
-                {data.date}
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-3 mt-4 lg:mt-7">
-              <div className="flex items-center gap-4">
-                <h3 className="font-bold text-lg l dark:text-white lg:text-xl">
-                  {data.name}
-                </h3>
-              </div>
-              <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
-                <div className="flex flex-col gap-2">
-                  <p className="flex items-center gap-1">
-                    <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
-                    <span className="dark:text-white font-medium">Salida:</span>{" "}
-                    {data.departureTime}
-                    <span>- {data.from}</span>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <article className="w-full relative mx-auto bg-white/80 rounded-md border border-blue-lagoon-500/20 shadow-md mb-10 pb-2 max-w-md dark:bg-[#141414] dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
+            <div className="px-4 pt-9 pb-4">
+              <div className="flex flex-col gap-2">
+                <div className="absolute top-[.6rem] left-5">
+                  <img
+                    src={miniBus}
+                    alt="combi"
+                    className="w-10 h-9 lg:w-12 lg:h-11"
+                  />
+                </div>
+                <div className="absolute right-4 top-2 flex items-center gap-2">
+                  <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
+                    <CalendarDays className="w-4 h-4 relative bottom-[1px]" />{" "}
+                    {data.date}
                   </p>
-                  {data.arrivalTime && (
-                    <div className=" flex items-center gap-1">
+                </div>
+
+                <div className="flex flex-col gap-3 mt-4 lg:mt-7">
+                  <div className="flex items-center gap-4">
+                    <h3 className="font-bold text-lg l dark:text-white lg:text-xl">
+                      {data.name}
+                    </h3>
+                  </div>
+                  <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
+                    <div className="flex flex-col gap-2">
                       <p className="flex items-center gap-1">
                         <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
                         <span className="dark:text-white font-medium">
-                          Llegada:
+                          Salida:
                         </span>{" "}
-                        {data.arrivalTime}
-                        <span>- {data.to}</span>
+                        {data.departureTime}
+                        <span>- {data.from}</span>
+                      </p>
+                      {data.arrivalTime && (
+                        <div className=" flex items-center gap-1">
+                          <p className="flex items-center gap-1">
+                            <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                            <span className="dark:text-white font-medium">
+                              Llegada:
+                            </span>{" "}
+                            {data.arrivalTime}
+                            <span>- {data.to}</span>
+                          </p>
+                        </div>
+                      )}
+                      <p className="flex items-center gap-1">
+                        <DollarSign className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                        <span className="dark:text-white font-medium">
+                          Precio:{" "}
+                        </span>
+                        ${data.price}
+                      </p>
+                      <p className="flex items-center gap-1">
+                        <Users className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                        <span className="dark:text-white font-medium">
+                          Capacidad máxima:
+                        </span>{" "}
+                        {data.maxCapacity}
                       </p>
                     </div>
-                  )}
-                  <p className="flex items-center gap-1">
-                    <DollarSign className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
-                    <span className="dark:text-white font-medium">
-                      Precio:{" "}
-                    </span>
-                    ${data.price}
-                  </p>
-                  <p className="flex items-center gap-1">
-                    <Users className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
-                    <span className="dark:text-white font-medium">
-                      Capacidad máxima:
-                    </span>{" "}
-                    {data.maxCapacity}
-                  </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <div className="w-full flex justify-between items-end">
+            <h3 className="font-bold text-blue-lagoon-600 uppercase dark:text-white">
+              Pasajeros:
+            </h3>
+            <div className="flex flex-col items-end gap-1 sm:flex-row sm:gap-2">
+              <div className="flex items-center gap-1 text-sm lg:text-base">
+                <Users className="animate-pulse h-4 w-4 lg:w-5 lg:h-5" />
+                <p className="font-medium">Pasajeros:</p>
+                <p className="font-light flex items-center lg:gap-1">
+                  {data.passengers.length}/{data.maxCapacity}
+                </p>
+              </div>
+              <div className="w-full flex items-center justify-end relative">
+                <div className="flex items-center relative">
+                  <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
+                  <Link
+                    to={`/passengers/newPassenger/${id}`}
+                    className="px-3 py-1 pl-9 z-20 bg-transparent rounded-md border border-blue-lagoon-200 shadow-md hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10"
+                  >
+                    Agregar pasajero
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </article>
-      <div className="w-full flex justify-between items-end">
-        <h3 className="font-bold text-blue-lagoon-600 uppercase dark:text-white">
-          Pasajeros:
-        </h3>
-        <div className="flex flex-col items-end gap-1 sm:flex-row sm:gap-2">
-          <div className="flex items-center gap-1 text-sm lg:text-base">
-            <Users className="animate-pulse h-4 w-4 lg:w-5 lg:h-5" />
-            <p className="font-medium">Pasajeros:</p>
-            <p className="font-light flex items-center lg:gap-1">
-              {data.passengers.length}/{data.maxCapacity}
-            </p>
-          </div>
-          <div className="w-full flex items-center justify-end relative">
-            <div className="flex items-center relative">
-              <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
-              <Link
-                to={`/passengers/newPassenger/${id}`}
-                className="px-3 py-1 pl-9 z-20 bg-transparent rounded-md border border-blue-lagoon-200 shadow-md hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10"
-              >
-                Agregar pasajero
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {data.passengers && data.passengers.length > 0 ? (
-        <PassengersDatatable
-          tripPassengers={data.passengers}
-          columns={passengerColumns}
-          tripId={id}
-        />
-      ) : (
-        <div className="mx-auto flex flex-col items-center gap-3">
-          <p>El viaje no tiene pasajeros por el momento.</p>
-        </div>
+          {data.passengers && data.passengers.length > 0 ? (
+            <PassengersDatatable
+              tripPassengers={data.passengers}
+              columns={passengerColumns}
+              tripId={id}
+            />
+          ) : (
+            <div className="mx-auto flex flex-col items-center gap-3">
+              <p>El viaje no tiene pasajeros por el momento.</p>
+            </div>
+          )}
+        </>
       )}
     </section>
   );

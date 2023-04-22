@@ -38,10 +38,10 @@ interface InputValidation {
 }
 
 interface TripInput {
-  id: string;
+  id: any;
   label: string;
   type: string;
-  name: keyof Trip;
+  name: any;
   placeholder?: string;
   validation?: InputValidation;
 }
@@ -116,8 +116,10 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
                 placeholder={input.placeholder}
                 {...register(input.id, input.validation)}
               />
-              {errors[input.id] && (
-                <p className="text-red-600">{errors[input.id]?.message}</p>
+              {errors[input.id as keyof typeof errors] && (
+                <p className="text-red-600">
+                  {errors[input.id as keyof typeof errors]?.message}
+                </p>
               )}
             </div>
           ))}

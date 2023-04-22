@@ -3,7 +3,6 @@ import NewTripForm from "../components/NewTripForm";
 import SectionTitle from "../components/SectionTitle";
 
 type Trip = {
-  id: string;
   name: string;
   date: string;
   from: string;
@@ -32,18 +31,10 @@ interface InputValidation {
   };
 }
 interface TripInput {
-  id:
-    | "name"
-    | "date"
-    | "from"
-    | "to"
-    | "departureTime"
-    | "arrivalTime"
-    | "maxCapacity"
-    | "price";
+  id: any;
   label: string;
   type: string;
-  name: keyof Trip;
+  name: any;
   placeholder?: string;
   validation?: InputValidation;
 }

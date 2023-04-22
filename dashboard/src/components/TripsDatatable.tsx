@@ -73,14 +73,11 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
       setIsLoading(false);
       setList(list.filter((item) => item._id !== id));
     } catch (err: any) {
-      console.log(err);
       setIsLoading(false);
       setErr(err.message);
       toast({
         variant: "destructive",
-        description: `Error al eliminar el viaje, intente más tarde. ${
-          err ? `"${err}"` : ""
-        }`,
+        description: `${err}. Intentar más tarde.`,
       });
     }
   };
@@ -159,12 +156,14 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   return (
     <div className="h-[400px] w-full">
       <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-end gap-1 w-[min(100%,180px)]">
+        <div className="flex-col md:flex md:items-end gap-1 w-[min(100%,180px)]">
           {/* Add functionality */}
           <DatePickerContainer
             startDate={startDate}
             setStartDate={setStartDate}
           />
+          {err && <p>{err}</p>}
+          {error && <p>{error}</p>}
         </div>
         <div className="flex justify-between items-end gap-1 lg:gap-3">
           <div className="flex items-center gap-1 text-sm lg:text-base">
@@ -175,8 +174,8 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
                 className={`animate-pulse w-3 h-3 rounded-full ${
                   list.length > 0 ? "bg-green-500" : "bg-red-600"
                 }`}
-              ></span>
-              {list.length}
+              />
+              {loading ? "" : list.length}
             </p>
           </div>
           <div className="relative flex items-center md:self-end bg-white rounded-md dark:bg-transparent">

@@ -22,7 +22,7 @@ interface InputValidation {
 }
 
 interface UserInput {
-  id: string;
+  id: any;
   label: string;
   type: string;
   placeholder?: string;
