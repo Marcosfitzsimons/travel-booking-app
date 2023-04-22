@@ -44,21 +44,25 @@ function App() {
               <Route
                 index
                 element={
-                  <List
-                    columns={tripColumns}
-                    title="Viajes"
-                    linkText="Agregar viaje"
-                  />
+                  <ProtectedRoute>
+                    <List
+                      columns={tripColumns}
+                      title="Viajes"
+                      linkText="Agregar viaje"
+                    />
+                  </ProtectedRoute>
                 }
               />
               <Route
                 index
                 element={
-                  <List
-                    columns={tripColumns}
-                    title="Viajes"
-                    linkText="Agregar viaje"
-                  />
+                  <ProtectedRoute>
+                    <List
+                      columns={tripColumns}
+                      title="Viajes"
+                      linkText="Agregar viaje"
+                    />
+                  </ProtectedRoute>
                 }
               />
               <Route path="users">
