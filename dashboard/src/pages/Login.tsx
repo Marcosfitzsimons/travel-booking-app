@@ -28,7 +28,7 @@ const Login = () => {
 
   const [err, setErr] = useState<null | string>(null);
 
-  const { loading, dispatch } = useContext(AuthContext);
+  const { loading, dispatch, error } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
