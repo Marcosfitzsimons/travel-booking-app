@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import moment from "moment-timezone";
+import "moment/locale/es";
 import axios from "axios";
 import { passengerColumns } from "../datatablesource";
 import BackButton from "../components/BackButton";
@@ -9,6 +10,31 @@ import { CalendarDays, Clock, DollarSign, UserPlus, Users } from "lucide-react";
 import miniBus from "../assets/minibus1-sm.png";
 import SectionTitle from "../components/SectionTitle";
 import Loading from "../components/Loading";
+import DefaultButton from "../components/DefaultButton";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../components/ui/dialog";
+import { Label } from "../components/ui/label";
+import { Input } from "../components/ui/input";
+import { useForm } from "react-hook-form";
+import { toast, useToast } from "../hooks/ui/use-toast";
+
+type Trip = {
+  name: string;
+  date: string;
+  from: string;
+  departureTime: string;
+  to: string;
+  arrivalTime: string;
+  maxCapacity: string;
+  price: string;
+};
 
 const INITIAL_STATES = {
   _id: "",
@@ -28,8 +54,58 @@ const SingleTrip = () => {
   const [data, setData] = useState(INITIAL_STATES);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | boolean>(false);
+  const [err, setErr] = useState<null | string>(null);
 
   let { id } = useParams();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  moment.locale("es");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      name: "",
+      date: "",
+      from: "",
+      to: "",
+      departureTime: "",
+      arrivalTime: "",
+      price: "",
+      maxCapacity: "",
+    },
+  });
+
+  const token = localStorage.getItem("token");
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
+  const handleOnSubmit = async (data: Trip) => {
+    try {
+      await axios.post(
+        `https://travel-booking-api-production.up.railway.app/api/trips/${id}`,
+        data,
+        { headers }
+      );
+      console.log(data);
+      toast({
+        description: "Viaje creado con éxito.",
+      });
+      navigate("/trips");
+    } catch (err: any) {
+      console.log(err);
+      const errorMsg = err.response.data.err.message;
+      setErr(errorMsg);
+      toast({
+        description: "Error al crear viaje. Intentar más tarde.",
+      });
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,13 +121,25 @@ const SingleTrip = () => {
             headers,
           }
         );
+        moment.locale("es");
         const momentDate = moment.utc(res.data.date).add(1, "day").toDate();
         const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
-        const formattedDate = moment(newDate).format("DD/MM/YY");
+        const formattedDate = moment(newDate).format("dddd DD/MM");
         setData({ ...res.data, date: formattedDate });
+        const tripData = { ...res.data, formattedDate };
+        reset({
+          name: tripData.name,
+          date: formattedDate,
+          from: tripData.from,
+          to: tripData.to,
+          departureTime: tripData.departureTime,
+          arrivalTime: tripData.arrivalTime,
+          price: tripData.price,
+          maxCapacity: tripData.maxCapacity,
+        });
       } catch (err) {
         setError(err);
-        console.log(error);
+        console.log(err);
       }
       setLoading(false);
     };
@@ -68,7 +156,7 @@ const SingleTrip = () => {
         <Loading />
       ) : (
         <>
-          <article className="w-full relative mx-auto bg-white/80 rounded-md border border-blue-lagoon-500/20 shadow-md mb-10 pb-2 max-w-md dark:bg-[#141414] dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
+          <article className="w-full relative mx-auto rounded-md shadow-md mb-10 pb-2 max-w-sm bg-white/40 border border-border-color  dark:bg-black/40 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
             <div className="px-4 pt-9 pb-4">
               <div className="flex flex-col gap-2">
                 <div className="absolute top-[.6rem] left-5">
@@ -79,7 +167,7 @@ const SingleTrip = () => {
                   />
                 </div>
                 <div className="absolute right-4 top-2 flex items-center gap-2">
-                  <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
+                  <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white">
                     <CalendarDays className="w-4 h-4 relative bottom-[1px]" />{" "}
                     {data.date}
                   </p>
@@ -91,7 +179,7 @@ const SingleTrip = () => {
                       {data.name}
                     </h3>
                   </div>
-                  <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
+                  <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-900/5 dark:border-blue-lagoon-300/80">
                     <div className="flex flex-col gap-2">
                       <p className="flex items-center gap-1">
                         <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
@@ -129,6 +217,251 @@ const SingleTrip = () => {
                       </p>
                     </div>
                   </div>
+
+                  <Dialog>
+                    <div className="lg:flex lg:items-center lg:justify-end">
+                      <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:w-auto lg:h-7">
+                        <DialogTrigger className="relative w-full rounded-lg px-6 py-1.5 lg:py-0 bg-[#005f71] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#005f71] lg:w-auto lg:h-7">
+                          Editar
+                        </DialogTrigger>
+                      </div>
+                    </div>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle className="text-2xl lg:text-3xl">
+                          Editar viaje
+                        </DialogTitle>
+                        <DialogDescription className="lg:text-lg">
+                          Hace cambios en el viaje.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="w-full flex flex-col items-center gap-5">
+                        <div className="w-full flex flex-col items-center gap-5">
+                          <form
+                            onSubmit={handleSubmit(handleOnSubmit)}
+                            className="w-full flex flex-col items-center gap-3"
+                          >
+                            <div className="grid w-full max-w-md items-center gap-2">
+                              <Label htmlFor="name">Nombre del viaje</Label>
+                              <Input
+                                type="text"
+                                id="name"
+                                {...register("name", {
+                                  required: {
+                                    value: true,
+                                    message:
+                                      "Por favor, ingresar nombre del viaje.",
+                                  },
+                                  minLength: {
+                                    value: 3,
+                                    message:
+                                      "Nombre del viaje no puede ser tan corto.",
+                                  },
+                                  maxLength: {
+                                    value: 30,
+                                    message:
+                                      "Nombre del viaje no puede ser tan largo.",
+                                  },
+                                })}
+                              />
+                              {errors.name && (
+                                <p className="text-red-600">
+                                  {errors.name.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="grid w-full max-w-md items-center gap-2">
+                              <Label htmlFor="date">Fecha</Label>
+                              <Input
+                                type="text"
+                                id="date"
+                                {...register("date", {
+                                  required: {
+                                    value: true,
+                                    message:
+                                      "Por favor, ingresar fecha del viaje.",
+                                  },
+                                })}
+                              />
+                              {errors.date && (
+                                <p className="text-red-600">
+                                  {errors.date.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="grid w-full max-w-md items-center gap-2">
+                              <Label htmlFor="from">Desde</Label>
+                              <Input
+                                type="text"
+                                id="from"
+                                {...register("from", {
+                                  required: {
+                                    value: true,
+                                    message:
+                                      "Por favor, ingresar lugar de salida.",
+                                  },
+                                  minLength: {
+                                    value: 3,
+                                    message:
+                                      "Lugar de salida no puede ser tan corto.",
+                                  },
+                                  maxLength: {
+                                    value: 25,
+                                    message:
+                                      "Lugar de salida no puede ser tan largo.",
+                                  },
+                                })}
+                              />
+                              {errors.from && (
+                                <p className="text-red-600">
+                                  {errors.from.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="grid w-full max-w-md items-center gap-2">
+                              <Label htmlFor="to">Hasta</Label>
+                              <Input
+                                type="text"
+                                id="to"
+                                {...register("to", {
+                                  required: {
+                                    value: true,
+                                    message:
+                                      "Por favor, ingresar lugar de llegada.",
+                                  },
+                                  minLength: {
+                                    value: 3,
+                                    message:
+                                      "Lugar de llegada no puede ser tan corto.",
+                                  },
+                                  maxLength: {
+                                    value: 25,
+                                    message:
+                                      "Lugar de llegada no puede ser tan largo.",
+                                  },
+                                })}
+                              />
+                              {errors.to && (
+                                <p className="text-red-600">
+                                  {errors.to.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="grid w-full max-w-md items-center gap-2">
+                              <Label htmlFor="departureTime">
+                                Horario de salida
+                              </Label>
+                              <Input
+                                type="text"
+                                id="departureTime"
+                                {...register("departureTime", {
+                                  required: {
+                                    value: true,
+                                    message:
+                                      "Por favor, ingresar horario de salida.",
+                                  },
+                                  minLength: {
+                                    value: 3,
+                                    message:
+                                      "Horario de salida no puede ser tan corto.",
+                                  },
+                                  maxLength: {
+                                    value: 25,
+                                    message:
+                                      "Horario de salida no puede ser tan largo.",
+                                  },
+                                })}
+                              />
+                              {errors.departureTime && (
+                                <p className="text-red-600">
+                                  {errors.departureTime.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="grid w-full max-w-md items-center gap-2">
+                              <Label htmlFor="arrivalTime">
+                                Horario de llegada
+                              </Label>
+                              <Input
+                                type="text"
+                                id="arrivalTime"
+                                {...register("arrivalTime", {
+                                  required: {
+                                    value: true,
+                                    message:
+                                      "Por favor, ingresar horario de llegada.",
+                                  },
+                                  minLength: {
+                                    value: 3,
+                                    message:
+                                      "Horario de llegada no puede ser tan corto.",
+                                  },
+                                  maxLength: {
+                                    value: 25,
+                                    message:
+                                      "Horario de llegada no puede ser tan largo.",
+                                  },
+                                })}
+                              />
+                              {errors.arrivalTime && (
+                                <p className="text-red-600">
+                                  {errors.arrivalTime.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="grid w-full max-w-md items-center gap-2">
+                              <Label htmlFor="price">Precio</Label>
+                              <Input
+                                type="number"
+                                id="price"
+                                {...register("price", {
+                                  required: {
+                                    value: true,
+                                    message:
+                                      "Por favor, ingresar precio/persona del viaje.",
+                                  },
+                                })}
+                              />
+                              {errors.price && (
+                                <p className="text-red-600">
+                                  {errors.price.message}
+                                </p>
+                              )}
+                            </div>
+                            <div className="grid w-full max-w-md items-center gap-2">
+                              <Label htmlFor="maxCapacity">
+                                Capacidad máxima
+                              </Label>
+                              <Input
+                                type="number"
+                                id="maxCapacity"
+                                {...register("maxCapacity", {
+                                  required: {
+                                    value: true,
+                                    message:
+                                      "Por favor, ingresar precio/persona del viaje.",
+                                  },
+                                })}
+                              />
+                              {errors.maxCapacity && (
+                                <p className="text-red-600">
+                                  {errors.maxCapacity.message}
+                                </p>
+                              )}
+                            </div>
+                            {err && (
+                              <p className="text-red-600 self-start">{err}</p>
+                            )}
+                            <DialogFooter>
+                              <div className="w-[min(28rem,100%)] flex justify-center">
+                                <DefaultButton>Guardar cambios</DefaultButton>
+                              </div>
+                            </DialogFooter>
+                          </form>
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
               </div>
             </div>
