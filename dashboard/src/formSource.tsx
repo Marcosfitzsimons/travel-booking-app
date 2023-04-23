@@ -267,7 +267,7 @@ export const tripInputs = [
   {
     id: "maxCapacity",
     name: "maxCapacity",
-    label: "Capacidad maxima",
+    label: "Capacidad máxima",
     type: "number",
     placeholder: "15",
     validation: {
