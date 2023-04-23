@@ -2,16 +2,6 @@ import BackButton from "../components/BackButton";
 import NewTripForm from "../components/NewTripForm";
 import SectionTitle from "../components/SectionTitle";
 
-type Trip = {
-  name: string;
-  date: string;
-  from: string;
-  departureTime: string;
-  to: string;
-  arrivalTime: string;
-  maxCapacity: string;
-  price: string;
-};
 interface InputValidation {
   required: {
     value: boolean;

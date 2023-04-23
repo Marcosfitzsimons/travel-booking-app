@@ -86,23 +86,27 @@ const SingleTrip = () => {
   };
 
   const handleOnSubmit = async (data: Trip) => {
+    const myDate = moment(data.date, "DD/MM/YYYY").toDate();
+    const dbformattedDate = moment(myDate).format("MM/DD/yyyy");
     try {
-      await axios.post(
+      await axios.put(
         `https://travel-booking-api-production.up.railway.app/api/trips/${id}`,
-        data,
+        { ...data, date: dbformattedDate },
         { headers }
       );
       console.log(data);
       toast({
-        description: "Viaje creado con éxito.",
+        description: "Viaje ha sido editado con éxito.",
       });
-      navigate("/trips");
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     } catch (err: any) {
       console.log(err);
       const errorMsg = err.response.data.err.message;
       setErr(errorMsg);
       toast({
-        description: "Error al crear viaje. Intentar más tarde.",
+        description: "Error al editar viaje. Intentar más tarde.",
       });
     }
   };
@@ -124,9 +128,11 @@ const SingleTrip = () => {
         moment.locale("es");
         const momentDate = moment.utc(res.data.date).add(1, "day").toDate();
         const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
-        const formattedDate = moment(newDate).format("dddd DD/MM");
-        setData({ ...res.data, date: formattedDate });
-        const tripData = { ...res.data, formattedDate };
+        const formattedDateWithDay = moment(newDate).format("dddd DD/MM");
+        const dbformattedDate = moment(newDate).format("MM/DD/yyyy");
+        const formattedDate = moment(newDate).format("DD/MM/yyyy");
+        setData({ ...res.data, date: formattedDateWithDay });
+        const tripData = { ...res.data, dbformattedDate };
         reset({
           name: tripData.name,
           date: formattedDate,
