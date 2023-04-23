@@ -1,4 +1,4 @@
-import { LayoutDashboard, User, Map, LogOut, Ticket } from "lucide-react";
+import { User, Map, LogOut } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";

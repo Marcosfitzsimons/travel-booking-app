@@ -43,10 +43,10 @@ const SearchUserInput = ({ list, setFilteredList }: SearchUserInputProps) => {
               type="search"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className="w-[]"
+              className=""
             />
           </div>
-          <div className="md:w-[80px]">
+          <div className="">
             <DefaultButton>Buscar</DefaultButton>
           </div>
         </div>
