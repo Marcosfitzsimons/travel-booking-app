@@ -21,6 +21,17 @@ type Passenger = {
   createdBy: UserData;
 };
 
+type Trip = {
+  name: string;
+  date: Date | null | undefined;
+  from: string;
+  departureTime: string;
+  to: string;
+  arrivalTime: string;
+  maxCapacity: string;
+  price: string;
+};
+
 type UserData = {
   _id: string;
   addressCapital: string;
@@ -33,15 +44,8 @@ type UserData = {
   username: string;
 };
 
-interface Column {
-  field: string;
-  headerName: string;
-  width: number;
-  renderCell?: (params: any) => JSX.Element;
-}
-
 type DataTableProps = {
-  columns: Column[];
+  columns: any;
   tripPassengers: Passenger[];
   tripId: string | undefined;
 };

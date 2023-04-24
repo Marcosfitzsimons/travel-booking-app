@@ -44,11 +44,11 @@ interface Column {
   field: string;
   headerName: string;
   width: number;
-  renderCell?: (params: any) => JSX.Element;
+  renderCell?: any;
 }
 
 type DataTableProps = {
-  columns: Column[];
+  columns: any;
   userTrips: TripProps[];
   userData: UserData;
 };

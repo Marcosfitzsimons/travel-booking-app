@@ -16,7 +16,7 @@ type User = {
 
 type SearchUserInputProps = {
   list: User[];
-  setFilteredList: (users: User[]) => void;
+  setFilteredList: (users: any) => void;
 };
 const SearchUserInput = ({ list, setFilteredList }: SearchUserInputProps) => {
   const [searchInput, setSearchInput] = useState("");

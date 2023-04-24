@@ -17,16 +17,13 @@ import DefaultButton from "./DefaultButton";
 import { toast } from "../hooks/ui/use-toast";
 import SearchUserInput from "./SearchUserInput";
 
-interface Column {
-  field: string;
-  headerName: string;
-  width: number;
-  renderCell?: (params: any) => JSX.Element;
-}
-
 type UserDataTableProps = {
-  columns: Column[];
+  columns: any;
   tripId: string | undefined;
+};
+
+type MyRowType = {
+  _id: string;
 };
 
 const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
@@ -77,7 +74,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
       field: "action",
       headerName: "Acción",
       width: 120,
-      renderCell: (params) => {
+      renderCell: (params: any) => {
         return (
           <div className="flex items-center gap-2">
             <Dialog>
@@ -176,7 +173,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
       </div>
 
       {filteredList.length > 0 ? (
-        <DataGrid
+        <DataGrid<MyRowType>
           rows={filteredList}
           columns={actionColumn.concat(columns)}
           initialState={{
@@ -206,7 +203,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
           className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
-        <DataGrid
+        <DataGrid<MyRowType>
           rows={list}
           columns={actionColumn.concat(columns)}
           initialState={{
