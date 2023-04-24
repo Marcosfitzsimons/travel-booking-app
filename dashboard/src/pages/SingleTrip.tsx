@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import moment from "moment-timezone";
 import "moment/locale/es";
 import axios from "axios";
@@ -23,11 +23,12 @@ import {
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { useForm } from "react-hook-form";
-import { toast, useToast } from "../hooks/ui/use-toast";
+import { useToast } from "../hooks/ui/use-toast";
+import DatePickerContainer from "../components/DatePickerContainer";
 
 type Trip = {
   name: string;
-  date: string;
+  date: Date | null | undefined;
   from: string;
   departureTime: string;
   to: string;
@@ -39,7 +40,7 @@ type Trip = {
 const INITIAL_STATES = {
   _id: "",
   name: "",
-  date: "",
+  date: null,
   from: "",
   available: true,
   departureTime: "",
@@ -52,13 +53,13 @@ const INITIAL_STATES = {
 
 const SingleTrip = () => {
   const [data, setData] = useState(INITIAL_STATES);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | boolean>(false);
   const [err, setErr] = useState<null | string>(null);
 
   let { id } = useParams();
   const { toast } = useToast();
-  const navigate = useNavigate();
 
   moment.locale("es");
 
@@ -70,8 +71,8 @@ const SingleTrip = () => {
   } = useForm({
     defaultValues: {
       name: "",
-      date: "",
       from: "",
+      date: null,
       to: "",
       departureTime: "",
       arrivalTime: "",
@@ -86,15 +87,12 @@ const SingleTrip = () => {
   };
 
   const handleOnSubmit = async (data: Trip) => {
-    const myDate = moment(data.date, "DD/MM/YYYY").toDate();
-    const dbformattedDate = moment(myDate).format("MM/DD/yyyy");
     try {
       await axios.put(
         `https://travel-booking-api-production.up.railway.app/api/trips/${id}`,
-        { ...data, date: dbformattedDate },
+        { ...data, date: startDate },
         { headers }
       );
-      console.log(data);
       toast({
         description: "Viaje ha sido editado con éxito.",
       });
@@ -111,6 +109,15 @@ const SingleTrip = () => {
     }
   };
 
+  const formatDate = (date: string) => {
+    const momentDate = moment.utc(date);
+    const timezone = "America/Argentina/Buenos_Aires";
+    const timezone_date = momentDate.tz(timezone);
+    const formatted_date = timezone_date.format("ddd DD/MM");
+    // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
+    return formatted_date;
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -125,18 +132,14 @@ const SingleTrip = () => {
             headers,
           }
         );
-        moment.locale("es");
-        const momentDate = moment.utc(res.data.date).add(1, "day").toDate();
-        const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
-        const formattedDateWithDay = moment(newDate).format("dddd DD/MM");
-        const dbformattedDate = moment(newDate).format("MM/DD/yyyy");
-        const formattedDate = moment(newDate).format("DD/MM/yyyy");
-        setData({ ...res.data, date: formattedDateWithDay });
-        const tripData = { ...res.data, dbformattedDate };
+
+        formatDate(res.data.date);
+        setData({ ...res.data, date: formatDate(res.data.date) });
+        const tripData = { ...res.data };
         reset({
           name: tripData.name,
-          date: formattedDate,
           from: tripData.from,
+          date: tripData.date,
           to: tripData.to,
           departureTime: tripData.departureTime,
           arrivalTime: tripData.arrivalTime,
@@ -173,7 +176,7 @@ const SingleTrip = () => {
                   />
                 </div>
                 <div className="absolute right-4 top-2 flex items-center gap-2">
-                  <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white">
+                  <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl shadow-sm border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white">
                     <CalendarDays className="w-4 h-4 relative bottom-[1px]" />{" "}
                     {data.date}
                   </p>
@@ -276,53 +279,14 @@ const SingleTrip = () => {
                                 </p>
                               )}
                             </div>
+
                             <div className="grid w-full max-w-md items-center gap-2">
                               <Label htmlFor="date">Fecha</Label>
-                              <Input
-                                type="text"
+                              <DatePickerContainer
+                                setStartDate={setStartDate}
                                 id="date"
-                                {...register("date", {
-                                  required: {
-                                    value: true,
-                                    message:
-                                      "Por favor, ingresar fecha del viaje.",
-                                  },
-                                })}
+                                startDate={startDate}
                               />
-                              {errors.date && (
-                                <p className="text-red-600">
-                                  {errors.date.message}
-                                </p>
-                              )}
-                            </div>
-                            <div className="grid w-full max-w-md items-center gap-2">
-                              <Label htmlFor="from">Desde</Label>
-                              <Input
-                                type="text"
-                                id="from"
-                                {...register("from", {
-                                  required: {
-                                    value: true,
-                                    message:
-                                      "Por favor, ingresar lugar de salida.",
-                                  },
-                                  minLength: {
-                                    value: 3,
-                                    message:
-                                      "Lugar de salida no puede ser tan corto.",
-                                  },
-                                  maxLength: {
-                                    value: 25,
-                                    message:
-                                      "Lugar de salida no puede ser tan largo.",
-                                  },
-                                })}
-                              />
-                              {errors.from && (
-                                <p className="text-red-600">
-                                  {errors.from.message}
-                                </p>
-                              )}
                             </div>
                             <div className="grid w-full max-w-md items-center gap-2">
                               <Label htmlFor="to">Hasta</Label>

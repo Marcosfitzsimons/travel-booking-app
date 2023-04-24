@@ -3,9 +3,11 @@ import moment from "moment-timezone";
 import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
 
 const formatDate = (date: string) => {
-  const momentDate = moment.utc(date).add(1, "day").toDate();
-  const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
-  const formattedDate = moment(newDate).format("DD/MM/YY");
+  // worksss
+  const momentDate = moment.utc(date);
+  const timezone = "America/Argentina/Buenos_Aires"; // or any other time zone in GMT-0300
+  const timezone_date = momentDate.tz(timezone);
+  const formattedDate = timezone_date.format("DD/MM/YYYY");
   return formattedDate;
 };
 
@@ -14,7 +16,7 @@ export const userColumns = [
     field: "user",
     headerName: "Usuario",
     width: 230,
-    renderCell: (params) => {
+    renderCell: (params: any) => {
       return (
         <div className="flex items-center gap-2">
           <Avatar className="w-8 h-8">
@@ -65,7 +67,7 @@ export const tripColumns = [
     field: "date",
     headerName: "Fecha",
     width: 140,
-    renderCell: (params) => {
+    renderCell: (params: any) => {
       return <p>{params.row.date ? formatDate(params.row.date) : ""}</p>;
     },
   },
@@ -82,7 +84,7 @@ export const passengerColumns = [
     field: "user",
     headerName: "Usuario",
     width: 230,
-    renderCell: (params) => {
+    renderCell: (params: any) => {
       return (
         <div className="flex items-center gap-2">
           <Avatar className="w-8 h-8">
@@ -104,7 +106,7 @@ export const passengerColumns = [
     field: "username",
     headerName: "Nombre de usuario",
     width: 150,
-    renderCell: (params) => {
+    renderCell: (params: any) => {
       return <p className="">@{params.row.createdBy.username}</p>;
     },
   },
@@ -113,7 +115,7 @@ export const passengerColumns = [
     field: "addressCda",
     headerName: "Dirección (Carmen)",
     width: 180,
-    renderCell: (params) => {
+    renderCell: (params: any) => {
       return <p className="">{params.row.createdBy.addressCda}</p>;
     },
   },
@@ -121,7 +123,7 @@ export const passengerColumns = [
     field: "addressCapital",
     headerName: "Dirección (Capital)",
     width: 180,
-    renderCell: (params) => {
+    renderCell: (params: any) => {
       return <p className="">{params.row.createdBy.addressCapital}</p>;
     },
   },
@@ -129,7 +131,7 @@ export const passengerColumns = [
     field: "phone",
     headerName: "Celular",
     width: 140,
-    renderCell: (params) => {
+    renderCell: (params: any) => {
       return <p className="">{params.row.createdBy.phone}</p>;
     },
   },
@@ -137,7 +139,7 @@ export const passengerColumns = [
     field: "email",
     headerName: "Email",
     width: 250,
-    renderCell: (params) => {
+    renderCell: (params: any) => {
       return <p className="">{params.row.createdBy.email}</p>;
     },
   },

@@ -6,10 +6,11 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { useToast } from "../hooks/ui/use-toast";
 import DefaultButton from "./DefaultButton";
+import DatePickerContainer from "./DatePickerContainer";
 
 type Trip = {
   name: string;
-  date: string;
+  date: Date | null;
   from: string;
   departureTime: string;
   to: string;
@@ -51,8 +52,9 @@ type NewTripFormProps = {
 };
 
 const NewTripForm = ({ inputs }: NewTripFormProps) => {
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [err, setErr] = useState<null | string>(null);
-
+  console.log(startDate);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -63,7 +65,7 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
   } = useForm({
     defaultValues: {
       name: "",
-      date: "",
+      date: null,
       from: "",
       to: "",
       departureTime: "",
@@ -82,10 +84,9 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
     try {
       await axios.post(
         "https://travel-booking-api-production.up.railway.app/api/trips",
-        data,
+        { ...data, date: startDate },
         { headers }
       );
-      console.log(data);
       toast({
         description: "Viaje creado con éxito.",
       });
@@ -104,9 +105,17 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
     <div className="">
       <form
         onSubmit={handleSubmit(handleOnSubmit)}
-        className="relative w-full mt-6 p-3 py-6"
+        className="relative w-full flex flex-col gap-3 mt-6 p-3 py-6"
       >
         <div className="w-full flex flex-col gap-2 items-center lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
+          <div className="grid w-full items-center gap-2 lg:w-[144px]">
+            <Label htmlFor="date">Fecha</Label>
+            <DatePickerContainer
+              setStartDate={setStartDate}
+              id="date"
+              startDate={startDate}
+            />
+          </div>
           {inputs.map((input) => (
             <div key={input.id} className="grid w-full items-center gap-2">
               <Label htmlFor={input.id}>{input.label}</Label>

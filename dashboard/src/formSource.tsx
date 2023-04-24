@@ -155,19 +155,6 @@ export const tripInputs = [
     },
   },
   {
-    id: "date",
-    name: "date",
-    label: "Fecha",
-    type: "text",
-    placeholder: "03/04/2023",
-    validation: {
-      required: {
-        value: true,
-        message: "Por favor, ingresar fecha del viaje.",
-      },
-    },
-  },
-  {
     id: "from",
     name: "from",
     label: "Desde",

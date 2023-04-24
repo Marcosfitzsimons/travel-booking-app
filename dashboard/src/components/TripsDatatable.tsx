@@ -53,11 +53,9 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   const [err, setErr] = useState<null | string>(null);
   const [list, setList] = useState<Trip[]>([]);
   const [filteredList, setFilteredList] = useState<Trip[]>([]);
-
   const baseUrl = `https://travel-booking-api-production.up.railway.app/api/trips`;
 
   const { data, loading, error } = useFetch(baseUrl);
-
   const token = localStorage.getItem("token");
   const headers = {
     Authorization: `Bearer ${token}`,
@@ -116,7 +114,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <button className="px-2 pl-[25px] rounded-md border border-red-600 bg-red-500 text-white dark:bg-red-600 dark:hover:border-blue-lagoon-300/80">
+                  <button className="px-2 pl-[25px] rounded-md border border-[#c03c42] bg-[#A72F35] text-white dark:bg-[#A72F35] dark:hover:border-blue-lagoon-300/80">
                     <Trash2 className="absolute text-white left-2 top-[2px] h-4 w-4" />
                     Borrar
                   </button>
@@ -156,7 +154,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   return (
     <div className="h-[400px] w-full">
       <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <div className="flex-col md:flex md:items-end gap-1 w-[min(100%,180px)]">
+        <div className="flex-col md:flex md:items-end gap-1 w-[min(100%,184px)]">
           {/* Add functionality */}
           <DatePickerContainer
             startDate={startDate}
@@ -167,7 +165,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
         </div>
         <div className="flex justify-between items-end gap-1 lg:gap-3">
           <div className="flex items-center gap-1 text-sm lg:text-base">
-            <Map className="hidden sm:flex sm:h-5 sm:w-5" />
+            <Map className="hidden animate-pulse sm:flex sm:h-5 sm:w-5" />
             <p className="font-medium">Viajes disponibles:</p>
             <p className="font-light flex items-center lg:gap-1">
               <span

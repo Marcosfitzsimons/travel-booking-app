@@ -141,6 +141,7 @@ const SingleUser = () => {
             headers,
           }
         );
+        setData(res.data.user);
         const userData = res.data.user;
         reset({
           username: userData.username,
