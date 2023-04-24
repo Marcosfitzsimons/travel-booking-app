@@ -2,25 +2,6 @@ import { useEffect, useState } from "react";
 import { Moon, SunMedium } from "lucide-react";
 import { Button } from "./ui/button";
 
-const themeIconVariants = {
-  hidden: {
-    y: 30,
-    opacity: 0,
-  },
-  visible: {
-    y: 0,
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-    y: -30,
-    transition: {
-      duration: 0.3,
-      ease: "easeOut",
-    },
-  },
-};
-
 export default function ThemeToggle() {
   const [isMounted, setIsMounted] = useState(false);
   const [theme, setTheme] = useState(() => {
@@ -56,13 +37,7 @@ export default function ThemeToggle() {
   return isMounted ? (
     <div className="">
       {theme === "dark" ? (
-        <div
-          variants={themeIconVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          key="sun"
-        >
+        <div>
           <Button
             aria-label="Toggle theme"
             onClick={toggleTheme}
@@ -73,13 +48,7 @@ export default function ThemeToggle() {
           </Button>
         </div>
       ) : (
-        <div
-          variants={themeIconVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          key="moon"
-        >
+        <div>
           <Button
             aria-label="Toggle theme"
             variant="ghost"

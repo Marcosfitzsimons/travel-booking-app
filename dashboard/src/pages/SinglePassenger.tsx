@@ -32,24 +32,20 @@ type UserData = {
 
 // change initial states
 const INITIAL_STATES = {
-  _id: "",
-  name: "",
-  date: "",
-  from: "",
-  available: true,
-  departureTime: "",
-  to: "",
-  arrivalTime: "",
-  maxCapacity: undefined,
-  price: undefined,
-  passengers: [],
+  username: "",
+  fullName: "",
+  email: "",
+  addressCda: "",
+  addressCapital: "",
+  phone: undefined,
+  image: "",
 };
 
 const SinglePassenger = () => {
   const [data, setData] = useState(INITIAL_STATES);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<File | string>("");
-  const [err, setErr] = useState<unknown | boolean>(false);
+  const [err, setErr] = useState<any>(false);
   const {
     register,
     handleSubmit,
@@ -60,7 +56,7 @@ const SinglePassenger = () => {
       username: "",
       fullName: "",
       email: "",
-      phone: "",
+      phone: undefined,
       image: "",
       addressCda: "",
       addressCapital: "",
@@ -150,7 +146,7 @@ const SinglePassenger = () => {
           addressCapital: userData.addressCapital,
           image: userData.image ? userData.image : "",
         });
-      } catch (err) {
+      } catch (err: any) {
         setErr(err);
       }
       setLoading(false);
@@ -434,7 +430,9 @@ const SinglePassenger = () => {
                           </p>
                         )}
                       </div>
-                      {err && <p className="text-red-600 self-start">{err}</p>}
+                      {err && (
+                        <p className="text-red-600 self-start">{err.message}</p>
+                      )}
                       <DialogFooter>
                         <div className="w-[min(28rem,100%)] flex justify-center">
                           <DefaultButton>Guardar cambios</DefaultButton>
