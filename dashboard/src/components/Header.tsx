@@ -30,7 +30,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-[#fafafa] dark:bg-[#0d0f12]">
+    <header className="bg-transparent">
       <div className="py-2 flex items-center justify-between z-50 lg:py-[12.5px]">
         <Logo />
         <div className="flex items-center gap-1">
