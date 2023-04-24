@@ -2,8 +2,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { Eye, PlusCircle, Trash2, Map } from "lucide-react";
 import { useEffect, useState } from "react";
-import moment from "moment-timezone";
-import { format } from "date-fns"; // use it to format the date and to filter by each trip. format(startDate, "dd/MM/yyyy") -> dd/MM/yyyy
+import { format, parse, parseISO } from "date-fns";
+import "moment-timezone";
 import useFetch from "../hooks/useFetch";
 import axios from "axios";
 import {
@@ -80,19 +80,22 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
     }
   };
 
-  let filteredTrips: Trip[];
-  let dateSelected: string;
-  if (startDate) {
-    dateSelected = format(startDate, "dd/MM/yy");
+  const handleFilteredTrips = () => {
+    let filteredTrips: Trip[];
+    if (startDate) {
+      const newDate = new Date(startDate);
+      const formattedDate = newDate.toISOString();
+      const parseDate = parseISO(formattedDate);
+      const date = format(parseDate, "dd/MM/yyyy");
 
-    filteredTrips = filteredList.filter((trip: Trip) => {
-      const momentDate = moment.utc(trip.date).add(1, "day").toDate();
-      const date = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
-      const formattedDate = moment(date).format("DD/MM/YY");
-      setFilteredList(filteredTrips);
-      return formattedDate === dateSelected;
-    });
-  }
+      filteredTrips = list.filter((trip: Trip) => {
+        const tripDate = format(new Date(trip.date), "dd/MM/yyyy");
+
+        return tripDate == date;
+      });
+      setFilteredList([...filteredTrips]);
+    }
+  };
 
   const actionColumn: ExtendedColumn[] = [
     {
@@ -151,11 +154,14 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
     setList(data);
   }, [data]);
 
+  useEffect(() => {
+    handleFilteredTrips();
+  }, [startDate]);
+
   return (
     <div className="h-[400px] w-full">
       <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div className="flex-col md:flex md:items-end gap-1 w-[min(100%,184px)]">
-          {/* Add functionality */}
           <DatePickerContainer
             startDate={startDate}
             setStartDate={setStartDate}
