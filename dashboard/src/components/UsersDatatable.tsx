@@ -102,7 +102,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <button className="px-2 pl-[25px] rounded-md border border-red-600 bg-red-500 text-white dark:bg-red-600 dark:hover:border-blue-lagoon-300/80">
+                  <button className="px-2 pl-[25px] rounded-md border border-[#c03c42] bg-[#A72F35] text-white dark:bg-[#A72F35] dark:hover:border-blue-lagoon-300/80">
                     <Trash2 className="absolute text-white left-2 top-[2px] h-4 w-4" />
                     Borrar
                   </button>
