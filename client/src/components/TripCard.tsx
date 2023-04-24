@@ -12,6 +12,7 @@ import {
 } from "../components/ui/tooltip";
 import miniBus from "../assets/minibus1-sm.png";
 import { Button } from "./ui/button";
+import DefaultButton from "./DefaultButton";
 
 interface Trip {
   _id: number;
@@ -39,6 +40,7 @@ const TripCard = ({
   arrivalTime,
   price,
   maxCapacity,
+  passengers,
 }: TripProps) => {
   const todayDate = format(new Date(), "dd/MM/yy");
 
@@ -59,7 +61,7 @@ const TripCard = ({
   };
 
   return (
-    <article className="w-full relative bg-white/80 border border-blue-lagoon-500/20 rounded-md shadow-md pb-2 max-w-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
+    <article className="w-full relative mx-auto rounded-md shadow-md mb-10 pb-2 max-w-[400px] bg-white/40 border border-border-color  dark:bg-black/40 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
       <div className="px-4 pt-9 ">
         <div className="flex flex-col gap-2">
           <div className="absolute top-[.6rem] left-5">
@@ -76,6 +78,11 @@ const TripCard = ({
             {formattedDate === todayDate && (
               <p className="text-[#256840] px-3 select-none font-medium shadow-sm bg-green-300/30 rounded-2xl border border-blue-lagoon-200 dark:bg-[#6fe79f]/10 dark:border-[#4cc97e] dark:text-[#7bfdaf]">
                 HOY
+              </p>
+            )}
+            {maxCapacity === passengers.length && (
+              <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl shadow-sm border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white">
+                FULL
               </p>
             )}
           </div>
@@ -132,12 +139,10 @@ const TripCard = ({
           </div>
           <div className="py-1 lg:self-end lg:py-2">
             <div
-              className="w-[min(30rem,100%)] relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:h-8"
+              className="w-[min(24rem,100%)] flex justify-center"
               onClick={handleReservation}
             >
-              <Button className="relative w-full bg-blue-lagoon-500 text-slate-100  hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-blue-lagoon-500 lg:h-8">
-                Reservar
-              </Button>
+              <DefaultButton>Reservar</DefaultButton>
             </div>
           </div>
         </div>

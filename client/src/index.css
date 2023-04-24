@@ -18,7 +18,7 @@
 
 .react-datepicker__header {
   background-color: white;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid #007f9633;
 }
 
 .react-datepicker__triangle {
@@ -32,6 +32,6 @@
     font-family: "Ubuntu", sans-serif;
   }
   body {
-    @apply bg-[#fafafa] text-blue-lagoon-800 dark:bg-[#0d0f12] dark:text-neutral-200;
+    @apply bg-[#fafafa] text-blue-lagoon-800 dark:bg-[#0E1217] dark:text-neutral-200;
   }
 }

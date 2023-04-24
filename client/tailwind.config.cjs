@@ -15,6 +15,8 @@ module.exports = {
         },
       },
       colors: {
+        "border-color": '#007F9633',
+        "border-color-dark": '#003E4A66',
         "dark-gray": '#0d0f12',
         "neutral": {
           750: '#313131'

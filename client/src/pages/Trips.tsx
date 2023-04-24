@@ -85,7 +85,7 @@ const Trips = () => {
           animate="visible"
           exit="exit"
         >
-          <div className="mt-8 flex flex-col items-center gap-5 md:grid md:justify-items-center md:grid-cols-2">
+          <div className="mt-8 flex flex-col items-center gap-3 md:grid md:justify-items-center md:grid-cols-2">
             {filteredTrips ? (
               <>
                 <AnimatePresence mode="wait">

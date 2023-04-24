@@ -122,6 +122,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
     const formattedDate = moment(newDate).format("DD/MM/YY");
     return formattedDate;
   };
+
   return (
     <section className="min-h-[70vh] w-full mx-auto mt-6 bg-transparent flex flex-col gap-5 items-center">
       {loading ? (
