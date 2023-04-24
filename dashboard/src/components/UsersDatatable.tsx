@@ -140,7 +140,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
   }, [data]);
 
   return (
-    <div className="h-[400px] w-full">
+    <div className="h-[600px] w-full">
       <div className="w-full my-3 flex flex-col items-center gap-3 md:flex-row md:items-end md:justify-between">
         <div className="flex flex-col gap-1">
           {error && <p className="text-red-500 order-2">{error.message}</p>}
@@ -196,7 +196,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
           pageSizeOptions={[9]}
           checkboxSelection
           getRowId={(row) => row._id ?? ""}
-          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <DataGrid
@@ -226,7 +226,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
           pageSizeOptions={[9]}
           checkboxSelection
           getRowId={(row) => row._id ?? ""} // ?? operator is used to provide a default value of an empty string '' if row._id is null or undefined.
-          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       )}
     </div>

@@ -162,7 +162,7 @@ const MyTripsDatatable = ({ columns, userTrips, userData }: DataTableProps) => {
             borderTop: "none",
           },
         }}
-        className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+        className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
       />
     </div>
   );

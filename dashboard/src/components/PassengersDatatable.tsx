@@ -143,7 +143,7 @@ const PassengersDatable = ({
   ];
 
   return (
-    <div className={`${list.length > 0 ? "h-[400px]" : ""} w-full`}>
+    <div className={`${list.length > 0 ? "h-[600px]" : ""} w-full`}>
       {list.length > 0 ? (
         <DataGrid
           rows={list}
@@ -172,7 +172,7 @@ const PassengersDatable = ({
               borderTop: "none",
             },
           }}
-          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <div className="mx-auto flex flex-col items-center gap-3">

@@ -159,7 +159,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   }, [startDate]);
 
   return (
-    <div className="h-[400px] w-full">
+    <div className="h-[600px] w-full">
       <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div className="flex-col md:flex md:items-end gap-1 w-[min(100%,184px)]">
           <DatePickerContainer
@@ -221,7 +221,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
           pageSizeOptions={[9]}
           checkboxSelection
           getRowId={(row) => row._id}
-          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <DataGrid
@@ -251,7 +251,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
               borderTop: "none",
             },
           }}
-          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       )}
     </div>

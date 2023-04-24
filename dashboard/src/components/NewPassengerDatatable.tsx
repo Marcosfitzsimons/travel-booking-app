@@ -167,7 +167,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
   }, [data]);
 
   return (
-    <div className="h-[400px] w-full">
+    <div className="h-[600px] w-full">
       <div className="my-3">
         <SearchUserInput list={list} setFilteredList={setFilteredList} />
       </div>
@@ -200,7 +200,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
               borderTop: "none",
             },
           }}
-          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <DataGrid<MyRowType>
@@ -230,7 +230,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
               borderTop: "none",
             },
           }}
-          className="w-[min(100%,1000px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       )}
     </div>
