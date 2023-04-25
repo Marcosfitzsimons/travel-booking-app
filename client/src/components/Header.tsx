@@ -112,7 +112,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   <ChevronDown className="w-5 h-5" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuLabel className="text-blue-lagoon-900 uppercase font-bold text-sm dark:text-white">
+                  <DropdownMenuLabel className="text-blue-lagoon-900 font-bold text-sm dark:text-white">
                     Mi Cuenta
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />

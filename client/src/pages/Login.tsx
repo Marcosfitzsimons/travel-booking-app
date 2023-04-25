@@ -87,10 +87,10 @@ const Login = () => {
       >
         <Separator
           orientation="vertical"
-          className="h-52 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
+          className="h-28 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
         />
         <div className="">
-          <h2 className="text-3xl py-2 font-medium text-center lg:text-start lg:px-3 dark:text-white">
+          <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:px-3 dark:text-white">
             Entra a tu cuenta
           </h2>
           <p className="text-center lg:text-start lg:px-3">
@@ -98,9 +98,9 @@ const Login = () => {
           </p>
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
-            className="relative w-full mt-6 p-3 py-6 flex flex-col gap-3"
+            className="relative w-full mt-2 p-3 py-6 flex flex-col gap-3 lg:max-w-sm"
           >
-            <div className="grid w-full max-w-sm items-center gap-2">
+            <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
               <Input
                 type="text"
@@ -124,7 +124,7 @@ const Login = () => {
                 <p className="text-red-600">{errors.emailOrUsername.message}</p>
               )}
             </div>
-            <div className="grid w-full max-w-sm items-center gap-2">
+            <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="password">Contraseña</Label>
               <Input
                 type="password"
@@ -150,10 +150,10 @@ const Login = () => {
             </div>
             {err && <p className="text-red-600 self-start">{err}</p>}
 
-            <div className="w-full md:max-w-[200px] md:self-center">
+            <div className="w-full max-w-sm self-center md:max-w-[200px]">
               <DefaultButton>Entrar</DefaultButton>
             </div>
-            <p className="lg:self-start">
+            <p className="w-full text-center">
               ¿No tenes cuenta?{" "}
               <Link to="/register" className="font-medium text-[#c9363e]">
                 Crear una cuenta nueva
@@ -175,7 +175,7 @@ const Login = () => {
 
         <Separator
           orientation="vertical"
-          className="h-52 bg-gradient-to-b from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
+          className="h-28 bg-gradient-to-b from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
         />
       </motion.div>
     </section>

@@ -104,17 +104,17 @@ const Register = () => {
           className="h-20 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
         />
         <div className="">
-          <h2 className="text-3xl py-2 font-medium text-center lg:text-start dark:text-white">
+          <h2 className="text-3xl py-1 font-medium text-center lg:text-start dark:text-white">
             Crear cuenta nueva
           </h2>
-          <p className="text-center  lg:text-start">
+          <p className="text-center lg:text-start">
             Una vez que tengas tu cuenta vas a poder reservar tu lugar.
           </p>
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
-            className="relative w-full mt-6 p-3 py-6 flex flex-col gap-3 items-center lg:px-0"
+            className="relative w-full mt-2 py-6 flex flex-col gap-3 items-center lg:w-[650px]"
           >
-            <div className="w-full flex flex-col items-center gap-3 lg:flex-row lg:w-[600px]">
+            <div className="w-full flex flex-col items-center gap-3 lg:flex-row ">
               <div className="grid w-full max-w-sm items-center gap-2">
                 <Label htmlFor="fullname">Nombre completo</Label>
                 <Input
@@ -274,16 +274,19 @@ const Register = () => {
               </div>
             </div>
             {err && <p className="text-red-600 self-start">{err}</p>}
-            <div className="w-full md:max-w-[200px]">
-              <DefaultButton>Crear cuenta</DefaultButton>
+
+            <div className="w-full flex flex-col items-center gap-3">
+              <div className="w-full max-w-sm md:max-w-[200px]">
+                <DefaultButton>Crear cuenta</DefaultButton>
+              </div>
+              <p className="">
+                ¿Ya tenes cuenta?{" "}
+                <Link to="/login" className="font-medium text-[#c9363e]">
+                  Iniciar sesion
+                </Link>
+              </p>
             </div>
           </form>
-          <p className="lg:self-start">
-            ¿Ya tenes cuenta?{" "}
-            <Link to="/login" className="font-medium text-[#c9363e]">
-              Iniciar sesion
-            </Link>
-          </p>
         </div>
         <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6">
           <Separator
