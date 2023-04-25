@@ -23,6 +23,23 @@
   display: none;
 }
 
+/* react-time-picker */
+
+.react-time-picker__wrapper {
+  border: none;
+}
+.react-time-picker__inputGroup__input,
+.react-time-picker__inputGroup__amPm {
+  background-color: white;
+  color: #004c5a;
+}
+
+.dark .react-time-picker__inputGroup__input,
+.dark .react-time-picker__inputGroup__amPm {
+  background-color: black;
+  color: white;
+}
+
 /* material ui data grid */
 
 /* root */
