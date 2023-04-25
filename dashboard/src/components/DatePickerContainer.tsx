@@ -17,7 +17,7 @@ after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] afte
       <DatePicker
         dateFormat={"dd/MM/yyyy"}
         locale="es"
-        className={`cursor-pointer w-full pl-10 py-1.5 font-medium rounded-lg border border-blue-lagoon-100/50 bg-white/80 shadow-input !outline-none shadow-blue-lagoon-500/10 dark:border-blue-lagoon-800/20 p-2 placeholder:text-blue-lagoon-700 dark:text-white dark:bg-blue-lagoon-300/10 dark:placeholder:text-white`}
+        className="cursor-pointer w-full pl-10 py-1.5 font-medium rounded-lg border border-border-color bg-white/80 !outline-none p-2  placeholder:text-blue-lagoon-700  dark:border-border-color-dark dark:text-white dark:bg-black/40 dark:placeholder:text-white"
         selected={startDate}
         placeholderText="Seleccionar fecha"
         minDate={new Date()}

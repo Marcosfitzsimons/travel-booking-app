@@ -1,6 +1,6 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { Eye, PlusCircle, Trash2, Map } from "lucide-react";
+import { Eye, PlusCircle, Trash2, Map, RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { format, parse, parseISO } from "date-fns";
 import "moment-timezone";
@@ -94,6 +94,8 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
         return tripDate == date;
       });
       setFilteredList([...filteredTrips]);
+    } else {
+      setFilteredList([]);
     }
   };
 
@@ -161,11 +163,19 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   return (
     <div className="h-[600px] w-full">
       <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <div className="flex-col md:flex md:items-end gap-1 w-[min(100%,184px)]">
-          <DatePickerContainer
-            startDate={startDate}
-            setStartDate={setStartDate}
-          />
+        <div className="relative flex items-end gap-1 w-[min(100%,184px)]">
+          <div className="shadow-input shadow-blue-lagoon-500/10 rounded-lg">
+            <DatePickerContainer
+              startDate={startDate}
+              setStartDate={setStartDate}
+            />
+          </div>
+          <div
+            className="absolute h-full aspect-square flex items-center justify-center cursor-pointer -right-11 p-2 bg-white shadow-input shadow-blue-lagoon-500/10 rounded-lg border border-border-color dark:border-color-black dark:bg-black/40 dark:hover:text-white"
+            onClick={() => setStartDate(null)}
+          >
+            <RotateCcw className="w-4 h-4" />
+          </div>
           {err && <p>{err}</p>}
           {error && <p>{error}</p>}
         </div>
