@@ -41,7 +41,7 @@ const NewTrip = ({ inputs, title }: NewTripProps) => {
       <div className="self-start mb-2">
         <BackButton linkTo="/trips" />
       </div>
-      <div className="p-5 rounded-md bg-white/40 w-full max-w-md self-center border border-blue-lagoon-500/20 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300 dark:bg-[#141414] lg:max-w-3xl lg:self-start">
+      <div className="p-5 rounded-md bg-white/40 w-full max-w-md self-center border border-border-color dark:border-border-color-dark dark:hover:border-blue-lagoon-300 dark:bg-black/40 lg:max-w-3xl lg:self-start">
         <NewTripForm inputs={inputs} />
       </div>
     </section>

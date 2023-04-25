@@ -8,6 +8,7 @@ import { useToast } from "../hooks/ui/use-toast";
 import DefaultButton from "./DefaultButton";
 import DatePickerContainer from "./DatePickerContainer";
 import TimePickerContainer from "./TimePickerContainer";
+import ar from "date-fns/esm/locale/ar/index.js";
 
 type Trip = {
   name: string;
@@ -54,6 +55,8 @@ type NewTripFormProps = {
 
 const NewTripForm = ({ inputs }: NewTripFormProps) => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [arrivalTimeValue, setArrivalTimeValue] = useState("10:00");
+  const [departureTimeValue, setDepartureTimeValue] = useState("10:00");
   const [err, setErr] = useState<null | string>(null);
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -67,8 +70,8 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
       name: "",
       date: null,
       from: "",
-      departureTime: "",
-      arrivalTime: "",
+      departureTime: "10:00",
+      arrivalTime: "10:00",
       to: "",
       price: "",
       maxCapacity: "",
@@ -84,7 +87,12 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
     try {
       await axios.post(
         "https://travel-booking-api-production.up.railway.app/api/trips",
-        { ...data, date: startDate },
+        {
+          ...data,
+          date: startDate,
+          departureTime: departureTimeValue,
+          arrivalTime: arrivalTimeValue,
+        },
         { headers }
       );
       toast({
@@ -111,7 +119,6 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
           <Label htmlFor="date">Fecha</Label>
           <DatePickerContainer
             setStartDate={setStartDate}
-            id="date"
             startDate={startDate}
           />
         </div>
@@ -134,11 +141,17 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
         <div className="w-full flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
           <div className="grid w-full items-center gap-2 lg:w-[144px]">
             <Label htmlFor="departureTime">Horario de salida:</Label>
-            <TimePickerContainer />
+            <TimePickerContainer
+              value={departureTimeValue}
+              onChange={setDepartureTimeValue}
+            />
           </div>
           <div className="grid w-full items-center gap-2 lg:w-[144px]">
-            <Label htmlFor="departureTime">Horario de llegada:</Label>
-            <TimePickerContainer />
+            <Label htmlFor="arrivalTime">Horario de llegada:</Label>
+            <TimePickerContainer
+              value={arrivalTimeValue}
+              onChange={setArrivalTimeValue}
+            />
           </div>
           {err && <p className="text-red-600 self-start">{err}</p>}{" "}
         </div>

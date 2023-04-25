@@ -1,10 +1,13 @@
 import { X } from "lucide-react";
-import { useState } from "react";
 import TimePicker from "react-time-picker";
 import "react-time-picker/dist/TimePicker.css";
 
-const TimePickerContainer = () => {
-  const [value, onChange] = useState("10:00");
+type TimePickerProps = {
+  value: string;
+  onChange: any;
+};
+
+const TimePickerContainer = ({ onChange, value }: TimePickerProps) => {
   console.log(value);
   return (
     <div className="flex flex-1 items-center">
@@ -14,7 +17,7 @@ const TimePickerContainer = () => {
       >
         <TimePicker
           disableClock
-          className="w-full px-3.5 py-2 relative text-sm rounded-lg border border-blue-lagoon-700/50 bg-white placeholder:text-blue-lagoon-600 dark:border-blue-lagoon-500/20 dark:bg-black/80 dark:placeholder:text-blue-lagoon-100 dark:text-blue-lagoon-100 shadow-input shadow-black/10 !outline-none"
+          className="w-full px-3.5 py-1.5 relative text-sm rounded-lg border border-blue-lagoon-700/50 bg-white placeholder:text-blue-lagoon-600 dark:border-blue-lagoon-500/20 dark:bg-black/80 dark:placeholder:text-blue-lagoon-100 dark:text-blue-lagoon-100 !outline-none"
           onChange={onChange}
           clearIcon={<X className="w-4 h-4" />}
           required
