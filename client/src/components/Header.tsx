@@ -111,47 +111,47 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   </Avatar>
                   <ChevronDown className="w-5 h-5" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="  ">
-                  <DropdownMenuLabel className="dark:text-white">
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel className="text-blue-lagoon-900 uppercase font-bold text-sm dark:text-white">
                     Mi Cuenta
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="cursor-pointer p-0">
+                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0">
+                    <User className="absolute left-2 h-4 w-4" />
                     <Link
                       to="/mi-perfil"
-                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/30"
+                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
                       onClick={() => setIsUserInfo(true)}
                     >
-                      <User className="w-4 h-4" />
                       Perfil
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer p-0">
+                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0">
+                    <ClipboardList className="absolute left-2 h-4 w-4" />
                     <Link
                       to="/mi-perfil"
                       onClick={() => setIsUserInfo(false)}
-                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/30"
+                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
                     >
-                      <ClipboardList className="w-4 h-4" />
                       Mis viajes
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer p-0">
+                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0">
+                    <UserCog className="absolute left-2 h-4 w-4" />
                     <Link
                       to="/mi-perfil/editar-perfil"
-                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/30"
+                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
                     >
-                      <UserCog className="w-4 h-4" />
                       Configuración
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer p-0">
+                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0">
                     <Link
                       to="/login"
-                      className="rounded-lg py-1.5 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/30 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/30"
+                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
                       onClick={handleLogOut}
                     >
-                      <LogOut className="w-4 h-4" />
+                      <LogOut className="absolute left-2 h-4 w-4" />
                       Salir
                     </Link>
                   </DropdownMenuItem>

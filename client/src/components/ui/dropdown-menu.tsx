@@ -63,7 +63,7 @@ const DropdownMenuContent = React.forwardRef<
       ref={ref}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 min-w-[8rem] overflow-hidden rounded-lg bg-white border text-blue-lagoon-800 border-blue-lagoon-200 shadow-sm shadow-blue-lagoon-900/30 p-1 animate-in data-[side=right]:slide-in-from-left-2 data-[side=left]:slide-in-from-right-2 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2 hover:border-blue-lagoon-600/50 dark:text-blue-lagoon-100  dark:bg-[#0d0f12] dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300/80",
+        "z-50 min-w-[9rem] overflow-hidden rounded-lg bg-white border text-blue-lagoon-800 border-blue-lagoon-500/20 shadow-sm shadow-blue-lagoon-900/30 p-1 animate-in data-[side=right]:slide-in-from-left-2 data-[side=left]:slide-in-from-right-2 data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2  dark:text-blue-lagoon-100 dark:bg-[#080B0E] dark:border-blue-lagoon-900/40",
         className
       )}
       {...props}
@@ -161,7 +161,7 @@ const DropdownMenuSeparator = React.forwardRef<
   <DropdownMenuPrimitive.Separator
     ref={ref}
     className={cn(
-      "-mx-1 my-1 h-px bg-slate-300 dark:bg-neutral-700",
+      "-mx-1 my-1 h-px bg-border-color dark:border-color-dark",
       className
     )}
     {...props}

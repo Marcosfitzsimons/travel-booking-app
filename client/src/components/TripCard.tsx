@@ -72,8 +72,9 @@ const TripCard = ({
             />
           </div>
           <div className="absolute right-4 top-2 flex items-center gap-2">
-            <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
-              <CalendarDays className="w-5 h-5" /> {formattedDate}
+            <p className="font-medium flex items-center select-none gap-1 rounded-2xl shadow-sm border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white px-3 py-0.5">
+              <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />{" "}
+              {formattedDate}
             </p>
             {formattedDate === todayDate && (
               <p className="text-[#256840] px-3 select-none font-medium shadow-sm bg-green-300/30 rounded-2xl border border-blue-lagoon-200 dark:bg-[#6fe79f]/10 dark:border-[#4cc97e] dark:text-[#7bfdaf]">
