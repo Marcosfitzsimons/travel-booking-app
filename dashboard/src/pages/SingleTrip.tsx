@@ -177,7 +177,7 @@ const SingleTrip = () => {
                 </div>
                 <div className="absolute right-4 top-2 flex items-center gap-2">
                   <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl shadow-sm border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white">
-                    <CalendarDays className="w-4 h-4 relative bottom-[1px]" />{" "}
+                    <CalendarDays className="w-4 h-4 relative bottom-[1px]" />
                     {data.date}
                   </p>
                 </div>
