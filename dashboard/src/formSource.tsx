@@ -197,48 +197,6 @@ export const tripInputs = [
     },
   },
   {
-    id: "departureTime",
-    name: "departureTime",
-    label: "Horario de salida",
-    type: "text",
-    placeholder: "08:00",
-    validation: {
-      required: {
-        value: true,
-        message: "Por favor, ingresar horario de salida.",
-      },
-      minLength: {
-        value: 3,
-        message: "Horario de salida no puede ser tan corto.",
-      },
-      maxLength: {
-        value: 25,
-        message: "Horario de salida no puede ser tan largo.",
-      },
-    },
-  },
-  {
-    id: "arrivalTime",
-    name: "arrivalTime",
-    label: "Horario de llegada",
-    type: "text",
-    placeholder: "11:00",
-    validation: {
-      required: {
-        value: true,
-        message: "Por favor, ingresar horario de llegada.",
-      },
-      minLength: {
-        value: 3,
-        message: "Horario de llegada no puede ser tan corto.",
-      },
-      maxLength: {
-        value: 25,
-        message: "Horario de llegada no puede ser tan largo.",
-      },
-    },
-  },
-  {
     id: "price",
     name: "price",
     label: "Precio",
