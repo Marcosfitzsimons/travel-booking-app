@@ -170,20 +170,22 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
               setStartDate={setStartDate}
             />
           </div>
-          <div
-            className="absolute h-full aspect-square flex items-center justify-center cursor-pointer -right-11 p-2 bg-white shadow-input shadow-blue-lagoon-500/10 rounded-lg border border-border-color dark:border-color-black dark:bg-black/40 dark:hover:text-white"
-            onClick={() => setStartDate(null)}
-          >
-            <RotateCcw className="w-4 h-4" />
+          <div className="absolute -right-11 flex h-full aspect-square before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-blue-lagoon-500 before:ring-2 before:ring-blue-lagoon-400/10 before:transition after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/5 focus-within:after:shadow-blue-lagoon-300/40 after:transition dark:focus-within:after:shadow-blue-lagoon-300/40 dark:before:ring-blue-lagoon-500/20 dark:before:border-blue-lagoon-300">
+            <div
+              className="w-full absolute h-full flex items-center justify-center cursor-pointer p-2 bg-white shadow-input shadow-blue-lagoon-500/10 rounded-lg border border-border-color dark:border-color-black dark:bg-black/40 dark:hover:text-white"
+              onClick={() => setStartDate(null)}
+            >
+              <RotateCcw className="w-4 h-4" />
+            </div>
           </div>
           {err && <p>{err}</p>}
           {error && <p>{error}</p>}
         </div>
         <div className="flex justify-between items-end gap-1 lg:gap-3">
-          <div className="flex items-center gap-1 text-sm lg:text-base">
+          <div className="flex items-center gap-2 text-sm lg:text-base">
             <Map className="hidden animate-pulse sm:flex sm:h-5 sm:w-5" />
             <p className="font-medium">Viajes disponibles:</p>
-            <p className="font-light flex items-center lg:gap-1">
+            <p className="font-light flex items-center gap-1">
               <span
                 className={`animate-pulse w-3 h-3 rounded-full ${
                   list.length > 0 ? "bg-green-500" : "bg-red-600"

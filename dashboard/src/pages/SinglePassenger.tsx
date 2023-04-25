@@ -135,7 +135,6 @@ const SinglePassenger = () => {
           }
         );
         setData(res.data.passenger.createdBy);
-        console.log(res.data.passenger);
         const userData = res.data.passenger.createdBy;
         reset({
           username: userData.username,
@@ -160,7 +159,7 @@ const SinglePassenger = () => {
       <div className="self-start mb-2">
         <BackButton linkTo={`/trips/${tripId}`} />
       </div>
-      <div className="relative self-center flex flex-col gap-3 p-5 w-full max-w-lg rounded-md">
+      <div className="relative self-center flex flex-col gap-3 p-5 w-full max-w-md rounded-md">
         <div className="flex flex-col items-center gap-3">
           <div className="w-full relative flex flex-col items-center lg:basis-1/3">
             <Avatar className="w-32 h-32">
@@ -205,8 +204,8 @@ const SinglePassenger = () => {
               </li>
             </ul>
             <Dialog>
-              <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:max-w-[9rem] lg:h-7">
-                <DialogTrigger className="relative w-full bg-blue-lagoon-500 text-slate-100 rounded-lg  hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-blue-lagoon-500 lg:max-w-[9rem] lg:h-7">
+              <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:w-auto lg:h-7">
+                <DialogTrigger className="relative w-full bg-[#a72f35] rounded-lg h-10 py-1.5 px-6 text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#a72f35] lg:w-auto lg:h-7 lg:py-0.5">
                   Editar
                 </DialogTrigger>
               </div>
