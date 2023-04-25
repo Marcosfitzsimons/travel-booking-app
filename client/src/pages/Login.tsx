@@ -98,9 +98,9 @@ const Login = () => {
           </p>
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
-            className="relative w-full mt-6 p-3 py-6 flex flex-col gap-5 items-center"
+            className="relative w-full mt-6 p-3 py-6 flex flex-col gap-3"
           >
-            <div className="grid w-full items-center gap-2">
+            <div className="grid w-full max-w-sm items-center gap-2">
               <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
               <Input
                 type="text"
@@ -124,7 +124,7 @@ const Login = () => {
                 <p className="text-red-600">{errors.emailOrUsername.message}</p>
               )}
             </div>
-            <div className="grid w-full items-center gap-2">
+            <div className="grid w-full max-w-sm items-center gap-2">
               <Label htmlFor="password">Contraseña</Label>
               <Input
                 type="password"
@@ -149,10 +149,13 @@ const Login = () => {
               )}
             </div>
             {err && <p className="text-red-600 self-start">{err}</p>}
-            <DefaultButton>Entrar</DefaultButton>
+
+            <div className="w-full md:max-w-[200px] md:self-center">
+              <DefaultButton>Entrar</DefaultButton>
+            </div>
             <p className="lg:self-start">
               ¿No tenes cuenta?{" "}
-              <Link to="/register" className="font-medium text-blue-lagoon-500">
+              <Link to="/register" className="font-medium text-[#c9363e]">
                 Crear una cuenta nueva
               </Link>
             </p>
