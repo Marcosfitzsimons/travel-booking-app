@@ -7,14 +7,15 @@ import { Label } from "./ui/label";
 import { useToast } from "../hooks/ui/use-toast";
 import DefaultButton from "./DefaultButton";
 import DatePickerContainer from "./DatePickerContainer";
+import TimePickerContainer from "./TimePickerContainer";
 
 type Trip = {
   name: string;
   date: Date | null;
   from: string;
-  departureTime: string;
+  departureTime: string; // or number
   to: string;
-  arrivalTime: string;
+  arrivalTime: string; // or number
   maxCapacity: string;
   price: string;
 };
@@ -54,7 +55,6 @@ type NewTripFormProps = {
 const NewTripForm = ({ inputs }: NewTripFormProps) => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [err, setErr] = useState<null | string>(null);
-  console.log(startDate);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -67,9 +67,9 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
       name: "",
       date: null,
       from: "",
-      to: "",
       departureTime: "",
       arrivalTime: "",
+      to: "",
       price: "",
       maxCapacity: "",
     },
@@ -102,43 +102,51 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
   };
 
   return (
-    <div className="">
-      <form
-        onSubmit={handleSubmit(handleOnSubmit)}
-        className="relative w-full flex flex-col gap-3 mt-6 p-3 py-6"
-      >
-        <div className="w-full flex flex-col gap-2 items-center lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
-          <div className="grid w-full items-center gap-2 lg:w-[144px]">
-            <Label htmlFor="date">Fecha</Label>
-            <DatePickerContainer
-              setStartDate={setStartDate}
-              id="date"
-              startDate={startDate}
-            />
-          </div>
-          {inputs.map((input) => (
-            <div key={input.id} className="grid w-full items-center gap-2">
-              <Label htmlFor={input.id}>{input.label}</Label>
-              <Input
-                type={input.type}
-                id={input.id}
-                placeholder={input.placeholder}
-                {...register(input.id, input.validation)}
-              />
-              {errors[input.id as keyof typeof errors] && (
-                <p className="text-red-600">
-                  {errors[input.id as keyof typeof errors]?.message}
-                </p>
-              )}
-            </div>
-          ))}
-          {err && <p className="text-red-600 self-start">{err}</p>}
+    <form
+      onSubmit={handleSubmit(handleOnSubmit)}
+      className="relative w-full flex flex-col gap-3 p-3 py-6"
+    >
+      <div className="w-full flex flex-col gap-2 items-center lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
+        <div className="grid w-full items-center gap-2 lg:w-[144px]">
+          <Label htmlFor="date">Fecha</Label>
+          <DatePickerContainer
+            setStartDate={setStartDate}
+            id="date"
+            startDate={startDate}
+          />
         </div>
-        <div className="mt-2 lg:flex lg:justify-end">
+        {inputs.map((input) => (
+          <div key={input.id} className="grid w-full items-center gap-2">
+            <Label htmlFor={input.id}>{input.label}</Label>
+            <Input
+              type={input.type}
+              id={input.id}
+              placeholder={input.placeholder}
+              {...register(input.id, input.validation)}
+            />
+            {errors[input.id as keyof typeof errors] && (
+              <p className="text-red-600">
+                {errors[input.id as keyof typeof errors]?.message}
+              </p>
+            )}
+          </div>
+        ))}
+        <div className="w-full flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+          <div className="grid w-full items-center gap-2 lg:w-[144px]">
+            <Label htmlFor="departureTime">Horario de salida:</Label>
+            <TimePickerContainer />
+          </div>
+          <div className="grid w-full items-center gap-2 lg:w-[144px]">
+            <Label htmlFor="departureTime">Horario de llegada:</Label>
+            <TimePickerContainer />
+          </div>
+          {err && <p className="text-red-600 self-start">{err}</p>}{" "}
+        </div>
+        <div className="w-full mt-2 lg:flex lg:justify-end lg:self-end">
           <DefaultButton>Crear viaje</DefaultButton>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 
