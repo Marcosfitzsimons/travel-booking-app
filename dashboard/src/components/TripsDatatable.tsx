@@ -159,10 +159,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   useEffect(() => {
     handleFilteredTrips();
   }, [startDate]);
-  const customLocaleText = {
-    footerPaginationSelectedRows: ({ from, to, count }) =>
-      `${from}-${to} of ${count} selected`,
-  };
+
   return (
     <div className="h-[600px] w-full">
       <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
