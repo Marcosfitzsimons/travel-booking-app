@@ -22,6 +22,7 @@ import { toast } from "../hooks/ui/use-toast";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import Loading from "../components/Loading";
+import { Button } from "../components/ui/button";
 
 type UserData = {
   username: string | undefined;
@@ -190,8 +191,8 @@ const SingleUser = () => {
                 </h3>
                 <h4 className="text-[#737373]">@{data?.username}</h4>
               </div>
-              <div className="w-full flex flex-col items-center gap-5">
-                <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 border border-blue-lagoon-500/20 items-start p-4 shadow-inner rounded-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
+              <div className="w-full flex flex-col items-center gap-3">
+                <ul className="flex flex-col w-full overflow-hidden bg-white gap-1 border border-blue-lagoon-500/20 items-start p-4 shadow-inner rounded-md max-w-sm dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
                   <li className="flex items-center gap-1">
                     <Mail className="h-4 w-4" />
                     <span className="font-medium">Email:</span>
@@ -219,9 +220,11 @@ const SingleUser = () => {
                   </li>
                 </ul>
                 <Dialog>
-                  <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:w-auto lg:h-7">
-                    <DialogTrigger className="relative w-full bg-blue-lagoon-500 text-slate-100 rounded-lg  hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-blue-lagoon-500 lg:w-auto lg:h-7 lg:px-6">
-                      Editar
+                  <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:w-auto lg:h-[31px]">
+                    <DialogTrigger asChild>
+                      <Button className="relative w-full bg-[#a72f35] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#a72f35] lg:w-auto lg:h-[31px]">
+                        Editar
+                      </Button>
                     </DialogTrigger>
                   </div>
                   <DialogContent>
@@ -256,7 +259,7 @@ const SingleUser = () => {
                             <div className="absolute -bottom-1 ">
                               <Label
                                 htmlFor="image"
-                                className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
+                                className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-border-color bg-white hover:border-blue-lagoon-600/50 dark:border-border-color-dark dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
                               >
                                 Subir
                                 <Upload className="w-4 h-4 dark:text-blue-lagoon-100" />
@@ -284,7 +287,7 @@ const SingleUser = () => {
                               )}
                             </div>
                           </div>
-                          <div className="grid w-full max-w-md items-center gap-2">
+                          <div className="grid w-full max-w-sm items-center gap-2">
                             <Label htmlFor="username">Username</Label>
                             <Input
                               type="text"
@@ -313,7 +316,7 @@ const SingleUser = () => {
                               </p>
                             )}
                           </div>
-                          <div className="grid w-full max-w-md items-center gap-2">
+                          <div className="grid w-full max-w-sm items-center gap-2">
                             <Label htmlFor="fullName">Nombre completo</Label>
                             <Input
                               type="text"
@@ -342,7 +345,7 @@ const SingleUser = () => {
                               </p>
                             )}
                           </div>
-                          <div className="grid w-full max-w-md items-center gap-2">
+                          <div className="grid w-full max-w-sm items-center gap-2">
                             <Label htmlFor="phone">Celular</Label>
                             <Input
                               type="tel"
@@ -376,7 +379,7 @@ const SingleUser = () => {
                               </p>
                             )}
                           </div>
-                          <div className="grid w-full max-w-md items-center gap-2">
+                          <div className="grid w-full max-w-sm items-center gap-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
                               type="email"
@@ -402,7 +405,7 @@ const SingleUser = () => {
                               </p>
                             )}
                           </div>
-                          <div className="grid w-full max-w-md items-center gap-2">
+                          <div className="grid w-full max-w-sm items-center gap-2">
                             <Label htmlFor="addressCda">
                               Dirección (Carmen)
                             </Label>
@@ -430,7 +433,7 @@ const SingleUser = () => {
                               </p>
                             )}
                           </div>
-                          <div className="grid w-full max-w-md items-center gap-2">
+                          <div className="grid w-full max-w-sm items-center gap-2">
                             <Label htmlFor="addressCapital">
                               Dirección (Capital)
                             </Label>
