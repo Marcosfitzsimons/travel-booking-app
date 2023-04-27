@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import DefaultButton from "./DefaultButton";
+import { Button } from "./ui/button";
 
 type User = {
   _id: string | undefined;
@@ -43,11 +43,13 @@ const SearchUserInput = ({ list, setFilteredList }: SearchUserInputProps) => {
               type="search"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className=""
+              className="h-8"
             />
           </div>
-          <div className="">
-            <DefaultButton>Buscar</DefaultButton>
+          <div className="relative w-auto h-[31px] after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200">
+            <Button className="relative w-auto h-[31px] bg-[#a72f35] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#a72f35]">
+              Buscar
+            </Button>
           </div>
         </div>
       </div>
