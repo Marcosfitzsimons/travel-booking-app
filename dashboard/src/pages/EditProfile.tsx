@@ -105,7 +105,7 @@ const EditProfile = () => {
               <BackButton linkTo="/mi-perfil" />
             </div>
             <div className="w-full flex flex-col items-center gap-5 md:w-8/12">
-              <div className="w-full flex flex-col items-center gap-5">
+              <div className="w-full flex flex-col items-center gap-5 md:max-w-sm">
                 <form
                   onSubmit={handleSubmit(handleOnSubmit)}
                   className="w-full flex flex-col items-center gap-3"
@@ -256,7 +256,7 @@ const EditProfile = () => {
                     )}
                   </div>
                   {err && <p className="text-red-600 self-start">{err}</p>}
-                  <div className="w-[min(28rem,100%)] flex justify-center">
+                  <div className="w-[min(28rem,100%)] flex justify-center my-1">
                     <DefaultButton>Guardar cambios</DefaultButton>
                   </div>
                 </form>

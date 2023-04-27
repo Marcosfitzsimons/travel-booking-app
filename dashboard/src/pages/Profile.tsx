@@ -64,7 +64,7 @@ const Profile = () => {
               <BackButton linkTo="/" />
             </div>
 
-            <div className="w-full relative flex flex-col items-center gap-5 md:w-7/12 md:mx-auto">
+            <div className="w-full relative flex flex-col items-center gap-3 md:w-7/12 md:mx-auto">
               <Avatar className="w-32 h-32">
                 <AvatarImage
                   className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
@@ -76,13 +76,13 @@ const Profile = () => {
                 </AvatarFallback>
               </Avatar>
 
-              <div className="flex flex-col items-center">
-                <h3 className="font-medium text-xl dark:text-white ">
+              <div className="flex flex-col items-center gap-0">
+                <h3 className="font-medium text-xl dark:text-white">
                   {data?.fullName}
                 </h3>
                 <h4 className="text-[#737373]">@{data?.username}</h4>
               </div>
-              <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-blue-lagoon-700/50 items-start p-4 shadow-inner rounded-md dark:bg-black dark:border-blue-lagoon-200">
+              <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-border-color items-start p-4 shadow-inner rounded-md dark:bg-black/40 dark:border-border-color-dark">
                 <li className="flex items-center gap-1">
                   <Mail className="h-4 w-4" />
                   <span className="font-medium">Email:</span>
