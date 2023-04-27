@@ -1,5 +1,3 @@
-import { Upload } from "lucide-react";
-
 export const userInputs = [
   {
     id: "username",

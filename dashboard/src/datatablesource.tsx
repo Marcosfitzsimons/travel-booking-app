@@ -14,7 +14,7 @@ const formatDate = (date: string) => {
 export const userColumns = [
   {
     field: "user",
-    headerName: "Usuario",
+    headerName: "Nombre completo",
     width: 230,
     renderCell: (params: any) => {
       return (
@@ -36,8 +36,8 @@ export const userColumns = [
   },
   {
     field: "username",
-    headerName: "Nombre de usuario",
-    width: 200,
+    headerName: "Usuario",
+    width: 160,
   },
   {
     field: "email",
@@ -47,7 +47,7 @@ export const userColumns = [
   {
     field: "phone",
     headerName: "Celular",
-    width: 100,
+    width: 130,
   },
   {
     field: "addressCda",
@@ -62,27 +62,27 @@ export const userColumns = [
 ];
 
 export const tripColumns = [
-  { field: "name", headerName: "Nombre", width: 150 },
   {
     field: "date",
     headerName: "Fecha",
-    width: 140,
+    width: 100,
     renderCell: (params: any) => {
       return <p>{params.row.date ? formatDate(params.row.date) : ""}</p>;
     },
   },
-  { field: "from", headerName: "Lugar de salida", width: 140 },
-  { field: "departureTime", headerName: "Hora de salida", width: 70 },
-  { field: "to", headerName: "Lugar de llegada", width: 140 },
-  { field: "arrivalTime", headerName: "Hora de llegada", width: 70 },
+  { field: "name", headerName: "Nombre", width: 180 },
+  { field: "from", headerName: "Salida", width: 120 },
+  { field: "departureTime", headerName: "Hora", width: 70 },
+  { field: "to", headerName: "Llegada", width: 120 },
+  { field: "arrivalTime", headerName: "Hora", width: 70 },
   { field: "price", headerName: "Precio", width: 70 },
-  { field: "maxCapacity", headerName: "Capacidad máxima", width: 70 },
+  { field: "maxCapacity", headerName: "Capacidad máxima", width: 80 },
 ];
 
 export const passengerColumns = [
   {
     field: "user",
-    headerName: "Usuario",
+    headerName: "Nombre completo",
     width: 230,
     renderCell: (params: any) => {
       return (
@@ -104,7 +104,7 @@ export const passengerColumns = [
   },
   {
     field: "username",
-    headerName: "Nombre de usuario",
+    headerName: "Usuario",
     width: 150,
     renderCell: (params: any) => {
       return <p className="">@{params.row.createdBy.username}</p>;
@@ -130,7 +130,7 @@ export const passengerColumns = [
   {
     field: "phone",
     headerName: "Celular",
-    width: 140,
+    width: 130,
     renderCell: (params: any) => {
       return <p className="">{params.row.createdBy.phone}</p>;
     },
@@ -138,7 +138,7 @@ export const passengerColumns = [
   {
     field: "email",
     headerName: "Email",
-    width: 250,
+    width: 230,
     renderCell: (params: any) => {
       return <p className="">{params.row.createdBy.email}</p>;
     },

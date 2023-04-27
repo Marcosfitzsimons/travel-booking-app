@@ -86,7 +86,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
     {
       field: "action",
       headerName: "Acción",
-      width: 180,
+      width: 160,
       renderCell: (params: any) => {
         return (
           <div className="flex items-center gap-2">
