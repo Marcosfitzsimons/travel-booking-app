@@ -156,7 +156,6 @@ const PassengersDatable = ({
             },
           }}
           pageSizeOptions={[9]}
-          checkboxSelection
           getRowId={(row) => row._id}
           sx={{
             "&>.MuiDataGrid-main": {

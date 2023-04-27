@@ -184,7 +184,6 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
             },
           }}
           pageSizeOptions={[9]}
-          checkboxSelection
           getRowId={(row) => row._id}
           sx={{
             "&>.MuiDataGrid-main": {
@@ -214,7 +213,6 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
             },
           }}
           pageSizeOptions={[9]}
-          checkboxSelection
           getRowId={(row) => row._id}
           sx={{
             "&>.MuiDataGrid-main": {

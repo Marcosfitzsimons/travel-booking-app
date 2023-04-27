@@ -146,7 +146,6 @@ const MyTripsDatatable = ({ columns, userTrips, userData }: DataTableProps) => {
           },
         }}
         pageSizeOptions={[9]}
-        checkboxSelection
         getRowId={(row) => row.id}
         sx={{
           "&>.MuiDataGrid-main": {

@@ -194,7 +194,6 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
             },
           }}
           pageSizeOptions={[9]}
-          checkboxSelection
           getRowId={(row) => row._id ?? ""}
           className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
@@ -224,7 +223,6 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
             },
           }}
           pageSizeOptions={[9]}
-          checkboxSelection
           getRowId={(row) => row._id ?? ""} // ?? operator is used to provide a default value of an empty string '' if row._id is null or undefined.
           className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />

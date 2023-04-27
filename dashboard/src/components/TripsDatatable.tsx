@@ -159,7 +159,10 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   useEffect(() => {
     handleFilteredTrips();
   }, [startDate]);
-
+  const customLocaleText = {
+    footerPaginationSelectedRows: ({ from, to, count }) =>
+      `${from}-${to} of ${count} selected`,
+  };
   return (
     <div className="h-[600px] w-full">
       <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -231,7 +234,6 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
             },
           }}
           pageSizeOptions={[9]}
-          checkboxSelection
           getRowId={(row) => row._id}
           className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
@@ -247,7 +249,6 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
             },
           }}
           pageSizeOptions={[9]}
-          checkboxSelection
           getRowId={(row) => row._id}
           sx={{
             "&>.MuiDataGrid-main": {
