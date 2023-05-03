@@ -229,23 +229,14 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center justify-between mt-3">
-                  <button
-                    onClick={() => navigate("/viajes")}
-                    className="text-red-600"
-                  >
-                    Cancelar
-                  </button>
-                  <div className="">
-                    <div
-                      className="w-[min(30rem,100%)] h-8 relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 "
-                      onClick={handleOnConfirm}
-                    >
-                      <Button className="relative w-full h-8 bg-blue-lagoon-500 text-slate-100  hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-blue-lagoon-500 ">
-                        Confirmar
-                      </Button>
-                    </div>
-                  </div>
+
+                <div
+                  className="self-end relative w-full  after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:h-8 lg:w-auto"
+                  onClick={handleOnConfirm}
+                >
+                  <Button className="relative w-full  bg-[#a72f35] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#a72f35] lg:h-8 lg:w-auto">
+                    Confirmar
+                  </Button>
                 </div>
               </div>
             </div>

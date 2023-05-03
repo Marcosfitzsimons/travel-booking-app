@@ -69,7 +69,7 @@ export default function ThemeToggle() {
               aria-label="Toggle theme"
               onClick={toggleTheme}
               variant="ghost"
-              className="w-8 h-8 rounded-md p-0 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
+              className="w-8 h-8 rounded-md p-0 dark:hover:text-white"
             >
               <SunMedium className="w-5 h-5" />
             </Button>
@@ -86,7 +86,7 @@ export default function ThemeToggle() {
               aria-label="Toggle theme"
               variant="ghost"
               onClick={toggleTheme}
-              className="w-8 h-8 rounded-md p-0 dark:text-white hover:bg-blue-lagoon-300/10"
+              className="w-8 h-8 rounded-md p-0 dark:text-white"
             >
               <Moon className="w-5 h-5" fill="white" />
             </Button>

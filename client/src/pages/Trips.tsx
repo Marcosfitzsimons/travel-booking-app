@@ -8,6 +8,8 @@ import useFetch from "../hooks/useFetch";
 import SectionTitle from "../components/SectionTitle";
 import DatePickerContainer from "../components/DatePickerContainer";
 import Loading from "../components/Loading";
+import { Button } from "../components/ui/button";
+import { RotateCcw } from "lucide-react";
 
 interface TripProps {
   _id: number;
@@ -71,10 +73,24 @@ const Trips = () => {
       <SectionTitle>Próximos viajes:</SectionTitle>
       <div className="flex items-center justify-between gap-3 w-[min(100%,320px)] sm:w-[min(80%,320px)]">
         <p className="shrink-0">Buscar por fecha:</p>
-        <DatePickerContainer
-          startDate={startDate}
-          setStartDate={setStartDate}
-        />
+        <div className="relative flex items-end gap-1 w-[min(100%,188px)] shrink-0">
+          <div className="shadow-input shadow-blue-lagoon-800/10 rounded-lg">
+            <DatePickerContainer
+              startDate={startDate}
+              setStartDate={setStartDate}
+            />
+          </div>
+          <div className="absolute -right-[46px] h-full shadow shadow-blue-lagoon-800/10 rounded-lg">
+            <div className="relative flex w-[38px] h-full aspect-square before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-blue-lagoon-400 before:ring-2 before:ring-blue-lagoon-200/50 before:transition after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/5 focus-within:after:shadow-blue-lagoon-400 after:transition dark:focus-within:after:shadow-blue-lagoon-300/40 dark:before:ring-blue-lagoon-500/20 dark:before:border-blue-lagoon-300">
+              <Button
+                className="absolute w-[38px] h-full flex items-center justify-center cursor-pointer p-2 bg-white/80 shadow-input shadow-blue-lagoon-500/10 rounded-lg border border-border-color focus:border-blue-lagoon-200/50  dark:border-color-black dark:bg-black/40 dark:hover:text-white dark:focus:border-blue-lagoon-500/20"
+                onClick={() => setStartDate(null)}
+              >
+                <RotateCcw className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
       {loading ? (
         <Loading />
