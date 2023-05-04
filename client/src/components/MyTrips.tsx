@@ -84,6 +84,11 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
 
   const navigate = useNavigate();
 
+  const todayDate = moment().locale("es").format("ddd DD/MM");
+  moment.locale("es", {
+    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+  });
+
   const token = localStorage.getItem("token");
   const headers = {
     Authorization: `Bearer ${token}`,
@@ -117,10 +122,15 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
   };
 
   const formatDate = (date: string) => {
-    const momentDate = moment.utc(date).add(1, "day").toDate();
-    const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
-    const formattedDate = moment(newDate).format("DD/MM/YY");
-    return formattedDate;
+    moment.locale("es", {
+      weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+    });
+    const momentDate = moment.utc(date);
+    const timezone = "America/Argentina/Buenos_Aires";
+    const timezone_date = momentDate.tz(timezone);
+    const formatted_date = timezone_date.format("ddd DD/MM");
+    // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
+    return formatted_date;
   };
 
   return (
@@ -140,7 +150,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
               {userTrips.map((trip: TripProps) => (
                 <article
                   key={trip.id}
-                  className="w-full relative bg-white/80 border border-blue-lagoon-500/20 rounded-md shadow-md mb-10 pb-2 max-w-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300"
+                  className="w-full relative bg-white/40 border border-border-color rounded-md shadow-md mb-10 pb-2 max-w-[400px] dark:bg-black/40 dark:border-border-color-dark dark:hover:border-blue-lagoon-300"
                 >
                   <div className="px-4 pt-9 pb-4">
                     <div className="flex flex-col gap-2">
@@ -152,22 +162,27 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                         />
                       </div>
                       <div className="absolute right-4 top-2 flex items-center gap-2">
-                        <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
-                          <CalendarDays className="w-5 h-5" />{" "}
+                        <p className="order-2 font-medium flex items-center select-none gap-1 rounded-2xl border border-blue-lagoon-300 bg-red-600/30 border-red-600/20 dark:bg-red-600/30 dark:border-blue-lagoon-300 dark:text-blue-lagoon-50 px-3 py-0.5">
+                          <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
                           {formatDate(trip.date)}
                         </p>
+                        {formatDate(trip.date) === todayDate && (
+                          <p className="text-[#256840] select-none font-medium bg-green-600/30 rounded-2xl border border-green-500/40 dark:bg-[#6fe79f]/10 dark:border-[#50db88] dark:text-[#d7fce6] px-3 py-0.5">
+                            HOY
+                          </p>
+                        )}
                       </div>
 
-                      <div className="flex flex-col gap-3 mt-2  lg:mt-4">
+                      <div className="flex flex-col gap-3 mt-2 lg:mt-4">
                         <div className="flex items-center gap-4">
                           <h3 className="font-bold text-lg mt-2 dark:text-white lg:text-xl">
                             {trip.name}
                           </h3>
                         </div>
-                        <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
+                        <div className="flex flex-col w-full bg-blue-lagoon-200/10 border border-border-color gap-2 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
                           <div className="flex flex-col gap-2">
                             <p className="flex items-center gap-1">
-                              <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                              <Clock className="w-4 h-4 text-blue-lagoon-800" />
                               <span className="dark:text-white font-medium">
                                 Salida:
                               </span>{" "}
@@ -175,9 +190,9 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                               <span>- {trip.from}</span>
                             </p>
                             {trip.arrivalTime && (
-                              <div className=" flex items-center gap-1">
+                              <div className="flex items-center gap-1">
                                 <p className="flex items-center gap-1">
-                                  <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                                  <Clock className="w-4 h-4 text-blue-lagoon-800" />
                                   <span className="dark:text-white font-medium">
                                     Llegada:
                                   </span>{" "}
@@ -194,7 +209,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                                         </span>
                                       </button>
                                     </TooltipTrigger>
-                                    <TooltipContent>
+                                    <TooltipContent className="">
                                       <p className="">
                                         El horario de llegada estimado es
                                         aproximado y puede variar
@@ -205,7 +220,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                               </div>
                             )}
                             <p className="flex items-center gap-1">
-                              <DollarSign className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                              <DollarSign className="text-blue-lagoon-900 dark:text-blue-lagoon-800 h-4 w-4" />
                               <span className="dark:text-white font-medium">
                                 Precio:{" "}
                               </span>
@@ -260,7 +275,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                 className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 h-8"
                 onClick={() => navigate("/viajes")}
               >
-                <Button className="relative bg-blue-lagoon-500 text-slate-100  hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-blue-lagoon-500 h-8">
+                <Button className="relative bg-[#9e4a4f] text-slate-100  hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f] h-8">
                   Reservar ahora
                 </Button>
               </div>

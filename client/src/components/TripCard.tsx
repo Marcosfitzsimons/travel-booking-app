@@ -72,11 +72,8 @@ const TripCard = ({
     return formatted_date;
   };
 
-  console.log(formatDate(date));
-  console.log(todayDate);
-
   return (
-    <article className="w-full relative mx-auto rounded-md shadow-md mb-10 pb-2 max-w-[400px] bg-white/40 border border-border-color  dark:bg-black/40 dark:border-border-color-dark dark:hover:border-blue-lagoon-300">
+    <article className="w-full relative mx-auto rounded-md shadow-md pb-2 max-w-[400px] bg-white/40 border border-border-color dark:bg-black/40 dark:border-border-color-dark dark:hover:border-blue-lagoon-300">
       <div className="px-4 pt-9 ">
         <div className="flex flex-col gap-2">
           <div className="absolute top-[.6rem] left-5">
@@ -87,17 +84,17 @@ const TripCard = ({
             />
           </div>
           <div className="absolute right-4 top-2 flex items-center gap-2">
-            <p className="font-medium flex items-center select-none gap-1 rounded-2xl shadow-sm border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white px-3 py-0.5">
+            <p className="order-2 font-medium flex items-center select-none gap-1 rounded-2xl border border-blue-lagoon-300 bg-red-600/30 border-red-600/20 dark:bg-red-600/30 dark:border-blue-lagoon-300 dark:text-blue-lagoon-50 px-3 py-0.5">
               <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
               {formatDate(date)}
             </p>
             {formatDate(date) === todayDate && (
-              <p className="text-[#256840] px-3 select-none font-medium shadow-sm bg-green-300/30 rounded-2xl border border-blue-lagoon-200 dark:bg-[#6fe79f]/10 dark:border-[#4cc97e] dark:text-[#7bfdaf]">
+              <p className="text-[#256840] select-none font-medium bg-green-600/30 rounded-2xl border border-green-500/40 dark:bg-[#6fe79f]/10 dark:border-[#50db88] dark:text-[#d7fce6] px-3 py-0.5">
                 HOY
               </p>
             )}
             {maxCapacity === passengers.length && (
-              <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl shadow-sm border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white">
+              <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white">
                 FULL
               </p>
             )}
@@ -105,22 +102,22 @@ const TripCard = ({
 
           <div className="flex flex-col gap-3 mt-4 lg:mt-7">
             <div className="flex items-center gap-4">
-              <h3 className="font-bold text-lg dark:text-white lg:text-xl">
-                {name}
-              </h3>
+              <h3 className="font-bold text-lg lg:text-xl">{name}</h3>
             </div>
-            <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
+            <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
               <div className="flex flex-col gap-2">
                 <p className="flex items-center gap-1">
-                  <Clock className="w-4 h-4 text-blue-lagoon-900 dark:text-white" />
-                  <span className="dark:text-white font-medium">Salida:</span>{" "}
+                  <Clock className="w-4 h-4 text-blue-lagoon-800" />
+                  <span className="dark:text-white font-medium">
+                    Salida:
+                  </span>{" "}
                   {departureTime}
                   <span>- {from}</span>
                 </p>
                 {arrivalTime && (
                   <div className="flex items-center gap-1">
                     <p className="flex items-center gap-1">
-                      <Clock className="w-4 h-4 text-blue-lagoon-900 dark:text-white" />
+                      <Clock className="w-4 h-4 text-blue-lagoon-800" />
                       <span className="dark:text-white font-medium">
                         Llegada:
                       </span>{" "}
@@ -146,14 +143,20 @@ const TripCard = ({
                   </div>
                 )}
                 <p className="flex items-center gap-1">
-                  <DollarSign className="text-blue-lagoon-900 dark:text-white h-4 w-4" />
+                  <DollarSign className="text-blue-lagoon-900 dark:text-blue-lagoon-800 h-4 w-4" />
                   <span className="dark:text-white font-medium">Precio: </span>$
                   {price}
                 </p>
               </div>
             </div>
           </div>
-          <div className="py-1 lg:self-end lg:py-2">
+          <div
+            className={
+              maxCapacity === passengers.length
+                ? "hidden"
+                : "py-1 lg:self-end lg:py-2"
+            }
+          >
             <div
               className="w-[min(24rem,100%)] flex justify-center"
               onClick={handleReservation}

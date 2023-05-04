@@ -32,6 +32,6 @@
     font-family: "Ubuntu", sans-serif;
   }
   body {
-    @apply bg-[#fafafa] text-black/80 dark:bg-[#0E1217] dark:text-neutral-200;
+    @apply bg-[#fafafa] text-black/80 dark:bg-[#0E1217] dark:text-blue-lagoon-50;
   }
 }

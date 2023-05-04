@@ -92,7 +92,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                 </Button>
               </div>
               <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 after:transition">
-                <Button className="h-7 p-0 relative bg-[#a72f35] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#a72f35]">
+                <Button className="h-7 p-0 relative bg-[#9e4a4f] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f]">
                   <Link to="/register" className="py-2 px-4">
                     Registrarme
                   </Link>

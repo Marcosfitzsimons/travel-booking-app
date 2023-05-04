@@ -1,5 +1,8 @@
 import axios from "axios";
 import { motion } from "framer-motion";
+import moment from "moment";
+import "moment/locale/es"; // without this line it didn't work
+moment.locale("es");
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -15,7 +18,6 @@ import { Button } from "../components/ui/button";
 import { toast } from "../hooks/ui/use-toast";
 import Loading from "../components/Loading";
 import miniBus from "../assets/minibus1-sm.png";
-import moment from "moment-timezone";
 import { DollarSign } from "lucide-react";
 
 type ProfileProps = {
@@ -62,26 +64,14 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const path = location.pathname;
   const tripId = path.split("/")[2];
   const { user } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get(
-          `https://travel-booking-api-production.up.railway.app/api/trips/${tripId}`
-        );
-        const momentDate = moment.utc(res.data.date).add(1, "day").toDate();
-        const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
-        const formattedDate = moment(newDate).format("DD/MM/YY");
-        setData({ ...res.data, date: formattedDate });
-      } catch (err) {
-        setError(err);
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, []);
+  const todayDate = moment().locale("es").format("ddd DD/MM");
+
+  moment.locale("es", {
+    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+  });
 
   const token = localStorage.getItem("token");
   const headers = {
@@ -115,6 +105,37 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     }
   };
 
+  const formatDate = (date: string) => {
+    moment.locale("es", {
+      weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+    });
+    const momentDate = moment.utc(date);
+    const timezone = "America/Argentina/Buenos_Aires";
+    const timezone_date = momentDate.tz(timezone);
+    const formatted_date = timezone_date.format("ddd DD/MM");
+    // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
+    return formatted_date;
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(
+          `https://travel-booking-api-production.up.railway.app/api/trips/${tripId}`
+        );
+        const momentDate = moment.utc(res.data.date).add(1, "day").toDate();
+        const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
+        const formattedDate = moment(newDate).format("DD/MM/YY");
+        setData({ ...res.data, date: formattedDate });
+      } catch (err) {
+        setError(err);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
   return (
     <section className="section">
       <motion.div
@@ -128,7 +149,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         {loading ? (
           <Loading />
         ) : (
-          <article className="w-full relative mx-auto bg-white/80 rounded-md border border-blue-lagoon-500/20 shadow-md mb-10 pb-2 max-w-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
+          <article className="w-full relative mx-auto bg-white/40 rounded-md border border-border-color shadow-md max-w-md dark:bg-black/40 dark:border-border-color-dark dark:hover:border-blue-lagoon-300">
             <div className="px-4 pt-9 pb-4">
               <div className="flex flex-col gap-2">
                 <div className="absolute top-[.6rem] left-5">
@@ -138,22 +159,28 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                     className="w-10 h-9 lg:w-12 lg:h-11"
                   />
                 </div>
-                <div className="absolute right-4 top-2 flex items-center gap-2">
-                  <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl bg-blue-lagoon-300/10 shadow-sm border border-blue-lagoon-200 dark:bg-blue-lagoon-900/70 dark:border-blue-lagoon-400 dark:text-white">
-                    <CalendarDays className="w-5 h-5" /> {data.date}
+                <div className="absolute right-[22px] top-2 flex items-center gap-2">
+                  <p className="order-2 font-medium flex items-center select-none gap-1 rounded-2xl border border-blue-lagoon-300 bg-red-600/30 border-red-600/20 dark:bg-red-600/30 dark:border-blue-lagoon-300 dark:text-blue-lagoon-50 px-3 py-0.5">
+                    <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
+                    {formatDate(data.date)}
                   </p>
+                  {formatDate(data.date) === todayDate && (
+                    <p className="text-[#256840] select-none font-medium bg-green-600/30 rounded-2xl border border-green-500/40 dark:bg-[#6fe79f]/10 dark:border-[#50db88] dark:text-[#d7fce6] px-3 py-0.5">
+                      HOY
+                    </p>
+                  )}
                 </div>
 
-                <div className="flex flex-col gap-3 mt-4 lg:mt-7">
+                <div className="px-2 flex flex-col gap-3 mt-4 lg:mt-7">
                   <div className="flex items-center gap-4">
-                    <h3 className="font-bold text-lg l dark:text-white lg:text-xl">
+                    <h3 className="font-bold text-lg dark:text-white lg:text-xl">
                       {data.name}
                     </h3>
                   </div>
-                  <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
+                  <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
                     <div className="flex flex-col gap-2">
                       <p className="flex items-center gap-1">
-                        <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                        <Clock className="w-4 h-4 text-blue-lagoon-900 dark:text-blue-lagoon-800" />
                         <span className="dark:text-white font-medium">
                           Salida:
                         </span>{" "}
@@ -163,7 +190,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                       {data.arrivalTime && (
                         <div className=" flex items-center gap-1">
                           <p className="flex items-center gap-1">
-                            <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                            <Clock className="w-4 h-4 text-blue-lagoon-900 dark:text-blue-lagoon-800" />
                             <span className="dark:text-white font-medium">
                               Llegada:
                             </span>{" "}
@@ -189,52 +216,53 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                         </div>
                       )}
                       <p className="flex items-center gap-1">
-                        <DollarSign className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                        <DollarSign className="w-4 h-4 text-blue-lagoon-900 dark:text-blue-lagoon-800" />
                         <span className="dark:text-white font-medium">
                           Precio:{" "}
                         </span>
                         ${data.price}
                       </p>
-                      <div className="flex flex-col gap-1 px-2 py-1 rounded-md border border-blue-lagoon-200 bg-blue-lagoon-300/10">
-                        <h4 className="font-medium text-blue-lagoon-800 dark:text-white">
-                          Mis datos:
-                        </h4>
-                        <ul>
-                          <li>
-                            <p className="flex items-center gap-[2px] text-sm">
-                              <MapPin className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
-                              <span className="font-medium text-blue-lagoon-800 dark:text-white">
-                                Dirreción (Carmen):
-                              </span>{" "}
-                              {user && user.addressCda}
-                            </p>
-                          </li>
-                          <li>
-                            <p className="flex items-center gap-[2px] text-sm">
-                              <MapPin className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
-                              <span className="font-medium text-blue-lagoon-800 dark:text-white">
-                                Dirreción (Capital):
-                              </span>{" "}
-                              {user && user.addressCapital}
-                            </p>
-                          </li>
-                        </ul>
-                        <Button
-                          onClick={() => navigate("/mi-perfil/editar-perfil")}
-                          className="mt-1 h-7 border border-blue-lagoon-200 bg-white/50 hover:bg-white dark:bg-black/40 dark:hover:text-white"
-                        >
-                          Editar
-                        </Button>
-                      </div>
                     </div>
                   </div>
                 </div>
-
+                <div className="border-t border-border-color mt-2 flex flex-col gap-1 p-2">
+                  <div className="flex items-center gap-2">
+                    <h4 className="font-medium dark:text-white">
+                      Mis datos para este viaje:
+                    </h4>
+                    <Button
+                      onClick={() => navigate("/mi-perfil/editar-perfil")}
+                      className="h-7 border border-blue-lagoon-200 bg-white/50 hover:bg-white dark:bg-black/40 dark:hover:text-white"
+                    >
+                      Editar
+                    </Button>
+                  </div>
+                  <ul>
+                    <li>
+                      <p className="flex items-center gap-[2px] text-sm">
+                        <MapPin className="w-4 h-4 text-blue-lagoon-900 dark:text-blue-lagoon-800" />
+                        <span className="font-medium dark:text-white">
+                          Dirreción (Carmen):
+                        </span>{" "}
+                        {user && user.addressCda}
+                      </p>
+                    </li>
+                    <li>
+                      <p className="flex items-center gap-[2px] text-sm">
+                        <MapPin className="w-4 h-4 text-blue-lagoon-900 dark:text-blue-lagoon-800" />
+                        <span className="font-medium dark:text-white">
+                          Dirreción (Capital):
+                        </span>{" "}
+                        {user && user.addressCapital}
+                      </p>
+                    </li>
+                  </ul>
+                </div>
                 <div
-                  className="self-end relative w-full  after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:h-8 lg:w-auto"
+                  className="self-end relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:mx-2 lg:h-8 lg:w-auto"
                   onClick={handleOnConfirm}
                 >
-                  <Button className="relative w-full  bg-[#a72f35] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#a72f35] lg:h-8 lg:w-auto">
+                  <Button className="relative w-full bg-[#9e4a4f] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f] lg:h-8 lg:w-auto">
                     Confirmar
                   </Button>
                 </div>

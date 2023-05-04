@@ -92,7 +92,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                 <BackButton toProfile={false} />
               </div>
               <nav className="flex items-center justify-center">
-                <ul className="flex items-center gap-4 px-5 py-2 rounded-lg bg-white shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 dark:text-blue-lagoon-100  dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300/80">
+                <ul className="flex items-center gap-4 px-5 py-2 rounded-lg bg-white shadow-sm shadow-blue-lagoon-900/20 border border-border-color dark:bg-black dark:border-blue-lagoon-300/40">
                   <li className="relative">
                     <button
                       tabIndex={0}
@@ -104,7 +104,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                       <RoughNotation
                         type="underline"
                         show={isUserInfo}
-                        color="#99ccd5"
+                        color="#f9b4b4"
                       >
                         Mi perfil
                       </RoughNotation>
@@ -124,7 +124,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                       <RoughNotation
                         type="underline"
                         show={!isUserInfo}
-                        color="#99ccd5"
+                        color="#f9b4b4"
                       >
                         Mis viajes
                       </RoughNotation>
