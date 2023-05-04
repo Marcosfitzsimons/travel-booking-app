@@ -2,6 +2,9 @@ import React, { ReactElement, useContext } from "react";
 import { useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import moment from "moment-timezone";
+import "moment/locale/es";
+moment.locale("es"); // Set the default locale to Spanish
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";

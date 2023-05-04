@@ -1,8 +1,9 @@
 import { useState } from "react";
-import moment from "moment-timezone";
+import moment from "moment";
+import "moment/locale/es"; // without this line it didn't work
+moment.locale("es");
 import { AnimatePresence, motion } from "framer-motion";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns"; // use it to format the date and to filter by each trip. format(startDate, "dd/MM/yyyy") -> dd/MM/yyyy
 import TripCard from "../components/TripCard";
 import useFetch from "../hooks/useFetch";
 import SectionTitle from "../components/SectionTitle";
@@ -57,21 +58,24 @@ const Trips = () => {
   let filteredTrips;
   let dateSelected: string;
   if (startDate) {
-    dateSelected = format(startDate, "dd/MM/yy");
-
+    dateSelected = moment(startDate).locale("es").format("ddd DD/MM");
     filteredTrips = data.filter((trip: TripProps) => {
-      const momentDate = moment.utc(trip.date).add(1, "day").toDate();
-      const date = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
-      const formattedDate = moment(date).format("DD/MM/YY");
+      moment.locale("es", {
+        weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+      });
+      const momentDate = moment.utc(trip.date);
+      const timezone = "America/Argentina/Buenos_Aires";
+      const timezone_date = momentDate.tz(timezone);
+      const formatted_date = timezone_date.format("ddd DD/MM");
 
-      return formattedDate === dateSelected;
+      return formatted_date === dateSelected;
     });
   }
 
   return (
     <section className="section">
       <SectionTitle>Próximos viajes:</SectionTitle>
-      <div className="flex items-center justify-between gap-3 w-[min(100%,320px)] sm:w-[min(80%,320px)]">
+      <div className="flex flex-col gap-1 w-[min(100%,320px)] sm:w-[min(80%,320px)] md:flex-row md:items-center md:justify-between md:gap-3">
         <p className="shrink-0">Buscar por fecha:</p>
         <div className="relative flex items-end gap-1 w-[min(100%,188px)] shrink-0">
           <div className="shadow-input shadow-blue-lagoon-800/10 rounded-lg">

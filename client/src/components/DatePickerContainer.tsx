@@ -3,6 +3,9 @@ import DatePicker from "react-datepicker";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import { CalendarDays } from "lucide-react";
+import moment from "moment";
+import "moment/locale/es"; // without this line it didn't work
+moment.locale("es");
 
 const DatePickerContainer = ({ startDate, setStartDate }: any) => {
   setDefaultLocale("es");
@@ -15,9 +18,9 @@ const DatePickerContainer = ({ startDate, setStartDate }: any) => {
     >
       <CalendarDays className="absolute left-4 top-[9px] w-5 h-5 z-40" />
       <DatePicker
-        dateFormat={"dd/MM/yyyy"}
+        dateFormat={"EEE dd/MM"}
         locale="es"
-        className="cursor-pointer w-full pl-10 py-1.5 font-medium rounded-lg border border-border-color bg-white/80 !outline-none p-2 focus:border-blue-lagoon-200/50 placeholder:text-black/80 dark:border-border-color-dark dark:text-white dark:bg-black/40 dark:placeholder:text-neutral-200 dark:focus:border-blue-lagoon-500/20"
+        className="capitalize cursor-pointer w-full pl-10 py-1.5 font-medium rounded-lg border border-border-color bg-white/80 !outline-none p-2 focus:border-blue-lagoon-200/50 placeholder:text-black/80 dark:border-border-color-dark dark:text-white dark:bg-black/40 dark:placeholder:text-neutral-200 dark:focus:border-blue-lagoon-500/20"
         selected={startDate}
         placeholderText="Seleccionar fecha"
         minDate={new Date()}

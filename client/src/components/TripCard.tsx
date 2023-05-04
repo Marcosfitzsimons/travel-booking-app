@@ -1,5 +1,6 @@
-import { format } from "date-fns";
-import moment from "moment-timezone";
+import moment from "moment";
+import "moment/locale/es"; // without this line it didn't work
+moment.locale("es");
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -11,7 +12,6 @@ import {
   TooltipTrigger,
 } from "../components/ui/tooltip";
 import miniBus from "../assets/minibus1-sm.png";
-import { Button } from "./ui/button";
 import DefaultButton from "./DefaultButton";
 
 interface Trip {
@@ -42,11 +42,11 @@ const TripCard = ({
   maxCapacity,
   passengers,
 }: TripProps) => {
-  const todayDate = format(new Date(), "dd/MM/yy");
+  const todayDate = moment().locale("es").format("ddd DD/MM");
 
-  const momentDate = moment.utc(date).add(1, "day").toDate();
-  const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
-  const formattedDate = moment(newDate).format("DD/MM/YY");
+  moment.locale("es", {
+    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+  });
 
   const { user } = useContext(AuthContext);
 
@@ -59,6 +59,21 @@ const TripCard = ({
       navigate("/login");
     }
   };
+
+  const formatDate = (date: string) => {
+    moment.locale("es", {
+      weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+    });
+    const momentDate = moment.utc(date);
+    const timezone = "America/Argentina/Buenos_Aires";
+    const timezone_date = momentDate.tz(timezone);
+    const formatted_date = timezone_date.format("ddd DD/MM");
+    // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
+    return formatted_date;
+  };
+
+  console.log(formatDate(date));
+  console.log(todayDate);
 
   return (
     <article className="w-full relative mx-auto rounded-md shadow-md mb-10 pb-2 max-w-[400px] bg-white/40 border border-border-color  dark:bg-black/40 dark:border-border-color-dark dark:hover:border-blue-lagoon-300">
@@ -73,10 +88,10 @@ const TripCard = ({
           </div>
           <div className="absolute right-4 top-2 flex items-center gap-2">
             <p className="font-medium flex items-center select-none gap-1 rounded-2xl shadow-sm border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white px-3 py-0.5">
-              <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />{" "}
-              {formattedDate}
+              <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
+              {formatDate(date)}
             </p>
-            {formattedDate === todayDate && (
+            {formatDate(date) === todayDate && (
               <p className="text-[#256840] px-3 select-none font-medium shadow-sm bg-green-300/30 rounded-2xl border border-blue-lagoon-200 dark:bg-[#6fe79f]/10 dark:border-[#4cc97e] dark:text-[#7bfdaf]">
                 HOY
               </p>
@@ -94,18 +109,18 @@ const TripCard = ({
                 {name}
               </h3>
             </div>
-            <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
+            <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-blue-lagoon-300">
               <div className="flex flex-col gap-2">
                 <p className="flex items-center gap-1">
-                  <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                  <Clock className="w-4 h-4 text-blue-lagoon-900 dark:text-white" />
                   <span className="dark:text-white font-medium">Salida:</span>{" "}
                   {departureTime}
                   <span>- {from}</span>
                 </p>
                 {arrivalTime && (
-                  <div className=" flex items-center gap-1">
+                  <div className="flex items-center gap-1">
                     <p className="flex items-center gap-1">
-                      <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                      <Clock className="w-4 h-4 text-blue-lagoon-900 dark:text-white" />
                       <span className="dark:text-white font-medium">
                         Llegada:
                       </span>{" "}
@@ -131,7 +146,7 @@ const TripCard = ({
                   </div>
                 )}
                 <p className="flex items-center gap-1">
-                  <DollarSign className="text-blue-lagoon-800 dark:text-white h-4 w-4" />
+                  <DollarSign className="text-blue-lagoon-900 dark:text-white h-4 w-4" />
                   <span className="dark:text-white font-medium">Precio: </span>$
                   {price}
                 </p>
