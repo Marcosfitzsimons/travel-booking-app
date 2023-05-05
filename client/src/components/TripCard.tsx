@@ -4,7 +4,13 @@ moment.locale("es");
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { AlertCircle, DollarSign, CalendarDays, Clock } from "lucide-react";
+import {
+  AlertCircle,
+  DollarSign,
+  CalendarDays,
+  Clock,
+  Heart,
+} from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -14,6 +20,7 @@ import {
 import miniBus from "../assets/minibus1-sm.png";
 import DefaultButton from "./DefaultButton";
 import { Separator } from "./ui/separator";
+import Logo from "./Logo";
 
 interface Trip {
   _id: number;
@@ -165,9 +172,16 @@ const TripCard = ({
         </div>
       </div>
       {maxCapacity === passengers.length && (
-        <p className="absolute px-4 py-2 font-medium order-3 flex flex-col items-center justify-center select-none gap-1 rounded-lg bg-white border border-border-color dark:border-border-color-dark dark:bg-black dark:text-white">
+        <p className="absolute px-4 py-4 font-medium order-3 flex flex-col items-center justify-center select-none gap-2 rounded-lg bg-white border border-border-color dark:border-border-color-dark dark:bg-black dark:text-white">
+          <Logo />
           <span>¡Combi llena!</span>
-          <span>Gracias por elegirnos</span>
+          <span className="flex items-center gap-1">
+            Gracias por elegirnos{" "}
+            <Heart
+              className="w-4 h-4 relative top-[1px] dark:text-black"
+              fill="red"
+            />
+          </span>
         </p>
       )}
     </article>
