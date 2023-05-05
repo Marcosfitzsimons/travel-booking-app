@@ -1,10 +1,13 @@
 import { Facebook, Instagram, Phone } from "lucide-react";
 import Logo from "./Logo";
 import { Separator } from "./ui/separator";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 const Footer = () => {
+  const { user } = useContext(AuthContext);
   return (
-    <footer className="footer">
+    <footer className={!user ? "hidden" : ""}>
       <div className="w-[min(90%,1000px)] mx-auto py-6 flex justify-between items-center">
         <Logo />
         <div className="hidden">

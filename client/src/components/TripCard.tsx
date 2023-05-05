@@ -19,7 +19,6 @@ import {
 } from "../components/ui/tooltip";
 import miniBus from "../assets/minibus1-sm.png";
 import DefaultButton from "./DefaultButton";
-import { Separator } from "./ui/separator";
 import Logo from "./Logo";
 
 interface Trip {
