@@ -83,22 +83,22 @@ const Login = () => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="flex flex-col items-center lg:flex-row lg:justify-around lg:gap-20"
+        className="flex flex-col items-center lg:flex-row lg:justify-between"
       >
         <Separator
           orientation="vertical"
-          className="h-28 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
+          className="h-28 bg-gradient-to-t from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217] lg:hidden"
         />
-        <div className="">
-          <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:px-3 dark:text-white">
+        <div className="w-full flex flex-col">
+          <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl lg:px-3 dark:text-white">
             Entra a tu cuenta
           </h2>
           <p className="text-center lg:text-start lg:px-3">
-            Una vez dentro de tu cuenta vas a poder reservar tu lugar.
+            Una vez dentro vas a poder reservar tu lugar.
           </p>
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
-            className="relative w-full mt-2 p-3 py-6 flex flex-col gap-3 lg:max-w-sm"
+            className="relative w-full mt-2 p-3 py-6 flex flex-col gap-3 lg:my-4 lg:max-w-[350px]"
           >
             <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
@@ -150,32 +150,35 @@ const Login = () => {
             </div>
             {err && <p className="text-red-600 self-start">{err}</p>}
 
-            <div className="w-full max-w-sm self-center md:max-w-[200px]">
-              <DefaultButton>Entrar</DefaultButton>
+            <div className="w-full max-w-sm self-center">
+              <DefaultButton loading={loading}>Entrar</DefaultButton>
             </div>
-            <p className="w-full text-center">
+            <p className="w-full text-center lg:text-start lg:my-4">
               ¿No tenes cuenta?{" "}
-              <Link to="/register" className="font-medium text-[#c9363e]">
+              <Link
+                to="/register"
+                className="font-medium text-blue-lagoon-800 dark:text-blue-lagoon-400"
+              >
                 Crear una cuenta nueva
               </Link>
             </p>
           </form>
         </div>
-        <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6">
+        <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8">
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12]"
+            className="h-80 bg-gradient-to-t from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217]"
           />
           <Logo />
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-b from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12]"
+            className="h-80 bg-gradient-to-b from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217]"
           />
         </div>
 
         <Separator
           orientation="vertical"
-          className="h-28 bg-gradient-to-b from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
+          className="h-28 bg-gradient-to-b from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217] lg:hidden"
         />
       </motion.div>
     </section>

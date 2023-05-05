@@ -97,14 +97,14 @@ const Register = () => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="flex flex-col items-center lg:flex-row lg:justify-around lg:gap-20"
+        className="flex flex-col items-center lg:flex-row lg:justify-between"
       >
         <Separator
           orientation="vertical"
-          className="h-20 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
+          className="h-20 bg-gradient-to-t from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217] lg:hidden"
         />
         <div className="">
-          <h2 className="text-3xl py-1 font-medium text-center lg:text-start dark:text-white">
+          <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl dark:text-white">
             Crear cuenta nueva
           </h2>
           <p className="text-center lg:text-start">
@@ -277,32 +277,35 @@ const Register = () => {
 
             <div className="w-full flex flex-col items-center gap-3">
               <div className="w-full max-w-sm md:max-w-[200px]">
-                <DefaultButton>Crear cuenta</DefaultButton>
+                <DefaultButton loading={loading}>Crear cuenta</DefaultButton>
               </div>
-              <p className="">
+              <p className="w-full text-center lg:text-start lg:my-4">
                 ¿Ya tenes cuenta?{" "}
-                <Link to="/login" className="font-medium text-[#c9363e]">
+                <Link
+                  to="/login"
+                  className="font-medium text-blue-lagoon-800 dark:text-blue-lagoon-400"
+                >
                   Iniciar sesion
                 </Link>
               </p>
             </div>
           </form>
         </div>
-        <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6">
+        <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8">
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12]"
+            className="h-80 bg-gradient-to-t from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217]"
           />
           <Logo />
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-b from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12]"
+            className="h-80 bg-gradient-to-b from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217]"
           />
         </div>
 
         <Separator
           orientation="vertical"
-          className="h-20 bg-gradient-to-b from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
+          className="h-20 bg-gradient-to-b from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217] lg:hidden"
         />
       </motion.div>
     </section>
