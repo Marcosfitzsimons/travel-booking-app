@@ -68,7 +68,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const navigate = useNavigate();
 
   const todayDate = moment().locale("es").format("ddd DD/MM");
-
   moment.locale("es", {
     weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
   });
@@ -124,10 +123,8 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         const res = await axios.get(
           `https://travel-booking-api-production.up.railway.app/api/trips/${tripId}`
         );
-        const momentDate = moment.utc(res.data.date).add(1, "day").toDate();
-        const newDate = moment.tz(momentDate, "America/Argentina/Buenos_Aires");
-        const formattedDate = moment(newDate).format("DD/MM/YY");
-        setData({ ...res.data, date: formattedDate });
+
+        setData({ ...res.data });
       } catch (err) {
         setError(err);
       }
@@ -149,23 +146,23 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         {loading ? (
           <Loading />
         ) : (
-          <article className="w-full relative mx-auto bg-white/40 rounded-md border border-border-color shadow-md max-w-md dark:bg-black/40 dark:border-border-color-dark dark:hover:border-blue-lagoon-300">
+          <article className="w-full relative mx-auto bg-white/40 rounded-md border border-border-color shadow-md max-w-md dark:bg-black/40 dark:border-border-color-dark">
             <div className="px-4 pt-9 pb-4">
               <div className="flex flex-col gap-2">
                 <div className="absolute top-[.6rem] left-5">
                   <img
                     src={miniBus}
                     alt="combi"
-                    className="w-10 h-9 lg:w-12 lg:h-11"
+                    className="w-10 h-9 lg:w-12 lg:h-11 hover:-rotate-12 transition-transform"
                   />
                 </div>
                 <div className="absolute right-[22px] top-2 flex items-center gap-2">
-                  <p className="order-2 font-medium flex items-center select-none gap-1 rounded-2xl border border-blue-lagoon-300 bg-red-600/30 border-red-600/20 dark:bg-red-600/30 dark:border-blue-lagoon-300 dark:text-blue-lagoon-50 px-3 py-0.5">
+                  <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-2xl border border-teal-800/80 bg-teal-300/30 dark:bg-teal-800  dark:border-teal-400/80 dark:text-white px-3 py-0.5">
                     <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
                     {formatDate(data.date)}
                   </p>
                   {formatDate(data.date) === todayDate && (
-                    <p className="text-[#256840] select-none font-medium bg-green-600/30 rounded-2xl border border-green-500/40 dark:bg-[#6fe79f]/10 dark:border-[#50db88] dark:text-[#d7fce6] px-3 py-0.5">
+                    <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-2xl dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-3 py-0.5">
                       HOY
                     </p>
                   )}
