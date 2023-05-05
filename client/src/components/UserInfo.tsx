@@ -86,25 +86,25 @@ const UserInfo = ({ userData }: UserInfoProps) => {
           </h3>
           <h4 className="text-[#737373]">@{userData?.username}</h4>
         </div>
-        <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-blue-lagoon-700/50 items-start p-4 shadow-inner rounded-md dark:bg-black dark:border-blue-lagoon-200">
+        <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-border-color items-start p-4 shadow-inner rounded-md dark:bg-black/60 dark:border-zinc-500">
           <li className="flex items-center gap-1">
-            <Mail className="h-4 w-4" />
+            <Mail className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
             <span className="font-medium">Email:</span>
             {userData?.email}
           </li>
           <li className="flex items-center gap-1">
-            <Phone className="h-4 w-4" />
+            <Phone className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
             <span className="font-medium">Celular:</span> {userData?.phone}
           </li>
 
           <li className="flex items-center gap-1 shrink-0">
-            <MapPin className="w-4 h-4 shrink-0" />
+            <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
             <span className="font-medium shrink-0">Dirrección Carmen:</span>
             <span className="shrink-0">{userData?.addressCda}</span>
           </li>
           {userData?.addressCapital && (
             <li className="flex items-center gap-1 shrink-0">
-              <MapPin className="w-4 h-4 shrink-0" />
+              <MapPin className="w-4 h-4 text-blue-lagoon-900/60  dark:text-blue-lagoon-300 shrink-0" />
               <span className="font-medium shrink-0">Dirrecion Capital:</span>
               <span className="shrink-0">{userData?.addressCapital}</span>
             </li>

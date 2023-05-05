@@ -73,6 +73,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
     };
     fetchData();
   }, []);
+
   return (
     <section className="">
       <SectionTitle>Mi cuenta</SectionTitle>
@@ -92,7 +93,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                 <BackButton toProfile={false} />
               </div>
               <nav className="flex items-center justify-center">
-                <ul className="flex items-center gap-4 px-5 py-2 rounded-lg bg-white shadow-sm shadow-blue-lagoon-900/20 border border-border-color dark:bg-black dark:border-blue-lagoon-300/40">
+                <ul className="flex items-center gap-5 px-5 py-2">
                   <li className="relative">
                     <button
                       tabIndex={0}
@@ -102,9 +103,10 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                       }`}
                     >
                       <RoughNotation
-                        type="underline"
+                        type="circle"
                         show={isUserInfo}
                         color="#f9b4b4"
+                        padding={11}
                       >
                         Mi perfil
                       </RoughNotation>
@@ -122,9 +124,10 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                       }`}
                     >
                       <RoughNotation
-                        type="underline"
+                        type="circle"
                         show={!isUserInfo}
                         color="#f9b4b4"
+                        padding={11}
                       >
                         Mis viajes
                       </RoughNotation>

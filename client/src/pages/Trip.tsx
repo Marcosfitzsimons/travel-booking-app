@@ -146,7 +146,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         {loading ? (
           <Loading />
         ) : (
-          <article className="w-full relative mx-auto bg-white/40 rounded-md border border-border-color shadow-md max-w-md dark:bg-black/40 dark:border-border-color-dark">
+          <article className="w-full relative mx-auto bg-white/40 rounded-md border border-border-color shadow-md max-w-md dark:bg-black/60 dark:border-zinc-500">
             <div className="px-4 pt-9 pb-4">
               <div className="flex flex-col gap-2">
                 <div className="absolute top-[.6rem] left-5">
@@ -177,7 +177,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                   <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
                     <div className="flex flex-col gap-2">
                       <p className="flex items-center gap-1">
-                        <Clock className="w-4 h-4 text-blue-lagoon-900 dark:text-blue-lagoon-800" />
+                        <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white font-medium">
                           Salida:
                         </span>{" "}
@@ -187,7 +187,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                       {data.arrivalTime && (
                         <div className=" flex items-center gap-1">
                           <p className="flex items-center gap-1">
-                            <Clock className="w-4 h-4 text-blue-lagoon-900 dark:text-blue-lagoon-800" />
+                            <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                             <span className="dark:text-white font-medium">
                               Llegada:
                             </span>{" "}
@@ -213,7 +213,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                         </div>
                       )}
                       <p className="flex items-center gap-1">
-                        <DollarSign className="w-4 h-4 text-blue-lagoon-900 dark:text-blue-lagoon-800" />
+                        <DollarSign className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white font-medium">
                           Precio:{" "}
                         </span>
@@ -237,7 +237,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                   <ul>
                     <li>
                       <p className="flex items-center gap-[2px] text-sm">
-                        <MapPin className="w-4 h-4 text-blue-lagoon-900 dark:text-blue-lagoon-800" />
+                        <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="font-medium dark:text-white">
                           Dirreción (Carmen):
                         </span>{" "}
@@ -246,7 +246,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                     </li>
                     <li>
                       <p className="flex items-center gap-[2px] text-sm">
-                        <MapPin className="w-4 h-4 text-blue-lagoon-900 dark:text-blue-lagoon-800" />
+                        <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="font-medium dark:text-white">
                           Dirreción (Capital):
                         </span>{" "}

@@ -150,7 +150,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
               {userTrips.map((trip: TripProps) => (
                 <article
                   key={trip.id}
-                  className="w-full relative bg-white/40 border border-border-color rounded-md shadow-md mb-10 pb-2 max-w-[400px] dark:bg-black/40 dark:border-border-color-dark"
+                  className="w-full relative bg-white/40 border border-border-color rounded-md shadow-md mb-10 pb-2 max-w-[400px] dark:bg-black/60 dark:border-zinc-500"
                 >
                   <div className="px-4 pt-9 pb-4">
                     <div className="flex flex-col gap-2">
@@ -182,7 +182,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                         <div className="flex flex-col w-full bg-blue-lagoon-200/10 border border-border-color gap-2 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
                           <div className="flex flex-col gap-2">
                             <p className="flex items-center gap-1">
-                              <Clock className="w-4 h-4 text-blue-lagoon-800" />
+                              <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                               <span className="dark:text-white font-medium">
                                 Salida:
                               </span>{" "}
@@ -192,7 +192,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                             {trip.arrivalTime && (
                               <div className="flex items-center gap-1">
                                 <p className="flex items-center gap-1">
-                                  <Clock className="w-4 h-4 text-blue-lagoon-800" />
+                                  <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                                   <span className="dark:text-white font-medium">
                                     Llegada:
                                   </span>{" "}
@@ -220,7 +220,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                               </div>
                             )}
                             <p className="flex items-center gap-1">
-                              <DollarSign className="text-blue-lagoon-900 dark:text-blue-lagoon-800 h-4 w-4" />
+                              <DollarSign className="text-blue-lagoon-900/60 dark:text-blue-lagoon-300 h-4 w-4" />
                               <span className="dark:text-white font-medium">
                                 Precio:{" "}
                               </span>

@@ -82,7 +82,13 @@ const TripCard = ({
   };
 
   return (
-    <article className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-2 max-w-[400px] bg-white/40 border border-border-color dark:bg-black/40 dark:border-border-color-dark">
+    <article
+      className={`${
+        maxCapacity === passengers.length
+          ? "dark:border-zinc-800"
+          : "dark:border-zinc-500"
+      } w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-2 max-w-[400px] bg-white/40 border border-border-color dark:bg-black/60`}
+    >
       <div
         className={`${
           maxCapacity === passengers.length ? "opacity-50" : ""
@@ -115,17 +121,15 @@ const TripCard = ({
             <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
               <div className="flex flex-col gap-2">
                 <p className="flex items-center gap-1">
-                  <Clock className="w-4 h-4 text-blue-lagoon-800" />
-                  <span className="dark:text-white font-medium">
-                    Salida:
-                  </span>{" "}
+                  <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                  <span className="dark:text-white font-medium">Salida:</span>{" "}
                   {departureTime}
                   <span>- {from}</span>
                 </p>
                 {arrivalTime && (
                   <div className="flex items-center gap-1">
                     <p className="flex items-center gap-1">
-                      <Clock className="w-4 h-4 text-blue-lagoon-800" />
+                      <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                       <span className="dark:text-white font-medium">
                         Llegada:
                       </span>{" "}
@@ -151,7 +155,7 @@ const TripCard = ({
                   </div>
                 )}
                 <p className="flex items-center gap-1">
-                  <DollarSign className="text-blue-lagoon-900 dark:text-blue-lagoon-800 h-4 w-4" />
+                  <DollarSign className="text-blue-lagoon-900/60 dark:text-blue-lagoon-300 h-4 w-4" />
                   <span className="dark:text-white font-medium">Precio: </span>$
                   {price}
                 </p>
@@ -171,7 +175,7 @@ const TripCard = ({
         </div>
       </div>
       {maxCapacity === passengers.length && (
-        <p className="absolute px-4 py-4 font-medium order-3 flex flex-col items-center justify-center select-none gap-2 rounded-lg bg-white border border-border-color dark:border-border-color-dark dark:bg-black dark:text-white">
+        <p className="absolute px-4 py-4 font-medium order-3 flex flex-col items-center justify-center select-none gap-2 rounded-lg bg-white border border-border-color dark:border-zinc-500 dark:bg-black dark:text-white">
           <Logo />
           <span>¡Combi llena!</span>
           <span className="flex items-center gap-1">
