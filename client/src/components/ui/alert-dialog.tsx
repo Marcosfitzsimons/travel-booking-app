@@ -45,7 +45,7 @@ const AlertDialogContent = React.forwardRef<
       ref={ref}
       className={cn(
         "animate-in fade-in-90 slide-in-from-bottom-10 sm:zoom-in-90 sm:slide-in-from-bottom-0 fixed z-50 grid w-full max-w-[35rem] scale-100 gap-4 bg-white p-6 opacity-100 sm:rounded-lg md:max-w-lg",
-        "dark:bg-[#010e11]",
+        "dark:bg-[#010e11] lg:border lg:border-border-color lg:dark:border-zinc-500",
         className
       )}
       {...props}
@@ -118,7 +118,7 @@ const AlertDialogAction = React.forwardRef<
   <AlertDialogPrimitive.Action
     ref={ref}
     className={cn(
-      "inline-flex h-10 w-full items-center justify-center rounded-md py-2 px-4 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-black/80 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900",
+      "inline-flex h-10 w-full items-center justify-center rounded-md py-2 px-4 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-black/80 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 border border-border-color bg-white hover:border-blue-lagoon-600/50 dark:border-zinc-500 dark:text-white dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900",
       className
     )}
     {...props}
