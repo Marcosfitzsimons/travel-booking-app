@@ -1,14 +1,19 @@
 import { User } from "lucide-react";
-import moment from "moment-timezone";
+import moment from "moment";
+import "moment/locale/es"; // without this line it didn't work
+moment.locale("es");
 import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
 
 const formatDate = (date: string) => {
-  // worksss
+  moment.locale("es", {
+    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+  });
   const momentDate = moment.utc(date);
-  const timezone = "America/Argentina/Buenos_Aires"; // or any other time zone in GMT-0300
+  const timezone = "America/Argentina/Buenos_Aires";
   const timezone_date = momentDate.tz(timezone);
-  const formattedDate = timezone_date.format("DD/MM/YYYY");
-  return formattedDate;
+  const formatted_date = timezone_date.format("ddd DD/MM");
+  // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
+  return formatted_date;
 };
 
 export const userColumns = [

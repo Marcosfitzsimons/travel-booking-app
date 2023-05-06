@@ -2,7 +2,9 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { Eye, PlusCircle, Trash2, Map, RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
-import { format, parse, parseISO } from "date-fns";
+import moment from "moment";
+import "moment/locale/es"; // without this line it didn't work
+moment.locale("es");
 import "moment-timezone";
 import useFetch from "../hooks/useFetch";
 import axios from "axios";
@@ -19,6 +21,7 @@ import {
 } from "./ui/alert-dialog";
 import { toast } from "../hooks/ui/use-toast";
 import DatePickerContainer from "./DatePickerContainer";
+import { Button } from "./ui/button";
 
 type Trip = {
   _id: string;
@@ -82,16 +85,19 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
 
   const handleFilteredTrips = () => {
     let filteredTrips: Trip[];
+    let dateSelected: string;
     if (startDate) {
-      const newDate = new Date(startDate);
-      const formattedDate = newDate.toISOString();
-      const parseDate = parseISO(formattedDate);
-      const date = format(parseDate, "dd/MM/yyyy");
+      dateSelected = moment(startDate).locale("es").format("ddd DD/MM");
+      filteredTrips = data.filter((trip: Trip) => {
+        moment.locale("es", {
+          weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+        });
+        const momentDate = moment.utc(trip.date);
+        const timezone = "America/Argentina/Buenos_Aires";
+        const timezone_date = momentDate.tz(timezone);
+        const formatted_date = timezone_date.format("ddd DD/MM");
 
-      filteredTrips = list.filter((trip: Trip) => {
-        const tripDate = format(new Date(trip.date), "dd/MM/yyyy");
-
-        return tripDate == date;
+        return formatted_date === dateSelected;
       });
       setFilteredList([...filteredTrips]);
     } else {
@@ -152,6 +158,23 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
     },
   ];
 
+  let filteredTrips;
+  let dateSelected: string;
+  if (startDate) {
+    dateSelected = moment(startDate).locale("es").format("ddd DD/MM");
+    filteredTrips = data.filter((trip: Trip) => {
+      moment.locale("es", {
+        weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+      });
+      const momentDate = moment.utc(trip.date);
+      const timezone = "America/Argentina/Buenos_Aires";
+      const timezone_date = momentDate.tz(timezone);
+      const formatted_date = timezone_date.format("ddd DD/MM");
+
+      return formatted_date === dateSelected;
+    });
+  }
+
   useEffect(() => {
     setList(data);
   }, [data]);
@@ -164,18 +187,20 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
     <div className="h-[600px] w-full">
       <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div className="relative flex items-end gap-1 w-[min(100%,184px)]">
-          <div className="shadow-input shadow-blue-lagoon-500/10 rounded-lg">
+          <div className="shadow-input shadow-blue-lagoon-800/10 rounded-lg">
             <DatePickerContainer
               startDate={startDate}
               setStartDate={setStartDate}
             />
           </div>
-          <div className="absolute -right-11 flex h-full aspect-square before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-blue-lagoon-500 before:ring-2 before:ring-blue-lagoon-400/10 before:transition after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/5 focus-within:after:shadow-blue-lagoon-300/40 after:transition dark:focus-within:after:shadow-blue-lagoon-300/40 dark:before:ring-blue-lagoon-500/20 dark:before:border-blue-lagoon-300">
-            <div
-              className="w-full absolute h-full flex items-center justify-center cursor-pointer p-2 bg-white shadow-input shadow-blue-lagoon-500/10 rounded-lg border border-border-color dark:border-color-black dark:bg-black/40 dark:hover:text-white"
-              onClick={() => setStartDate(null)}
-            >
-              <RotateCcw className="w-4 h-4" />
+          <div className="absolute -right-[46px] h-full shadow shadow-blue-lagoon-800/10 rounded-lg">
+            <div className="relative flex w-[38px] h-full aspect-square before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-blue-lagoon-400 before:ring-2 before:ring-blue-lagoon-200/50 before:transition after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/5 focus-within:after:shadow-blue-lagoon-400 after:transition dark:focus-within:after:shadow-blue-lagoon-300/40 dark:before:ring-blue-lagoon-500/20 dark:before:border-blue-lagoon-300">
+              <Button
+                className="absolute w-[38px] h-full flex items-center justify-center cursor-pointer p-2 bg-white/80 shadow-input shadow-blue-lagoon-500/10 rounded-lg border border-border-color focus:border-blue-lagoon-200/50  dark:border-color-black dark:bg-black/40 dark:hover:text-white dark:focus:border-blue-lagoon-500/20"
+                onClick={() => setStartDate(null)}
+              >
+                <RotateCcw className="w-4 h-4" />
+              </Button>
             </div>
           </div>
           {err && <p>{err}</p>}
@@ -209,6 +234,8 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
         <DataGrid
           rows={filteredList}
           columns={actionColumn.concat(columns)}
+          checkboxSelection
+          hideFooterSelectedRowCount
           initialState={{
             pagination: {
               paginationModel: {
@@ -238,6 +265,8 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
         <DataGrid
           rows={list}
           columns={actionColumn.concat(columns)}
+          checkboxSelection
+          hideFooterSelectedRowCount
           initialState={{
             pagination: {
               paginationModel: {
