@@ -20,7 +20,7 @@ const DatePickerContainer = ({ startDate, setStartDate }: any) => {
       <DatePicker
         dateFormat={"EEE dd/MM"}
         locale="es"
-        className="capitalize cursor-pointer w-full pl-10 py-1.5 font-medium rounded-lg border border-border-color bg-white/80 !outline-none p-2 focus:border-blue-lagoon-200/50 placeholder:text-black/80 dark:border-border-color-dark dark:text-white dark:bg-black/40 dark:placeholder:text-neutral-200 dark:focus:border-blue-lagoon-500/20"
+        className="capitalize cursor-pointer w-full pl-10 py-1.5 font-medium rounded-lg border border-border-color bg-white/80 !outline-none p-2 focus:border-blue-lagoon-200/50 placeholder:text-black/80 dark:border-border-color-dark dark:bg-black/40 dark:focus:border-blue-lagoon-500/20 dark:hover:text-white dark:placeholder:text-neutral-200 dark:placeholder:hover:text-white"
         selected={startDate}
         placeholderText="Seleccionar fecha"
         minDate={new Date()}
