@@ -15,7 +15,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const Header = () => {
-  const { dispatch } = useContext(AuthContext);
+  const { dispatch, user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogOut = () => {
@@ -31,7 +31,11 @@ const Header = () => {
 
   return (
     <header className="bg-transparent">
-      <div className="py-2 flex items-center justify-between z-50 lg:py-[12.5px]">
+      <div
+        className={`${
+          !user ? "lg:justify-start lg:gap-3" : "justify-between"
+        } py-2 flex items-center justify-between z-50 lg:py-[12.5px]`}
+      >
         <Logo />
         <div className="flex items-center gap-1">
           <div className="relative top-[1px]">

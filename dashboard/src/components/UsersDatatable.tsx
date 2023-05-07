@@ -86,24 +86,24 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
     {
       field: "action",
       headerName: "Acción",
-      width: 160,
+      width: 180,
       renderCell: (params: any) => {
         return (
           <div className="flex items-center gap-2">
             <div className="relative flex items-center">
-              <Eye className="absolute left-2 top-[2px] h-4 w-4" />
               <Link
                 to={`/users/${params.row._id}`}
-                className="px-[9px] pl-[25px] z-20 rounded-md border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 hover:bg-white/30 hover:text-blue-lagoon-400 dark:border-blue-lagoon-300/60 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10 dark:hover:text-inherit"
+                className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
               >
+                <Eye className="absolute left-3 top-[4px] h-4 w-4" />
                 Ver
               </Link>
             </div>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <button className="px-2 pl-[25px] rounded-md border border-[#c03c42] bg-[#A72F35] text-white dark:bg-[#A72F35] dark:hover:border-blue-lagoon-300/80">
-                    <Trash2 className="absolute text-white left-2 top-[2px] h-4 w-4" />
+                  <button className="px-[12px] pl-[29px] py-[2px] rounded-md border border-neutral-600 bg-[#b4343a] text-white font-semibold transition-colors hover:border-black dark:bg-[#b4343a] dark:border-blue-lagoon-400/80 dark:hover:border-blue-lagoon-300">
+                    <Trash2 className="absolute text-white left-3 top-[4px] h-4 w-4" />
                     Borrar
                   </button>
                 </div>
@@ -157,12 +157,12 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
             </p>
             <p className="font-light">{list.length > 0 && list.length}</p>
           </div>
-          <div className="relative flex items-center self-end bg-white rounded-md dark:bg-transparent">
-            <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
+          <div className="relative flex items-center self-end">
             <Link
               to="/users/new"
-              className="px-3 py-1 pl-9 z-20 bg-transparent rounded-md border border-blue-lagoon-200 shadow-md hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10"
+              className="px-3.5 py-1 pl-[32px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
             >
+              <UserPlus className="absolute cursor-pointer left-3 top-[6px] h-5 w-5" />
               {linkText}
             </Link>
           </div>
@@ -172,6 +172,8 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
         <DataGrid
           rows={filteredList}
           columns={actionColumn.concat(columns)}
+          checkboxSelection
+          hideFooterSelectedRowCount
           initialState={{
             pagination: {
               paginationModel: {
@@ -201,6 +203,8 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
         <DataGrid
           rows={list}
           columns={actionColumn.concat(columns)}
+          checkboxSelection
+          hideFooterSelectedRowCount
           initialState={{
             pagination: {
               paginationModel: {

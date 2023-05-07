@@ -478,7 +478,7 @@ const SingleUser = () => {
             </div>
           </div>
 
-          <h3 className="font-bold text-blue-lagoon-600 uppercase dark:text-white mb-4">
+          <h3 className="font-bold text-xl uppercase dark:text-white lg:text-2xl">
             Próximos viajes del usuario:
           </h3>
           {data.myTrips && data.myTrips.length > 0 ? (

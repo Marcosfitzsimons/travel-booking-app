@@ -177,7 +177,7 @@ const TripCard = ({
       {maxCapacity === passengers.length && (
         <p className="absolute px-4 py-4 font-medium order-3 flex flex-col items-center justify-center select-none gap-2 rounded-lg bg-white border border-border-color dark:border-zinc-500 dark:bg-black dark:text-white">
           <Logo />
-          <span>¡Combi llena!</span>
+          <span>¡Combi completa!</span>
           <span className="flex items-center gap-1">
             Gracias por elegirnos{" "}
             <Heart

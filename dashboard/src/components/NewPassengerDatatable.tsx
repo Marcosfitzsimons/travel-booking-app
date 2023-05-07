@@ -80,8 +80,8 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
             <Dialog>
               <DialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <button className="px-[9px] pl-[25px] z-20 rounded-md border border-blue-lagoon-200 hover:border-blue-lagoon-600/50 hover:bg-white/30 hover:text-blue-lagoon-400 dark:border-blue-lagoon-300/60 dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10 dark:hover:text-inherit">
-                    <Plus className="absolute left-2 top-[3px] h-4 w-4" />
+                  <button className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500">
+                    <Plus className="absolute left-3 top-[4px] h-4 w-4" />
                     Agregar
                   </button>
                 </div>
@@ -176,6 +176,8 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
         <DataGrid<MyRowType>
           rows={filteredList}
           columns={actionColumn.concat(columns)}
+          checkboxSelection
+          hideFooterSelectedRowCount
           initialState={{
             pagination: {
               paginationModel: {
@@ -205,6 +207,8 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
         <DataGrid<MyRowType>
           rows={list}
           columns={actionColumn.concat(columns)}
+          checkboxSelection
+          hideFooterSelectedRowCount
           initialState={{
             pagination: {
               paginationModel: {

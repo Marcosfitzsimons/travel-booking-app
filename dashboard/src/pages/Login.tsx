@@ -66,7 +66,7 @@ const Login = () => {
 
   return (
     <section className="">
-      <div className="flex flex-col items-center lg:flex-row lg:justify-around lg:gap-20">
+      <div className="flex flex-col items-center lg:flex-row lg:justify-around lg:gap-20 2xl:justify-between">
         <Separator
           orientation="vertical"
           className="h-52 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12] lg:hidden"
@@ -80,7 +80,7 @@ const Login = () => {
           </p>
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
-            className="relative w-full mt-6 p-3 py-6 flex flex-col gap-5 items-center"
+            className="relative w-full mt-6 p-3 py-6 flex flex-col gap-3 items-center lg:max-w-sm"
           >
             <div className="grid w-full items-center gap-2">
               <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
@@ -136,7 +136,7 @@ const Login = () => {
             </DefaultButton>
           </form>
         </div>
-        <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6">
+        <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 2xl:mr-16">
           <Separator
             orientation="vertical"
             className="h-80 bg-gradient-to-t from-neutral-800 to-blue-lagoon-50 dark:from-blue-lagoon-200 dark:to-[#0d0f12]"

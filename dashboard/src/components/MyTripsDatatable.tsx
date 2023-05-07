@@ -93,15 +93,15 @@ const MyTripsDatatable = ({ columns, userTrips, userData }: DataTableProps) => {
     {
       field: "action",
       headerName: "Acción",
-      width: 180,
+      width: 110,
       renderCell: (params: any) => {
         return (
           <div className="flex items-center gap-2">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <button className="px-2 pl-[25px] rounded-md border border-[#A72F35] bg-[#A72F35] text-white dark:bg-[#A72F35] dark:hover:border-blue-lagoon-300/80">
-                    <Trash2 className="absolute text-white left-2 top-[2px] h-4 w-4" />
+                  <button className="px-[12px] pl-[29px] py-[2px] rounded-md border border-neutral-600 bg-[#b4343a] text-white font-semibold transition-colors hover:border-black dark:bg-[#b4343a] dark:border-blue-lagoon-400/80 dark:hover:border-blue-lagoon-300">
+                    <Trash2 className="absolute text-white left-3 top-[4px] h-4 w-4" />
                     Borrar
                   </button>
                 </div>
@@ -138,6 +138,8 @@ const MyTripsDatatable = ({ columns, userTrips, userData }: DataTableProps) => {
       <DataGrid
         rows={list}
         columns={actionColumn.concat(columns)}
+        checkboxSelection
+        hideFooterSelectedRowCount
         initialState={{
           pagination: {
             paginationModel: {

@@ -6,7 +6,14 @@ import axios from "axios";
 import { passengerColumns } from "../datatablesource";
 import BackButton from "../components/BackButton";
 import PassengersDatatable from "../components/PassengersDatatable";
-import { CalendarDays, Clock, DollarSign, UserPlus, Users } from "lucide-react";
+import {
+  CalendarDays,
+  Clock,
+  DollarSign,
+  Heart,
+  UserPlus,
+  Users,
+} from "lucide-react";
 import miniBus from "../assets/minibus1-sm.png";
 import SectionTitle from "../components/SectionTitle";
 import Loading from "../components/Loading";
@@ -25,6 +32,7 @@ import { Input } from "../components/ui/input";
 import { useForm } from "react-hook-form";
 import { useToast } from "../hooks/ui/use-toast";
 import DatePickerContainer from "../components/DatePickerContainer";
+import Logo from "../components/Logo";
 
 type Trip = {
   name: string;
@@ -57,6 +65,14 @@ const SingleTrip = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | boolean>(false);
   const [err, setErr] = useState<null | string>(null);
+
+  const isMaxCapacity = data.passengers.length === data.maxCapacity;
+
+  const todayDate = moment().locale("es").format("ddd DD/MM");
+
+  moment.locale("es", {
+    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+  });
 
   let { id } = useParams();
   const { toast } = useToast();
@@ -164,22 +180,33 @@ const SingleTrip = () => {
       {loading ? (
         <Loading />
       ) : (
-        <>
-          <article className="w-full relative mx-auto rounded-md shadow-md mb-10 pb-2 max-w-sm bg-white/40 border border-border-color  dark:bg-black/40 dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
-            <div className="px-4 pt-9 pb-4">
+        <div className="flex flex-col gap-6 lg:gap-9">
+          <article
+            className={`${
+              data.maxCapacity === data.passengers.length
+                ? "dark:border-zinc-800"
+                : "dark:border-zinc-500"
+            } w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-4 max-w-[400px] bg-white/40 border border-border-color dark:bg-black/60`}
+          >
+            <div className="w-full px-4 pt-9">
               <div className="flex flex-col gap-2">
                 <div className="absolute top-[.6rem] left-5">
                   <img
                     src={miniBus}
                     alt="combi"
-                    className="w-10 h-9 lg:w-12 lg:h-11"
+                    className="w-10 h-9 lg:w-12 lg:h-11 hover:-rotate-12 transition-transform"
                   />
                 </div>
                 <div className="absolute right-4 top-2 flex items-center gap-2">
-                  <p className="font-medium flex items-center select-none gap-1 px-2 rounded-2xl shadow-sm border border-blue-lagoon-200 bg-red-600/30 border-red-600/40  dark:bg-red-900/20 dark:border-red-500/60 dark:text-white">
-                    <CalendarDays className="w-4 h-4 relative bottom-[1px]" />
+                  <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-2xl border border-teal-800/80 bg-teal-300/30 dark:bg-teal-800  dark:border-teal-400/80 dark:text-white px-3 py-0.5">
+                    <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
                     {data.date}
                   </p>
+                  {data.date === todayDate && (
+                    <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-2xl dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-3 py-0.5">
+                      HOY
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-3 mt-4 lg:mt-7">
@@ -230,7 +257,7 @@ const SingleTrip = () => {
                   <Dialog>
                     <div className="lg:flex lg:items-center lg:justify-end">
                       <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:w-auto lg:h-[31px]">
-                        <DialogTrigger className="relative w-full rounded-lg px-6 py-1.5 lg:py-0 bg-[#A72F35] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#A72F35] lg:w-auto lg:h-[31px]">
+                        <DialogTrigger className="relative w-full rounded-lg px-6 py-1.5 lg:py-0 bg-[#9e4a4f] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f] lg:w-auto lg:h-[31px]">
                           Editar
                         </DialogTrigger>
                       </div>
@@ -435,45 +462,63 @@ const SingleTrip = () => {
                 </div>
               </div>
             </div>
+            {data.maxCapacity === data.passengers.length && (
+              <p className="absolute px-4 py-4 font-medium order-3 flex flex-col items-center justify-center select-none gap-2 rounded-lg bg-white border border-border-color dark:border-zinc-500 dark:bg-black dark:text-white">
+                <Logo />
+                <span>¡Combi completa!</span>
+                <span className="flex items-center gap-1">
+                  <Heart
+                    className="w-4 h-4 relative top-[1px] dark:text-black"
+                    fill="red"
+                  />
+                </span>
+              </p>
+            )}
           </article>
-          <div className="w-full flex justify-between items-end">
-            <h3 className="font-bold text-blue-lagoon-600 uppercase dark:text-white">
-              Pasajeros:
-            </h3>
-            <div className="flex flex-col items-end gap-1 sm:flex-row sm:gap-2">
-              <div className="flex items-center gap-1 text-sm lg:text-base">
-                <Users className="animate-pulse h-4 w-4 lg:w-5 lg:h-5" />
-                <p className="font-medium">Pasajeros:</p>
-                <p className="font-light flex items-center lg:gap-1">
-                  {data.passengers.length}/{data.maxCapacity}
-                </p>
-              </div>
-              <div className="w-full flex items-center justify-end relative">
-                <div className="flex items-center relative">
-                  <UserPlus className="absolute cursor-pointer left-3 h-5 w-5" />
-                  <Link
-                    to={`/passengers/newPassenger/${id}`}
-                    className="px-3 py-1 pl-9 z-20 bg-transparent rounded-md border border-blue-lagoon-200 shadow-md hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-[#141414] dark:hover:border-blue-lagoon-300/80 dark:bg-blue-lagoon-300/10"
-                  >
-                    Agregar pasajero
-                  </Link>
+          <div className="flex flex-col gap-2">
+            <div className="w-full flex justify-between items-end">
+              <h3 className="font-bold text-xl uppercase dark:text-white lg:text-2xl">
+                Pasajeros:
+              </h3>
+              <div className="flex flex-col items-end gap-1 sm:flex-row sm:gap-2">
+                <div className="flex items-center gap-1 text-sm lg:text-base">
+                  <Users className="animate-pulse h-4 w-4 lg:w-5 lg:h-5" />
+                  <p className="font-medium">Pasajeros:</p>
+                  <p className="font-light flex items-center lg:gap-1">
+                    {data.passengers.length}/{data.maxCapacity}
+                  </p>
+                </div>
+                <div className="w-full flex items-center justify-end relative">
+                  <div className="flex items-center relative">
+                    {isMaxCapacity ? (
+                      <p>¡Combi completa!</p>
+                    ) : (
+                      <Link
+                        to={`/passengers/newPassenger/${id}`}
+                        className="px-3.5 py-1 pl-[32px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
+                      >
+                        <UserPlus className="absolute cursor-pointer left-3 top-[6px] h-5 w-5" />
+                        Agregar pasajero
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {data.passengers && data.passengers.length > 0 ? (
-            <PassengersDatatable
-              tripPassengers={data.passengers}
-              columns={passengerColumns}
-              tripId={id}
-            />
-          ) : (
-            <div className="mx-auto flex flex-col items-center gap-3">
-              <p>El viaje no tiene pasajeros por el momento.</p>
-            </div>
-          )}
-        </>
+            {data.passengers && data.passengers.length > 0 ? (
+              <PassengersDatatable
+                tripPassengers={data.passengers}
+                columns={passengerColumns}
+                tripId={id}
+              />
+            ) : (
+              <div className="mx-auto flex flex-col items-center gap-3">
+                <p>El viaje no tiene pasajeros por el momento.</p>
+              </div>
+            )}
+          </div>
+        </div>
       )}
     </section>
   );
