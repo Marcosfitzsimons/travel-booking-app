@@ -33,6 +33,7 @@ import { useForm } from "react-hook-form";
 import { useToast } from "../hooks/ui/use-toast";
 import DatePickerContainer from "../components/DatePickerContainer";
 import Logo from "../components/Logo";
+import TimePickerContainer from "../components/TimePickerContainer";
 
 type Trip = {
   name: string;
@@ -63,6 +64,9 @@ const SingleTrip = () => {
   const [data, setData] = useState(INITIAL_STATES);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [arrivalTimeValue, setArrivalTimeValue] = useState("10:00");
+  const [departureTimeValue, setDepartureTimeValue] = useState("10:00");
   const [error, setError] = useState<unknown | boolean>(false);
   const [err, setErr] = useState<null | string>(null);
 
@@ -103,10 +107,16 @@ const SingleTrip = () => {
   };
 
   const handleOnSubmit = async (data: Trip) => {
+    setIsSubmitted(true);
     try {
       await axios.put(
         `https://travel-booking-api-production.up.railway.app/api/trips/${id}`,
-        { ...data, date: startDate },
+        {
+          ...data,
+          date: startDate,
+          departureTime: departureTimeValue,
+          arrivalTime: arrivalTimeValue,
+        },
         { headers }
       );
       toast({
@@ -162,6 +172,8 @@ const SingleTrip = () => {
           price: tripData.price,
           maxCapacity: tripData.maxCapacity,
         });
+        setDepartureTimeValue(tripData.departureTime);
+        setArrivalTimeValue(tripData.arrivalTime);
       } catch (err) {
         setError(err);
         console.log(err);
@@ -264,10 +276,10 @@ const SingleTrip = () => {
                     </div>
                     <DialogContent>
                       <DialogHeader>
-                        <DialogTitle className="text-2xl lg:text-3xl">
+                        <DialogTitle className="text-center text-2xl lg:text-3xl">
                           Editar viaje
                         </DialogTitle>
-                        <DialogDescription className="lg:text-lg">
+                        <DialogDescription className="text-center lg:text-lg">
                           Hace cambios en el viaje.
                         </DialogDescription>
                       </DialogHeader>
@@ -277,36 +289,6 @@ const SingleTrip = () => {
                             onSubmit={handleSubmit(handleOnSubmit)}
                             className="w-full flex flex-col items-center gap-3"
                           >
-                            <div className="grid w-full max-w-md items-center gap-2">
-                              <Label htmlFor="name">Nombre del viaje</Label>
-                              <Input
-                                type="text"
-                                id="name"
-                                {...register("name", {
-                                  required: {
-                                    value: true,
-                                    message:
-                                      "Por favor, ingresar nombre del viaje.",
-                                  },
-                                  minLength: {
-                                    value: 3,
-                                    message:
-                                      "Nombre del viaje no puede ser tan corto.",
-                                  },
-                                  maxLength: {
-                                    value: 30,
-                                    message:
-                                      "Nombre del viaje no puede ser tan largo.",
-                                  },
-                                })}
-                              />
-                              {errors.name && (
-                                <p className="text-red-600">
-                                  {errors.name.message}
-                                </p>
-                              )}
-                            </div>
-
                             <div className="grid w-full max-w-md items-center gap-2">
                               <Label htmlFor="date">Fecha</Label>
                               <DatePickerContainer
@@ -344,67 +326,28 @@ const SingleTrip = () => {
                                 </p>
                               )}
                             </div>
-                            <div className="grid w-full max-w-md items-center gap-2">
-                              <Label htmlFor="departureTime">
-                                Horario de salida
-                              </Label>
-                              <Input
-                                type="text"
-                                id="departureTime"
-                                {...register("departureTime", {
-                                  required: {
-                                    value: true,
-                                    message:
-                                      "Por favor, ingresar horario de salida.",
-                                  },
-                                  minLength: {
-                                    value: 3,
-                                    message:
-                                      "Horario de salida no puede ser tan corto.",
-                                  },
-                                  maxLength: {
-                                    value: 25,
-                                    message:
-                                      "Horario de salida no puede ser tan largo.",
-                                  },
-                                })}
-                              />
-                              {errors.departureTime && (
-                                <p className="text-red-600">
-                                  {errors.departureTime.message}
-                                </p>
-                              )}
-                            </div>
-                            <div className="grid w-full max-w-md items-center gap-2">
-                              <Label htmlFor="arrivalTime">
-                                Horario de llegada
-                              </Label>
-                              <Input
-                                type="text"
-                                id="arrivalTime"
-                                {...register("arrivalTime", {
-                                  required: {
-                                    value: true,
-                                    message:
-                                      "Por favor, ingresar horario de llegada.",
-                                  },
-                                  minLength: {
-                                    value: 3,
-                                    message:
-                                      "Horario de llegada no puede ser tan corto.",
-                                  },
-                                  maxLength: {
-                                    value: 25,
-                                    message:
-                                      "Horario de llegada no puede ser tan largo.",
-                                  },
-                                })}
-                              />
-                              {errors.arrivalTime && (
-                                <p className="text-red-600">
-                                  {errors.arrivalTime.message}
-                                </p>
-                              )}
+                            <div className="w-full flex flex-col max-w-md gap-2">
+                              <div className="grid w-full items-center gap-2">
+                                <Label htmlFor="departureTime">
+                                  Horario de salida:
+                                </Label>
+                                <TimePickerContainer
+                                  value={departureTimeValue}
+                                  onChange={setDepartureTimeValue}
+                                />
+                              </div>
+                              <div className="grid w-full items-center gap-2">
+                                <Label htmlFor="arrivalTime">
+                                  Horario de llegada:
+                                </Label>
+                                <TimePickerContainer
+                                  value={arrivalTimeValue}
+                                  onChange={setArrivalTimeValue}
+                                />
+                              </div>
+                              {err && (
+                                <p className="text-red-600 self-start">{err}</p>
+                              )}{" "}
                             </div>
                             <div className="grid w-full max-w-md items-center gap-2">
                               <Label htmlFor="price">Precio</Label>
@@ -446,12 +389,43 @@ const SingleTrip = () => {
                                 </p>
                               )}
                             </div>
+                            <div className="grid w-full max-w-md items-center gap-2">
+                              <Label htmlFor="name">Nombre del viaje</Label>
+                              <Input
+                                type="text"
+                                id="name"
+                                {...register("name", {
+                                  required: {
+                                    value: true,
+                                    message:
+                                      "Por favor, ingresar nombre del viaje.",
+                                  },
+                                  minLength: {
+                                    value: 3,
+                                    message:
+                                      "Nombre del viaje no puede ser tan corto.",
+                                  },
+                                  maxLength: {
+                                    value: 30,
+                                    message:
+                                      "Nombre del viaje no puede ser tan largo.",
+                                  },
+                                })}
+                              />
+                              {errors.name && (
+                                <p className="text-red-600">
+                                  {errors.name.message}
+                                </p>
+                              )}
+                            </div>
                             {err && (
                               <p className="text-red-600 self-start">{err}</p>
                             )}
                             <DialogFooter>
                               <div className="w-[min(28rem,100%)] flex justify-center">
-                                <DefaultButton>Guardar cambios</DefaultButton>
+                                <DefaultButton loading={isSubmitted}>
+                                  Guardar cambios
+                                </DefaultButton>
                               </div>
                             </DialogFooter>
                           </form>

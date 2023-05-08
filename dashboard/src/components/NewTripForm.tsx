@@ -8,7 +8,6 @@ import { useToast } from "../hooks/ui/use-toast";
 import DefaultButton from "./DefaultButton";
 import DatePickerContainer from "./DatePickerContainer";
 import TimePickerContainer from "./TimePickerContainer";
-import ar from "date-fns/esm/locale/ar/index.js";
 
 type Trip = {
   name: string;
