@@ -115,13 +115,6 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
       className="relative w-full flex flex-col gap-3 p-3 py-6"
     >
       <div className="w-full flex flex-col gap-2 items-center lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
-        <div className="grid w-full items-center gap-2 ">
-          <Label htmlFor="date">Fecha</Label>
-          <DatePickerContainer
-            setStartDate={setStartDate}
-            startDate={startDate}
-          />
-        </div>
         {inputs.map((input) => (
           <div key={input.id} className="grid w-full items-center gap-2">
             <Label htmlFor={input.id}>{input.label}</Label>
@@ -138,7 +131,14 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
             )}
           </div>
         ))}
-        <div className="w-full flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+        <div className="grid w-full items-center gap-2">
+          <Label htmlFor="date">Fecha</Label>
+          <DatePickerContainer
+            setStartDate={setStartDate}
+            startDate={startDate}
+          />
+        </div>
+        <div className="w-full flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between lg:row-start-2 ">
           <div className="grid w-full items-center gap-2 lg:w-[144px]">
             <Label htmlFor="departureTime">Horario de salida:</Label>
             <TimePickerContainer
@@ -155,7 +155,7 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
           </div>
           {err && <p className="text-red-600 self-start">{err}</p>}{" "}
         </div>
-        <div className="w-full mt-2 lg:flex lg:justify-end lg:self-end">
+        <div className="w-full mt-2 lg:w-[9rem] lg:justify-self-end lg:self-end">
           <DefaultButton>Crear viaje</DefaultButton>
         </div>
       </div>
