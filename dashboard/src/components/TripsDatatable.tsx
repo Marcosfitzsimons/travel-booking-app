@@ -170,9 +170,6 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
   if (startDate) {
     dateSelected = moment(startDate).locale("es").format("ddd DD/MM");
     filteredTrips = data.filter((trip: Trip) => {
-      moment.locale("es", {
-        weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-      });
       const momentDate = moment.utc(trip.date);
       const timezone = "America/Argentina/Buenos_Aires";
       const timezone_date = momentDate.tz(timezone);
