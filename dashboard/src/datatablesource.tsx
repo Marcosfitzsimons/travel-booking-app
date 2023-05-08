@@ -78,7 +78,7 @@ export const tripColumns = [
         <div className="flex items-center gap-1">
           {params.row.date ? (
             <>
-              {todayDate === formatDate(params.row.date) ? (
+              {todayDate == formatDate(params.row.date) ? (
                 <span className="text-green-900 bg-green-300/30 border order-2 border-green-800/80 select-none font-medium rounded-md dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-1">
                   HOY
                 </span>
