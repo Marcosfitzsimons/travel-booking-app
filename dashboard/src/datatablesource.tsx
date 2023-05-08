@@ -16,6 +16,8 @@ const formatDate = (date: string) => {
   return formatted_date;
 };
 
+const todayDate = moment().locale("es").format("ddd DD/MM");
+
 export const userColumns = [
   {
     field: "user",
@@ -70,9 +72,26 @@ export const tripColumns = [
   {
     field: "date",
     headerName: "Fecha",
-    width: 100,
+    width: 130,
     renderCell: (params: any) => {
-      return <p>{params.row.date ? formatDate(params.row.date) : ""}</p>;
+      return (
+        <div className="flex items-center gap-1">
+          {params.row.date ? (
+            <>
+              {todayDate === formatDate(params.row.date) ? (
+                <span className="text-green-900 bg-green-300/30 border order-2 border-green-800/80 select-none font-medium rounded-md dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-1">
+                  HOY
+                </span>
+              ) : (
+                ""
+              )}
+              <p>{formatDate(params.row.date)}</p>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+      );
     },
   },
   { field: "name", headerName: "Nombre", width: 180 },
