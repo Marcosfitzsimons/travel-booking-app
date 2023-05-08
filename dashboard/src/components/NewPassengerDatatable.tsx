@@ -113,7 +113,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
                       <h4 className="text-[#737373]">@{params.row.username}</h4>
                     </div>
                     <div className="w-full flex flex-col items-center gap-5">
-                      <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 border border-blue-lagoon-500/20 items-start p-4 shadow-inner rounded-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
+                      <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 border border-border-color items-start p-4 shadow-inner rounded-md dark:bg-black/80 dark:border-border-color-dark dark:hover:border-blue-lagoon-300">
                         <li className="flex items-center gap-1">
                           <Mail className="h-4 w-4" />
                           <span className="font-medium">Email:</span>
@@ -148,10 +148,12 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
                     </div>
                   </div>
                   <div
-                    className="flex justify-center my-4"
+                    className="flex justify-center my-4 lg:w-[11rem] mx-auto"
                     onClick={() => handleAddPassenger(params.row._id)}
                   >
-                    <DefaultButton>Agregar pasajero</DefaultButton>
+                    <DefaultButton loading={loading}>
+                      Agregar pasajero
+                    </DefaultButton>
                   </div>
                 </div>
               </DialogContent>
