@@ -8,7 +8,6 @@ type TimePickerProps = {
 };
 
 const TimePickerContainer = ({ onChange, value }: TimePickerProps) => {
-  console.log(value);
   return (
     <div className="flex flex-1 items-center">
       <div
