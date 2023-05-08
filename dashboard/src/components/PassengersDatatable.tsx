@@ -160,6 +160,8 @@ const PassengersDatable = ({
           pageSizeOptions={[9]}
           getRowId={(row) => row._id}
           sx={{
+            borderColor: "#007F9633",
+            borderRadius: "7px",
             "&>.MuiDataGrid-main": {
               "&>.MuiDataGrid-columnHeaders": {
                 borderBottom: "none",

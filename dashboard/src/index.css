@@ -43,21 +43,6 @@
 
 /* material ui data grid */
 
-/* root */
-/* Fix bordercolor */
-.MuiDataGrid-root
-  .MuiDataGrid-root--densityStandard
-  .MuiDataGrid-withBorderColor
-  .css-1kicwkw-MuiDataGrid-root {
-  border-color: red;
-}
-.css-1kicwkw-MuiDataGrid-root {
-  border-color: red;
-}
-.MuiDataGrid-withBorderColor {
-  border-color: red;
-}
-
 /* main */
 
 .MuiDataGrid-main {

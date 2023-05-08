@@ -188,6 +188,8 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
           pageSizeOptions={[9]}
           getRowId={(row) => row._id}
           sx={{
+            borderColor: "#007F9633",
+            borderRadius: "7px",
             "&>.MuiDataGrid-main": {
               "&>.MuiDataGrid-columnHeaders": {
                 borderBottom: "none",
@@ -219,6 +221,8 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
           pageSizeOptions={[9]}
           getRowId={(row) => row._id}
           sx={{
+            borderColor: "#007F9633",
+            borderRadius: "7px",
             "&>.MuiDataGrid-main": {
               "&>.MuiDataGrid-columnHeaders": {
                 borderBottom: "none",

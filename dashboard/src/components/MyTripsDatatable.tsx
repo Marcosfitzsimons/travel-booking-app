@@ -150,6 +150,8 @@ const MyTripsDatatable = ({ columns, userTrips, userData }: DataTableProps) => {
         pageSizeOptions={[9]}
         getRowId={(row) => row.id}
         sx={{
+          borderColor: "#007F9633",
+          borderRadius: "7px",
           "&>.MuiDataGrid-main": {
             "&>.MuiDataGrid-columnHeaders": {
               borderBottom: "none",

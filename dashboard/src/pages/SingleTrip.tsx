@@ -491,7 +491,9 @@ const SingleTrip = () => {
                 <div className="w-full flex items-center justify-end relative">
                   <div className="flex items-center relative">
                     {isMaxCapacity ? (
-                      <p>¡Combi completa!</p>
+                      <p className="text-green-900 bg-green-300/30 border order-2 border-green-800/80 select-none font-medium rounded-md dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-1">
+                        Combi completa
+                      </p>
                     ) : (
                       <Link
                         to={`/passengers/newPassenger/${id}`}
