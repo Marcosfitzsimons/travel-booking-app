@@ -132,27 +132,6 @@ export const userInputs = [
 
 export const tripInputs = [
   {
-    id: "name",
-    name: "name",
-    label: "Nombre del viaje",
-    type: "text",
-    placeholder: "De carmen a Capital",
-    validation: {
-      required: {
-        value: true,
-        message: "Por favor, ingresar nombre del viaje.",
-      },
-      minLength: {
-        value: 3,
-        message: "Nombre del viaje no puede ser tan corto.",
-      },
-      maxLength: {
-        value: 30,
-        message: "Nombre del viaje no puede ser tan largo.",
-      },
-    },
-  },
-  {
     id: "from",
     name: "from",
     label: "Desde",
@@ -217,6 +196,27 @@ export const tripInputs = [
       required: {
         value: true,
         message: "Por favor, ingresar capacidad máxima de personas del viaje.",
+      },
+    },
+  },
+  {
+    id: "name",
+    name: "name",
+    label: "Nombre del viaje",
+    type: "text",
+    placeholder: "De carmen a Capital",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar nombre del viaje.",
+      },
+      minLength: {
+        value: 3,
+        message: "Nombre del viaje no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 30,
+        message: "Nombre del viaje no puede ser tan largo.",
       },
     },
   },
