@@ -115,22 +115,6 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
       className="relative w-full flex flex-col gap-3 p-3 py-6"
     >
       <div className="w-full flex flex-col gap-2 items-center lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
-        {inputs.map((input) => (
-          <div key={input.id} className="grid w-full items-center gap-2">
-            <Label htmlFor={input.id}>{input.label}</Label>
-            <Input
-              type={input.type}
-              id={input.id}
-              placeholder={input.placeholder}
-              {...register(input.id, input.validation)}
-            />
-            {errors[input.id as keyof typeof errors] && (
-              <p className="text-red-600">
-                {errors[input.id as keyof typeof errors]?.message}
-              </p>
-            )}
-          </div>
-        ))}
         <div className="grid w-full items-center gap-2">
           <Label htmlFor="date">Fecha</Label>
           <DatePickerContainer
@@ -138,7 +122,7 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
             startDate={startDate}
           />
         </div>
-        <div className="w-full flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between lg:row-start-2 ">
+        <div className="w-full flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
           <div className="grid w-full items-center gap-2 lg:w-[144px]">
             <Label htmlFor="departureTime">Horario de salida:</Label>
             <TimePickerContainer
@@ -155,6 +139,22 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
           </div>
           {err && <p className="text-red-600 self-start">{err}</p>}{" "}
         </div>
+        {inputs.map((input) => (
+          <div key={input.id} className="grid w-full items-center gap-2">
+            <Label htmlFor={input.id}>{input.label}</Label>
+            <Input
+              type={input.type}
+              id={input.id}
+              placeholder={input.placeholder}
+              {...register(input.id, input.validation)}
+            />
+            {errors[input.id as keyof typeof errors] && (
+              <p className="text-red-600">
+                {errors[input.id as keyof typeof errors]?.message}
+              </p>
+            )}
+          </div>
+        ))}
         <div className="w-full mt-2 lg:w-[9rem] lg:justify-self-end lg:self-end">
           <DefaultButton>Crear viaje</DefaultButton>
         </div>
