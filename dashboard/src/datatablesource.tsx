@@ -5,9 +5,6 @@ moment.locale("es");
 import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
 
 const formatDate = (date: string) => {
-  moment.locale("es", {
-    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-  });
   const momentDate = moment.utc(date);
   const timezone = "America/Argentina/Buenos_Aires";
   const timezone_date = momentDate.tz(timezone);
@@ -67,7 +64,6 @@ export const userColumns = [
     width: 180,
   },
 ];
-
 export const tripColumns = [
   {
     field: "date",
