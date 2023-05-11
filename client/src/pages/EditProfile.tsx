@@ -4,7 +4,6 @@ import { Upload, User, X } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/SectionTitle";
 import { toast } from "../hooks/ui/use-toast";
@@ -19,9 +18,10 @@ type UserData = {
   fullName: string | undefined;
   email: string | undefined;
   phone: number | undefined;
+  dni: number | undefined;
   image?: string | undefined;
   addressCda: string | undefined;
-  addressCapital?: string | undefined;
+  addressCapital: string | undefined;
 };
 
 const EditProfile = () => {
@@ -39,6 +39,7 @@ const EditProfile = () => {
       fullName: user?.fullName,
       email: user?.email,
       phone: user?.phone,
+      dni: user?.dni,
       addressCda: user?.addressCda,
       addressCapital: user?.addressCapital,
       image: user?.image,
@@ -124,7 +125,7 @@ const EditProfile = () => {
       },
     },
   };
-
+  console.log(user);
   return (
     <section className="">
       <SectionTitle>Editar perfil</SectionTitle>
@@ -194,25 +195,34 @@ const EditProfile = () => {
                     </div>
                   </div>
                   <div className="grid w-full max-w-md items-center gap-2">
-                    <Label htmlFor="username">Username</Label>
-                    <Input
-                      type="text"
-                      id="username"
-                      {...register("username", {
-                        required: {
-                          value: true,
-                          message: "Por favor, ingresa tu nombre de usuario.",
-                        },
-                        minLength: {
-                          value: 3,
-                          message: "Nombre de usuario debe ser mas corto.",
-                        },
-                        maxLength: {
-                          value: 15,
-                          message: "Nombre de usuario debe ser mas largo.",
-                        },
-                      })}
-                    />
+                    <Label htmlFor="username">Nombre de usuario</Label>
+                    <div className="relative flex items-center">
+                      <Input
+                        type="text"
+                        id="username"
+                        placeholder="ej. juanperez98"
+                        className="pl-7"
+                        {...register("username", {
+                          required: {
+                            value: true,
+                            message: "Por favor, ingresa tu nombre de usuario.",
+                          },
+                          minLength: {
+                            value: 3,
+                            message:
+                              "Nombre de usuario no puede ser tan corto.",
+                          },
+                          maxLength: {
+                            value: 15,
+                            message:
+                              "Nombre de usuario no puede ser tan largo.",
+                          },
+                        })}
+                      />
+                      <span className="absolute left-3 pb-[2px] select-none">
+                        @
+                      </span>
+                    </div>
                     {errors.username && (
                       <p className="text-red-600">{errors.username.message}</p>
                     )}
@@ -225,7 +235,7 @@ const EditProfile = () => {
                       {...register("fullName", {
                         required: {
                           value: true,
-                          message: "Por favor, ingresa tu nombre completo.",
+                          message: "Por favor, ingresa tu nombre y apellido.",
                         },
                         minLength: {
                           value: 3,
@@ -267,6 +277,35 @@ const EditProfile = () => {
                     />
                     {errors.phone && (
                       <p className="text-red-600">{errors.phone.message}</p>
+                    )}
+                  </div>
+                  <div className="grid w-full max-w-md items-center gap-2">
+                    <Label htmlFor="dni">DNI</Label>
+                    <Input
+                      type="number"
+                      id="dni"
+                      className="appearance-none"
+                      {...register("dni", {
+                        required: {
+                          value: true,
+                          message: "Por favor, ingresa tu DNI.",
+                        },
+                        minLength: {
+                          value: 3,
+                          message: "DNI no puede ser tan corto.",
+                        },
+                        maxLength: {
+                          value: 25,
+                          message: "DNI no puede ser tan largo.",
+                        },
+                        pattern: {
+                          value: /^[0-9]+$/,
+                          message: "DNI debe incluir solo números.",
+                        },
+                      })}
+                    />
+                    {errors.dni && (
+                      <p className="text-red-600">{errors.dni.message}</p>
                     )}
                   </div>
                   <div className="grid w-full max-w-md items-center gap-2">

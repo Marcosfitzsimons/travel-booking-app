@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone, User } from "lucide-react";
+import { Contact, ContactIcon, Mail, MapPin, Phone, User } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "./DefaultButton";
@@ -19,14 +19,15 @@ type TripProps = {
 
 type UserData = {
   _id: string;
+  fullName: string;
+  username: string;
   addressCapital: string;
   addressCda: string;
   email: string;
-  fullName: string;
   image?: string;
   myTrips: TripProps[];
   phone: undefined | number;
-  username: string;
+  dni: number;
 };
 interface UserInfoProps {
   userData: UserData;
@@ -96,19 +97,22 @@ const UserInfo = ({ userData }: UserInfoProps) => {
             <Phone className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
             <span className="font-medium">Celular:</span> {userData?.phone}
           </li>
+          <li className="flex items-center gap-1 shrink-0">
+            <ContactIcon className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
+            <span className="font-medium shrink-0">DNI:</span>
+            <span className="shrink-0">{userData?.dni}</span>
+          </li>
+          <li className="flex items-center gap-1 shrink-0">
+            <MapPin className="w-4 h-4 text-blue-lagoon-900/60  dark:text-blue-lagoon-300 shrink-0" />
+            <span className="font-medium shrink-0">Dirrecion Capital:</span>
+            <span className="shrink-0">{userData?.addressCapital}</span>
+          </li>
 
           <li className="flex items-center gap-1 shrink-0">
-            <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
-            <span className="font-medium shrink-0">Dirrección Carmen:</span>
-            <span className="shrink-0">{userData?.addressCda}</span>
+            <MapPin className="w-4 h-4 text-blue-lagoon-900/60  dark:text-blue-lagoon-300 shrink-0" />
+            <span className="font-medium shrink-0">Dirrecion Capital:</span>
+            <span className="shrink-0">{userData?.addressCapital}</span>
           </li>
-          {userData?.addressCapital && (
-            <li className="flex items-center gap-1 shrink-0">
-              <MapPin className="w-4 h-4 text-blue-lagoon-900/60  dark:text-blue-lagoon-300 shrink-0" />
-              <span className="font-medium shrink-0">Dirrecion Capital:</span>
-              <span className="shrink-0">{userData?.addressCapital}</span>
-            </li>
-          )}
         </ul>
 
         <div className="w-[min(24rem,100%)]" onClick={goToEditProfile}>

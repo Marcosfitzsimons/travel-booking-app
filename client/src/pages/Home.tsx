@@ -1,8 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 import PublicationCard from "../components/PublicationCard";
 import { MapPin, Newspaper } from "lucide-react";
+import backgroundImage from "../assets/routeImage.png";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -67,8 +68,8 @@ const Home = () => {
           </div>
         </div>
         <div className="py-4 flex flex-col items-center gap-3 lg:items-start lg:basis-2/5">
-          <h2 className="flex items-center gap-2 text-xl uppercase font-bold lg:text-2xl ">
-            <Newspaper />
+          <h2 className="flex items-center gap-2 text-xl uppercase font-bold lg:text-2xl dark:text-white">
+            <Newspaper className="w-6 h-6 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
             Ultimas novedades
           </h2>
           <div className="flex flex-col gap-2">
