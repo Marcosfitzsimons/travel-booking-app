@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 import PublicationCard from "../components/PublicationCard";
-import { ChevronsDown, MapPin, Newspaper, Pin } from "lucide-react";
+import { MapPin, Newspaper } from "lucide-react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const Home = () => {
   };
 
   return (
-    <div className="section lg:pt-32">
+    <div className="section lg:pt-28">
       <motion.div
         variants={sectionVariants}
         initial="hidden"
@@ -37,9 +37,9 @@ const Home = () => {
         exit="exit"
         className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-0"
       >
-        <div className="pb-10 pt-20 relative flex flex-col items-center gap-5 text-center  lg:h-auto lg:text-start lg:items-start lg:basis-3/5 lg:py-4">
+        <div className="pb-10 pt-20 relative flex flex-col items-center gap-5 text-center lg:h-auto lg:basis-1/2 lg:py-4">
           <div className="flex flex-col items-center gap-1">
-            <span className="h-[1px] w-8 bg-border-color dark:bg-border-color-dark"></span>
+            <span className="h-[1px] w-8 bg-border-color dark:bg-border-color-dark" />
             <h1 className="font-serif tracking-wider text-6xl dark:text-white lg:text-7xl">
               <span className="font-medium text-[5rem]">F</span>
               <span className="inline-block rotate-3">a</span>
