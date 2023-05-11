@@ -40,7 +40,7 @@ const Home = () => {
         <div className="pb-10 pt-20 relative flex flex-col items-center gap-5 text-center  lg:h-auto lg:text-start lg:items-start lg:basis-3/5 lg:py-4">
           <div className="flex flex-col items-center gap-1">
             <span className="h-[1px] w-8 bg-border-color dark:bg-border-color-dark"></span>
-            <h1 className="font-serif tracking-wider text-7xl dark:text-white">
+            <h1 className="font-serif tracking-wider text-6xl dark:text-white lg:text-7xl">
               <span className="font-medium text-[5rem]">F</span>
               <span className="inline-block rotate-3">a</span>
               <span className="inline-block -rotate-3">b</span>
