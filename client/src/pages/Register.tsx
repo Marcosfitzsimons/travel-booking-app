@@ -10,6 +10,7 @@ import axios from "axios";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
 import { AuthContext } from "../context/AuthContext";
+import { AtSign } from "lucide-react";
 
 type User = {
   username: string;
@@ -18,7 +19,8 @@ type User = {
   phone: number | null;
   image?: string;
   addressCda: string;
-  addressCapital?: string;
+  addressCapital: string;
+  dni: number | null;
   password: string;
 };
 
@@ -55,6 +57,8 @@ const Register = () => {
       email: "",
       phone: null,
       addressCda: "",
+      addressCapital: "",
+      dni: null,
     },
   });
 
@@ -108,7 +112,7 @@ const Register = () => {
             Crear cuenta nueva
           </h2>
           <p className="text-center lg:text-start">
-            Una vez que tengas tu cuenta vas a poder reservar tu lugar.
+            Una vez que tengas tu cuenta podrás reservar tu lugar.
           </p>
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
@@ -120,11 +124,11 @@ const Register = () => {
                 <Input
                   type="text"
                   id="fullname"
-                  placeholder="Tu nombre completo"
+                  placeholder="ej. Juan Pérez"
                   {...register("fullName", {
                     required: {
                       value: true,
-                      message: "Por favor, ingresa tu nombre completo.",
+                      message: "Por favor, ingresa tu nombre y apellido.",
                     },
                     minLength: {
                       value: 3,
@@ -142,25 +146,31 @@ const Register = () => {
               </div>
               <div className="grid w-full max-w-sm items-center gap-2">
                 <Label htmlFor="username">Nombre de usuario</Label>
-                <Input
-                  type="text"
-                  id="username"
-                  placeholder="@username22"
-                  {...register("username", {
-                    required: {
-                      value: true,
-                      message: "Por favor, ingresa tu nombre de usuario.",
-                    },
-                    minLength: {
-                      value: 3,
-                      message: "Nombre de usuario no puede ser tan corto.",
-                    },
-                    maxLength: {
-                      value: 15,
-                      message: "Nombre de usuario no puede ser tan largo.",
-                    },
-                  })}
-                />
+                <div className="relative flex items-center">
+                  <Input
+                    type="text"
+                    id="username"
+                    placeholder="ej. juanperez98"
+                    className="pl-7"
+                    {...register("username", {
+                      required: {
+                        value: true,
+                        message: "Por favor, ingresa tu nombre de usuario.",
+                      },
+                      minLength: {
+                        value: 3,
+                        message: "Nombre de usuario no puede ser tan corto.",
+                      },
+                      maxLength: {
+                        value: 15,
+                        message: "Nombre de usuario no puede ser tan largo.",
+                      },
+                    })}
+                  />
+                  <span className="absolute left-3 pb-[2px] select-none">
+                    @
+                  </span>
+                </div>
                 {errors.username && (
                   <p className="text-red-600">{errors.username.message}</p>
                 )}
@@ -197,7 +207,7 @@ const Register = () => {
                 <Input
                   type="email"
                   id="email"
-                  placeholder="Tu email"
+                  placeholder="ej. juanperez@ejemplo.com"
                   {...register("email", {
                     required: {
                       value: true,
@@ -249,27 +259,95 @@ const Register = () => {
                 )}
               </div>
               <div className="grid w-full max-w-sm items-center gap-2">
-                <Label htmlFor="address">Domicilio (Carmen)</Label>
+                <Label htmlFor="dni">DNI</Label>
                 <Input
-                  id="address"
-                  placeholder="Tu domicilio en Carmen"
-                  {...register("addressCda", {
+                  type="number"
+                  id="dni"
+                  className="appearance-none"
+                  placeholder="Tu DNI"
+                  {...register("dni", {
                     required: {
                       value: true,
-                      message: "Por favor, ingresa tu domicilio.",
+                      message: "Por favor, ingresa tu DNI.",
                     },
                     minLength: {
                       value: 3,
-                      message: "Domicilio no puede ser tan corto.",
+                      message: "DNI no puede ser tan corto.",
                     },
                     maxLength: {
                       value: 25,
-                      message: "Domicilio no puede ser tan largo.",
+                      message: "DNI no puede ser tan largo.",
+                    },
+                    pattern: {
+                      value: /^[0-9]+$/,
+                      message: "DNI debe incluir solo números.",
+                    },
+                  })}
+                />
+                {errors.dni && (
+                  <p className="text-red-600">{errors.dni.message}</p>
+                )}
+              </div>
+            </div>
+            <div className="w-full flex flex-col items-center gap-3 lg:flex-row">
+              <div className="grid w-full max-w-sm items-center gap-2">
+                <Label htmlFor="addresscda">
+                  Dirección (Carmen){" "}
+                  <span className="text-blue-lagoon-800 font-light dark:text-blue-lagoon-400">
+                    O donde subis
+                  </span>
+                </Label>
+                <Input
+                  id="addresscda"
+                  placeholder="ej. Rivadavia 293"
+                  {...register("addressCda", {
+                    required: {
+                      value: true,
+                      message: "Por favor, ingresar dirección.",
+                    },
+                    minLength: {
+                      value: 3,
+                      message: "Dirección no puede ser tan corta.",
+                    },
+                    maxLength: {
+                      value: 25,
+                      message: "Dirección no puede ser tan larga.",
                     },
                   })}
                 />
                 {errors.addressCda && (
                   <p className="text-red-600">{errors.addressCda.message}</p>
+                )}
+              </div>
+              <div className="grid w-full max-w-sm items-center gap-2">
+                <Label htmlFor="addresscapital">
+                  Dirección (Capital){" "}
+                  <span className="text-blue-lagoon-800 font-light dark:text-blue-lagoon-400">
+                    O donde bajas
+                  </span>
+                </Label>
+                <Input
+                  id="addresscapital"
+                  placeholder="ej. Callao 2304"
+                  {...register("addressCapital", {
+                    required: {
+                      value: true,
+                      message: "Por favor, ingresar dirección.",
+                    },
+                    minLength: {
+                      value: 3,
+                      message: "Dirección no puede ser tan corta.",
+                    },
+                    maxLength: {
+                      value: 25,
+                      message: "Dirección no puede ser tan larga.",
+                    },
+                  })}
+                />
+                {errors.addressCapital && (
+                  <p className="text-red-600">
+                    {errors.addressCapital.message}
+                  </p>
                 )}
               </div>
             </div>
