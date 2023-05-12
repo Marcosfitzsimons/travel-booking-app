@@ -24,6 +24,7 @@ const INITIAL_STATES = {
   myTrips: [],
   phone: undefined,
   username: "",
+  dni: undefined,
 };
 
 const sectionVariants = {

@@ -8,7 +8,8 @@ type User = {
   phone: number;
   image?: string;
   addressCda: string;
-  addressCapital?: string;
+  addressCapital: string;
+  dni: number;
   password: string;
   myTrips: [];
 };

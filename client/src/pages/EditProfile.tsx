@@ -12,6 +12,7 @@ import DefaultButton from "../components/DefaultButton";
 import BackButton from "../components/BackButton";
 import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
+import { useNavigate } from "react-router-dom";
 
 type UserData = {
   username: string | undefined;
@@ -46,6 +47,8 @@ const EditProfile = () => {
     },
   });
 
+  const navigate = useNavigate();
+
   const token = localStorage.getItem("token");
   const headers = {
     Authorization: `Bearer ${token}`,
@@ -71,9 +74,9 @@ const EditProfile = () => {
         toast({
           description: "Cambios guardados con exito.",
         });
-        /*         setTimeout(() => {
+        setTimeout(() => {
           navigate(0);
-        }, 2000); */
+        }, 2000);
       } else {
         const uploadRes = await axios.post(
           "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
@@ -91,9 +94,9 @@ const EditProfile = () => {
         toast({
           description: "Cambios guardados con exito.",
         });
-        /*         setTimeout(() => {
+        setTimeout(() => {
           navigate(0);
-        }, 2000); */
+        }, 2000);
       }
     } catch (err: any) {
       const errorMsg = err.response.data.msg;
@@ -125,7 +128,6 @@ const EditProfile = () => {
       },
     },
   };
-  console.log(user);
   return (
     <section className="">
       <SectionTitle>Editar perfil</SectionTitle>

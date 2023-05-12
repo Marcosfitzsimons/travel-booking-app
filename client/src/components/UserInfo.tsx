@@ -27,7 +27,7 @@ type UserData = {
   image?: string;
   myTrips: TripProps[];
   phone: undefined | number;
-  dni: number;
+  dni: number | undefined;
 };
 interface UserInfoProps {
   userData: UserData;
