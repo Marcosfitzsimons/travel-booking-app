@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from "../components/ui/dialog";
 import BackButton from "../components/BackButton";
-import { Mail, MapPin, Phone, Upload, User } from "lucide-react";
+import { ContactIcon, Mail, MapPin, Phone, Upload, User } from "lucide-react";
 import SectionTitle from "../components/SectionTitle";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -19,6 +19,7 @@ import { toast } from "../hooks/ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { useForm } from "react-hook-form";
 import DefaultButton from "../components/DefaultButton";
+import { Button } from "../components/ui/button";
 
 type UserData = {
   username: string | undefined;
@@ -27,10 +28,10 @@ type UserData = {
   addressCda: string | undefined;
   addressCapital?: string | undefined;
   phone: number | undefined;
+  dni: number | undefined;
   image?: string | undefined;
 };
 
-// change initial states
 const INITIAL_STATES = {
   username: "",
   fullName: "",
@@ -38,11 +39,13 @@ const INITIAL_STATES = {
   addressCda: "",
   addressCapital: "",
   phone: undefined,
+  dni: undefined,
   image: "",
 };
 
 const SinglePassenger = () => {
   const [data, setData] = useState(INITIAL_STATES);
+  console.log(data);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<File | string>("");
   const [err, setErr] = useState<any>(false);
@@ -57,6 +60,7 @@ const SinglePassenger = () => {
       fullName: "",
       email: "",
       phone: undefined,
+      dni: undefined,
       image: "",
       addressCda: "",
       addressCapital: "",
@@ -141,6 +145,7 @@ const SinglePassenger = () => {
           email: userData.email,
           fullName: userData.fullName,
           phone: userData.phone,
+          dni: userData.dni,
           addressCda: userData.addressCda,
           addressCapital: userData.addressCapital,
           image: userData.image ? userData.image : "",
@@ -156,6 +161,9 @@ const SinglePassenger = () => {
   return (
     <section className="flex flex-col gap-3">
       <SectionTitle>Información del pasajero:</SectionTitle>
+      <p className="text-red-600 font-medium">
+        {`<- Fix update passenger functionality ->`}
+      </p>
       <div className="self-start mb-2">
         <BackButton linkTo={`/trips/${tripId}`} />
       </div>
@@ -180,33 +188,39 @@ const SinglePassenger = () => {
             <h4 className="text-[#737373]">@{data?.username}</h4>
           </div>
           <div className="w-full flex flex-col items-center gap-5">
-            <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 border border-blue-lagoon-500/20 items-start p-4 shadow-inner rounded-md dark:bg-black dark:border-blue-lagoon-300/60 dark:hover:border-blue-lagoon-300">
+            <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 items-start max-w-sm border border-border-color p-4 shadow-inner rounded-md dark:bg-black/60 dark:border-zinc-500">
               <li className="flex items-center gap-1">
-                <Mail className="h-4 w-4" />
+                <Mail className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
                 <span className="font-medium">Email:</span>
                 {data?.email}
               </li>
               <li className="flex items-center gap-1">
-                <Phone className="h-4 w-4" />
+                <Phone className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
                 <span className="font-medium">Celular:</span> {data?.phone}
               </li>
-
               <li className="flex items-center gap-1 shrink-0">
-                <MapPin className="w-4 h-4 shrink-0" />
+                <ContactIcon className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
+                <span className="font-medium shrink-0">DNI:</span>
+                <span className="shrink-0">{data?.dni}</span>
+              </li>
+              <li className="flex items-center gap-1 shrink-0">
+                <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
                 <span className="font-medium shrink-0">Dirrección Carmen:</span>
                 <span className="shrink-0">{data?.addressCda}</span>
               </li>
 
               <li className="flex items-center gap-1 shrink-0">
-                <MapPin className="w-4 h-4 shrink-0" />
+                <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
                 <span className="font-medium shrink-0">Dirrecion Capital:</span>
                 <span className="shrink-0">{data?.addressCapital}</span>
               </li>
             </ul>
             <Dialog>
-              <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:w-auto lg:h-7">
-                <DialogTrigger className="relative w-full bg-[#a72f35] rounded-lg h-10 py-1.5 px-6 text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#a72f35] lg:w-auto lg:h-7 lg:py-0.5">
-                  Editar
+              <div className="relative w-full max-w-sm mx-auto after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:h-8 lg:w-[9rem]">
+                <DialogTrigger asChild>
+                  <Button className="relative w-full bg-[#9e4a4f] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 max-w-sm dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f] lg:h-8 lg:w-[9rem]">
+                    Editar
+                  </Button>
                 </DialogTrigger>
               </div>
               <DialogContent>
@@ -354,6 +368,34 @@ const SinglePassenger = () => {
                         )}
                       </div>
                       <div className="grid w-full max-w-md items-center gap-2">
+                        <Label htmlFor="dni">DNI</Label>
+                        <Input
+                          type="number"
+                          id="dni"
+                          {...register("dni", {
+                            required: {
+                              value: true,
+                              message: "Por favor, ingresa tu DNI.",
+                            },
+                            minLength: {
+                              value: 3,
+                              message: "DNI no puede ser tan corto.",
+                            },
+                            maxLength: {
+                              value: 25,
+                              message: "DNI no puede ser tan largo.",
+                            },
+                            pattern: {
+                              value: /^[0-9]+$/,
+                              message: "DNI debe incluir solo números.",
+                            },
+                          })}
+                        />
+                        {errors.dni && (
+                          <p className="text-red-600">{errors.dni.message}</p>
+                        )}
+                      </div>
+                      <div className="grid w-full max-w-md items-center gap-2">
                         <Label htmlFor="email">Email</Label>
                         <Input
                           type="email"
@@ -434,7 +476,9 @@ const SinglePassenger = () => {
                       )}
                       <DialogFooter>
                         <div className="w-[min(28rem,100%)] flex justify-center">
-                          <DefaultButton>Guardar cambios</DefaultButton>
+                          <DefaultButton loading={loading}>
+                            Guardar cambios
+                          </DefaultButton>
                         </div>
                       </DialogFooter>
                     </form>
