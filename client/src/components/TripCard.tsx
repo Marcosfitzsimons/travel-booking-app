@@ -95,7 +95,7 @@ const TripCard = ({
         } w-full px-4 pt-9`}
       >
         <div className="flex flex-col gap-2">
-          <div className="absolute top-[.6rem] left-5">
+          <div className="absolute top-[.6rem] left-3">
             <img
               src={miniBus}
               alt="combi"
@@ -103,12 +103,12 @@ const TripCard = ({
             />
           </div>
           <div className="absolute right-4 top-2 flex items-center gap-2">
-            <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-2xl border border-teal-800/80 bg-teal-300/30 dark:bg-teal-800  dark:border-teal-400/80 dark:text-white px-3 py-0.5">
+            <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
               <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
               {formatDate(date)}
             </p>
             {formatDate(date) === todayDate && (
-              <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-2xl dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-3 py-0.5">
+              <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-lg dark:bg-[#75f5a8]/20 dark:border-[#86dda9] dark:text-white px-3">
                 HOY
               </p>
             )}

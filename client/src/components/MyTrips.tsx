@@ -166,10 +166,9 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                 </p>
 
                 {isVisibleReminder && (
-                  <p className="flex items-center gap-1 relative p-4 rounded-md shadow-md bg-white border border-yellow-400/20 dark:border-yellow-200/70 dark:bg-black md:px-12 ">
-                    Recordá que al hacer click en la campanita{" "}
-                    <Bell className="hidden w-4 h-4 shrink-0 lg:flex" /> podrás
-                    activar un recordatorio previo a la hora del viaje
+                  <p className="relative p-4 rounded-md shadow-md bg-white border border-yellow-400/20 dark:border-yellow-200/70 dark:bg-black md:px-12 ">
+                    Recordá que al hacer click en la 🔔 podrás activar un
+                    recordatorio previo a la hora del viaje
                     <X
                       className="absolute w-4 h-4 right-2 top-2 cursor-pointer"
                       onClick={() => setIsVisibleReminder(false)}
@@ -182,7 +181,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
             )}
           </div>
           <Separator className="w-16" />
-          <h4 className="flex items-center gap-1 font-bold text-lg dark:text-white self-start lg:text-2xl">
+          <h4 className="flex items-center gap-1 font-medium text-xl dark:text-white self-start lg:text-2xl">
             <ClipboardList className="h-5 w-5 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 lg:w-6 lg:h-6" />
             Mis viajes:
           </h4>
@@ -191,18 +190,18 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="w-full flex flex-col items-center gap-5 md:grid md:justify-items-center md:grid-cols-2"
+            className="w-full flex flex-col items-center md:gap-5 md:grid md:justify-items-center md:grid-cols-2"
           >
             {userTrips && userTrips.length > 0 ? (
               <>
                 {userTrips.map((trip: TripProps) => (
                   <article
                     key={trip.id}
-                    className="w-full relative bg-white/40 border border-border-color rounded-md shadow-md mb-10 pb-2 max-w-[400px] dark:bg-black/60 dark:border-zinc-500"
+                    className="w-full relative bg-white/40 border border-border-color rounded-md shadow-md mb-5 pb-2 max-w-[400px] dark:bg-black/60 dark:border-zinc-500"
                   >
                     <div className="px-4 pt-9 pb-4">
                       <div className="flex flex-col gap-2">
-                        <div className="absolute top-[.6rem] left-5">
+                        <div className="absolute top-[.6rem] left-3">
                           <img
                             src={miniBus}
                             alt="combi"
@@ -210,16 +209,16 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                           />
                         </div>
                         <div className="absolute right-4 top-2 flex items-center gap-2">
-                          <Button className="w-8 h-8 p-0 bg-yellow-200/50 text-yellow-900/80 border border-yellow-800/20 dark:border-yellow-200/70 dark:text-yellow-200/90">
+                          <Button className="w-8 h-8 p-0 bg-yellow-200/50 text-yellow-900/80 border border-yellow-900/60 dark:border-yellow-200/70 dark:text-yellow-200/90">
                             <Bell className="w-4 h-4" />
                           </Button>
                           <Separator orientation="vertical" className="h-4" />
-                          <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-teal-800/80 bg-teal-300/30 dark:bg-teal-800  dark:border-teal-400/80 dark:text-white px-3 ">
+                          <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
                             <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
                             {formatDate(trip.date)}
                           </p>
                           {formatDate(trip.date) === todayDate && (
-                            <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-lg dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-3 py-0">
+                            <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-lg dark:bg-[#75f5a8]/20 dark:border-[#86dda9] dark:text-white px-3 py-0">
                               HOY
                             </p>
                           )}
