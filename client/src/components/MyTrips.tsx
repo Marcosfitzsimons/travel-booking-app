@@ -166,7 +166,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                 </p>
 
                 {isVisibleReminder && (
-                  <p className="flex items-center gap-1 relative p-4 rounded-md bg-white border border-yellow-400/20 dark:border-yellow-200/70 dark:bg-black md:px-12 ">
+                  <p className="flex items-center gap-1 relative p-4 rounded-md shadow-md bg-white border border-yellow-400/20 dark:border-yellow-200/70 dark:bg-black md:px-12 ">
                     Recordá que al hacer click en la campanita{" "}
                     <Bell className="hidden w-4 h-4 shrink-0 lg:flex" /> podrás
                     activar un recordatorio previo a la hora del viaje
