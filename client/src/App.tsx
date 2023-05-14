@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="">
       <Header setIsUserInfo={setIsUserInfo} />
-      <main className="pt-20 w-[min(90%,1000px)] mx-auto py-2">
+      <main className="pt-20 w-[min(95%,1000px)] mx-auto py-2">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="*" element={<NotFound />} />
