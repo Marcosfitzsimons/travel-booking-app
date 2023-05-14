@@ -9,6 +9,7 @@ import BackButton from "../components/BackButton";
 import { Separator } from "../components/ui/separator";
 import Loading from "../components/Loading";
 import axios from "axios";
+import { ClipboardList, User } from "lucide-react";
 
 type ProfileProps = {
   isUserInfo: boolean;
@@ -94,20 +95,21 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                 <BackButton toProfile={false} />
               </div>
               <nav className="flex items-center justify-center">
-                <ul className="flex items-center gap-5 px-5 py-2">
+                <ul className="flex items-center gap-7 px-5 py-2">
                   <li className="relative">
                     <button
                       tabIndex={0}
                       onClick={() => setIsUserInfo(true)}
-                      className={`font-medium ${
+                      className={`font-medium flex items-center gap-1 ${
                         isUserInfo ? "dark:text-white" : "dark:hover:text-white"
                       }`}
                     >
+                      <User className="h-5 w-5 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                       <RoughNotation
                         type="circle"
                         show={isUserInfo}
                         color="#f9b4b4"
-                        padding={11}
+                        padding={[8, 15, 8, 38]}
                       >
                         Mi perfil
                       </RoughNotation>
@@ -118,17 +120,18 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                     <button
                       tabIndex={0}
                       onClick={() => setIsUserInfo(false)}
-                      className={`font-medium ${
+                      className={`font-medium flex items-center gap-1 ${
                         !isUserInfo
                           ? "dark:text-white"
                           : "dark:hover:text-white"
                       }`}
                     >
+                      <ClipboardList className="h-5 w-5 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                       <RoughNotation
                         type="circle"
                         show={!isUserInfo}
                         color="#f9b4b4"
-                        padding={11}
+                        padding={[8, 15, 8, 38]}
                       >
                         Mis viajes
                       </RoughNotation>
