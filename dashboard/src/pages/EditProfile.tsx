@@ -256,7 +256,7 @@ const EditProfile = () => {
                     )}
                   </div>
                   {err && <p className="text-red-600 self-start">{err}</p>}
-                  <div className="w-[min(28rem,100%)] flex justify-center my-1">
+                  <div className="w-full flex justify-center my-1 lg:w-[10rem]">
                     <DefaultButton>Guardar cambios</DefaultButton>
                   </div>
                 </form>

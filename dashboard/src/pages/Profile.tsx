@@ -5,7 +5,7 @@ import BackButton from "../components/BackButton";
 import Loading from "../components/Loading";
 import axios from "axios";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
-import { Mail, MapPin, Phone, User } from "lucide-react";
+import { Mail, MapPin, Phone, User, UserCog } from "lucide-react";
 import DefaultButton from "../components/DefaultButton";
 import { useNavigate } from "react-router-dom";
 
@@ -84,18 +84,18 @@ const Profile = () => {
               </div>
               <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-border-color items-start p-4 shadow-inner rounded-md dark:bg-black/40 dark:border-border-color-dark">
                 <li className="flex items-center gap-1">
-                  <Mail className="h-4 w-4" />
+                  <Mail className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                   <span className="font-medium">Email:</span>
                   {data?.email}
                 </li>
                 <li className="flex items-center gap-1">
-                  <Phone className="h-4 w-4" />
+                  <Phone className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                   <span className="font-medium">Celular:</span> {data?.phone}
                 </li>
               </ul>
 
               <div
-                className="w-[min(24rem,100%)] flex justify-center"
+                className="w-full flex justify-center lg:w-[9rem]"
                 onClick={goToEditProfile}
               >
                 <DefaultButton>Editar perfil</DefaultButton>

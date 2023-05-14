@@ -45,7 +45,7 @@ const AlertDialogContent = React.forwardRef<
       ref={ref}
       className={cn(
         "animate-in fade-in-90 slide-in-from-bottom-10 sm:zoom-in-90 sm:slide-in-from-bottom-0 fixed z-50 grid w-full max-w-[35rem] scale-100 gap-4 bg-white p-6 opacity-100 sm:rounded-lg md:max-w-lg",
-        "dark:bg-[#010e11]",
+        "dark:bg-[#010e11] lg:border lg:border-border-color lg:dark:border-zinc-500",
         className
       )}
       {...props}

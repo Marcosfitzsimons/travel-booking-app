@@ -115,18 +115,18 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
                     <div className="w-full flex flex-col items-center gap-5">
                       <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 border border-border-color items-start p-4 shadow-inner rounded-md dark:bg-black/80 dark:border-border-color-dark dark:hover:border-blue-lagoon-300">
                         <li className="flex items-center gap-1">
-                          <Mail className="h-4 w-4" />
+                          <Mail className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                           <span className="font-medium">Email:</span>
                           {params.row.email}
                         </li>
                         <li className="flex items-center gap-1">
-                          <Phone className="h-4 w-4" />
+                          <Phone className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                           <span className="font-medium">Celular:</span>{" "}
                           {params.row.phone}
                         </li>
 
                         <li className="flex items-center gap-1 shrink-0">
-                          <MapPin className="w-4 h-4 shrink-0" />
+                          <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
                           <span className="font-medium shrink-0">
                             Dirrección Carmen:
                           </span>
@@ -136,7 +136,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
                         </li>
 
                         <li className="flex items-center gap-1 shrink-0">
-                          <MapPin className="w-4 h-4 shrink-0" />
+                          <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
                           <span className="font-medium shrink-0">
                             Dirrecion Capital:
                           </span>

@@ -227,37 +227,35 @@ const SingleTrip = () => {
                       {data.name}
                     </h3>
                   </div>
-                  <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-blue-lagoon-700/50 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-900/5 dark:border-blue-lagoon-300/80">
+                  <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-900/5 dark:border-border-color-dark">
                     <div className="flex flex-col gap-2">
                       <p className="flex items-center gap-1">
-                        <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white font-medium">
                           Salida:
                         </span>{" "}
                         {data.departureTime}
                         <span>- {data.from}</span>
                       </p>
-                      {data.arrivalTime && (
-                        <div className=" flex items-center gap-1">
-                          <p className="flex items-center gap-1">
-                            <Clock className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
-                            <span className="dark:text-white font-medium">
-                              Llegada:
-                            </span>{" "}
-                            {data.arrivalTime}
-                            <span>- {data.to}</span>
-                          </p>
-                        </div>
-                      )}
+                      <div className=" flex items-center gap-1">
+                        <p className="flex items-center gap-1">
+                          <Clock className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <span className="dark:text-white font-medium">
+                            Llegada:
+                          </span>{" "}
+                          {data.arrivalTime}
+                          <span>- {data.to}</span>
+                        </p>
+                      </div>
                       <p className="flex items-center gap-1">
-                        <DollarSign className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                        <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white font-medium">
                           Precio:{" "}
                         </span>
                         ${data.price}
                       </p>
                       <p className="flex items-center gap-1">
-                        <Users className="w-4 h-4 text-blue-lagoon-800 dark:text-white" />
+                        <Users className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white font-medium">
                           Capacidad máxima:
                         </span>{" "}
