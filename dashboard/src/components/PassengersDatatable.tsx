@@ -41,6 +41,7 @@ type UserData = {
   image?: string;
   myTrips: Trip[];
   phone: undefined | number;
+  dni: undefined | number;
   username: string;
 };
 

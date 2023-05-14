@@ -39,6 +39,16 @@ export const userColumns = [
     },
   },
   {
+    field: "addressCda",
+    headerName: "Dirección (Carmen)",
+    width: 180,
+  },
+  {
+    field: "addressCapital",
+    headerName: "Dirección (Capital)",
+    width: 180,
+  },
+  {
     field: "username",
     headerName: "Usuario",
     width: 160,
@@ -54,16 +64,12 @@ export const userColumns = [
     width: 130,
   },
   {
-    field: "addressCda",
-    headerName: "Dirección (Carmen)",
-    width: 180,
-  },
-  {
-    field: "addressCapital",
-    headerName: "Dirección (Capital)",
-    width: 180,
+    field: "dni",
+    headerName: "DNI",
+    width: 130,
   },
 ];
+
 export const tripColumns = [
   {
     field: "date",
@@ -123,15 +129,6 @@ export const passengerColumns = [
     },
   },
   {
-    field: "username",
-    headerName: "Usuario",
-    width: 150,
-    renderCell: (params: any) => {
-      return <p className="">@{params.row.createdBy.username}</p>;
-    },
-  },
-
-  {
     field: "addressCda",
     headerName: "Dirección (Carmen)",
     width: 180,
@@ -148,11 +145,11 @@ export const passengerColumns = [
     },
   },
   {
-    field: "phone",
-    headerName: "Celular",
-    width: 130,
+    field: "username",
+    headerName: "Usuario",
+    width: 150,
     renderCell: (params: any) => {
-      return <p className="">{params.row.createdBy.phone}</p>;
+      return <p className="">@{params.row.createdBy.username}</p>;
     },
   },
   {
@@ -161,6 +158,22 @@ export const passengerColumns = [
     width: 230,
     renderCell: (params: any) => {
       return <p className="">{params.row.createdBy.email}</p>;
+    },
+  },
+  {
+    field: "phone",
+    headerName: "Celular",
+    width: 130,
+    renderCell: (params: any) => {
+      return <p className="">{params.row.createdBy.phone}</p>;
+    },
+  },
+  {
+    field: "dni",
+    headerName: "DNI",
+    width: 130,
+    renderCell: (params: any) => {
+      return <p className="">{params.row.createdBy.dni}</p>;
     },
   },
 ];
