@@ -107,7 +107,6 @@ const UserInfo = ({ userData }: UserInfoProps) => {
             <span className="font-medium shrink-0">Dirrecion Capital:</span>
             <span className="shrink-0">{userData?.addressCapital}</span>
           </li>
-
           <li className="flex items-center gap-1 shrink-0">
             <MapPin className="w-4 h-4 text-blue-lagoon-900/60  dark:text-blue-lagoon-300 shrink-0" />
             <span className="font-medium shrink-0">Dirrecion Capital:</span>
