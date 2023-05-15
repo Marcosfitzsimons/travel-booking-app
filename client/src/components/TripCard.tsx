@@ -95,7 +95,7 @@ const TripCard = ({
         } w-full px-4 pt-9`}
       >
         <div className="flex flex-col gap-2">
-          <div className="absolute top-[.6rem] left-3">
+          <div className="absolute top-[.45rem] left-3">
             <img
               src={miniBus}
               alt="combi"
@@ -114,11 +114,17 @@ const TripCard = ({
             )}
           </div>
 
-          <div className="flex flex-col gap-3 mt-4 lg:mt-7">
+          <div className="flex flex-col gap-3 mt-4 lg:mt-7 relative">
             <div className="flex items-center gap-4">
               <h3 className="font-bold text-lg lg:text-xl">{name}</h3>
             </div>
-            <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
+            <div className="relative flex flex-col w-full bg-blue-lagoon-200/10 gap-2 mt-1 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
+              {maxCapacity !== passengers.length && (
+                <p className="flex items-center gap-1 absolute -top-6 right-0 font-extralight text-sm text-gray-600 dark:text-gray-300">
+                  <span className="w-2 h-2 bg-green-600 rounded-full animate-pulse" />
+                  Disponible
+                </p>
+              )}
               <div className="flex flex-col gap-2">
                 <p className="flex items-center gap-1">
                   <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
