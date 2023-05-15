@@ -43,7 +43,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
 
   return (
     <header className="fixed w-full z-50 bg-[#fafafa] dark:bg-[#0E1217] border-b border-b-border-color dark:border-b-border-color-dark">
-      <div className="w-[min(90%,1000px)] mx-auto py-3 flex justify-between items-center">
+      <div className="w-[min(95%,1000px)] mx-auto py-3 flex justify-between items-center">
         <div className="flex items-center flex-row-reverse gap-2">
           {user ? (
             <Link
