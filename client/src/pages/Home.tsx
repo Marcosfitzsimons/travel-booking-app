@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 import PublicationCard from "../components/PublicationCard";
-import { MapPin, Newspaper } from "lucide-react";
+import { ChevronsRight, MapPin, Newspaper } from "lucide-react";
 import backgroundImage from "../assets/routeImage.png";
 
 const Home = () => {
@@ -38,7 +38,7 @@ const Home = () => {
         exit="exit"
         className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-0"
       >
-        <div className="pb-10 pt-20 relative flex flex-col items-center gap-5 text-center lg:h-auto lg:basis-1/2 lg:py-4">
+        <div className="pb-10 pt-20 relative flex flex-col items-center gap-5 text-center lg:h-auto lg:basis-1/2 lg:py-20">
           <div className="flex flex-col items-center gap-1">
             <span className="h-[1px] w-8 bg-border-color dark:bg-border-color-dark" />
             <h1 className="font-serif tracking-wider text-6xl dark:text-white lg:text-7xl">
@@ -61,9 +61,10 @@ const Home = () => {
           <div className="">
             <Button
               onClick={() => navigate("/viajes")}
-              className="mt-1 h-10 border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
+              className="mt-1 h-10 pl-6 gap-[3px] border border-blue-lagoon-700/50 shadow-md shadow-blue-lagoon-900/30 bg-[#9e4a4f] text-blue-lagoon-100 transition-colors hover:text-white hover:shadow-blue-lagoon-900/50 dark:hover:shadow-blue-lagoon-900 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:shadow-blue-lagoon-900/60 dark:bg-[#9e4a4f] dark:hover:border-blue-lagoon-300/80 dark:hover:shadow-lg dark:hover:text-white"
             >
-              Viajes disponibles
+              Ver Viajes{" "}
+              <ChevronsRight className="w-5 h-5 relative top-[1px]" />
             </Button>
           </div>
         </div>
