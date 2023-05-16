@@ -103,18 +103,18 @@ const UserInfo = ({ userData }: UserInfoProps) => {
             <span className="shrink-0">{userData?.dni}</span>
           </li>
           <li className="flex items-center gap-1 shrink-0">
-            <MapPin className="w-4 h-4 text-blue-lagoon-900/60  dark:text-blue-lagoon-300 shrink-0" />
-            <span className="font-medium shrink-0">Dirrecion Capital:</span>
-            <span className="shrink-0">{userData?.addressCapital}</span>
+            <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
+            <span className="font-medium shrink-0">Dirreción (Carmen):</span>
+            <span className="shrink-0">{userData?.addressCda}</span>
           </li>
           <li className="flex items-center gap-1 shrink-0">
             <MapPin className="w-4 h-4 text-blue-lagoon-900/60  dark:text-blue-lagoon-300 shrink-0" />
-            <span className="font-medium shrink-0">Dirrecion Capital:</span>
+            <span className="font-medium shrink-0">Dirreción (Capital):</span>
             <span className="shrink-0">{userData?.addressCapital}</span>
           </li>
         </ul>
 
-        <div className="w-[min(24rem,100%)]" onClick={goToEditProfile}>
+        <div className="w-[min(9rem,100%)]" onClick={goToEditProfile}>
           <DefaultButton>Editar perfil</DefaultButton>
         </div>
       </motion.div>
