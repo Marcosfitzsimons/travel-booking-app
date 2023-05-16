@@ -11,7 +11,7 @@ import {
 
 const PublicationCard = () => {
   return (
-    <article className="w-full relative max-w-md rounded-md border border-border-color bg-white/80 p-4 py-2 pb-4 flex flex-col gap-3 dark:border-border-color-dark dark:bg-black/60">
+    <article className="w-full relative max-w-md rounded-md border border-border-color bg-white/80 px-4 py-8 flex flex-col gap-3 dark:border-border-color-dark dark:bg-black/60 lg:pt-5">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -30,7 +30,9 @@ const PublicationCard = () => {
           <AvatarImage src={logo} alt="fabebus" />
           <AvatarFallback>Fabebus</AvatarFallback>
         </Avatar>
-        <h3 className="font-medium text-lg">Nombre publicación</h3>
+        <h3 className="font-medium text-lg dark:text-white">
+          Nombre publicación
+        </h3>
       </div>
       <div className="">
         <p>

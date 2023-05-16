@@ -150,7 +150,7 @@ const TripCard = ({
                             <span className="sr-only">Alert Circle</span>
                           </button>
                         </TooltipTrigger>
-                        <TooltipContent className="">
+                        <TooltipContent className="w-28">
                           <p className="">
                             El horario de llegada estimado es aproximado y puede
                             variar
