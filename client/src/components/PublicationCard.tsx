@@ -1,16 +1,36 @@
 import React from "react";
 import logo from "../assets/fabebus-logo.jpg";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { ChevronsDown } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 const PublicationCard = () => {
   return (
-    <article className="w-full relative rounded-md border border-border-color bg-white/80 p-4 py-6 flex flex-col gap-3 dark:border-border-color-dark dark:bg-black/60">
+    <article className="w-full relative max-w-md rounded-md border border-border-color bg-white/80 p-4 py-2 pb-4 flex flex-col gap-3 dark:border-border-color-dark dark:bg-black/60">
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button className="absolute self-center bottom-1">
+              <ChevronsDown className="" />
+              <span className="sr-only">Arrow Down</span>
+            </button>
+          </TooltipTrigger>
+          <TooltipContent className="">
+            <p className="">Ver más</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <div className="flex items-center gap-2">
         <Avatar className="w-8 h-8">
           <AvatarImage src={logo} alt="fabebus" />
           <AvatarFallback>Fabebus</AvatarFallback>
         </Avatar>
-        <h3>Nombre publicación</h3>
+        <h3 className="font-medium text-lg">Nombre publicación</h3>
       </div>
       <div className="">
         <p>
@@ -18,8 +38,8 @@ const PublicationCard = () => {
           reprehenderit assumenda. Totam, architecto labore?
         </p>
       </div>
-      <p className="absolute right-2 top-2 font-medium">
-        Martes 05/11 11:29 AM
+      <p className="absolute right-2 top-2 text-sm">
+        Martes 05/11<span className="font-light"> - 11:29 AM</span>
       </p>
     </article>
   );
