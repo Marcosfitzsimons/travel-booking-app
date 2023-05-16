@@ -63,7 +63,7 @@ const Home = () => {
           <div className="">
             <Button
               onClick={() => navigate("/viajes")}
-              className="mt-1 h-10 pl-6 gap-[3px] border border-blue-lagoon-700/50 shadow-md shadow-blue-lagoon-900/30 bg-[#9e4a4f] text-blue-lagoon-100 transition-colors hover:text-white hover:shadow-blue-lagoon-900/50 dark:hover:shadow-blue-lagoon-900 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:shadow-blue-lagoon-900/60 dark:bg-[#9e4a4f] dark:hover:border-blue-lagoon-300/80 dark:hover:shadow-lg dark:hover:text-white"
+              className="mainbutton mt-1 h-10 pl-6 gap-[3px] border border-blue-lagoon-700/50 shadow-md shadow-blue-lagoon-900/30 bg-gradient-to-r from-[#9e4a4f] via-[#854147] to-[#9c595d] bg-[length:200%] bg-left transition text-blue-lagoon-100 hover:bg-right hover:text-white hover:shadow-blue-lagoon-900/50 dark:hover:shadow-blue-lagoon-900 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:shadow-blue-lagoon-900/60 dark:bg-[#9e4a4f] dark:hover:border-blue-lagoon-300/80 dark:hover:shadow-lg dark:hover:text-white"
             >
               Ver Viajes{" "}
               <ChevronsRight className="w-5 h-5 relative top-[1px]" />
