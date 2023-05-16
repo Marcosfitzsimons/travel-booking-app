@@ -354,7 +354,7 @@ const Register = () => {
             {err && <p className="text-red-600 self-start">{err}</p>}
 
             <div className="w-full flex flex-col items-center gap-3">
-              <div className="w-full max-w-sm md:max-w-[200px]">
+              <div className="w-full max-w-sm lg:mt-2 lg:max-w-[9rem]">
                 <DefaultButton loading={loading}>Crear cuenta</DefaultButton>
               </div>
               <p className="w-full text-center lg:text-start lg:my-4">

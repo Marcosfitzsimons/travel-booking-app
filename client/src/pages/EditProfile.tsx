@@ -386,7 +386,7 @@ const EditProfile = () => {
                     )}
                   </div>
                   {err && <p className="text-red-600 self-start">{err}</p>}
-                  <div className="w-[min(10rem,100%)]">
+                  <div className="w-full max-w-md lg:w-[10rem]">
                     <DefaultButton>Guardar cambios</DefaultButton>
                   </div>
                 </form>

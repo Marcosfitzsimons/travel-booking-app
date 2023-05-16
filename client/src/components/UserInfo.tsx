@@ -114,7 +114,7 @@ const UserInfo = ({ userData }: UserInfoProps) => {
           </li>
         </ul>
 
-        <div className="w-[min(9rem,100%)]" onClick={goToEditProfile}>
+        <div className="w-full max-w-sm lg:w-[10rem]" onClick={goToEditProfile}>
           <DefaultButton>Editar perfil</DefaultButton>
         </div>
       </motion.div>
