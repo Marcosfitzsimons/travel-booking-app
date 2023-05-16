@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 import PublicationCard from "../components/PublicationCard";
-import { ChevronsRight, MapPin, Newspaper } from "lucide-react";
-import backgroundImage from "../assets/routeImage.png";
+import { ChevronsRight, Newspaper } from "lucide-react";
+import pin from "../assets/pin.png";
+import { RoughNotation } from "react-rough-notation";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -50,10 +51,11 @@ const Home = () => {
               <span className="inline-block rotate-6">u</span>
               <span className="inline-block -rotate-3">s</span>
             </h1>
-            <p className="relative bottom-2 font-medium dark:text-slate-100 flex items-center">
-              <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
-              Carmen de Areco
-            </p>
+            <div className="flex items-center relative bottom-2">
+              <p className="font-serif dark:text-white flex items-center">
+                Carmen de Areco
+              </p>
+            </div>
           </div>
           <p className="font-medium dark:text-slate-100">
             Una empresa familiar con más de 28 años de trayectoria.
