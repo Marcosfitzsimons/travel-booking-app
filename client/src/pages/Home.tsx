@@ -41,7 +41,6 @@ const Home = () => {
       >
         <div className="pb-10 pt-20 relative flex flex-col items-center gap-5 text-center lg:h-auto lg:basis-1/2 lg:py-20">
           <div className="flex flex-col items-center gap-1">
-            <span className="h-[1px] w-8 bg-border-color dark:bg-border-color-dark" />
             <h1 className="font-serif tracking-wider text-6xl dark:text-white lg:text-7xl">
               <span className="font-medium text-[5rem]">F</span>
               <span className="inline-block rotate-3">a</span>
@@ -70,7 +69,7 @@ const Home = () => {
             </Button>
           </div>
         </div>
-        <div className="py-4 flex flex-col items-center gap-3 lg:items-start lg:basis-2/5">
+        <div className="py-4 flex flex-col items-center gap-3 lg:items-start lg:basis-[45%]">
           <h2 className="flex items-center gap-2 text-xl uppercase font-bold lg:text-2xl dark:text-white">
             <Newspaper className="w-6 h-6 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
             Ultimas novedades
