@@ -10,7 +10,9 @@ const formatDate = (date: string) => {
   // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
   return formatted_date;
 };
-
+moment.locale("es", {
+  weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+});
 const todayDate = moment().format("ddd DD/MM");
 
 export const userColumns = [

@@ -1,17 +1,8 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import {
-  Eye,
-  PlusCircle,
-  Trash2,
-  Map,
-  RotateCcw,
-  ListPlus,
-} from "lucide-react";
+import { Eye, Trash2, Map, RotateCcw, ListPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import moment from "moment";
-import "moment/locale/es"; // without this line it didn't work
-moment.locale("es");
 import "moment-timezone";
 import useFetch from "../hooks/useFetch";
 import axios from "axios";
