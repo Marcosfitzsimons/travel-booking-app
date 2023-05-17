@@ -19,6 +19,7 @@ import { toast } from "../hooks/ui/use-toast";
 import Loading from "../components/Loading";
 import miniBus from "../assets/minibus1-sm.png";
 import { DollarSign } from "lucide-react";
+import BackButton from "../components/BackButton";
 
 type ProfileProps = {
   setIsUserInfo: (value: boolean) => void;
@@ -140,9 +141,12 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="flex flex-col gap-10"
+        className="flex flex-col gap-3"
       >
         <SectionTitle>Confirmar lugar</SectionTitle>
+        <div className="self-start">
+          <BackButton toProfile={false} />
+        </div>
         {loading ? (
           <Loading />
         ) : (
