@@ -72,6 +72,10 @@ const Trips = () => {
     });
   }
 
+  moment.locale("es", {
+    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+  });
+
   return (
     <section className="section">
       <SectionTitle>Próximos viajes:</SectionTitle>

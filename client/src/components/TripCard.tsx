@@ -102,7 +102,12 @@ const TripCard = ({
               className="w-10 h-9 lg:w-12 lg:h-11 hover:-rotate-12 transition-transform"
             />
           </div>
-          <div className="absolute right-4 top-2 flex items-center gap-2">
+
+          <div
+            className={`absolute ${
+              maxCapacity !== passengers.length ? "right-8" : "right-4"
+            } top-2 flex items-center gap-2`}
+          >
             <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
               <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
               {formatDate(date)}
@@ -112,6 +117,11 @@ const TripCard = ({
                 HOY
               </p>
             )}
+            {maxCapacity !== passengers.length && (
+              <p className="flex items-center gap-1 absolute -right-4">
+                <span className="w-3 h-3 bg-green-600 rounded-full animate-pulse" />
+              </p>
+            )}
           </div>
 
           <div className="flex flex-col gap-3 mt-4 lg:mt-7 relative">
@@ -119,12 +129,6 @@ const TripCard = ({
               <h3 className="font-bold text-lg lg:text-xl">{name}</h3>
             </div>
             <div className="relative flex flex-col w-full bg-blue-lagoon-200/10 gap-2 mt-1 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
-              {maxCapacity !== passengers.length && (
-                <p className="flex items-center gap-1 absolute -top-6 right-0 font-extralight text-sm text-gray-600 dark:text-gray-300">
-                  <span className="w-2 h-2 bg-green-600 rounded-full animate-pulse" />
-                  Disponible
-                </p>
-              )}
               <div className="flex flex-col gap-2">
                 <p className="flex items-center gap-1">
                   <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
