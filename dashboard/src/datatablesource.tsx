@@ -1,11 +1,9 @@
 import { User } from "lucide-react";
 import moment from "moment";
-import "moment/locale/es"; // without this line it didn't work
-moment.locale("es");
 import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
 
 const formatDate = (date: string) => {
-  const momentDate = moment.utc(date);
+  const momentDate = moment.utc(date, "YYYY-MM-DDTHH:mm:ss.SSSZ");
   const timezone = "America/Argentina/Buenos_Aires";
   const timezone_date = momentDate.tz(timezone);
   const formatted_date = timezone_date.format("ddd DD/MM");
@@ -13,7 +11,7 @@ const formatDate = (date: string) => {
   return formatted_date;
 };
 
-const todayDate = moment().locale("es").format("ddd DD/MM");
+const todayDate = moment().format("ddd DD/MM");
 
 export const userColumns = [
   {
@@ -76,22 +74,21 @@ export const tripColumns = [
     headerName: "Fecha",
     width: 130,
     renderCell: (params: any) => {
+      const formattedDate = formatDate(params.row.date);
+      const isToday = formattedDate === todayDate;
+
       return (
         <div className="flex items-center gap-1">
-          {params.row.date ? (
-            <>
-              {todayDate == formatDate(params.row.date) ? (
-                <span className="text-green-900 bg-green-300/30 border order-2 border-green-800/80 select-none font-medium rounded-md dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-1">
-                  HOY
-                </span>
-              ) : (
-                ""
-              )}
-              <p>{formatDate(params.row.date)}</p>
-            </>
-          ) : (
-            ""
-          )}
+          <>
+            {params.row.date && isToday ? (
+              <span className="text-green-900 bg-green-300/30 border order-2 border-green-800/80 select-none font-medium rounded-md dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-1">
+                HOY
+              </span>
+            ) : (
+              ""
+            )}
+            <p>{formattedDate}</p>
+          </>
         </div>
       );
     },
