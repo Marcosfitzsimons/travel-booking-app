@@ -7,6 +7,7 @@ type User = {
   email: string;
   phone: number;
   image?: string;
+  isReminder: boolean;
   addressCda: string;
   addressCapital: string;
   dni: number;
