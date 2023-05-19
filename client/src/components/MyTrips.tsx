@@ -58,7 +58,7 @@ type UserData = {
   addressCapital: string;
   addressCda: string;
   email: string;
-  isRecordatory: boolean;
+  isReminder: boolean;
   fullName: string;
   image?: string;
   myTrips: TripProps[];
@@ -95,7 +95,7 @@ const tripVariants = {
 const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
-  const [reminder, setReminder] = useState(userData.isRecordatory);
+  const [reminder, setReminder] = useState(userData.isReminder);
   const userId = userData._id;
   console.log(userData);
   const navigate = useNavigate();
