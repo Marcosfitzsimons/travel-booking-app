@@ -7,6 +7,8 @@ import {
   Bell,
   X,
   ClipboardList,
+  Check,
+  FileCheck,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import {
@@ -35,6 +37,8 @@ import Loading from "./Loading";
 import miniBus from "../assets/minibus1-sm.png";
 import moment from "moment-timezone";
 import { Separator } from "./ui/separator";
+import { Switch } from "./ui/switch";
+import { Label } from "./ui/label";
 
 type TripProps = {
   id: string;
@@ -54,6 +58,7 @@ type UserData = {
   addressCapital: string;
   addressCda: string;
   email: string;
+  isRecordatory: boolean;
   fullName: string;
   image?: string;
   myTrips: TripProps[];
@@ -89,10 +94,10 @@ const tripVariants = {
 
 const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
   const [loading, setLoading] = useState(false);
-  const [isVisibleReminder, setIsVisibleReminder] = useState(true);
   const [err, setErr] = useState<null | string>(null);
+  const [reminder, setReminder] = useState(userData.isRecordatory);
   const userId = userData._id;
-
+  console.log(userData);
   const navigate = useNavigate();
 
   const todayDate = moment().locale("es").format("ddd DD/MM");
@@ -144,6 +149,10 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
     return formatted_date;
   };
 
+  const handleCheckedChange = () => {
+    setReminder((prev) => !prev);
+  };
+
   return (
     <section className="min-h-[70vh] w-full mx-auto mt-3 bg-transparent flex flex-col gap-5 items-center">
       {loading ? (
@@ -165,16 +174,33 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                   />
                 </p>
 
-                {isVisibleReminder && (
-                  <p className="relative p-4 rounded-md shadow-md bg-white border border-yellow-400/20 dark:border-yellow-200/70 dark:bg-black md:px-12 ">
-                    Recordá que al hacer click en la 🔔 podrás activar un
-                    recordatorio previo a la hora del viaje
-                    <X
-                      className="absolute w-4 h-4 right-2 top-2 cursor-pointer"
-                      onClick={() => setIsVisibleReminder(false)}
+                <div className="w-full relative flex flex-col gap-2 p-4 rounded-md bg-white border border-yellow-300/80 dark:border-yellow-200/80 dark:bg-black/80">
+                  <Label htmlFor="airplane-mode dark:text-white">
+                    🔔 Activar recordatorio previo al viaje:
+                  </Label>
+
+                  <div className="flex items-center gap-1">
+                    <Switch
+                      id="airplane-mode"
+                      checked={reminder}
+                      onCheckedChange={handleCheckedChange}
+                      className={
+                        reminder ? "bg-[#5FC488] dark:bg-[#6cd395]" : ""
+                      }
                     />
-                  </p>
-                )}
+                    {reminder ? (
+                      <span className="text-xs flex items-center gap-[3px]">
+                        Recordatorio activado{" "}
+                        <Check className="w-4 h-4 relative top-[1px] text-green-600 lg:w-5 lg:h-5" />
+                      </span>
+                    ) : (
+                      <span className="text-xs flex items-center gap-[3px]">
+                        Recordatorio desactivado{" "}
+                        <X className="w-4 h-4 relative top-[1.2px] text-red-600 lg:w-5 lg:h-5" />
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             ) : (
               ""
@@ -209,9 +235,25 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                           />
                         </div>
                         <div className="absolute right-4 top-2 flex items-center gap-2">
-                          <Button className="w-8 h-8 p-0 bg-yellow-200/50 text-yellow-900/80 border border-yellow-900/60 dark:border-yellow-200/70 dark:text-yellow-200/90">
-                            <Bell className="w-4 h-4" />
-                          </Button>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  disabled={!reminder}
+                                  className="w-8 h-8 p-0 cursor-default bg-yellow-200/50 text-yellow-900/80 border border-yellow-900/60 dark:border-yellow-200/70 dark:text-yellow-200/90"
+                                >
+                                  <Bell className="w-4 h-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent className="w-42">
+                                <p className="text-xs flex items-center gap-[3px]">
+                                  Recordatorio activado{" "}
+                                  <Check className="w-4 h-4 relative top-[1px] text-green-600 " />
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+
                           <Separator orientation="vertical" className="h-4" />
                           <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
                             <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
