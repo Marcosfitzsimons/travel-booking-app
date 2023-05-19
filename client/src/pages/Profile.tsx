@@ -22,6 +22,7 @@ const INITIAL_STATES = {
   addressCda: "",
   email: "",
   fullName: "",
+  isReminder: false,
   myTrips: [],
   phone: undefined,
   username: "",
