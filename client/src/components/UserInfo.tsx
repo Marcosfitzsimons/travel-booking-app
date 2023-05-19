@@ -85,7 +85,9 @@ const UserInfo = ({ userData }: UserInfoProps) => {
           <h3 className="font-medium text-xl dark:text-white ">
             {userData?.fullName}
           </h3>
-          <h4 className="text-[#737373]">@{userData?.username}</h4>
+          <h4 className="text-[#737373] dark:text-slate-500">
+            @{userData?.username}
+          </h4>
         </div>
         <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-border-color items-start p-4 shadow-inner rounded-md dark:bg-black/60 dark:border-zinc-500">
           <li className="flex items-center gap-1">

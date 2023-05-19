@@ -39,6 +39,7 @@ import moment from "moment-timezone";
 import { Separator } from "./ui/separator";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
+import DefaultButton from "./DefaultButton";
 
 type TripProps = {
   id: string;
@@ -94,8 +95,11 @@ const tripVariants = {
 
 const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
   const [loading, setLoading] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [err, setErr] = useState<null | string>(null);
   const [reminder, setReminder] = useState(userData.isReminder);
+  const [isUnsaved, setIsUnsaved] = useState(false);
+
   const userId = userData._id;
   console.log(userData);
   const navigate = useNavigate();
@@ -151,6 +155,35 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
 
   const handleCheckedChange = () => {
     setReminder((prev) => !prev);
+    setIsUnsaved(true);
+  };
+
+  const handleIsReminder = async () => {
+    setIsSubmitted(true);
+    try {
+      const res = await axios.put(
+        `https://travel-booking-api-production.up.railway.app/api/users/${userData._id}`,
+        { userData: { isReminder: reminder } },
+        { headers }
+      );
+      localStorage.setItem("user", JSON.stringify(res.data));
+      setIsSubmitted(false);
+      setIsUnsaved(false);
+      toast({
+        description: "Cambios guardados con éxito.",
+      });
+      setTimeout(() => {
+        navigate(0);
+      }, 1000);
+    } catch (err: any) {
+      const errorMsg = err.response.data.msg;
+      setIsSubmitted(false);
+      setErr(errorMsg);
+      toast({
+        variant: "destructive",
+        description: "Error al guardar los cambios, intentar mas tarde.",
+      });
+    }
   };
 
   return (
@@ -174,9 +207,9 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                   />
                 </p>
 
-                <div className="w-full relative flex flex-col gap-2 p-4 rounded-md bg-white border border-yellow-300/80 dark:border-yellow-200/80 dark:bg-black/80">
+                <div className="w-full relative flex flex-col gap-3 p-4 rounded-md bg-white border border-yellow-300/80 dark:border-yellow-200/80 dark:bg-black/80">
                   <Label htmlFor="airplane-mode dark:text-white">
-                    🔔 Activar recordatorio previo al viaje:
+                    🔔 Activar recordatorio previo al viaje
                   </Label>
 
                   <div className="flex items-center gap-1">
@@ -200,6 +233,20 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                       </span>
                     )}
                   </div>
+                  {isUnsaved ? (
+                    <div className="w-auto flex flex-col items-center gap-2">
+                      <Separator orientation="horizontal" className="w-8" />
+                      <Button
+                        onClick={handleIsReminder}
+                        disabled={isSubmitted}
+                        className="text-sm mt-1 h-7 border border-blue-lagoon-700/50 text-blue-lagoon-100 shadow-blue-lagoon-900/30 bg-gradient-to-r from-[#ac4e54] via-[#91474d] to-[#a84a50] bg-[length:100%] bg-left transition hover:text-white dark:text-blue-lagoon-100 dark:hover:text-white"
+                      >
+                        Guardar cambios
+                      </Button>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             ) : (

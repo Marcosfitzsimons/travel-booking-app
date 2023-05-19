@@ -92,11 +92,11 @@ const EditProfile = () => {
         localStorage.setItem("user", JSON.stringify(res.data));
         setIsLoading(false);
         toast({
-          description: "Cambios guardados con exito.",
+          description: "Cambios guardados con éxito.",
         });
         setTimeout(() => {
           navigate(0);
-        }, 2000);
+        }, 1000);
       }
     } catch (err: any) {
       const errorMsg = err.response.data.msg;
