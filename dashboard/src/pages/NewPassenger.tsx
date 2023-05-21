@@ -47,7 +47,7 @@ const NewPassenger = ({ title, columns }: NewPassengerProps) => {
           Authorization: `Bearer ${token}`,
         };
         const res = await axios.get(
-          `https://travel-booking-api-production.up.railway.app/api/trips/${tripId}`,
+          `https://fabebus-api-example.onrender.com/api/trips/${tripId}`,
           {
             headers,
           }

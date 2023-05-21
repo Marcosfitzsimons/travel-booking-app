@@ -149,7 +149,36 @@ function App() {
                   }
                 />
               </Route>
-
+              <Route path="publications">
+                <Route
+                  index
+                  element={
+                    <ProtectedRoute>
+                      <List
+                        columns={tripColumns}
+                        title="Publicaciones"
+                        linkText="Agregar publicación"
+                      />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path=":id"
+                  element={
+                    <ProtectedRoute>
+                      <SingleTrip />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="new"
+                  element={
+                    <ProtectedRoute>
+                      <NewTrip inputs={tripInputs} title="Crear viaje" />
+                    </ProtectedRoute>
+                  }
+                />
+              </Route>
               <Route
                 path="/mi-perfil"
                 element={

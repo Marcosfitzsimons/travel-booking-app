@@ -50,8 +50,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
   const [filteredList, setFilteredList] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState<any>(false);
-
-  const baseUrl = `https://travel-booking-api-production.up.railway.app/api/users`;
+  const baseUrl = `https://fabebus-api-example.onrender.com/api/users`;
 
   const { data, loading, error } = useFetch(baseUrl);
 

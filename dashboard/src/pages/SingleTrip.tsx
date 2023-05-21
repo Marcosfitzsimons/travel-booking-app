@@ -110,7 +110,7 @@ const SingleTrip = () => {
     setIsSubmitted(true);
     try {
       await axios.put(
-        `https://travel-booking-api-production.up.railway.app/api/trips/${id}`,
+        `https://fabebus-api-example.onrender.com/api/trips/${id}`,
         {
           ...data,
           date: startDate,
@@ -153,7 +153,7 @@ const SingleTrip = () => {
           Authorization: `Bearer ${token}`,
         };
         const res = await axios.get(
-          `https://travel-booking-api-production.up.railway.app/api/trips/${id}`,
+          `https://fabebus-api-example.onrender.com/api/trips/${id}`,
           {
             headers,
           }

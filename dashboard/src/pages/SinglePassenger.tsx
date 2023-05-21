@@ -85,7 +85,7 @@ const SinglePassenger = () => {
     try {
       if (!image) {
         const res = await axios.put(
-          `https://travel-booking-api-production.up.railway.app/api/passengers/${userId}/${tripId}`,
+          `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
           { data },
           { headers }
         );
@@ -104,7 +104,7 @@ const SinglePassenger = () => {
         );
         const { url } = uploadRes.data;
         const res = await axios.put(
-          `https://travel-booking-api-production.up.railway.app/api/passengers/${userId}/${tripId}`,
+          `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
           { ...data, image: url },
           { headers }
         );
@@ -133,7 +133,7 @@ const SinglePassenger = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://travel-booking-api-production.up.railway.app/api/passengers/${userId}/${tripId}`,
+          `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
           {
             headers,
           }
