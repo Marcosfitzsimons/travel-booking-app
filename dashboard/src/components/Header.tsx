@@ -79,7 +79,7 @@ const Header = () => {
               <DropdownMenuItem className="cursor-pointer p-0">
                 <Newspaper className="absolute left-2 h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                 <Link
-                  to="/users"
+                  to="/publications"
                   className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent text-blue-lagoon-900 hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-50 dark:hover:text-white dark:hover:bg-zinc-700/20"
                 >
                   Publicaciones
