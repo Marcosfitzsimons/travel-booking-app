@@ -119,7 +119,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
     const tripId = e.target.id;
     try {
       await axios.delete(
-        `https://travel-booking-api-production.up.railway.app/api/passengers/${userId}/${tripId}`,
+        `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
         { headers }
       );
       toast({
@@ -162,7 +162,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
     setIsSubmitted(true);
     try {
       const res = await axios.put(
-        `https://travel-booking-api-production.up.railway.app/api/users/${userData._id}`,
+        `https://fabebus-api-example.onrender.com/api/users/${userData._id}`,
         { userData: { isReminder: reminder } },
         { headers }
       );
