@@ -4,6 +4,7 @@ import { Toaster } from "./components/ui/toaster";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import SideBar from "./components/SideBar";
+import Publications from "./pages/Publications";
 import NewTrip from "./pages/NewTrip";
 import NewUser from "./pages/NewUser";
 import SingleUser from "./pages/SingleUser";
@@ -154,11 +155,7 @@ function App() {
                   index
                   element={
                     <ProtectedRoute>
-                      <List
-                        columns={tripColumns}
-                        title="Publicaciones"
-                        linkText="Agregar publicación"
-                      />
+                      <Publications />
                     </ProtectedRoute>
                   }
                 />
