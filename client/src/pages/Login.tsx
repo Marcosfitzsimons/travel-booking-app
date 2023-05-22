@@ -58,7 +58,7 @@ const Login = () => {
       dispatch({ type: "LOGIN_START" });
       try {
         const res = await axios.post(
-          "https://travel-booking-api-production.up.railway.app/api/auth/login",
+          "https://fabebus-api-example.onrender.com/api/auth/login",
           data
         );
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });

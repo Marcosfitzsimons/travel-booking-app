@@ -73,7 +73,7 @@ const Register = () => {
       dispatch({ type: "LOGIN_START" });
       try {
         const res = await axios.post(
-          "https://travel-booking-api-production.up.railway.app/api/auth/register",
+          "https://fabebus-api-example.onrender.com/api/auth/register",
           data
         );
         const token = res.data.token;

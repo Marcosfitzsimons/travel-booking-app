@@ -82,7 +82,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        `https://travel-booking-api-production.up.railway.app/api/passengers/${user?._id}/${tripId}`,
+        `https://fabebus-api-example.onrender.com/api/passengers/${user?._id}/${tripId}`,
         {},
         { headers }
       );
@@ -122,7 +122,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://travel-booking-api-production.up.railway.app/api/trips/${tripId}`
+          `https://fabebus-api-example.onrender.com/api/trips/${tripId}`
         );
 
         setData({ ...res.data });

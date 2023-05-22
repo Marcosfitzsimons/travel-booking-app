@@ -52,7 +52,7 @@ const Trips = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
 
   const { data, loading, error, reFetch } = useFetch(
-    "https://travel-booking-api-production.up.railway.app/api/trips"
+    "https://fabebus-api-example.onrender.com/api/trips"
   );
 
   let filteredTrips;

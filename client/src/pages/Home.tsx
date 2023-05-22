@@ -3,8 +3,6 @@ import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
 import PublicationCard from "../components/PublicationCard";
 import { ChevronsRight, Newspaper } from "lucide-react";
-import pin from "../assets/pin.png";
-import { RoughNotation } from "react-rough-notation";
 
 const Home = () => {
   const navigate = useNavigate();
