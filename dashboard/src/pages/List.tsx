@@ -2,7 +2,6 @@ import UsersDatatable from "../components/UsersDatatable";
 import SectionTitle from "../components/SectionTitle";
 import TripsDatatable from "../components/TripsDatatable";
 import { useLocation } from "react-router-dom";
-import PublicationsDatatable from "../components/PublicationsDatatable";
 
 interface Column {
   field: string;
@@ -26,11 +25,9 @@ const List = ({ title, columns, linkText }: ListProps) => {
       <SectionTitle>{title}</SectionTitle>
       {path === "users" ? (
         <UsersDatatable columns={columns} linkText={linkText} />
-      ) : path === "trips" || path === "" ? (
+      ) : (
         <TripsDatatable columns={columns} linkText={linkText} />
-      ) : path === "publications" ? (
-        <PublicationsDatatable columns={columns} linkText={linkText} />
-      ) : null}
+      )}
     </section>
   );
 };
