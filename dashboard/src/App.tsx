@@ -18,6 +18,7 @@ import Profile from "./pages/Profile";
 import EditProfile from "./pages/EditProfile";
 import SinglePassenger from "./pages/SinglePassenger";
 import NewPassenger from "./pages/NewPassenger";
+import SinglePublication from "./pages/SinglePublication";
 
 type Props = {
   children: ReactElement;
@@ -163,7 +164,7 @@ function App() {
                   path=":id"
                   element={
                     <ProtectedRoute>
-                      <SingleTrip />
+                      <SinglePublication />
                     </ProtectedRoute>
                   }
                 />
