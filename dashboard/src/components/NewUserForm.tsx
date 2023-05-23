@@ -94,7 +94,7 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
     try {
       if (!image) {
         await axios.post(
-          "https://travel-booking-api-production.up.railway.app/api/auth/register",
+          "https://fabebus-api-example.onrender.com/api/auth/register",
           {
             ...data,
           }
@@ -178,6 +178,9 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
               <p className="text-red-600">{errors.imageInput.message}</p>
             )}
           </div>
+        </div>
+        <div className="w-full relative flex flex-col items-center lg:basis-1/3">
+          <Input name="address" placeholder="Address" type="text" />
         </div>
         <div className="w-full flex flex-col items-center gap-2 lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
           {inputs.map((input) => (
