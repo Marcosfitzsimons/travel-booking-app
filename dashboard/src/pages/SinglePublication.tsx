@@ -121,10 +121,8 @@ const SinglePublication = () => {
         const publicationData = res.data;
         reset({
           title: publicationData.title,
-          subtitle: publicationData.subtitle,
-          description: publicationData.description
-            ? publicationData.description
-            : "",
+          subtitle: publicationData.subtitle ? publicationData.subtitle : "",
+          description: publicationData.description,
           image: publicationData.image ? publicationData.image : "",
           createdAt: publicationData.createdAt,
         });
@@ -257,7 +255,7 @@ const SinglePublication = () => {
                                       "La descripción no puede ser tan corto.",
                                   },
                                   maxLength: {
-                                    value: 25,
+                                    value: 300,
                                     message:
                                       "La descripción no puede ser tan largo.",
                                   },

@@ -10,7 +10,7 @@ import NewUser from "./pages/NewUser";
 import SingleUser from "./pages/SingleUser";
 import List from "./pages/List";
 import { AuthContext } from "./context/AuthContext";
-import { tripInputs, userInputs } from "./formSource";
+import { publicationInputs, tripInputs, userInputs } from "./formSource";
 import { tripColumns, userColumns } from "./datatablesource";
 import SingleTrip from "./pages/SingleTrip";
 import NotFound from "./pages/NotFound";
@@ -19,6 +19,7 @@ import EditProfile from "./pages/EditProfile";
 import SinglePassenger from "./pages/SinglePassenger";
 import NewPassenger from "./pages/NewPassenger";
 import SinglePublication from "./pages/SinglePublication";
+import NewPublication from "./pages/NewPublication";
 
 type Props = {
   children: ReactElement;
@@ -172,7 +173,10 @@ function App() {
                   path="new"
                   element={
                     <ProtectedRoute>
-                      <NewTrip inputs={tripInputs} title="Crear viaje" />
+                      <NewPublication
+                        inputs={publicationInputs}
+                        title="Crear publicación"
+                      />
                     </ProtectedRoute>
                   }
                 />
