@@ -221,3 +221,66 @@ export const tripInputs = [
     },
   },
 ];
+
+export const publicationInputs = [
+  {
+    id: "title",
+    name: "title",
+    label: "Título",
+    type: "text",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar título.",
+      },
+      minLength: {
+        value: 3,
+        message: "Título no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 40,
+        message: "Título no puede ser tan largo.",
+      },
+    },
+  },
+  {
+    id: "subtitle",
+    name: "subtitle",
+    label: "Subtítulo",
+    type: "text",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar subtítulo.",
+      },
+      minLength: {
+        value: 3,
+        message: "Subtítulo no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 40,
+        message: "Subtítulo no puede ser tan largo.",
+      },
+    },
+  },
+  {
+    id: "description",
+    name: "description",
+    label: "Descripción",
+    type: "text",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar descripción.",
+      },
+      minLength: {
+        value: 3,
+        message: "Descripción no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 400,
+        message: "Descripción no puede ser tan largo.",
+      },
+    },
+  },
+];
