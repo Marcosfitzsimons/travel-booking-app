@@ -92,7 +92,6 @@ const SingleUser = () => {
           { userData: { ...data } },
           { headers }
         );
-        localStorage.setItem("user", JSON.stringify(res.data));
         setLoading(false);
         toast({
           description: "Cambios guardados con exito.",
@@ -112,7 +111,6 @@ const SingleUser = () => {
           { userData: { ...data, image: url } },
           { headers }
         );
-        localStorage.setItem("user", JSON.stringify(res.data));
         setLoading(false);
         toast({
           description: "Cambios guardados con exito.",

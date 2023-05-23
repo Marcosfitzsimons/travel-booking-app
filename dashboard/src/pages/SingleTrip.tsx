@@ -81,8 +81,6 @@ const SingleTrip = () => {
   let { id } = useParams();
   const { toast } = useToast();
 
-  moment.locale("es");
-
   const {
     register,
     handleSubmit,
@@ -192,7 +190,7 @@ const SingleTrip = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex flex-col gap-6 lg:gap-9">
+        <div className="">
           <article
             className={`${
               data.maxCapacity === data.passengers.length
