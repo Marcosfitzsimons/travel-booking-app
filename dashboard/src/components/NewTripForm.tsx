@@ -85,7 +85,7 @@ const NewTripForm = ({ inputs }: NewTripFormProps) => {
   const handleOnSubmit = async (data: Trip) => {
     try {
       await axios.post(
-        "https://travel-booking-api-production.up.railway.app/api/trips",
+        "https://fabebus-api-example.onrender.com/api/trips",
         {
           ...data,
           date: startDate,
