@@ -22,13 +22,13 @@ import SectionTitle from "../components/SectionTitle";
 import DefaultButton from "../components/DefaultButton";
 
 type Publication = {
-  _id: string;
+  _id?: string;
   title: string;
   subtitle?: string;
   description: string;
   image?: string;
   createdAt: string;
-  updatedAt: string;
+  updatedAt?: string;
 };
 
 const INITIAL_STATES = {
