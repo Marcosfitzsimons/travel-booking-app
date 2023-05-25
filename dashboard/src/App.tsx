@@ -11,7 +11,11 @@ import SingleUser from "./pages/SingleUser";
 import List from "./pages/List";
 import { AuthContext } from "./context/AuthContext";
 import { publicationInputs, tripInputs, userInputs } from "./formSource";
-import { tripColumns, userColumns } from "./datatablesource";
+import {
+  tripColumns,
+  userColumns,
+  specialTripColumns,
+} from "./datatablesource";
 import SingleTrip from "./pages/SingleTrip";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
@@ -20,6 +24,7 @@ import SinglePassenger from "./pages/SinglePassenger";
 import NewPassenger from "./pages/NewPassenger";
 import SinglePublication from "./pages/SinglePublication";
 import NewPublication from "./pages/NewPublication";
+import NewSpecialTrip from "./pages/NewSpecialTrip";
 
 type Props = {
   children: ReactElement;
@@ -50,7 +55,7 @@ function App() {
                   <ProtectedRoute>
                     <List
                       columns={tripColumns}
-                      title="Viajes"
+                      title="Viajes semanales"
                       linkText="Agregar viaje"
                     />
                   </ProtectedRoute>
@@ -62,7 +67,7 @@ function App() {
                   <ProtectedRoute>
                     <List
                       columns={tripColumns}
-                      title="Viajes"
+                      title="Viajes semanales"
                       linkText="Agregar viaje"
                     />
                   </ProtectedRoute>
@@ -108,7 +113,7 @@ function App() {
                     <ProtectedRoute>
                       <List
                         columns={tripColumns}
-                        title="Viajes"
+                        title="Viajes semanales"
                         linkText="Agregar viaje"
                       />
                     </ProtectedRoute>
@@ -127,6 +132,36 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <NewTrip inputs={tripInputs} title="Crear viaje" />
+                    </ProtectedRoute>
+                  }
+                />
+              </Route>
+              <Route path="special-trips">
+                <Route
+                  index
+                  element={
+                    <ProtectedRoute>
+                      <List
+                        columns={specialTripColumns}
+                        title="Viajes particulares"
+                        linkText="Agregar viaje"
+                      />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path=":id"
+                  element={
+                    <ProtectedRoute>
+                      <SingleTrip />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="new"
+                  element={
+                    <ProtectedRoute>
+                      <NewSpecialTrip inputs={tripInputs} title="Crear viaje" />
                     </ProtectedRoute>
                   }
                 />
