@@ -104,6 +104,39 @@ export const tripColumns = [
   { field: "maxCapacity", headerName: "Capacidad máxima", width: 80 },
 ];
 
+export const specialTripColumns = [
+  {
+    field: "date",
+    headerName: "Fecha",
+    width: 130,
+    renderCell: (params: any) => {
+      const formattedDate = formatDate(params.row.date);
+      const isToday = formattedDate === todayDate;
+
+      return (
+        <div className="flex items-center gap-1">
+          <>
+            {params.row.date && isToday ? (
+              <span className="text-green-900 bg-green-300/30 border order-2 border-green-800/80 select-none font-medium rounded-md dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-1">
+                HOY
+              </span>
+            ) : (
+              ""
+            )}
+            <p>{formattedDate}</p>
+          </>
+        </div>
+      );
+    },
+  },
+  { field: "name", headerName: "Nombre", width: 180 },
+  { field: "from", headerName: "Salida", width: 120 },
+  { field: "departureTime", headerName: "Hora", width: 70 },
+  { field: "to", headerName: "Llegada", width: 120 },
+  { field: "price", headerName: "Precio", width: 70 },
+  { field: "maxCapacity", headerName: "Capacidad máxima", width: 80 },
+];
+
 export const passengerColumns = [
   {
     field: "user",
