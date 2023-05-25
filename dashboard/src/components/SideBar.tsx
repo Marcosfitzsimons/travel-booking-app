@@ -24,7 +24,7 @@ const SideBar = () => {
     <div className=""></div>
   ) : (
     <div className="hidden flex-[1] h-screen dark:text-blue-lagoon-100 lg:flex lg:flex-col lg:items-end lg:py-[200px] lg:pr-10">
-      <div className="rounded-md flex flex-col mx-auto w-[13rem] shadow-md gap-5 p-5 mt-6 bg-white/40 border border-border-color dark:border-border-color-dark dark:bg-black/40">
+      <div className="rounded-md flex flex-col mx-auto w-[13.5rem] shadow-md gap-5 p-5 mt-6 bg-white/40 border border-border-color dark:border-border-color-dark dark:bg-black/40">
         <nav className="">
           <ul className="flex flex-col">
             <p className="text-blue-lagoon-900 uppercase pb-1 font-bold text-sm dark:text-white">
@@ -36,7 +36,7 @@ const SideBar = () => {
                 to="/trips"
                 className="w-full pl-8 z-20 rounded-lg py-1 px-2 flex items-center gap-1 text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
               >
-                Viajes
+                Viajes semanales
               </Link>
             </li>
             <li className="relative flex items-center gap-2">
@@ -45,7 +45,7 @@ const SideBar = () => {
                 to="/special-trips"
                 className="w-full pl-8 z-20 rounded-lg py-1 px-2 flex items-center gap-1 text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
               >
-                Viajes Especiales
+                Viajes particulares
               </Link>
             </li>
             <li className="relative flex items-center gap-2">

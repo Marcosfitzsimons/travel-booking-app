@@ -64,7 +64,7 @@ const Header = () => {
                   to="/trips"
                   className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent text-blue-lagoon-900 hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-50 dark:hover:text-white dark:hover:bg-zinc-700/20"
                 >
-                  Viajes
+                  Viajes semanales
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:text-blue-lagoon-700">
@@ -73,7 +73,7 @@ const Header = () => {
                   to="/special-trips"
                   className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent text-blue-lagoon-900 hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-50 dark:hover:text-white dark:hover:bg-zinc-700/20"
                 >
-                  Viajes Especiales
+                  Viajes particulares
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer p-0">
