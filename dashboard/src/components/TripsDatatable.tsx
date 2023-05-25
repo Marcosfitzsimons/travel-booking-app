@@ -114,7 +114,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
           <div className="flex items-center gap-2">
             <div className="relative flex items-center">
               <Link
-                to={`/special-trips/${params.row._id}`}
+                to={`/trips/${params.row._id}`}
                 className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
               >
                 <Eye className="absolute left-3 top-[4px] h-4 w-4" />

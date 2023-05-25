@@ -12,6 +12,7 @@ import {
   DollarSign,
   Heart,
   MapPin,
+  Pin,
   UserPlus,
   Users,
 } from "lucide-react";
@@ -35,6 +36,7 @@ import { useToast } from "../hooks/ui/use-toast";
 import DatePickerContainer from "../components/DatePickerContainer";
 import Logo from "../components/Logo";
 import TimePickerContainer from "../components/TimePickerContainer";
+import { Separator } from "../components/ui/separator";
 
 type SpecialTrip = {
   name: string;
@@ -219,12 +221,14 @@ const SingleSpecialTrip = () => {
                   <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-900/5 dark:border-border-color-dark">
                     <div className="flex flex-col gap-2">
                       <p className="flex items-center gap-1">
-                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white font-medium">
                           Salida:
-                        </span>{" "}
-                        {data.departureTime}
-                        <span>- {data.from}</span>
+                        </span>
+                        {data.from}
+                        <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
+                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        {data.departureTime} hs.
                       </p>
                       <div className=" flex items-center gap-1">
                         <p className="flex items-center gap-1">
