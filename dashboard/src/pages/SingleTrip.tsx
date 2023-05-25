@@ -190,7 +190,7 @@ const SingleTrip = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="">
+        <div className="flex flex-col gap-6">
           <article
             className={`${
               data.maxCapacity === data.passengers.length
@@ -452,7 +452,7 @@ const SingleTrip = () => {
               </h3>
               <div className="flex flex-col items-end gap-1 sm:flex-row sm:gap-2">
                 <div className="flex items-center gap-1 text-sm lg:text-base">
-                  <Users className="animate-pulse h-4 w-4 lg:w-5 lg:h-5" />
+                  <Users className="animate-pulse text-blue-lagoon-900/60 h-4 w-4 lg:w-5 lg:h-5 dark:text-blue-lagoon-300" />
                   <p className="font-medium">Pasajeros:</p>
                   <p className="font-light flex items-center lg:gap-1">
                     {data.passengers.length}/{data.maxCapacity}
