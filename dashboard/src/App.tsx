@@ -25,6 +25,7 @@ import NewPassenger from "./pages/NewPassenger";
 import SinglePublication from "./pages/SinglePublication";
 import NewPublication from "./pages/NewPublication";
 import NewSpecialTrip from "./pages/NewSpecialTrip";
+import SingleSpecialTrip from "./pages/SingleSpecialTrip";
 
 type Props = {
   children: ReactElement;
@@ -153,7 +154,7 @@ function App() {
                   path=":id"
                   element={
                     <ProtectedRoute>
-                      <SingleTrip />
+                      <SingleSpecialTrip />
                     </ProtectedRoute>
                   }
                 />
@@ -161,7 +162,7 @@ function App() {
                   path="new"
                   element={
                     <ProtectedRoute>
-                      <NewSpecialTrip inputs={tripInputs} title="Crear viaje" />
+                      <NewTrip inputs={tripInputs} title="Crear viaje" />
                     </ProtectedRoute>
                   }
                 />
