@@ -29,6 +29,7 @@ type Trip = {
   departureTime: string;
   to: string;
   arrivalTime: string;
+  available: boolean;
   maxCapacity: string;
   price: string;
 };
@@ -113,7 +114,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
           <div className="flex items-center gap-2">
             <div className="relative flex items-center">
               <Link
-                to={`/trips/${params.row._id}`}
+                to={`/special-trips/${params.row._id}`}
                 className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
               >
                 <Eye className="absolute left-3 top-[4px] h-4 w-4" />
@@ -155,20 +156,6 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
       },
     },
   ];
-
-  let filteredTrips;
-  let dateSelected: string;
-  if (startDate) {
-    dateSelected = moment(startDate).locale("es").format("ddd DD/MM");
-    filteredTrips = data.filter((trip: Trip) => {
-      const momentDate = moment.utc(trip.date);
-      const timezone = "America/Argentina/Buenos_Aires";
-      const timezone_date = momentDate.tz(timezone);
-      const formatted_date = timezone_date.format("ddd DD/MM");
-
-      return formatted_date === dateSelected;
-    });
-  }
 
   useEffect(() => {
     setList(data);
