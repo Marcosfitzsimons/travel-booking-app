@@ -80,14 +80,23 @@ const PublicationCard = ({ item, setList, list }: PublicationCardProps) => {
       </div>
 
       <div className="flex items-center gap-2">
+        <div className="relative flex items-center">
+          <Link
+            to={`/publications/${_id}`}
+            className="px-[12px] pl-[29px] py-[2px] z-20 flex items-center rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
+          >
+            <Eye className="absolute left-3 h-4 w-4" />
+            Ver
+          </Link>
+        </div>
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <div className="relative flex items-center">
               <button
                 disabled={isLoading}
-                className="px-[12px] pl-[29px] py-[2px] rounded-md border border-neutral-600 bg-[#b4343a] text-white font-semibold transition-colors hover:border-black dark:bg-[#b4343a] dark:border-blue-lagoon-400/80 dark:hover:border-blue-lagoon-300"
+                className="pl-[22px] rounded-md text-[#b4343a] font-semibold transition-colors hover:text-red-300"
               >
-                <Trash2 className="absolute text-white left-3 top-[6px] h-4 w-4" />
+                <Trash2 className="absolute left-1 top-[3.3px] h-4 w-4" />
                 Borrar
               </button>
             </div>
@@ -113,15 +122,6 @@ const PublicationCard = ({ item, setList, list }: PublicationCardProps) => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        <div className="relative flex items-center">
-          <Link
-            to={`/publications/${_id}`}
-            className="px-[12px] pl-[29px] py-[2px] z-20 flex items-center rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-          >
-            <Eye className="absolute left-3 h-4 w-4" />
-            Ver
-          </Link>
-        </div>
       </div>
     </article>
   );
