@@ -69,7 +69,7 @@ const PassengersDatable = ({
     setLoading(true);
     try {
       await axios.delete(
-        `https://travel-booking-api-production.up.railway.app/api/passengers/${userId}/${tripId}`,
+        `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
         { headers }
       );
       toast({
