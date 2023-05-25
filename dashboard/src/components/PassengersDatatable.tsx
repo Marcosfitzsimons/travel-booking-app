@@ -77,6 +77,9 @@ const PassengersDatable = ({
       });
       setLoading(false);
       setList(list.filter((item) => item.createdBy._id !== userId));
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     } catch (err: any) {
       console.log(err);
       setLoading(false);
