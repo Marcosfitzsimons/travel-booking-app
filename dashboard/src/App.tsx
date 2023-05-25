@@ -24,7 +24,6 @@ import SinglePassenger from "./pages/SinglePassenger";
 import NewPassenger from "./pages/NewPassenger";
 import SinglePublication from "./pages/SinglePublication";
 import NewPublication from "./pages/NewPublication";
-import NewSpecialTrip from "./pages/NewSpecialTrip";
 import SingleSpecialTrip from "./pages/SingleSpecialTrip";
 
 type Props = {
