@@ -222,6 +222,98 @@ export const tripInputs = [
   },
 ];
 
+export const specialTripInputs = [
+  {
+    id: "from",
+    name: "from",
+    label: "Desde",
+    type: "text",
+    placeholder: "Carmen",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar lugar de salida.",
+      },
+      minLength: {
+        value: 3,
+        message: "Lugar de salida no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 25,
+        message: "Lugar de salida no puede ser tan largo.",
+      },
+    },
+  },
+  {
+    id: "to",
+    name: "to",
+    label: "Hasta",
+    type: "text",
+    placeholder: "Capital",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar lugar de llegada.",
+      },
+      minLength: {
+        value: 3,
+        message: "Lugar de llegada no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 25,
+        message: "Lugar de llegada no puede ser tan largo.",
+      },
+    },
+  },
+  {
+    id: "price",
+    name: "price",
+    label: "Precio",
+    type: "number",
+    placeholder: "2500",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar precio/persona del viaje.",
+      },
+    },
+  },
+  {
+    id: "maxCapacity",
+    name: "maxCapacity",
+    label: "Capacidad máxima",
+    type: "number",
+    placeholder: "15",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar capacidad máxima de personas del viaje.",
+      },
+    },
+  },
+  {
+    id: "name",
+    name: "name",
+    label: "Nombre del viaje",
+    type: "text",
+    placeholder: "De carmen a Capital",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar nombre del viaje.",
+      },
+      minLength: {
+        value: 3,
+        message: "Nombre del viaje no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 30,
+        message: "Nombre del viaje no puede ser tan largo.",
+      },
+    },
+  },
+];
+
 export const publicationInputs = [
   {
     id: "title",
