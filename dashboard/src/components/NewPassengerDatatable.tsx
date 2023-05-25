@@ -34,7 +34,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
 
   const navigate = useNavigate();
 
-  const baseUrl = `https://travel-booking-api-production.up.railway.app/api/users`;
+  const baseUrl = `https://fabebus-api-example.onrender.com/api/users`;
 
   const { data, error } = useFetch(baseUrl);
 
@@ -47,7 +47,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
     setLoading(true);
     try {
       await axios.post(
-        `https://travel-booking-api-production.up.railway.app/api/passengers/${userId}/${tripId}`,
+        `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
         {},
         { headers }
       );
