@@ -270,11 +270,11 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                 {userTrips.map((trip: TripProps) => (
                   <article
                     key={trip.id}
-                    className="w-full relative bg-white/40 border border-border-color rounded-md shadow-md mb-5 pb-2 max-w-[400px] dark:bg-black/60 dark:border-zinc-500"
+                    className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-2 max-w-[400px] bg-white/40 border dark:border-zinc-500 dark:bg-black/60"
                   >
-                    <div className="px-4 pt-9 pb-4">
+                    <div className="w-full px-2 pt-9 pb-4">
                       <div className="flex flex-col gap-2">
-                        <div className="absolute top-[.6rem] left-3">
+                        <div className="absolute top-[.45rem] left-1">
                           <img
                             src={miniBus}
                             alt="combi"

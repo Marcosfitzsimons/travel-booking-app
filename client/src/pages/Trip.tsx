@@ -20,6 +20,7 @@ import Loading from "../components/Loading";
 import miniBus from "../assets/minibus1-sm.png";
 import { DollarSign } from "lucide-react";
 import BackButton from "../components/BackButton";
+import { Separator } from "../components/ui/separator";
 
 type ProfileProps = {
   setIsUserInfo: (value: boolean) => void;
@@ -150,17 +151,18 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         {loading ? (
           <Loading />
         ) : (
-          <article className="w-full relative mx-auto bg-white/40 rounded-md border border-border-color shadow-md max-w-md dark:bg-black/60 dark:border-zinc-500">
-            <div className="px-4 pt-9 pb-4">
-              <div className="flex flex-col gap-2">
-                <div className="absolute top-[.6rem] left-3">
+          <article className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-2 max-w-[400px] bg-white/40 border border-border-color dark:border-zinc-500 dark:bg-black/60">
+            <div className="w-full px-2 pt-9 pb-4 sm:px-4">
+              <div className="flex flex-col gap-2 ">
+                <div className="absolute top-[.5rem] left-1 sm:left-3">
                   <img
                     src={miniBus}
                     alt="combi"
                     className="w-10 h-9 lg:w-12 lg:h-11 hover:-rotate-12 transition-transform"
                   />
                 </div>
-                <div className="absolute right-4 top-2 flex items-center gap-2">
+
+                <div className="absolute right-2 top-2 flex items-center gap-2">
                   <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
                     <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
                     {formatDate(data.date)}
@@ -172,52 +174,41 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                   )}
                 </div>
 
-                <div className="flex flex-col gap-3 mt-4 lg:mt-7">
-                  <div className="flex items-center gap-4">
-                    <h3 className="font-bold text-lg dark:text-white lg:text-xl">
+                <div className="flex flex-col gap-1 mt-4 lg:mt-7">
+                  <div className="flex flex-col sm:gap-2">
+                    <h3 className="font-bold text-lg lg:text-xl">
                       {data.name}
                     </h3>
+                    <h4 className="text-sm font-light">
+                      Información acerca del viaje:
+                    </h4>
                   </div>
-                  <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
-                    <div className="flex flex-col gap-2">
+                  <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color py-4 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
+                    <div className="flex flex-col gap-2 overflow-auto pb-2">
                       <p className="flex items-center gap-1">
-                        <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white font-medium">
                           Salida:
                         </span>{" "}
-                        {data.departureTime}
-                        <span>- {data.from}</span>
+                        <span className="shrink-0">{data.from}</span>
+                        <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
+                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <span className="shrink-0">
+                          {data.departureTime} hs.
+                        </span>
                       </p>
-                      {data.arrivalTime && (
-                        <div className=" flex items-center gap-1">
-                          <p className="flex items-center gap-1">
-                            <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
-                            <span className="dark:text-white font-medium">
-                              Llegada:
-                            </span>{" "}
-                            {data.arrivalTime}
-                            <span>- {data.to}</span>
-                          </p>
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <button className="">
-                                  <AlertCircle className="h-4 w-4 text-yellow-300" />
-                                  <span className="sr-only">Alert Circle</span>
-                                </button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>
-                                  El horario de llegada estimado es aproximado y
-                                  puede variar
-                                </p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        </div>
-                      )}
                       <p className="flex items-center gap-1">
-                        <DollarSign className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <span className="dark:text-white font-medium">
+                          Destino:
+                        </span>{" "}
+                        <span className="shrink-0">{data.to}</span>
+                        <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
+                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <span className="shrink-0">{data.arrivalTime} hs.</span>
+                      </p>
+                      <p className="flex items-center gap-1">
+                        <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white font-medium">
                           Precio:{" "}
                         </span>
@@ -226,11 +217,12 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                     </div>
                   </div>
                 </div>
+
                 <div className="border-t border-border-color mt-2 flex flex-col gap-1 p-2">
                   <div className="flex items-center gap-2">
-                    <h4 className="font-medium dark:text-white">
+                    <h5 className="font-medium dark:text-white">
                       Mis datos para este viaje:
-                    </h4>
+                    </h5>
                     <Button
                       onClick={() => navigate("/mi-perfil/editar-perfil")}
                       className="h-7 border border-blue-lagoon-200 bg-white/50 hover:bg-white dark:bg-black/40 dark:hover:text-white"
@@ -259,6 +251,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                     </li>
                   </ul>
                 </div>
+
                 <div
                   className="self-end relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:mx-2 lg:h-8 lg:w-auto"
                   onClick={handleOnConfirm}

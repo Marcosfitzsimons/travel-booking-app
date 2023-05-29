@@ -10,6 +10,7 @@ import {
   CalendarDays,
   Clock,
   Heart,
+  MapPin,
 } from "lucide-react";
 import {
   Tooltip,
@@ -20,6 +21,7 @@ import {
 import miniBus from "../assets/minibus1-sm.png";
 import DefaultButton from "./DefaultButton";
 import Logo from "./Logo";
+import { Separator } from "./ui/separator";
 
 interface Trip {
   _id: number;
@@ -92,10 +94,10 @@ const TripCard = ({
       <div
         className={`${
           maxCapacity === passengers.length ? "opacity-50" : ""
-        } w-full px-4 pt-9`}
+        } w-full px-2 pt-9 sm:px-4`}
       >
         <div className="flex flex-col gap-2">
-          <div className="absolute top-[.45rem] left-3">
+          <div className="absolute top-[.45rem] left-1 sm:left-3">
             <img
               src={miniBus}
               alt="combi"
@@ -105,7 +107,9 @@ const TripCard = ({
 
           <div
             className={`absolute ${
-              maxCapacity !== passengers.length ? "right-8" : "right-4"
+              maxCapacity !== passengers.length
+                ? "right-6 sm:right-8"
+                : "right-4"
             } top-2 flex items-center gap-2`}
           >
             <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
@@ -124,50 +128,35 @@ const TripCard = ({
             )}
           </div>
 
-          <div className="flex flex-col gap-3 mt-4 lg:mt-7 relative">
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col gap-1 mt-4 lg:mt-7 relative">
+            <div className="flex flex-col sm:gap-2">
               <h3 className="font-bold text-lg lg:text-xl">{name}</h3>
+              <h4 className="text-sm font-light">
+                Información acerca del viaje:
+              </h4>
             </div>
-            <div className="relative flex flex-col w-full bg-blue-lagoon-200/10 gap-2 mt-1 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
-              <div className="flex flex-col gap-2">
+            <div className="relative flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color py-3 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
+              <div className="flex flex-col gap-2 overflow-auto pb-2">
                 <p className="flex items-center gap-1">
-                  <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                  <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
                   <span className="dark:text-white font-medium">Salida:</span>{" "}
-                  {departureTime}
-                  <span>- {from}</span>
+                  <span className="shrink-0">{from}</span>
+                  <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
+                  <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                  <span className="shrink-0">{departureTime} hs.</span>
                 </p>
-                {arrivalTime && (
-                  <div className="flex items-center gap-1">
-                    <p className="flex items-center gap-1">
-                      <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
-                      <span className="dark:text-white font-medium">
-                        Llegada:
-                      </span>{" "}
-                      {arrivalTime}
-                      <span>- {to}</span>
-                    </p>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button className="">
-                            <AlertCircle className="h-4 w-4 text-yellow-300" />
-                            <span className="sr-only">Alert Circle</span>
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent className="w-28">
-                          <p className="">
-                            El horario de llegada estimado es aproximado y puede
-                            variar
-                          </p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                )}
                 <p className="flex items-center gap-1">
-                  <DollarSign className="text-blue-lagoon-900/60 dark:text-blue-lagoon-300 h-4 w-4" />
-                  <span className="dark:text-white font-medium">Precio: </span>$
-                  {price}
+                  <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                  <span className="dark:text-white font-medium">Destino:</span>{" "}
+                  <span className="shrink-0">{to}</span>
+                  <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
+                  <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                  <span className="shrink-0">{arrivalTime} hs.</span>
+                </p>
+                <p className="flex items-center gap-1">
+                  <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                  <span className="dark:text-white font-medium">Precio: </span>
+                  <span className="">${price}</span>
                 </p>
               </div>
             </div>
