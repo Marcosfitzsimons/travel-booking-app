@@ -139,7 +139,9 @@ const TripCard = ({
               <div className="flex flex-col gap-2 overflow-auto pb-2">
                 <p className="flex items-center gap-1">
                   <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
-                  <span className="dark:text-white font-medium">Salida:</span>{" "}
+                  <span className="font-medium shrink-0 dark:text-white">
+                    Salida:
+                  </span>{" "}
                   <span className="shrink-0">{from}</span>
                   <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
                   <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
@@ -147,7 +149,9 @@ const TripCard = ({
                 </p>
                 <p className="flex items-center gap-1">
                   <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
-                  <span className="dark:text-white font-medium">Destino:</span>{" "}
+                  <span className="dark:text-white shrink-0 font-medium">
+                    Destino:
+                  </span>{" "}
                   <span className="shrink-0">{to}</span>
                   <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
                   <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />

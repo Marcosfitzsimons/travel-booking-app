@@ -191,17 +191,17 @@ const SingleSpecialTrip = () => {
               isMaxCapacity ? "dark:border-zinc-800" : "dark:border-zinc-500"
             } w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-4 max-w-[400px] bg-white/40 border border-border-color dark:bg-black/60`}
           >
-            <div className="w-full px-4 pt-9">
+            <div className="w-full px-2 pt-9 sm:px-4">
               <div className="flex flex-col gap-2">
-                <div className="absolute top-[.6rem] left-5">
+                <div className="absolute top-[.5rem] left-1 sm:left-3">
                   <img
                     src={miniBus}
                     alt="combi"
                     className="w-10 h-9 lg:w-12 lg:h-11 hover:-rotate-12 transition-transform"
                   />
                 </div>
-                <div className="absolute right-4 top-2 flex items-center gap-2">
-                  <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-2xl border border-teal-800/80 bg-teal-300/30 dark:bg-teal-800  dark:border-teal-400/80 dark:text-white px-3 py-0.5">
+                <div className="absolute right-2 top-2 flex items-center gap-2 sm:right-4">
+                  <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
                     <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
                     {data.date}
                   </p>
@@ -212,39 +212,42 @@ const SingleSpecialTrip = () => {
                   )}
                 </div>
 
-                <div className="flex flex-col gap-3 mt-4 lg:mt-7">
-                  <div className="flex items-center gap-4">
-                    <h3 className="font-bold text-lg l dark:text-white lg:text-xl">
+                <div className="flex flex-col gap-1 mt-4 lg:mt-7">
+                  <div className="flex flex-col sm:gap-2">
+                    <h3 className="font-bold text-lg lg:text-xl">
                       {data.name}
                     </h3>
+                    <h4 className="text-sm font-light">
+                      Información acerca del viaje:
+                    </h4>
                   </div>
-                  <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-border-color p-4 shadow-inner rounded-md dark:bg-blue-lagoon-900/5 dark:border-border-color-dark">
-                    <div className="flex flex-col gap-2">
+                  <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-border-color py-4 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-900/5 dark:border-border-color-dark">
+                    <div className="flex flex-col gap-2 overflow-auto pb-2">
                       <p className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
-                        <span className="dark:text-white font-medium">
+                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <span className="font-medium shrink-0 dark:text-white">
                           Salida:
-                        </span>
-                        {data.from}
+                        </span>{" "}
+                        <span className="shrink-0">{data.from}</span>
                         <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
-                        {data.departureTime} hs.
+                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <span className="shrink-0">
+                          {data.departureTime} hs.
+                        </span>
                       </p>
-                      <div className=" flex items-center gap-1">
-                        <p className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
-                          <span className="dark:text-white font-medium">
-                            Destino:
-                          </span>
-                          {data.to}
-                        </p>
-                      </div>
+                      <p className="flex items-center gap-1">
+                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <span className="dark:text-white shrink-0 font-medium">
+                          Destino:
+                        </span>{" "}
+                        <span className="shrink-0">{data.to}</span>
+                      </p>
                       <p className="flex items-center gap-1">
                         <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white font-medium">
                           Precio:{" "}
                         </span>
-                        ${data.price}
+                        <span className="">${data.price}</span>
                       </p>
                       <p className="flex items-center gap-1">
                         <Users className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
@@ -258,7 +261,7 @@ const SingleSpecialTrip = () => {
 
                   <Dialog>
                     <div className="lg:flex lg:items-center lg:justify-end">
-                      <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:w-auto lg:h-[31px]">
+                      <div className="mt-2 relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:w-auto lg:h-[31px]">
                         <DialogTrigger className="relative w-full rounded-lg px-6 py-1.5 lg:py-0 bg-[#9e4a4f] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f] lg:w-auto lg:h-[31px]">
                           Editar
                         </DialogTrigger>
