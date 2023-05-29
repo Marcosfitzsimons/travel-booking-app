@@ -128,7 +128,7 @@ const TripCard = ({
             )}
           </div>
 
-          <div className="flex flex-col gap-1 mt-4 lg:mt-7 relative">
+          <div className="flex flex-col gap-1 mt-6 lg:mt-8 relative">
             <div className="flex flex-col sm:gap-2">
               <h3 className="font-bold text-lg lg:text-xl">{name}</h3>
               <h4 className="text-sm font-light">

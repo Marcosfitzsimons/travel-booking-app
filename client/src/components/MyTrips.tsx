@@ -9,6 +9,7 @@ import {
   ClipboardList,
   Check,
   FileCheck,
+  MapPin,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import {
@@ -263,25 +264,25 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="w-full flex flex-col items-center md:gap-5 md:grid md:justify-items-center md:grid-cols-2"
+            className="w-full flex flex-col items-center gap-3 md:gap-5 md:grid md:justify-items-center md:grid-cols-2"
           >
             {userTrips && userTrips.length > 0 ? (
               <>
                 {userTrips.map((trip: TripProps) => (
                   <article
                     key={trip.id}
-                    className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-2 max-w-[400px] bg-white/40 border dark:border-zinc-500 dark:bg-black/60"
+                    className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-5 max-w-[400px] bg-white/40 border dark:border-zinc-500 dark:bg-black/60"
                   >
-                    <div className="w-full px-2 pt-9 pb-4">
+                    <div className="w-full px-2 pt-9 sm:px-4">
                       <div className="flex flex-col gap-2">
-                        <div className="absolute top-[.45rem] left-1">
+                        <div className="absolute top-[.45rem] left-1 sm:left-3">
                           <img
                             src={miniBus}
                             alt="combi"
                             className="w-10 h-9 lg:w-12 lg:h-11 hover:-rotate-12 transition-transform"
                           />
                         </div>
-                        <div className="absolute right-4 top-2 flex items-center gap-2">
+                        <div className="absolute right-2 top-2 flex items-center gap-2 sm:right-4">
                           <TooltipProvider>
                             <Tooltip>
                               <TooltipTrigger asChild>
@@ -313,58 +314,47 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                           )}
                         </div>
 
-                        <div className="flex flex-col gap-3 mt-2 lg:mt-4">
-                          <div className="flex items-center gap-4">
-                            <h3 className="font-bold text-lg mt-2 dark:text-white lg:text-xl">
+                        <div className="flex flex-col gap-1 mt-6 lg:mt-8">
+                          <div className="flex flex-col sm:gap-2">
+                            <h3 className="font-bold text-lg lg:text-xl">
                               {trip.name}
                             </h3>
+                            <h4 className="text-sm font-light">
+                              Información acerca del viaje:
+                            </h4>
                           </div>
-                          <div className="flex flex-col w-full bg-blue-lagoon-200/10 border border-border-color gap-2 p-4 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
-                            <div className="flex flex-col gap-2">
+                          <div className="flex flex-col w-full bg-blue-lagoon-200/10 border border-border-color gap-2 py-3 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
+                            <div className="flex flex-col gap-2 overflow-auto">
                               <p className="flex items-center gap-1">
-                                <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                                <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
                                 <span className="dark:text-white font-medium">
                                   Salida:
                                 </span>{" "}
-                                {trip.departureTime}
-                                <span>- {trip.from}</span>
-                              </p>
-                              {trip.arrivalTime && (
-                                <div className="flex items-center gap-1">
-                                  <p className="flex items-center gap-1">
-                                    <Clock className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
-                                    <span className="dark:text-white font-medium">
-                                      Llegada:
-                                    </span>{" "}
-                                    {trip.arrivalTime}
-                                    <span>- {trip.to}</span>
-                                  </p>
-                                  <TooltipProvider>
-                                    <Tooltip>
-                                      <TooltipTrigger asChild>
-                                        <button className="">
-                                          <AlertCircle className="h-4 w-4 text-yellow-300" />
-                                          <span className="sr-only">
-                                            Alert Circle
-                                          </span>
-                                        </button>
-                                      </TooltipTrigger>
-                                      <TooltipContent className="">
-                                        <p className="">
-                                          El horario de llegada estimado es
-                                          aproximado y puede variar
-                                        </p>
-                                      </TooltipContent>
-                                    </Tooltip>
-                                  </TooltipProvider>
-                                </div>
-                              )}
-                              <p className="flex items-center gap-1">
-                                <DollarSign className="text-blue-lagoon-900/60 dark:text-blue-lagoon-300 h-4 w-4" />
-                                <span className="dark:text-white font-medium">
-                                  Precio:{" "}
+                                <span className="shrink-0">{trip.from}</span>
+                                <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
+                                <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                                <span className="shrink-0">
+                                  {trip.departureTime} hs.
                                 </span>
-                                ${trip.price}
+                              </p>
+                              <p className="flex items-center gap-1">
+                                <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                                <span className="dark:text-white font-medium">
+                                  Destino:
+                                </span>{" "}
+                                <span className="shrink-0">{trip.to}</span>
+                                <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
+                                <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                                <span className="shrink-0">
+                                  {trip.arrivalTime} hs.
+                                </span>
+                              </p>
+                              <p className="flex items-center gap-1">
+                                <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                                <span className="dark:text-white font-medium">
+                                  Precio:
+                                </span>
+                                <span className="">${trip.price}</span>
                               </p>
                             </div>
                           </div>
