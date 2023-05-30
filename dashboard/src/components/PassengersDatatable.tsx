@@ -124,12 +124,12 @@ const PassengersDatable = ({
                   <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
                   <AlertDialogDescription>
                     Esta acción no podrá deshacerse. Esto eliminará
-                    permanentemente al usuario del viaje.
+                    permanentemente al usuario de este viaje.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter className="flex flex-col-reverse gap-1 md:flex-row md:justify-end">
                   <AlertDialogCancel className="md:w-auto">
-                    No, volver a información del viaje.
+                    No, volver atrás.
                   </AlertDialogCancel>
                   <AlertDialogAction
                     onClick={() => handleDelete(params.row.createdBy._id)}
