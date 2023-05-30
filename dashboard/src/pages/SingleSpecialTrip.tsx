@@ -3,16 +3,15 @@ import { Link, useParams } from "react-router-dom";
 import moment from "moment-timezone";
 import "moment/locale/es";
 import axios from "axios";
-import { passengerColumns } from "../datatablesource";
+import { specialPassengerColumns } from "../datatablesource";
 import BackButton from "../components/BackButton";
-import PassengersDatatable from "../components/PassengersDatatable";
+import SpecialPassengersDatatable from "../components/SpecialPassengersDatatable";
 import {
   CalendarDays,
   Clock,
   DollarSign,
   Heart,
   MapPin,
-  Pin,
   UserPlus,
   Users,
 } from "lucide-react";
@@ -48,6 +47,11 @@ type SpecialTrip = {
   price: string;
 };
 
+type SpecialPassenger = {
+  fullName?: string;
+  dni?: number;
+};
+
 const INITIAL_STATES = {
   _id: "",
   name: "",
@@ -65,6 +69,7 @@ const SingleSpecialTrip = () => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted2, setIsSubmitted2] = useState(false);
   const [departureTimeValue, setDepartureTimeValue] = useState("10:00");
   const [error, setError] = useState<unknown | boolean>(false);
   const [err, setErr] = useState<null | string>(null);
@@ -76,7 +81,6 @@ const SingleSpecialTrip = () => {
   moment.locale("es", {
     weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
   });
-
   let { id } = useParams();
   const { toast } = useToast();
 
@@ -94,6 +98,17 @@ const SingleSpecialTrip = () => {
       departureTime: "",
       price: "",
       maxCapacity: "",
+    },
+  });
+
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    formState: { errors: errors2 },
+  } = useForm({
+    defaultValues: {
+      fullName: "",
+      dni: 0,
     },
   });
 
@@ -130,6 +145,32 @@ const SingleSpecialTrip = () => {
     }
   };
 
+  const handleOnSubmitPassenger = async (data: SpecialPassenger) => {
+    setIsSubmitted(true);
+    try {
+      await axios.post(
+        `https://fabebus-api-example.onrender.com/api/special-passengers/${id}`,
+        {
+          ...data,
+        },
+        { headers }
+      );
+      toast({
+        description: "Pasajero ha sido creado con éxito.",
+      });
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    } catch (err: any) {
+      console.log(err);
+      const errorMsg = err.response.data.err.message;
+      setErr(errorMsg);
+      toast({
+        description: "Error al crear pasajero. Intentar más tarde.",
+      });
+    }
+  };
+
   const formatDate = (date: string) => {
     const momentDate = moment.utc(date);
     const timezone = "America/Argentina/Buenos_Aires";
@@ -137,6 +178,30 @@ const SingleSpecialTrip = () => {
     const formatted_date = timezone_date.format("ddd DD/MM");
     // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
     return formatted_date;
+  };
+
+  const handleOnSubmitAnonymousPassenger = async () => {
+    setIsSubmitted2(true);
+    try {
+      await axios.post(
+        `https://fabebus-api-example.onrender.com/api/special-passengers/${id}`,
+        {},
+        { headers }
+      );
+      toast({
+        description: "Pasajero anónimo ha sido creado con éxito.",
+      });
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    } catch (err: any) {
+      console.log(err);
+      const errorMsg = err.response.data.err.message;
+      setErr(errorMsg);
+      toast({
+        description: "Error al crear pasajero anónimo. Intentar más tarde.",
+      });
+    }
   };
 
   useEffect(() => {
@@ -153,7 +218,6 @@ const SingleSpecialTrip = () => {
             headers,
           }
         );
-        console.log(res);
         formatDate(res.data.date);
         setData({ ...res.data, date: formatDate(res.data.date) });
         const tripData = { ...res.data };
@@ -206,7 +270,7 @@ const SingleSpecialTrip = () => {
                     {data.date}
                   </p>
                   {data.date === todayDate && (
-                    <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-2xl dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-3 py-0.5">
+                    <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-lg dark:bg-[#75f5a8]/20 dark:border-[#86dda9] dark:text-white px-3">
                       HOY
                     </p>
                   )}
@@ -279,6 +343,7 @@ const SingleSpecialTrip = () => {
                       <div className="w-full flex flex-col items-center gap-5">
                         <div className="w-full flex flex-col items-center gap-5">
                           <form
+                            key={1}
                             onSubmit={handleSubmit(handleOnSubmit)}
                             className="w-full flex flex-col items-center gap-3"
                           >
@@ -453,13 +518,109 @@ const SingleSpecialTrip = () => {
                         Combi completa
                       </p>
                     ) : (
-                      <Link
-                        to={`/passengers/newPassenger/${id}`}
-                        className="px-3.5 py-1 pl-[32px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-                      >
-                        <UserPlus className="absolute cursor-pointer left-3 top-[6px] h-5 w-5" />
-                        Agregar pasajero
-                      </Link>
+                      <Dialog>
+                        <div className="lg:flex lg:items-center lg:justify-end">
+                          <DialogTrigger className="mt-2 flex items-center px-3.5 py-1 pl-[37px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500">
+                            <UserPlus className="absolute cursor-pointer left-[15px] h-5 w-5" />
+                            Agregar pasajero
+                          </DialogTrigger>
+                        </div>
+                        <DialogContent>
+                          <DialogHeader>
+                            <DialogTitle className="text-center text-2xl lg:text-3xl">
+                              Agregar pasajero
+                            </DialogTitle>
+                            <DialogDescription className="text-center lg:text-lg">
+                              Información acerca del pasajero
+                            </DialogDescription>
+                          </DialogHeader>
+                          <div className="w-full flex flex-col items-center gap-5">
+                            <div className="w-full flex flex-col items-center gap-5">
+                              <form
+                                key={2}
+                                onSubmit={handleSubmit2(
+                                  handleOnSubmitPassenger
+                                )}
+                                className="w-full flex flex-col items-center gap-3"
+                              >
+                                <div className="grid w-full max-w-md items-center gap-2">
+                                  <Label htmlFor="fullName">
+                                    Nombre completo
+                                  </Label>
+                                  <Input
+                                    type="text"
+                                    id="fullName"
+                                    {...register2("fullName", {
+                                      required: {
+                                        value: true,
+                                        message:
+                                          "Por favor, ingresar nombre completo.",
+                                      },
+                                      minLength: {
+                                        value: 3,
+                                        message:
+                                          "Nombre completo no puede ser tan corto.",
+                                      },
+                                      maxLength: {
+                                        value: 25,
+                                        message:
+                                          "Nombre completo no puede ser tan largo.",
+                                      },
+                                    })}
+                                  />
+                                  {errors2.fullName && (
+                                    <p className="text-red-600">
+                                      {errors2.fullName.message}
+                                    </p>
+                                  )}
+                                </div>
+                                <div className="grid w-full max-w-md items-center gap-2">
+                                  <Label htmlFor="dni">DNI</Label>
+                                  <Input
+                                    type="number"
+                                    id="dni"
+                                    {...register2("dni", {
+                                      required: {
+                                        value: true,
+                                        message: "Por favor, ingresar DNI.",
+                                      },
+                                    })}
+                                  />
+                                  {errors2.fullName && (
+                                    <p className="text-red-600">
+                                      {errors2.fullName.message}
+                                    </p>
+                                  )}
+                                </div>
+
+                                {err && (
+                                  <p className="text-red-600 self-start">
+                                    {err}
+                                  </p>
+                                )}
+                                <DialogFooter>
+                                  <div className="w-[min(28rem,100%)] flex justify-center">
+                                    <DefaultButton loading={isSubmitted}>
+                                      Crear pasajero
+                                    </DefaultButton>
+                                  </div>
+                                </DialogFooter>
+                              </form>
+                            </div>
+                          </div>
+                          <div className="w-full flex flex-col items-center gap-5">
+                            <p className="text-center">o</p>
+                            <div
+                              className="w-auto"
+                              onClick={handleOnSubmitAnonymousPassenger}
+                            >
+                              <DefaultButton loading={isSubmitted2}>
+                                Crear pasajero anónimo
+                              </DefaultButton>
+                            </div>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
                     )}
                   </div>
                 </div>
@@ -467,9 +628,9 @@ const SingleSpecialTrip = () => {
             </div>
 
             {data.passengers && data.passengers.length > 0 ? (
-              <PassengersDatatable
+              <SpecialPassengersDatatable
                 tripPassengers={data.passengers}
-                columns={passengerColumns}
+                columns={specialPassengerColumns}
                 tripId={id}
               />
             ) : (
