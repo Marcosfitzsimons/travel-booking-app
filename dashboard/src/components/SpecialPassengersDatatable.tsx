@@ -15,21 +15,18 @@ import {
 } from "./ui/alert-dialog";
 import { toast } from "../hooks/ui/use-toast";
 import { Link } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 
 type Passenger = {
   _id: string;
   fullName?: string;
   dni?: number;
-};
-
-type SpecialTrip = {
-  name: string;
-  date: Date | null | undefined;
-  from: string;
-  departureTime: string;
-  to: string;
-  maxCapacity: string;
-  price: string;
 };
 
 type DataTableProps = {
@@ -80,6 +77,8 @@ const SpecialPassengersDatable = ({
     }
   };
 
+  const handleIsPassengerInfo = (passengerId: string) => {};
+
   const actionColumn = [
     {
       field: "action",
@@ -89,13 +88,39 @@ const SpecialPassengersDatable = ({
         return (
           <div className="flex items-center gap-2">
             <div className="relative flex items-center">
-              <Link
-                to={`/passengers/${params.row._id}/${tripId}`}
-                className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-              >
-                <Eye className="absolute left-3 top-[4px] h-4 w-4" />
-                Ver
-              </Link>
+              <Dialog>
+                <div className="lg:flex lg:items-center lg:justify-end">
+                  <DialogTrigger>
+                    <button className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500">
+                      <Eye className="absolute left-3 top-[4px] h-4 w-4" />
+                      Ver
+                    </button>
+                  </DialogTrigger>
+                </div>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle className="text-center text-2xl lg:text-3xl">
+                      Información del pasajero:
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="w-10/12 mx-auto">
+                    <p className="flex items-center gap-1">
+                      ID: <span>{params.row._id ? params.row._id : ""}</span>
+                    </p>
+                    <p className="flex items-center gap-1">
+                      Nombre completo:
+                      <span>
+                        {params.row.fullName
+                          ? params.row.fullName
+                          : "Pasajero anónimo"}
+                      </span>
+                    </p>
+                    <p className="flex items-center gap-1">
+                      DNI: <span>{params.row.dni ? params.row.dni : "-"}</span>
+                    </p>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
             <AlertDialog>
               <AlertDialogTrigger asChild>

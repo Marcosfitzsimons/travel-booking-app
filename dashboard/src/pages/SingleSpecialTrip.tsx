@@ -49,7 +49,7 @@ type SpecialTrip = {
 
 type SpecialPassenger = {
   fullName?: string;
-  dni?: number;
+  dni?: number | undefined;
 };
 
 const INITIAL_STATES = {
@@ -108,7 +108,7 @@ const SingleSpecialTrip = () => {
   } = useForm({
     defaultValues: {
       fullName: "",
-      dni: 0,
+      dni: undefined,
     },
   });
 
@@ -579,16 +579,11 @@ const SingleSpecialTrip = () => {
                                   <Input
                                     type="number"
                                     id="dni"
-                                    {...register2("dni", {
-                                      required: {
-                                        value: true,
-                                        message: "Por favor, ingresar DNI.",
-                                      },
-                                    })}
+                                    {...register2("dni")}
                                   />
-                                  {errors2.fullName && (
+                                  {errors2.dni && (
                                     <p className="text-red-600">
-                                      {errors2.fullName.message}
+                                      {errors2.dni.message}
                                     </p>
                                   )}
                                 </div>
