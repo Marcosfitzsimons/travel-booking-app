@@ -287,7 +287,7 @@ const SingleSpecialTrip = () => {
                   </div>
                   <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-border-color py-4 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-900/5 dark:border-border-color-dark">
                     <div className="flex flex-col gap-2 overflow-auto pb-2">
-                      <p className="flex items-center gap-1">
+                      <div className="flex items-center gap-1">
                         <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
                         <span className="font-medium shrink-0 dark:text-white">
                           Salida:
@@ -298,7 +298,7 @@ const SingleSpecialTrip = () => {
                         <span className="shrink-0">
                           {data.departureTime} hs.
                         </span>
-                      </p>
+                      </div>
                       <p className="flex items-center gap-1">
                         <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white shrink-0 font-medium">

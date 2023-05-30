@@ -90,11 +90,9 @@ const SpecialPassengersDatable = ({
             <div className="relative flex items-center">
               <Dialog>
                 <div className="lg:flex lg:items-center lg:justify-end">
-                  <DialogTrigger>
-                    <button className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500">
-                      <Eye className="absolute left-3 top-[4px] h-4 w-4" />
-                      Ver
-                    </button>
+                  <DialogTrigger className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500">
+                    <Eye className="absolute left-3 top-[4px] h-4 w-4" />
+                    Ver
                   </DialogTrigger>
                 </div>
                 <DialogContent>
