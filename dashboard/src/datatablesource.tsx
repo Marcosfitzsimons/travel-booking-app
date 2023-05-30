@@ -209,3 +209,34 @@ export const passengerColumns = [
     },
   },
 ];
+
+export const specialPassengerColumns = [
+  {
+    field: "_id",
+    headerName: "ID",
+    width: 230,
+    renderCell: (params: any) => {
+      return <p className="flex items-center gap-2">{params.row._id}</p>;
+    },
+  },
+  {
+    field: "fullName",
+    headerName: "Nombre completo",
+    width: 230,
+    renderCell: (params: any) => {
+      return (
+        <p className="flex items-center gap-2">
+          {params.row.fullName ? params.row.fullName : "Pasajero anónimo"}
+        </p>
+      );
+    },
+  },
+  {
+    field: "dni",
+    headerName: "DNI",
+    width: 130,
+    renderCell: (params: any) => {
+      return <p className="">{params.row.dni ? params.row.dni : "-"}</p>;
+    },
+  },
+];
