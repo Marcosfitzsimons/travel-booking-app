@@ -7,7 +7,13 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/SectionTitle";
-import { AlertCircle, CalendarDays, MapPin, Clock } from "lucide-react";
+import {
+  AlertCircle,
+  CalendarDays,
+  MapPin,
+  Clock,
+  ClipboardList,
+} from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -218,9 +224,10 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                   </div>
                 </div>
 
-                <div className="border-t border-border-color mt-2 flex flex-col gap-1 p-2">
+                <div className="border-t border-border-color mt-2 flex flex-col gap-1 py-2">
                   <div className="flex items-center gap-2">
-                    <h5 className="font-medium dark:text-white">
+                    <h5 className="font-medium flex items-center gap-1 dark:text-white">
+                      <ClipboardList className="h-5 w-5 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
                       Mis datos para este viaje:
                     </h5>
                     <Button
@@ -230,7 +237,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                       Editar
                     </Button>
                   </div>
-                  <ul>
+                  <ul className="px-2">
                     <li>
                       <p className="flex items-center gap-[2px] text-sm">
                         <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
