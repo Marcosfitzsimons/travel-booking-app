@@ -575,7 +575,12 @@ const SingleSpecialTrip = () => {
                                   )}
                                 </div>
                                 <div className="grid w-full max-w-md items-center gap-2">
-                                  <Label htmlFor="dni">DNI</Label>
+                                  <Label htmlFor="dni">
+                                    DNI{" "}
+                                    <span className="text-sm text-blue-lagoon-900/60 dark:text-blue-lagoon-300">
+                                      (opcional)
+                                    </span>
+                                  </Label>
                                   <Input
                                     type="number"
                                     id="dni"

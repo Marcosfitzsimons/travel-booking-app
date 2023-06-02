@@ -26,7 +26,7 @@ type UserData = {
   fullName: string | undefined;
   email: string | undefined;
   addressCda: string | undefined;
-  addressCapital?: string | undefined;
+  addressCapital: string | undefined;
   phone: number | undefined;
   dni: number | undefined;
   image?: string | undefined;
@@ -45,7 +45,6 @@ const INITIAL_STATES = {
 
 const SinglePassenger = () => {
   const [data, setData] = useState(INITIAL_STATES);
-  console.log(data);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<File | string>("");
   const [err, setErr] = useState<any>(false);
@@ -138,6 +137,7 @@ const SinglePassenger = () => {
             headers,
           }
         );
+        console.log(res);
         setData(res.data.passenger.createdBy);
         const userData = res.data.passenger.createdBy;
         reset({

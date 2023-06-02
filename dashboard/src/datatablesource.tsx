@@ -148,14 +148,17 @@ export const passengerColumns = [
           <Avatar className="w-8 h-8">
             <AvatarImage
               className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
-              src={params.row.createdBy.image || ""}
+              src={params.row.createdBy?.image || ""}
               alt="avatar"
             />
             <AvatarFallback>
               <User className="w-12 h-12 dark:text-blue-lagoon-100" />
             </AvatarFallback>
           </Avatar>
-          {params.row.createdBy.fullName}
+          {params.row.fullName && params.row.fullName}
+          {params.row.createdBy
+            ? params.row.createdBy.fullName
+            : "Pasajero anónimo"}
         </div>
       );
     },
@@ -165,7 +168,7 @@ export const passengerColumns = [
     headerName: "Dirección (Carmen)",
     width: 180,
     renderCell: (params: any) => {
-      return <p className="">{params.row.createdBy.addressCda}</p>;
+      return <p className="">{params.row.createdBy?.addressCda}</p>;
     },
   },
   {
@@ -173,7 +176,7 @@ export const passengerColumns = [
     headerName: "Dirección (Capital)",
     width: 180,
     renderCell: (params: any) => {
-      return <p className="">{params.row.createdBy.addressCapital}</p>;
+      return <p className="">{params.row.createdBy?.addressCapital}</p>;
     },
   },
   {
@@ -181,7 +184,7 @@ export const passengerColumns = [
     headerName: "Usuario",
     width: 150,
     renderCell: (params: any) => {
-      return <p className="">@{params.row.createdBy.username}</p>;
+      return <p className="">@{params.row.createdBy?.username}</p>;
     },
   },
   {
@@ -189,7 +192,7 @@ export const passengerColumns = [
     headerName: "Email",
     width: 230,
     renderCell: (params: any) => {
-      return <p className="">{params.row.createdBy.email}</p>;
+      return <p className="">{params.row.createdBy?.email}</p>;
     },
   },
   {
@@ -197,7 +200,7 @@ export const passengerColumns = [
     headerName: "Celular",
     width: 130,
     renderCell: (params: any) => {
-      return <p className="">{params.row.createdBy.phone}</p>;
+      return <p className="">{params.row.createdBy?.phone}</p>;
     },
   },
   {
@@ -205,7 +208,11 @@ export const passengerColumns = [
     headerName: "DNI",
     width: 130,
     renderCell: (params: any) => {
-      return <p className="">{params.row.createdBy.dni}</p>;
+      return (
+        <p className="">
+          {params.row.createdBy?.dni ? params.row.createdBy?.dni : "-"}
+        </p>
+      );
     },
   },
 ];

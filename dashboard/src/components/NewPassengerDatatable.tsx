@@ -48,7 +48,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
     try {
       await axios.post(
         `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
-        {},
+        { userId: userId },
         { headers }
       );
       setLoading(false);

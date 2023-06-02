@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment-timezone";
 import "moment/locale/es";
@@ -36,6 +36,7 @@ import DatePickerContainer from "../components/DatePickerContainer";
 import Logo from "../components/Logo";
 import TimePickerContainer from "../components/TimePickerContainer";
 import { Separator } from "../components/ui/separator";
+import { AuthContext } from "../context/AuthContext";
 
 type Trip = {
   name: string;
@@ -46,6 +47,13 @@ type Trip = {
   arrivalTime: string;
   maxCapacity: string;
   price: string;
+};
+
+type SpecialPassenger = {
+  fullName?: string;
+  dni?: number | undefined;
+  addressCda?: string;
+  addressCapital?: string;
 };
 
 const INITIAL_STATES = {
@@ -67,18 +75,22 @@ const SingleTrip = () => {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted2, setIsSubmitted2] = useState(false);
   const [arrivalTimeValue, setArrivalTimeValue] = useState("10:00");
   const [departureTimeValue, setDepartureTimeValue] = useState("10:00");
   const [error, setError] = useState<unknown | boolean>(false);
   const [err, setErr] = useState<null | string>(null);
 
   const isMaxCapacity = data.passengers.length === data.maxCapacity;
+  const availableSeats = `${data.passengers.length} / ${data.maxCapacity}`;
 
   const todayDate = moment().locale("es").format("ddd DD/MM");
 
   moment.locale("es", {
     weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
   });
+
+  const { user } = useContext(AuthContext);
 
   let { id } = useParams();
   const { toast } = useToast();
@@ -98,6 +110,19 @@ const SingleTrip = () => {
       arrivalTime: "",
       price: "",
       maxCapacity: "",
+    },
+  });
+
+  const {
+    register: register2,
+    handleSubmit: handleSubmit2,
+    formState: { errors: errors2 },
+  } = useForm({
+    defaultValues: {
+      fullName: "",
+      dni: undefined,
+      addressCda: "",
+      addressCapital: "",
     },
   });
 
@@ -135,6 +160,57 @@ const SingleTrip = () => {
     }
   };
 
+  const handleOnSubmitPassenger = async (data: SpecialPassenger) => {
+    console.log({ ...data });
+    setIsSubmitted(true);
+    try {
+      await axios.post(
+        `https://fabebus-api-example.onrender.com/api/passengers/${user?._id}/${id}`,
+        {
+          ...data,
+        },
+        { headers }
+      );
+      toast({
+        description: "Pasajero ha sido creado con éxito.",
+      });
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    } catch (err: any) {
+      console.log(err);
+      const errorMsg = err.response.data.err.message;
+      setErr(errorMsg);
+      toast({
+        description: "Error al crear pasajero. Intentar más tarde.",
+      });
+    }
+  };
+
+  const handleOnSubmitAnonymousPassenger = async () => {
+    setIsSubmitted2(true);
+    try {
+      await axios.post(
+        `https://fabebus-api-example.onrender.com/api/passengers/${user?._id}/${id}`,
+        {},
+        { headers }
+      );
+      toast({
+        description: "Pasajero anónimo ha sido creado con éxito.",
+      });
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    } catch (err: any) {
+      console.log(err);
+      const errorMsg = err.response.data.err.message;
+      setErr(errorMsg);
+      toast({
+        description: "Error al crear pasajero anónimo. Intentar más tarde.",
+      });
+    }
+  };
+
   const formatDate = (date: string) => {
     const momentDate = moment.utc(date);
     const timezone = "America/Argentina/Buenos_Aires";
@@ -158,6 +234,7 @@ const SingleTrip = () => {
             headers,
           }
         );
+        console.log(res.data);
 
         formatDate(res.data.date);
         setData({ ...res.data, date: formatDate(res.data.date) });
@@ -232,7 +309,7 @@ const SingleTrip = () => {
                   </div>
                   <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-border-color px-1 py-4 shadow-inner rounded-md dark:bg-blue-lagoon-900/5 dark:border-border-color-dark">
                     <div className="flex flex-col gap-2 overflow-auto pb-2">
-                      <p className="flex items-center gap-1">
+                      <div className="flex items-center gap-1">
                         <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
                         <span className="font-medium shrink-0 dark:text-white">
                           Salida:
@@ -243,8 +320,8 @@ const SingleTrip = () => {
                         <span className="shrink-0">
                           {data.departureTime} hs.
                         </span>
-                      </p>
-                      <p className="flex items-center gap-1">
+                      </div>
+                      <div className="flex items-center gap-1">
                         <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white shrink-0 font-medium">
                           Destino:
@@ -253,7 +330,7 @@ const SingleTrip = () => {
                         <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
                         <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
                         <span className="shrink-0">{data.arrivalTime} hs.</span>
-                      </p>
+                      </div>
                       <p className="flex items-center gap-1">
                         <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
                         <span className="dark:text-white font-medium">
@@ -455,32 +532,170 @@ const SingleTrip = () => {
             )}
           </article>
           <div className="flex flex-col gap-2">
-            <div className="w-full flex justify-between items-end">
+            <div className="w-full flex flex-col gap-4">
               <h3 className="font-bold text-xl uppercase dark:text-white lg:text-2xl">
                 Pasajeros:
               </h3>
-              <div className="flex flex-col items-end gap-1 sm:flex-row sm:gap-2">
-                <div className="flex items-center gap-1 text-sm lg:text-base">
-                  <Users className="animate-pulse text-blue-lagoon-900/60 h-4 w-4 lg:w-5 lg:h-5 dark:text-blue-lagoon-300" />
-                  <p className="font-medium">Pasajeros:</p>
-                  <p className="font-light flex items-center lg:gap-1">
-                    {data.passengers.length}/{data.maxCapacity}
+              <div className="flex flex-col item-center gap-1 md:flex-row md:justify-between">
+                <div className="flex items-center justify-center gap-1 text-sm order-2 md:text-base md:order-1 md:self-end">
+                  <Users className="animate-pulse text-blue-lagoon-900/60 h-4 w-4 lg:w-5 lg:h-5 shrink-0 dark:text-blue-lagoon-300" />
+                  <p className="shrink-0">
+                    Lugares disponibles: {availableSeats}
                   </p>
                 </div>
-                <div className="w-full flex items-center justify-end relative">
+                <div className="flex items-center justify-center relative md:order-2">
                   <div className="flex items-center relative">
                     {isMaxCapacity ? (
                       <p className="text-green-900 bg-green-300/30 border order-2 border-green-800/80 select-none font-medium rounded-md dark:bg-[#75f5a8]/30 dark:border-[#4ca770] dark:text-white px-1">
                         Combi completa
                       </p>
                     ) : (
-                      <Link
-                        to={`/passengers/newPassenger/${id}`}
-                        className="px-3.5 py-1 pl-[32px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-                      >
-                        <UserPlus className="absolute cursor-pointer left-3 top-[6px] h-5 w-5" />
-                        Agregar pasajero
-                      </Link>
+                      <div className="flex flex-col gap-2 md:flex-row md:items-center ">
+                        <Dialog>
+                          <div className="lg:flex lg:items-center lg:justify-end">
+                            <DialogTrigger className="px-3.5 relative py-1 pl-[35px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500">
+                              <UserPlus className="absolute cursor-pointer left-3 top-[6px] h-5 w-5" />
+                              Agregar pasajero anónimo
+                            </DialogTrigger>
+                          </div>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle className="text-center text-2xl lg:text-3xl">
+                                Agregar pasajero
+                              </DialogTitle>
+                              <DialogDescription className="text-center lg:text-lg">
+                                Información acerca del pasajero
+                              </DialogDescription>
+                            </DialogHeader>
+                            <div className="w-full flex flex-col items-center gap-5">
+                              <div className="w-full flex flex-col items-center gap-5">
+                                <form
+                                  key={2}
+                                  onSubmit={handleSubmit2(
+                                    handleOnSubmitPassenger
+                                  )}
+                                  className="w-full flex flex-col items-center gap-3"
+                                >
+                                  <div className="grid w-full max-w-md items-center gap-2">
+                                    <Label htmlFor="fullName">
+                                      Nombre completo
+                                    </Label>
+                                    <Input
+                                      type="text"
+                                      id="fullName"
+                                      {...register2("fullName", {
+                                        required: {
+                                          value: true,
+                                          message:
+                                            "Por favor, ingresar nombre completo.",
+                                        },
+                                        minLength: {
+                                          value: 3,
+                                          message:
+                                            "Nombre completo no puede ser tan corto.",
+                                        },
+                                        maxLength: {
+                                          value: 25,
+                                          message:
+                                            "Nombre completo no puede ser tan largo.",
+                                        },
+                                      })}
+                                    />
+                                    {errors2.fullName && (
+                                      <p className="text-red-600">
+                                        {errors2.fullName.message}
+                                      </p>
+                                    )}
+                                  </div>
+                                  <div className="grid w-full max-w-md items-center gap-2">
+                                    <Label htmlFor="dni">
+                                      DNI{" "}
+                                      <span className="text-sm text-blue-lagoon-900/60 dark:text-blue-lagoon-300">
+                                        (opcional)
+                                      </span>
+                                    </Label>
+                                    <Input
+                                      type="number"
+                                      id="dni"
+                                      {...register2("dni")}
+                                    />
+                                    {errors2.dni && (
+                                      <p className="text-red-600">
+                                        {errors2.dni.message}
+                                      </p>
+                                    )}
+                                  </div>
+                                  <div className="grid w-full max-w-md items-center gap-2">
+                                    <Label htmlFor="addressCda">
+                                      Dirección (Carmen)
+                                    </Label>
+                                    <Input
+                                      type="text"
+                                      id="addressCda"
+                                      {...register2("addressCda")}
+                                    />
+                                    {errors2.addressCda && (
+                                      <p className="text-red-600">
+                                        {errors2.addressCda.message}
+                                      </p>
+                                    )}
+                                  </div>
+                                  <div className="grid w-full max-w-md items-center gap-2">
+                                    <Label htmlFor="addressCapital">
+                                      Dirección (Capital)
+                                    </Label>
+                                    <Input
+                                      type="text"
+                                      id="addressCapital"
+                                      {...register2("addressCapital")}
+                                    />
+                                    {errors2.addressCapital && (
+                                      <p className="text-red-600">
+                                        {errors2.addressCapital.message}
+                                      </p>
+                                    )}
+                                  </div>
+
+                                  {err && (
+                                    <p className="text-red-600 self-start">
+                                      {err}
+                                    </p>
+                                  )}
+                                  <DialogFooter>
+                                    <div className="w-[min(28rem,100%)] flex justify-center">
+                                      <DefaultButton loading={isSubmitted}>
+                                        Crear pasajero
+                                      </DefaultButton>
+                                    </div>
+                                  </DialogFooter>
+                                </form>
+                              </div>
+                            </div>
+                            <div className="w-full flex flex-col items-center gap-5">
+                              <p className="text-center">o</p>
+                              <div
+                                className="w-auto"
+                                onClick={handleOnSubmitAnonymousPassenger}
+                              >
+                                <DefaultButton loading={isSubmitted2}>
+                                  Crear pasajero anónimo
+                                </DefaultButton>
+                              </div>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                        <Separator
+                          orientation="vertical"
+                          className="h-4 bg-border-color hidden lg:flex dark:bg-border-color-dark"
+                        />
+                        <Link
+                          to={`/passengers/newPassenger/${id}`}
+                          className="px-3.5 relative py-1 pl-[35px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
+                        >
+                          <UserPlus className="absolute cursor-pointer left-3 top-[6px] h-5 w-5" />
+                          Agregar pasajero
+                        </Link>
+                      </div>
                     )}
                   </div>
                 </div>

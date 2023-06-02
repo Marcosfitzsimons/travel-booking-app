@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Eye, Trash2 } from "lucide-react";
 import axios from "axios";
@@ -15,6 +15,15 @@ import {
 } from "./ui/alert-dialog";
 import { toast } from "../hooks/ui/use-toast";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { Button } from "@mui/material";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 
 type Passenger = {
   _id: string;
@@ -65,6 +74,8 @@ const PassengersDatable = ({
     Authorization: `Bearer ${token}`,
   };
 
+  const { user } = useContext(AuthContext);
+
   const handleDelete = async (userId: string) => {
     setLoading(true);
     try {
@@ -76,7 +87,6 @@ const PassengersDatable = ({
         description: "Lugar cancelado con éxito.",
       });
       setLoading(false);
-      setList(list.filter((item) => item.createdBy._id !== userId));
       setTimeout(() => {
         location.reload();
       }, 1000);
@@ -99,16 +109,71 @@ const PassengersDatable = ({
       headerName: "Acción",
       width: 180,
       renderCell: (params: any) => {
+        const isPassenger = params.row.createdBy;
         return (
           <div className="flex items-center gap-2">
             <div className="relative flex items-center">
-              <Link
-                to={`/passengers/${params.row.createdBy._id}/${tripId}`}
-                className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-              >
-                <Eye className="absolute left-3 top-[4px] h-4 w-4" />
-                Ver
-              </Link>
+              {isPassenger ? (
+                <Link
+                  to={`/passengers/${params.row.createdBy._id}/${tripId}`}
+                  className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
+                >
+                  <Eye className="absolute left-3 top-[4px] h-4 w-4" />
+                  Ver
+                </Link>
+              ) : (
+                <div className="relative flex items-center">
+                  <Dialog>
+                    <div className="lg:flex lg:items-center lg:justify-end">
+                      <DialogTrigger className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500">
+                        <Eye className="absolute left-3 top-[4px] h-4 w-4" />
+                        Ver
+                      </DialogTrigger>
+                    </div>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle className="text-center text-2xl lg:text-3xl">
+                          Información del pasajero:
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="w-10/12 mx-auto">
+                        <p className="flex items-center gap-1">
+                          ID:{" "}
+                          <span>{params.row._id ? params.row._id : ""}</span>
+                        </p>
+                        <p className="flex items-center gap-1">
+                          Nombre completo:
+                          <span>
+                            {params.row.fullName
+                              ? params.row.fullName
+                              : "Pasajero anónimo"}
+                          </span>
+                        </p>
+                        <p className="flex items-center gap-1">
+                          DNI:{" "}
+                          <span>{params.row.dni ? params.row.dni : "-"}</span>
+                        </p>{" "}
+                        <p className="flex items-center gap-1">
+                          Dirección (Carmen):{" "}
+                          <span>
+                            {params.row.addressCda
+                              ? params.row.addressCda
+                              : "-"}
+                          </span>
+                        </p>{" "}
+                        <p className="flex items-center gap-1">
+                          Dirección (Capital):{" "}
+                          <span>
+                            {params.row.addressCapital
+                              ? params.row.addressCapital
+                              : "-"}
+                          </span>
+                        </p>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              )}
             </div>
             <AlertDialog>
               <AlertDialogTrigger asChild>
@@ -132,7 +197,11 @@ const PassengersDatable = ({
                     No, volver atrás.
                   </AlertDialogCancel>
                   <AlertDialogAction
-                    onClick={() => handleDelete(params.row.createdBy._id)}
+                    onClick={() =>
+                      handleDelete(
+                        isPassenger ? params.row.createdBy._id : params.row._id
+                      )
+                    }
                     className="md:w-auto"
                   >
                     Si, borrar pasajero
