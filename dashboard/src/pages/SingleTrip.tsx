@@ -622,24 +622,7 @@ const SingleTrip = () => {
                                       </p>
                                     )}
                                   </div>
-                                  <div className="grid w-full max-w-md items-center gap-2">
-                                    <Label htmlFor="dni">
-                                      DNI{" "}
-                                      <span className="text-sm text-blue-lagoon-900/60 dark:text-blue-lagoon-300">
-                                        (opcional)
-                                      </span>
-                                    </Label>
-                                    <Input
-                                      type="number"
-                                      id="dni"
-                                      {...register2("dni")}
-                                    />
-                                    {errors2.dni && (
-                                      <p className="text-red-600">
-                                        {errors2.dni.message}
-                                      </p>
-                                    )}
-                                  </div>
+
                                   <div className="grid w-full max-w-md items-center gap-2">
                                     <Label htmlFor="addressCda">
                                       Dirección (Carmen)
@@ -667,6 +650,24 @@ const SingleTrip = () => {
                                     {errors2.addressCapital && (
                                       <p className="text-red-600">
                                         {errors2.addressCapital.message}
+                                      </p>
+                                    )}
+                                  </div>
+                                  <div className="grid w-full max-w-md items-center gap-2">
+                                    <Label htmlFor="dni">
+                                      DNI{" "}
+                                      <span className="text-sm text-blue-lagoon-900/60 dark:text-blue-lagoon-300">
+                                        (opcional)
+                                      </span>
+                                    </Label>
+                                    <Input
+                                      type="number"
+                                      id="dni"
+                                      {...register2("dni")}
+                                    />
+                                    {errors2.dni && (
+                                      <p className="text-red-600">
+                                        {errors2.dni.message}
                                       </p>
                                     )}
                                   </div>

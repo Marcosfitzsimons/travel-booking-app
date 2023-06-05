@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import DefaultButton from "./DefaultButton";
 import { toast } from "../hooks/ui/use-toast";
 import SearchUserInput from "./SearchUserInput";
+import { ContactIcon } from "lucide-react";
 
 type UserDataTableProps = {
   columns: any;
@@ -114,17 +115,6 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
                     </div>
                     <div className="w-full flex flex-col items-center gap-5">
                       <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 border border-border-color items-start p-4 shadow-inner rounded-md dark:bg-black/80 dark:border-border-color-dark dark:hover:border-blue-lagoon-300">
-                        <li className="flex items-center gap-1">
-                          <Mail className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
-                          <span className="font-medium">Email:</span>
-                          {params.row.email}
-                        </li>
-                        <li className="flex items-center gap-1">
-                          <Phone className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
-                          <span className="font-medium">Celular:</span>{" "}
-                          {params.row.phone}
-                        </li>
-
                         <li className="flex items-center gap-1 shrink-0">
                           <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
                           <span className="font-medium shrink-0">
@@ -134,7 +124,6 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
                             {params.row.addressCda}
                           </span>
                         </li>
-
                         <li className="flex items-center gap-1 shrink-0">
                           <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
                           <span className="font-medium shrink-0">
@@ -143,6 +132,21 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
                           <span className="shrink-0">
                             {params.row.addressCapital}
                           </span>
+                        </li>
+                        <li className="flex items-center gap-1">
+                          <Phone className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <span className="font-medium">Celular:</span>{" "}
+                          {params.row.phone}
+                        </li>
+                        <li className="flex items-center gap-1 shrink-0">
+                          <ContactIcon className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
+                          <span className="font-medium shrink-0">DNI:</span>
+                          <span className="shrink-0">{params.row.dni}</span>
+                        </li>
+                        <li className="flex items-center gap-1">
+                          <Mail className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <span className="font-medium">Email:</span>
+                          {params.row.email}
                         </li>
                       </ul>
                     </div>
