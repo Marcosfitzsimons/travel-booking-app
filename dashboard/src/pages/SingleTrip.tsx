@@ -49,11 +49,25 @@ type Trip = {
   price: string;
 };
 
-type SpecialPassenger = {
-  fullName?: string;
-  dni?: number | undefined;
+type UserData = {
+  _id: string;
+  addressCapital: string;
+  addressCda: string;
+  email: string;
+  fullName: string;
+  image?: string;
+  myTrips: Trip[];
+  phone: undefined | number;
+  dni: undefined | number;
+  username: string;
+};
+
+type Passenger = {
+  createdBy?: UserData;
   addressCda?: string;
   addressCapital?: string;
+  fullName?: string;
+  dni?: string;
 };
 
 const INITIAL_STATES = {
@@ -72,6 +86,7 @@ const INITIAL_STATES = {
 
 const SingleTrip = () => {
   const [data, setData] = useState(INITIAL_STATES);
+  const [passengers, setPassengers] = useState([]);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -160,11 +175,10 @@ const SingleTrip = () => {
     }
   };
 
-  const handleOnSubmitPassenger = async (data: SpecialPassenger) => {
-    console.log({ ...data });
+  const handleOnSubmitPassenger = async (data: Passenger) => {
     setIsSubmitted(true);
     try {
-      await axios.post(
+      const passenger = await axios.post(
         `https://fabebus-api-example.onrender.com/api/passengers/${user?._id}/${id}`,
         {
           ...data,
@@ -177,6 +191,7 @@ const SingleTrip = () => {
       setTimeout(() => {
         location.reload();
       }, 1000);
+      setIsSubmitted(false);
     } catch (err: any) {
       console.log(err);
       const errorMsg = err.response.data.err.message;
@@ -198,6 +213,7 @@ const SingleTrip = () => {
       toast({
         description: "Pasajero anónimo ha sido creado con éxito.",
       });
+      setIsSubmitted2(false);
       setTimeout(() => {
         location.reload();
       }, 1000);
@@ -234,8 +250,7 @@ const SingleTrip = () => {
             headers,
           }
         );
-        console.log(res.data);
-
+        setPassengers(res.data.passengers);
         formatDate(res.data.date);
         setData({ ...res.data, date: formatDate(res.data.date) });
         const tripData = { ...res.data };
@@ -704,7 +719,7 @@ const SingleTrip = () => {
 
             {data.passengers && data.passengers.length > 0 ? (
               <PassengersDatatable
-                tripPassengers={data.passengers}
+                tripPassengers={passengers}
                 columns={passengerColumns}
                 tripId={id}
               />
