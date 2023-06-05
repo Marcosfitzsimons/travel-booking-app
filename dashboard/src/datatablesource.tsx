@@ -155,8 +155,9 @@ export const passengerColumns = [
               <User className="w-12 h-12 dark:text-blue-lagoon-100" />
             </AvatarFallback>
           </Avatar>
-          {params.row.fullName ? params.row.fullName : ""}
-          {params.row.createdBy
+          {params.row.fullName
+            ? params.row.fullName
+            : params.row.createdBy
             ? params.row.createdBy.fullName
             : "Pasajero anónimo"}
         </div>
@@ -170,8 +171,11 @@ export const passengerColumns = [
     renderCell: (params: any) => {
       return (
         <p className="">
-          {params.row.addressCda ? params.row.addressCda : ""}
-          {params.row.createdBy ? params.row.createdBy.addressCda : "-"}
+          {params.row.addressCda
+            ? params.row.addressCda
+            : params.row.createdBy
+            ? params.row.createdBy.addressCda
+            : "-"}
         </p>
       );
     },
@@ -183,8 +187,11 @@ export const passengerColumns = [
     renderCell: (params: any) => {
       return (
         <p className="">
-          {params.row.addressCapital ? params.row.addressCapital : ""}
-          {params.row.createdBy ? params.row.createdBy.addressCapital : "-"}
+          {params.row.addressCapital
+            ? params.row.addressCapital
+            : params.row.createdBy
+            ? params.row.createdBy.addressCapital
+            : "-"}
         </p>
       );
     },
@@ -196,8 +203,11 @@ export const passengerColumns = [
     renderCell: (params: any) => {
       return (
         <p className="">
-          {params.row.dni ? params.row.dni : ""}
-          {params.row.createdBy ? params.row.createdBy.dni : "-"}
+          {params.row.dni
+            ? params.row.dni
+            : params.row.createdBy
+            ? params.row.createdBy.dni
+            : "-"}
         </p>
       );
     },
@@ -209,8 +219,11 @@ export const passengerColumns = [
     renderCell: (params: any) => {
       return (
         <p className="">
-          {params.row.phone ? params.row.phone : ""}
-          {params.row.createdBy ? params.row.createdBy.phone : "-"}
+          {params.row.phone
+            ? params.row.phone
+            : params.row.createdBy
+            ? params.row.createdBy.phone
+            : "-"}
         </p>
       );
     },
