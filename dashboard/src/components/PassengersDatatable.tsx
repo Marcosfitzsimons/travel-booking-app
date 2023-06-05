@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Eye, Trash2 } from "lucide-react";
+import { ContactIcon, Eye, Trash2 } from "lucide-react";
 import axios from "axios";
 import {
   AlertDialog,
@@ -15,8 +15,6 @@ import {
 } from "./ui/alert-dialog";
 import { toast } from "../hooks/ui/use-toast";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import { Button } from "@mui/material";
 import {
   Dialog,
   DialogContent,
@@ -24,10 +22,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import { MapPin, User } from "lucide-react";
+import { DialogDescription } from "./ui/dialog";
 
 type Passenger = {
   _id: string;
-  createdBy: UserData;
+  createdBy?: UserData;
+  addressCda?: string;
+  addressCapital?: string;
+  fullName?: string;
+  dni?: string;
 };
 
 type Trip = {
@@ -68,13 +72,10 @@ const PassengersDatable = ({
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
   const [list, setList] = useState(tripPassengers);
-
   const token = localStorage.getItem("token");
   const headers = {
     Authorization: `Bearer ${token}`,
   };
-
-  const { user } = useContext(AuthContext);
 
   const handleDelete = async (userId: string) => {
     setLoading(true);
@@ -133,16 +134,17 @@ const PassengersDatable = ({
                     <DialogContent>
                       <DialogHeader>
                         <DialogTitle className="text-center text-2xl lg:text-3xl">
-                          Información del pasajero:
+                          Información pasajero
                         </DialogTitle>
-                      </DialogHeader>
-                      <div className="w-10/12 mx-auto">
-                        <p className="flex items-center gap-1">
-                          ID:{" "}
+                        <DialogDescription className="flex items-center justify-center gap-1">
+                          <span className="font-bold">ID:</span>{" "}
                           <span>{params.row._id ? params.row._id : ""}</span>
-                        </p>
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="w-full mx-auto flex flex-col overflow-hidden bg-white gap-2 max-w-sm border border-border-color items-start py-4 px-1 shadow-inner rounded-md dark:bg-black/40 dark:border-border-color-dark md:w-10/12 md:px-4">
                         <p className="flex items-center gap-1">
-                          Nombre completo:
+                          <User className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <span className="font-bold">Nombre completo:</span>
                           <span>
                             {params.row.fullName
                               ? params.row.fullName
@@ -150,11 +152,13 @@ const PassengersDatable = ({
                           </span>
                         </p>
                         <p className="flex items-center gap-1">
-                          DNI:{" "}
+                          <ContactIcon className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <span className="font-bold">DNI:</span>{" "}
                           <span>{params.row.dni ? params.row.dni : "-"}</span>
                         </p>{" "}
                         <p className="flex items-center gap-1">
-                          Dirección (Carmen):{" "}
+                          <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <span className="font-bold">Dirección (Carmen):</span>{" "}
                           <span>
                             {params.row.addressCda
                               ? params.row.addressCda
@@ -162,7 +166,10 @@ const PassengersDatable = ({
                           </span>
                         </p>{" "}
                         <p className="flex items-center gap-1">
-                          Dirección (Capital):{" "}
+                          <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <span className="font-bold">
+                            Dirección (Capital):
+                          </span>{" "}
                           <span>
                             {params.row.addressCapital
                               ? params.row.addressCapital
