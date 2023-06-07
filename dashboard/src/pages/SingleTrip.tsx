@@ -325,36 +325,36 @@ const SingleTrip = () => {
                   <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-border-color px-1 py-4 shadow-inner rounded-md dark:bg-blue-lagoon-900/5 dark:border-border-color-dark">
                     <div className="flex flex-col gap-2 overflow-auto pb-2">
                       <div className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="font-medium shrink-0 dark:text-white">
                           Salida:
                         </span>{" "}
                         <span className="shrink-0">{data.from}</span>
                         <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="shrink-0">
                           {data.departureTime} hs.
                         </span>
                       </div>
                       <div className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="dark:text-white shrink-0 font-medium">
                           Destino:
                         </span>{" "}
                         <span className="shrink-0">{data.to}</span>
                         <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="shrink-0">{data.arrivalTime} hs.</span>
                       </div>
                       <p className="flex items-center gap-1">
-                        <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        <DollarSign className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                         <span className="dark:text-white font-medium">
                           Precio:{" "}
                         </span>
                         <span className="">${data.price}</span>
                       </p>
                       <p className="flex items-center gap-1">
-                        <Users className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        <Users className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                         <span className="dark:text-white font-medium">
                           Capacidad máxima:
                         </span>{" "}
@@ -553,7 +553,7 @@ const SingleTrip = () => {
               </h3>
               <div className="flex flex-col item-center gap-1 md:flex-row md:justify-between">
                 <div className="flex items-center justify-center gap-1 text-sm order-2 md:text-base md:order-1 md:self-end">
-                  <Users className="animate-pulse text-blue-lagoon-900/60 h-4 w-4 lg:w-5 lg:h-5 shrink-0 dark:text-blue-lagoon-300" />
+                  <Users className="animate-pulse text-icon-color h-4 w-4 lg:w-5 lg:h-5 shrink-0 dark:text-icon-color-dark" />
                   <p className="shrink-0">
                     Lugares disponibles: {availableSeats}
                   </p>
@@ -656,7 +656,7 @@ const SingleTrip = () => {
                                   <div className="grid w-full max-w-md items-center gap-2">
                                     <Label htmlFor="dni">
                                       DNI{" "}
-                                      <span className="text-sm text-blue-lagoon-900/60 dark:text-blue-lagoon-300">
+                                      <span className="text-sm text-icon-color dark:text-icon-color-dark">
                                         (opcional)
                                       </span>
                                     </Label>

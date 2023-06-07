@@ -189,8 +189,8 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
           {error && <p>{error}</p>}
         </div>
         <div className="flex justify-between items-end gap-1 lg:gap-3">
-          <div className="flex items-center gap-2 text-sm lg:text-base">
-            <Map className="hidden animate-pulse sm:flex sm:h-5 sm:w-5" />
+          <div className="flex items-center gap-1 text-sm lg:text-base">
+            <Map className="text-icon-color hidden animate-pulse sm:flex sm:h-5 sm:w-5 dark:text-icon-color-dark" />
             <p className="font-medium">Viajes disponibles:</p>
             <p className="font-light flex items-center gap-1">
               <span

@@ -34,7 +34,7 @@ const PublicationsDatatable = () => {
         <div className="w-full my-3 flex flex-col items-center gap-3 md:flex-row md:items-end md:justify-between">
           {error && <p className="text-red-500 order-2">{error.message}</p>}
           <div className="w-full flex items-center gap-1 text-sm md:gap-2 md:text-base md:w-auto">
-            <Newspaper className="animate-pulse w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 sm:h-5 sm:w-5" />
+            <Newspaper className="animate-pulse w-4 h-4 text-icon-color dark:text-icon-color-dark sm:h-5 sm:w-5" />
             <p className="font-medium">Total de publicaciones:</p>
             <p className="font-light flex items-center gap-1">
               <span
@@ -74,7 +74,7 @@ const PublicationsDatatable = () => {
       </div>
       <div className="">
         <h5 className="text-2xl flex items-center gap-2 ">
-          <History className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 sm:h-5 sm:w-5" />
+          <History className="w-4 h-4 text-icon-color dark:text-icon-color-dark sm:h-5 sm:w-5" />
           Historial de publicaciones
         </h5>
       </div>

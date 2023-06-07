@@ -27,11 +27,11 @@ const SideBar = () => {
       <div className="rounded-md flex flex-col mx-auto w-[13.5rem] shadow-md gap-5 p-5 mt-6 bg-white/40 border border-border-color dark:border-border-color-dark dark:bg-black/40">
         <nav className="">
           <ul className="flex flex-col">
-            <p className="text-blue-lagoon-900 uppercase pb-1 font-bold text-sm dark:text-white">
+            <p className="text-icon-color uppercase pb-1 font-bold text-sm dark:text-white">
               Listas
             </p>
             <li className="relative flex items-center gap-2">
-              <Map className="absolute left-2 h-5 w-5 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+              <Map className="absolute left-2 h-5 w-5 text-icon-color dark:text-icon-color-dark" />
               <Link
                 to="/trips"
                 className="w-full pl-8 z-20 rounded-lg py-1 px-2 flex items-center gap-1 text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
@@ -40,7 +40,7 @@ const SideBar = () => {
               </Link>
             </li>
             <li className="relative flex items-center gap-2">
-              <Map className="absolute left-2 h-5 w-5 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+              <Map className="absolute left-2 h-5 w-5 text-icon-color dark:text-icon-color-dark" />
               <Link
                 to="/special-trips"
                 className="w-full pl-8 z-20 rounded-lg py-1 px-2 flex items-center gap-1 text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
@@ -49,7 +49,7 @@ const SideBar = () => {
               </Link>
             </li>
             <li className="relative flex items-center gap-2">
-              <Users className="absolute left-2 h-5 w-5 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+              <Users className="absolute left-2 h-5 w-5 text-icon-color dark:text-icon-color-dark" />
               <Link
                 to="/users"
                 className="w-full pl-8 z-20 rounded-lg py-1 px-2 flex items-center gap-1 text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
@@ -58,7 +58,7 @@ const SideBar = () => {
               </Link>
             </li>
             <li className="relative flex items-center gap-2">
-              <Newspaper className="absolute left-2 h-5 w-5 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+              <Newspaper className="absolute left-2 h-5 w-5 text-icon-color dark:text-icon-color-dark" />
               <Link
                 to="/publications"
                 className="w-full pl-8 z-20 rounded-lg py-1 px-2 flex items-center gap-1 text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
@@ -69,11 +69,11 @@ const SideBar = () => {
           </ul>
         </nav>
         <ul className="flex flex-col">
-          <p className="text-blue-lagoon-900 uppercase pb-1 font-bold text-sm dark:text-white">
+          <p className="text-icon-color uppercase pb-1 font-bold text-sm dark:text-white">
             Admin
           </p>
           <li className="relative flex items-center gap-2">
-            <User className="absolute left-2 h-5 w-5 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+            <User className="absolute left-2 h-5 w-5 text-icon-color dark:text-icon-color-dark" />
             <Link
               to="/mi-perfil"
               className="w-full pl-8 z-20 rounded-lg py-1 px-2 flex items-center gap-1 text-start bg-transparent hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-100 dark:hover:text-white dark:hover:bg-blue-lagoon-900/50"
@@ -82,7 +82,7 @@ const SideBar = () => {
             </Link>
           </li>
           <li className="relative flex items-center gap-2">
-            <LogOut className="absolute left-2 h-5 w-5 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+            <LogOut className="absolute left-2 h-5 w-5 text-icon-color dark:text-icon-color-dark" />
             <Link
               to="/login"
               onClick={handleLogOut}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,7 +9,8 @@ import { User } from "lucide-react";
 import { useToast } from "../hooks/ui/use-toast";
 import DefaultButton from "./DefaultButton";
 import { Upload } from "lucide-react";
-
+import Autocomplete from "react-google-autocomplete";
+import PlacesAutocomplete from "./PlacesAutocomplete";
 interface InputValidation {
   required: {
     value: boolean;
@@ -82,6 +83,7 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
       phone: null,
       addressCda: "",
       addressCapital: "",
+      address1: "",
       imageInput: "",
     },
   });
@@ -153,7 +155,7 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
           </Avatar>
           <div className="absolute bottom-0">
             <Label
-              className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
+              className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-border-color bg-white dark:border-border-color-dark dark:text-blue-lagoon-100 dark:bg-black dark:hover:text-white dark:hover:border-zinc-300"
               htmlFor={imageInput.id}
             >
               {imageInput.label} {imageInput.icon}
@@ -179,9 +181,11 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
             )}
           </div>
         </div>
-        <div className="w-full relative flex flex-col items-center lg:basis-1/3">
-          <Input name="address" placeholder="Address" type="text" />
-        </div>
+
+        {/* <div className="w-full relative flex flex-col items-center lg:basis-1/3">
+          <PlacesAutocomplete />
+        </div>} */}
+
         <div className="w-full flex flex-col items-center gap-2 lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
           {inputs.map((input) => (
             <div key={input.id} className="grid w-full items-center gap-2">

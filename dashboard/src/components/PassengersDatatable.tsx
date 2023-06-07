@@ -143,7 +143,7 @@ const PassengersDatable = ({
                       </DialogHeader>
                       <div className="w-full mx-auto flex flex-col overflow-hidden bg-white gap-2 max-w-sm border border-border-color items-start py-4 px-1 shadow-inner rounded-md dark:bg-black/40 dark:border-border-color-dark md:w-10/12 md:px-4">
                         <p className="flex items-center gap-1">
-                          <User className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <User className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                           <span className="font-bold">Nombre completo:</span>
                           <span>
                             {params.row.fullName
@@ -152,12 +152,12 @@ const PassengersDatable = ({
                           </span>
                         </p>
                         <p className="flex items-center gap-1">
-                          <ContactIcon className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <ContactIcon className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                           <span className="font-bold">DNI:</span>{" "}
                           <span>{params.row.dni ? params.row.dni : "-"}</span>
                         </p>{" "}
                         <p className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <MapPin className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                           <span className="font-bold">Dirección (Carmen):</span>{" "}
                           <span>
                             {params.row.addressCda
@@ -166,7 +166,7 @@ const PassengersDatable = ({
                           </span>
                         </p>{" "}
                         <p className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                          <MapPin className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                           <span className="font-bold">
                             Dirección (Capital):
                           </span>{" "}

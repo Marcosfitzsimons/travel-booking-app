@@ -84,12 +84,12 @@ const Profile = () => {
               </div>
               <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-border-color items-start p-4 shadow-inner rounded-md dark:bg-black/40 dark:border-border-color-dark">
                 <li className="flex items-center gap-1">
-                  <Mail className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                  <Mail className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                   <span className="font-medium">Email:</span>
                   {data?.email}
                 </li>
                 <li className="flex items-center gap-1">
-                  <Phone className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                  <Phone className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                   <span className="font-medium">Celular:</span> {data?.phone}
                 </li>
               </ul>
