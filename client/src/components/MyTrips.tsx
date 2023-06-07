@@ -256,7 +256,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
           </div>
           <Separator className="w-16" />
           <h4 className="flex items-center gap-1 font-medium text-xl dark:text-white self-start lg:text-2xl">
-            <ClipboardList className="h-5 w-5 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 lg:w-6 lg:h-6" />
+            <ClipboardList className="h-5 w-5 text-icon-color dark:text-icon-color-dark lg:w-6 lg:h-6" />
             Mis viajes:
           </h4>
           <motion.div
@@ -326,31 +326,31 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                           <div className="flex flex-col w-full bg-blue-lagoon-200/10 border border-border-color gap-2 py-3 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
                             <div className="flex flex-col gap-2 overflow-auto">
                               <p className="flex items-center gap-1">
-                                <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                                <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                                 <span className="dark:text-white font-medium">
                                   Salida:
                                 </span>{" "}
                                 <span className="shrink-0">{trip.from}</span>
                                 <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                                <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                                <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                                 <span className="shrink-0">
                                   {trip.departureTime} hs.
                                 </span>
                               </p>
                               <p className="flex items-center gap-1">
-                                <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                                <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                                 <span className="dark:text-white font-medium">
                                   Destino:
                                 </span>{" "}
                                 <span className="shrink-0">{trip.to}</span>
                                 <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                                <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                                <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                                 <span className="shrink-0">
                                   {trip.arrivalTime} hs.
                                 </span>
                               </p>
                               <p className="flex items-center gap-1">
-                                <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                                <DollarSign className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                                 <span className="dark:text-white font-medium">
                                   Precio:
                                 </span>

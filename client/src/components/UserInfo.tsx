@@ -91,26 +91,26 @@ const UserInfo = ({ userData }: UserInfoProps) => {
         </div>
         <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-border-color items-start p-4 shadow-inner rounded-md dark:bg-black/60 dark:border-zinc-500">
           <li className="flex items-center gap-1">
-            <Mail className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+            <Mail className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
             <span className="font-medium">Email:</span>
             {userData?.email}
           </li>
           <li className="flex items-center gap-1">
-            <Phone className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+            <Phone className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
             <span className="font-medium">Celular:</span> {userData?.phone}
           </li>
           <li className="flex items-center gap-1 shrink-0">
-            <ContactIcon className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
+            <ContactIcon className="w-4 h-4 text-icon-color dark:text-icon-color-dark shrink-0" />
             <span className="font-medium shrink-0">DNI:</span>
             <span className="shrink-0">{userData?.dni}</span>
           </li>
           <li className="flex items-center gap-1 shrink-0">
-            <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300 shrink-0" />
+            <MapPin className="w-4 h-4 text-icon-color dark:text-icon-color-dark shrink-0" />
             <span className="font-medium shrink-0">Dirreción (Carmen):</span>
             <span className="shrink-0">{userData?.addressCda}</span>
           </li>
           <li className="flex items-center gap-1 shrink-0">
-            <MapPin className="w-4 h-4 text-blue-lagoon-900/60  dark:text-blue-lagoon-300 shrink-0" />
+            <MapPin className="w-4 h-4 text-icon-color  dark:text-icon-color-dark shrink-0" />
             <span className="font-medium shrink-0">Dirreción (Capital):</span>
             <span className="shrink-0">{userData?.addressCapital}</span>
           </li>

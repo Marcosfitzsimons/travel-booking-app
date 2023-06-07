@@ -107,10 +107,8 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                     >
                       <User
                         className={`h-5 w-5 ${
-                          isUserInfo
-                            ? "text-[#e7a7a7]"
-                            : "text-blue-lagoon-900/60"
-                        } dark:text-blue-lagoon-300`}
+                          isUserInfo ? "text-[#e7a7a7]" : "text-icon-color"
+                        } dark:text-icon-color-dark`}
                       />
                       <RoughNotation
                         type="circle"
@@ -135,10 +133,8 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
                     >
                       <ClipboardList
                         className={`h-5 w-5 ${
-                          !isUserInfo
-                            ? "text-[#e7a7a7]"
-                            : "text-blue-lagoon-900/60"
-                        } dark:text-blue-lagoon-300`}
+                          !isUserInfo ? "text-[#e7a7a7]" : "text-icon-color"
+                        } dark:text-icon-color-dark`}
                       />
                       <RoughNotation
                         type="circle"

@@ -43,7 +43,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
 
   return (
     <header className="fixed w-full z-50 bg-[#fafafa] dark:bg-[#0E1217] border-b border-b-border-color dark:border-b-border-color-dark">
-      <div className="w-[min(95%,1000px)] mx-auto py-3 flex justify-between items-center">
+      <div className="w-[min(95%,1200px)] mx-auto py-3 flex justify-between items-center">
         <div className="flex items-center flex-row-reverse gap-2">
           {user ? (
             <Link
@@ -120,7 +120,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="dark:bg-zinc-600" />
                   <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:text-blue-lagoon-700 ">
-                    <User className="absolute left-2 h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                    <User className="absolute left-2 h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                     <Link
                       to="/mi-perfil"
                       className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent text-blue-lagoon-900 hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-50 dark:hover:text-white dark:hover:bg-zinc-700/20"
@@ -130,7 +130,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:text-blue-lagoon-700">
-                    <ClipboardList className="absolute left-2 h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                    <ClipboardList className="absolute left-2 h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                     <Link
                       to="/mi-perfil"
                       onClick={() => setIsUserInfo(false)}
@@ -140,7 +140,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:text-blue-lagoon-700">
-                    <UserCog className="absolute left-2 h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                    <UserCog className="absolute left-2 h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                     <Link
                       to="/mi-perfil/editar-perfil"
                       className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent text-blue-lagoon-900 hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-50 dark:hover:text-white dark:hover:bg-zinc-700/20"
@@ -149,7 +149,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:text-blue-lagoon-700">
-                    <LogOut className="absolute left-2 h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                    <LogOut className="absolute left-2 h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                     <Link
                       to="/login"
                       className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent text-blue-lagoon-900 hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-50 dark:hover:text-white dark:hover:bg-zinc-700/20"

@@ -17,6 +17,8 @@ module.exports = {
       colors: {
         "border-color": '#007F9633',
         "border-color-dark": '#003E4A66',
+        "icon-color": '#752121',
+        "icon-color-dark": '#F9B4B4',
         "dark-gray": '#0d0f12',
         "neutral": {
           750: '#313131'

@@ -16,7 +16,7 @@ const DatePickerContainer = ({ startDate, setStartDate }: any) => {
       className="relative flex w-full before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-blue-lagoon-400 before:ring-2 before:ring-blue-lagoon-200/50 before:transition
       after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/5 focus-within:after:shadow-blue-lagoon-400 after:transition dark:focus-within:after:shadow-blue-lagoon-300/40 dark:before:ring-blue-lagoon-500/20 dark:before:border-blue-lagoon-300"
     >
-      <CalendarDays className="absolute left-4 top-[9px] w-5 h-5 z-40" />
+      <CalendarDays className="text-icon-color absolute left-4 top-[9px] w-5 h-5 z-40 dark:text-icon-color-dark" />
       <DatePicker
         dateFormat={"EEE dd/MM"}
         locale="es"

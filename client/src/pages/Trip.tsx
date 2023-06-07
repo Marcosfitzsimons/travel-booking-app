@@ -192,29 +192,29 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                   <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color py-4 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
                     <div className="flex flex-col gap-2 overflow-auto pb-2">
                       <p className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="dark:text-white font-medium">
                           Salida:
                         </span>{" "}
                         <span className="shrink-0">{data.from}</span>
                         <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="shrink-0">
                           {data.departureTime} hs.
                         </span>
                       </p>
                       <p className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="dark:text-white font-medium">
                           Destino:
                         </span>{" "}
                         <span className="shrink-0">{data.to}</span>
                         <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="shrink-0">{data.arrivalTime} hs.</span>
                       </p>
                       <p className="flex items-center gap-1">
-                        <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        <DollarSign className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                         <span className="dark:text-white font-medium">
                           Precio:{" "}
                         </span>
@@ -227,7 +227,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                 <div className="border-t border-border-color mt-2 flex flex-col gap-1 py-2">
                   <div className="flex items-center gap-2">
                     <h5 className="font-medium flex items-center gap-1 dark:text-white">
-                      <ClipboardList className="h-5 w-5 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                      <ClipboardList className="h-5 w-5 text-icon-color shrink-0 dark:text-icon-color-dark" />
                       Mis datos para este viaje:
                     </h5>
                     <Button
@@ -240,7 +240,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                   <ul className="px-2">
                     <li>
                       <p className="flex items-center gap-[2px] text-sm">
-                        <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        <MapPin className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
                         <span className="font-medium dark:text-white">
                           Dirreción (Carmen):
                         </span>{" "}
@@ -249,7 +249,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                     </li>
                     <li>
                       <p className="flex items-center gap-[2px] text-sm">
-                        <MapPin className="w-4 h-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        <MapPin className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
                         <span className="font-medium dark:text-white">
                           Dirreción (Capital):
                         </span>{" "}

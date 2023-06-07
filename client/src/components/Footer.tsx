@@ -8,7 +8,7 @@ const Footer = () => {
   const { user } = useContext(AuthContext);
   return (
     <footer className={!user ? "hidden" : ""}>
-      <div className="w-[min(95%,1000px)] mx-auto py-6 flex justify-between items-center">
+      <div className="w-[min(95%,1200px)] mx-auto py-6 flex justify-between items-center">
         <Logo />
         <div className="hidden">
           <p className="flex items-center gap-1">

@@ -11,16 +11,16 @@ import {
   Clock,
   Heart,
   MapPin,
+  Star,
+  Flame,
+  PartyPopper,
+  PartyPopperIcon,
+  CheckCircle,
 } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../components/ui/tooltip";
+
 import miniBus from "../assets/minibus1-sm.png";
 import DefaultButton from "./DefaultButton";
-import Logo from "./Logo";
+import logo from "../assets/fabebus-logo.jpg";
 import { Separator } from "./ui/separator";
 
 interface Trip {
@@ -138,27 +138,27 @@ const TripCard = ({
             <div className="relative flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color py-3 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
               <div className="flex flex-col gap-2 overflow-auto pb-2">
                 <p className="flex items-center gap-1">
-                  <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                  <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                   <span className="font-medium shrink-0 dark:text-white">
                     Salida:
                   </span>{" "}
                   <span className="shrink-0">{from}</span>
                   <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                  <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                  <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                   <span className="shrink-0">{departureTime} hs.</span>
                 </p>
                 <p className="flex items-center gap-1">
-                  <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                  <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                   <span className="dark:text-white shrink-0 font-medium">
                     Destino:
                   </span>{" "}
                   <span className="shrink-0">{to}</span>
                   <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                  <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                  <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                   <span className="shrink-0">{arrivalTime} hs.</span>
                 </p>
                 <p className="flex items-center gap-1">
-                  <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                  <DollarSign className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                   <span className="dark:text-white font-medium">Precio: </span>
                   <span className="">${price}</span>
                 </p>
@@ -178,17 +178,21 @@ const TripCard = ({
         </div>
       </div>
       {maxCapacity === passengers.length && (
-        <p className="absolute px-4 py-4 font-medium order-3 flex flex-col items-center justify-center select-none gap-2 rounded-lg bg-white border border-border-color dark:border-zinc-500 dark:bg-black dark:text-white">
-          <Logo />
+        <div className="absolute bottom-0 w-full px-4 py-4 font-medium order-3 flex flex-col items-center justify-center border-x-0 border-b-0 select-none gap-2 rounded-lg bg-white border border-border-color dark:border-zinc-500 dark:bg-black dark:text-white">
+          <CheckCircle className="w-8 h-8 text-green-500 shrink-0 dark:text-green-300" />
           <span>¡Combi completa!</span>
           <span className="flex items-center gap-1">
+            <Heart
+              className="w-4 h-4 relative top-[1px] dark:text-black"
+              fill="red"
+            />
             Gracias por elegirnos{" "}
             <Heart
               className="w-4 h-4 relative top-[1px] dark:text-black"
               fill="red"
             />
           </span>
-        </p>
+        </div>
       )}
     </article>
   );
