@@ -88,9 +88,11 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const handleOnConfirm = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.post(
+      await axios.post(
         `https://fabebus-api-example.onrender.com/api/passengers/${user?._id}/${tripId}`,
-        {},
+        {
+          userId: user?._id,
+        },
         { headers }
       );
 
