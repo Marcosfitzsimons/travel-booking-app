@@ -27,7 +27,7 @@
     "axios": "^1.3.5",
     "class-variance-authority": "^0.5.1",
     "clsx": "^1.2.1",
-    "lucide-react": "^0.130.0",
+    "lucide-react": "^0.130.1",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.43",
     "react": "^18.2.0",
