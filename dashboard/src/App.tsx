@@ -46,7 +46,7 @@ function App() {
   };
 
   return (
-    <div className="App flex w-[min(90%,1300px)] mx-auto">
+    <div className="App flex w-[min(95%,1300px)] mx-auto">
       <SideBar />
       <div className="flex-[6] w-[min(100%,1000px)]">
         <Header />
