@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useToast } from "../hooks/ui/use-toast";
 import { Separator } from "../components/ui/separator";
@@ -10,19 +10,53 @@ import axios from "axios";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
 import { AuthContext } from "../context/AuthContext";
-import { AtSign } from "lucide-react";
+import { MapPin } from "lucide-react";
+
+type addressCda = {
+  street: string;
+  streetNumber: number | null;
+  crossStreets: string;
+};
 
 type User = {
   username: string;
   fullName: string;
   email: string;
   phone: number | null;
-  image?: string;
-  addressCda: string;
-  addressCapital: string;
   dni: number | null;
+  image?: string;
+  addressCda: addressCda;
+  addressCapital: string;
   password: string;
 };
+
+interface InputValidation {
+  required: {
+    value: boolean;
+    message: string;
+  };
+  minLength: {
+    value: number;
+    message: string;
+  };
+  maxLength: {
+    value: number;
+    message: string;
+  };
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
+}
+
+interface UserInput {
+  id: any;
+  label: string;
+  type: string;
+  placeholder?: string;
+  validation?: InputValidation;
+  icon?: any;
+}
 
 const sectionVariants = {
   hidden: {
@@ -45,6 +79,9 @@ const sectionVariants = {
 };
 
 const Register = () => {
+  const [addressCapitalValue, setAddressCapitalValue] = useState("");
+  const [err, setErr] = useState<null | string>(null);
+
   const {
     register,
     handleSubmit,
@@ -56,25 +93,30 @@ const Register = () => {
       password: "",
       email: "",
       phone: null,
-      addressCda: "",
-      addressCapital: "",
       dni: null,
+      addressCda: {
+        street: "",
+        streetNumber: null,
+        crossStreets: "",
+      },
+      addressCapital: "",
     },
   });
 
   const { loading, dispatch } = useContext(AuthContext);
-  const [err, setErr] = useState<null | string>(null);
 
   const { toast } = useToast();
   const navigate = useNavigate();
+  const addressCapitalRef = useRef(null);
 
   const handleOnSubmit = async (data: User) => {
+    console.log(data);
     if (dispatch) {
       dispatch({ type: "LOGIN_START" });
       try {
         const res = await axios.post(
           "https://fabebus-api-example.onrender.com/api/auth/register",
-          data
+          { ...data, addressCapital: addressCapitalValue }
         );
         const token = res.data.token;
         localStorage.setItem("token", token);
@@ -94,6 +136,90 @@ const Register = () => {
     }
   };
 
+  const userAddressInputs = [
+    {
+      id: "street",
+      label: "Calle",
+      type: "text",
+      placeholder: "Matheu",
+      validation: {
+        required: {
+          value: true,
+          message: "Por favor, ingresar domicilio.",
+        },
+        minLength: {
+          value: 3,
+          message: "Domicilio no puede ser tan corto.",
+        },
+        maxLength: {
+          value: 25,
+          message: "Domicilio no puede ser tan largo.",
+        },
+      },
+    },
+    {
+      id: "streetNumber",
+      label: "Número",
+      type: "text",
+      placeholder: "354",
+      validation: {
+        required: {
+          value: true,
+          message: "Por favor, ingresar número de domicilio ",
+        },
+        minLength: {
+          value: 1,
+          message: "Número de domicilio no puede ser tan corto.",
+        },
+        maxLength: {
+          value: 5,
+          message: "Número de domicilio no puede ser tan largo.",
+        },
+        pattern: {
+          value: /^[0-9]+$/,
+          message: "Debe incluir solo números.",
+        },
+      },
+    },
+    {
+      id: "crossStreets",
+      label: "Calles que cruzan",
+      type: "text",
+      placeholder: "Matheu y D. Romero",
+      validation: {
+        required: {
+          value: true,
+          message:
+            "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
+        },
+        minLength: {
+          value: 3,
+          message: "No puede ser tan corto.",
+        },
+        maxLength: {
+          value: 40,
+          message: "No puede ser tan largo.",
+        },
+      },
+    },
+  ];
+
+  useEffect(() => {
+    const addressCapital = new window.google.maps.places.Autocomplete(
+      addressCapitalRef.current!,
+      {
+        componentRestrictions: { country: "AR" },
+        types: ["address"],
+        fields: ["address_components"],
+      }
+    );
+
+    addressCapital.addListener("place_changed", () => {
+      const place = addressCapital.getPlace();
+      console.log(place);
+    });
+  }, []);
+
   return (
     <section className="">
       <motion.div
@@ -108,16 +234,21 @@ const Register = () => {
           className="h-20 bg-gradient-to-t from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217] lg:hidden"
         />
         <div className="">
-          <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl dark:text-white">
-            Crear cuenta nueva
-          </h2>
-          <p className="text-center lg:text-start">
-            Una vez que tengas tu cuenta podrás reservar tu lugar.
-          </p>
+          <div className="lg:mb-8">
+            <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl dark:text-white">
+              Crear cuenta nueva
+            </h2>
+            <p className="text-center lg:text-start">
+              Una vez que tengas tu cuenta podrás reservar tu lugar.
+            </p>
+          </div>
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
             className="relative w-full mt-2 py-6 flex flex-col gap-3 items-center lg:w-[650px]"
           >
+            <p className="text-lg mb-2 lg:text-xl lg:mb-0 lg:col-start-1 lg:col-end-3 lg:self-start dark:text-white">
+              Tu información
+            </p>
             <div className="w-full flex flex-col items-center gap-3 lg:flex-row ">
               <div className="grid w-full max-w-sm items-center gap-2">
                 <Label htmlFor="fullname">Nombre completo</Label>
@@ -289,66 +420,60 @@ const Register = () => {
                 )}
               </div>
             </div>
-            <div className="w-full flex flex-col items-center gap-3 lg:flex-row">
-              <div className="grid w-full max-w-sm items-center gap-2">
-                <Label htmlFor="addresscda">
-                  Dirección (Carmen){" "}
-                  <span className="text-blue-lagoon-800 font-light dark:text-blue-lagoon-400">
-                    O donde subis
-                  </span>
-                </Label>
-                <Input
-                  id="addresscda"
-                  placeholder="ej. Rivadavia 293"
-                  {...register("addressCda", {
-                    required: {
-                      value: true,
-                      message: "Por favor, ingresar dirección.",
-                    },
-                    minLength: {
-                      value: 3,
-                      message: "Dirección no puede ser tan corta.",
-                    },
-                    maxLength: {
-                      value: 25,
-                      message: "Dirección no puede ser tan larga.",
-                    },
-                  })}
-                />
-                {errors.addressCda && (
-                  <p className="text-red-600">{errors.addressCda.message}</p>
-                )}
+
+            <Separator className="w-8 my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
+            <p className="flex items-center gap-1 text-lg mb-2 lg:text-xl lg:mb-0 lg:col-start-1 lg:col-end-3 lg:self-start dark:text-white">
+              Domicilios
+            </p>
+
+            <div className="w-full flex flex-col items-center gap-2 md:flex-row md:items-start md:col-start-1 md:col-end-3">
+              <div className="w-full flex flex-col gap-2">
+                <p className="flex items-center gap-1">
+                  <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                  Carmen de Areco
+                </p>
+                {userAddressInputs.map((input: UserInput) => {
+                  const key = input.id;
+                  const fieldName: any = `addressCda.${key}`;
+                  return (
+                    <div
+                      key={input.id}
+                      className="grid w-full items-center gap-2"
+                    >
+                      <Label htmlFor={input.id}>{input.label}</Label>
+                      <Input
+                        type={input.type}
+                        id={input.id}
+                        placeholder={input.placeholder}
+                        {...register(fieldName, input.validation)}
+                      />
+                      {errors[input.id as keyof typeof errors] && (
+                        <p className="text-red-600">
+                          {errors[input.id as keyof typeof errors]?.message}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-              <div className="grid w-full max-w-sm items-center gap-2">
-                <Label htmlFor="addresscapital">
-                  Dirección (Capital){" "}
-                  <span className="text-blue-lagoon-800 font-light dark:text-blue-lagoon-400">
-                    O donde bajas
-                  </span>
-                </Label>
-                <Input
-                  id="addresscapital"
-                  placeholder="ej. Callao 2304"
-                  {...register("addressCapital", {
-                    required: {
-                      value: true,
-                      message: "Por favor, ingresar dirección.",
-                    },
-                    minLength: {
-                      value: 3,
-                      message: "Dirección no puede ser tan corta.",
-                    },
-                    maxLength: {
-                      value: 25,
-                      message: "Dirección no puede ser tan larga.",
-                    },
-                  })}
-                />
-                {errors.addressCapital && (
-                  <p className="text-red-600">
-                    {errors.addressCapital.message}
-                  </p>
-                )}
+              <Separator className="w-8 my-2 bg-border-color md:hidden dark:bg-border-color-dark" />
+
+              <div className="w-full flex flex-col gap-2">
+                <p className="flex items-center gap-1">
+                  <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                  Capital Federal
+                </p>
+                <div className="grid w-full items-center gap-2">
+                  <Label htmlFor="addressCapital">Dirección</Label>
+                  <Input
+                    ref={addressCapitalRef}
+                    type="text"
+                    id="addressCapital"
+                    value={addressCapitalValue}
+                    onChange={(e) => setAddressCapitalValue(e.target.value)}
+                    placeholder="Las Heras 2304"
+                  />
+                </div>
               </div>
             </div>
             {err && <p className="text-red-600 self-start">{err}</p>}
