@@ -10,9 +10,11 @@ const formatDate = (date: string) => {
   // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
   return formatted_date;
 };
+
 moment.locale("es", {
   weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
 });
+
 const todayDate = moment().format("ddd DD/MM");
 
 export const userColumns = [
@@ -41,22 +43,22 @@ export const userColumns = [
   {
     field: "addressCda",
     headerName: "Dirección (Carmen)",
-    width: 180,
+    width: 220,
+    renderCell: (params: any) => {
+      return (
+        <div className="flex flex-col gap-1">
+          <span>
+            {params.row.addressCda.street} {params.row.addressCda.streetNumber}
+          </span>
+          <span>Entre: {params.row.addressCda.crossStreets}</span>
+        </div>
+      );
+    },
   },
   {
     field: "addressCapital",
     headerName: "Dirección (Capital)",
-    width: 180,
-  },
-  {
-    field: "username",
-    headerName: "Usuario",
     width: 160,
-  },
-  {
-    field: "email",
-    headerName: "Email",
-    width: 230,
   },
   {
     field: "phone",
@@ -67,6 +69,16 @@ export const userColumns = [
     field: "dni",
     headerName: "DNI",
     width: 130,
+  },
+  {
+    field: "username",
+    headerName: "Usuario",
+    width: 160,
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 230,
   },
 ];
 
@@ -171,11 +183,17 @@ export const passengerColumns = [
     renderCell: (params: any) => {
       return (
         <p className="">
-          {params.row.addressCda
-            ? params.row.addressCda
-            : params.row.createdBy
-            ? params.row.createdBy.addressCda
-            : "-"}
+          {params.row.addressCda ? (
+            params.row.addressCda
+          ) : params.row.createdBy ? (
+            <>
+              <span>{params.row.createdBy.addressCda.street}</span>
+              <span>{params.row.createdBy.addressCda.streetNumber}</span>
+              <span>Entre: {params.row.createdBy.addressCda.crossStrets}</span>
+            </>
+          ) : (
+            "-"
+          )}
         </p>
       );
     },
