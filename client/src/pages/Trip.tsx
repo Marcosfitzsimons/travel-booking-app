@@ -196,7 +196,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                   </div>
                   <div className="flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color py-4 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
                     <div className="flex flex-col gap-2 overflow-auto pb-2">
-                      <p className="flex items-center gap-1">
+                      <div className="flex items-center gap-1">
                         <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="dark:text-white font-medium">
                           Salida:
@@ -207,8 +207,8 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                         <span className="shrink-0">
                           {data.departureTime} hs.
                         </span>
-                      </p>
-                      <p className="flex items-center gap-1">
+                      </div>
+                      <div className="flex items-center gap-1">
                         <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="dark:text-white font-medium">
                           Destino:
@@ -217,7 +217,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                         <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
                         <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
                         <span className="shrink-0">{data.arrivalTime} hs.</span>
-                      </p>
+                      </div>
                       <p className="flex items-center gap-1">
                         <DollarSign className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
                         <span className="dark:text-white font-medium">
