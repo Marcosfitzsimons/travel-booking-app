@@ -1,5 +1,11 @@
 import { createContext, Dispatch, useEffect, useReducer } from "react";
 
+type addressCda = {
+  street: string;
+  streetNumber: number | null;
+  crossStreets: string;
+};
+
 type User = {
   _id: string;
   username: string;
@@ -8,7 +14,7 @@ type User = {
   phone: number;
   image?: string;
   isReminder: boolean;
-  addressCda: string;
+  addressCda: addressCda;
   addressCapital: string;
   dni: number;
   password: string;
