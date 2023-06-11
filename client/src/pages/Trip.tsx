@@ -13,6 +13,8 @@ import {
   MapPin,
   Clock,
   ClipboardList,
+  Milestone,
+  Crop,
 } from "lucide-react";
 import {
   Tooltip,
@@ -27,6 +29,7 @@ import miniBus from "../assets/minibus1-sm.png";
 import { DollarSign } from "lucide-react";
 import BackButton from "../components/BackButton";
 import { Separator } from "../components/ui/separator";
+import { spawn } from "child_process";
 
 type ProfileProps = {
   setIsUserInfo: (value: boolean) => void;
@@ -225,11 +228,10 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                     </div>
                   </div>
                 </div>
-
-                <div className="border-t border-border-color mt-2 flex flex-col gap-1 py-2">
+                <Separator className="w-8 self-center mt-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
+                <div className="flex flex-col gap-1 py-2">
                   <div className="flex items-center gap-2">
                     <h5 className="font-medium flex items-center gap-1 dark:text-white">
-                      <ClipboardList className="h-5 w-5 text-icon-color shrink-0 dark:text-icon-color-dark" />
                       Mis datos para este viaje:
                     </h5>
                     <Button
@@ -239,26 +241,35 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                       Editar
                     </Button>
                   </div>
-                  <ul className="px-2">
-                    <li>
-                      <p className="flex items-center gap-[2px] text-sm">
-                        <MapPin className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
+                  <div className="flex flex-col gap-1 px-1 text-sm">
+                    <h6>Carmen de Areco:</h6>
+                    <div className="flex items-center gap-[2px] ">
+                      <Milestone className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
+                      <span className="font-medium dark:text-white">
+                        Dirreción:
+                      </span>
+                      {user && (
+                        <p>{`${user.addressCda.street} ${user.addressCda.streetNumber}`}</p>
+                      )}
+                    </div>
+                    {user && (
+                      <div className="flex items-center gap-[2px]">
+                        <Crop className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
                         <span className="font-medium dark:text-white">
-                          Dirreción (Carmen):
+                          Calles que cruzan:
                         </span>{" "}
-                        {user && user.addressCda}
-                      </p>
-                    </li>
-                    <li>
-                      <p className="flex items-center gap-[2px] text-sm">
-                        <MapPin className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
-                        <span className="font-medium dark:text-white">
-                          Dirreción (Capital):
-                        </span>{" "}
-                        {user && user.addressCapital}
-                      </p>
-                    </li>
-                  </ul>
+                        {user.addressCda.crossStreets}
+                      </div>
+                    )}
+                    <h6>Capital Federal:</h6>
+                    <div className="flex items-center gap-[2px]">
+                      <Milestone className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
+                      <span className="font-medium dark:text-white">
+                        Dirreción:
+                      </span>{" "}
+                      <p>{user && user.addressCapital}</p>
+                    </div>
+                  </div>
                 </div>
 
                 <div
