@@ -18,14 +18,18 @@ type ProfileProps = {
 
 const INITIAL_STATES = {
   _id: "",
-  addressCapital: "",
-  addressCda: "",
-  email: "",
+  username: "",
   fullName: "",
+  addressCda: {
+    street: "",
+    streetNumber: undefined,
+    crossStreets: "",
+  },
+  addressCapital: "",
+  email: "",
   isReminder: false,
   myTrips: [],
   phone: undefined,
-  username: "",
   dni: undefined,
 };
 

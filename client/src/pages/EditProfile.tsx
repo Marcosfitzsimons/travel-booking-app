@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Upload, User, X } from "lucide-react";
+import { MapPin, Upload, User, X } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -13,6 +13,13 @@ import BackButton from "../components/BackButton";
 import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
+import { Separator } from "../components/ui/separator";
+
+type addressCda = {
+  street: string | undefined;
+  streetNumber: number | undefined | null;
+  crossStreets: string | undefined;
+};
 
 type UserData = {
   username: string | undefined;
@@ -21,15 +28,72 @@ type UserData = {
   phone: number | undefined;
   dni: number | undefined;
   image?: string | undefined;
-  addressCda: string | undefined;
+  addressCda: addressCda | undefined;
   addressCapital: string | undefined;
+  password?: string | undefined;
+};
+
+interface InputValidation {
+  required: {
+    value: boolean;
+    message: string;
+  };
+  minLength: {
+    value: number;
+    message: string;
+  };
+  maxLength: {
+    value: number;
+    message: string;
+  };
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
+}
+interface UserInput {
+  id: any;
+  label: string;
+  type: string;
+  placeholder?: string;
+  validation?: InputValidation;
+  icon?: any;
+}
+
+const sectionVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeIn",
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.2,
+      ease: "backInOut",
+    },
+  },
 };
 
 const EditProfile = () => {
   const [image, setImage] = useState<File | string>("");
+
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
+
   const { user } = useContext(AuthContext);
+
+  const [addressCapitalValue, setAddressCapitalValue] = useState(
+    "" || user?.addressCapital
+  );
+
+  const addressCapitalRef = useRef(null);
+
   const {
     register,
     handleSubmit,
@@ -41,7 +105,11 @@ const EditProfile = () => {
       email: user?.email,
       phone: user?.phone,
       dni: user?.dni,
-      addressCda: user?.addressCda,
+      addressCda: {
+        street: user?.addressCda.street,
+        streetNumber: user?.addressCda.streetNumber,
+        crossStreets: user?.addressCda.crossStreets,
+      },
       addressCapital: user?.addressCapital,
       image: user?.image,
     },
@@ -66,7 +134,7 @@ const EditProfile = () => {
       if (!image) {
         const res = await axios.put(
           `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
-          { userData: { ...data } },
+          { userData: { ...data, addressCapital: addressCapitalValue } },
           { headers }
         );
         localStorage.setItem("user", JSON.stringify(res.data));
@@ -75,8 +143,8 @@ const EditProfile = () => {
           description: "Cambios guardados con exito.",
         });
         setTimeout(() => {
-          navigate(0);
-        }, 2000);
+          navigate("/mi-perfil");
+        }, 1000);
       } else {
         const uploadRes = await axios.post(
           "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
@@ -86,7 +154,13 @@ const EditProfile = () => {
 
         const res = await axios.put(
           `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
-          { userData: { ...data, image: url } },
+          {
+            userData: {
+              ...data,
+              image: url,
+              addressCapital: addressCapitalValue,
+            },
+          },
           { headers }
         );
         localStorage.setItem("user", JSON.stringify(res.data));
@@ -95,7 +169,7 @@ const EditProfile = () => {
           description: "Cambios guardados con éxito.",
         });
         setTimeout(() => {
-          navigate(0);
+          navigate("/mi-perfil");
         }, 1000);
       }
     } catch (err: any) {
@@ -109,25 +183,90 @@ const EditProfile = () => {
     }
   };
 
-  const sectionVariants = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: "easeIn",
+  const userAddressInputs = [
+    {
+      id: "street",
+      label: "Calle",
+      type: "text",
+      placeholder: "Matheu",
+      validation: {
+        required: {
+          value: true,
+          message: "Por favor, ingresar domicilio.",
+        },
+        minLength: {
+          value: 3,
+          message: "Domicilio no puede ser tan corto.",
+        },
+        maxLength: {
+          value: 25,
+          message: "Domicilio no puede ser tan largo.",
+        },
       },
     },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 0.2,
-        ease: "backInOut",
+    {
+      id: "streetNumber",
+      label: "Número",
+      type: "text",
+      placeholder: "354",
+      validation: {
+        required: {
+          value: true,
+          message: "Por favor, ingresar número de domicilio ",
+        },
+        minLength: {
+          value: 1,
+          message: "Número de domicilio no puede ser tan corto.",
+        },
+        maxLength: {
+          value: 5,
+          message: "Número de domicilio no puede ser tan largo.",
+        },
+        pattern: {
+          value: /^[0-9]+$/,
+          message: "Debe incluir solo números.",
+        },
       },
     },
-  };
+    {
+      id: "crossStreets",
+      label: "Calles que cruzan",
+      type: "text",
+      placeholder: "Matheu y D. Romero",
+      validation: {
+        required: {
+          value: true,
+          message:
+            "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
+        },
+        minLength: {
+          value: 3,
+          message: "No puede ser tan corto.",
+        },
+        maxLength: {
+          value: 40,
+          message: "No puede ser tan largo.",
+        },
+      },
+    },
+  ];
+
+  useEffect(() => {
+    const addressCapital = new window.google.maps.places.Autocomplete(
+      addressCapitalRef.current!,
+      {
+        componentRestrictions: { country: "AR" },
+        types: ["address"],
+        fields: ["address_components"],
+      }
+    );
+
+    addressCapital.addListener("place_changed", () => {
+      const place = addressCapital.getPlace();
+      console.log(place);
+    });
+  }, []);
+
   return (
     <section className="">
       <SectionTitle>Editar perfil</SectionTitle>
@@ -170,7 +309,7 @@ const EditProfile = () => {
                     <div className="absolute -bottom-1 ">
                       <Label
                         htmlFor="image"
-                        className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-border-color bg-white hover:border-blue-lagoon-300 dark:border-zinc-500 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
+                        className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-border-color bg-white hover:border-blue-lagoon-300 dark:border-zinc-500 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-zinc-200"
                       >
                         Subir{" "}
                         <Upload className="w-4 h-4 dark:text-blue-lagoon-100" />
@@ -196,7 +335,8 @@ const EditProfile = () => {
                       )}
                     </div>
                   </div>
-                  <div className="grid w-full max-w-md items-center gap-2">
+
+                  <div className="mt-4 grid w-full max-w-md items-center gap-2">
                     <Label htmlFor="username">Nombre de usuario</Label>
                     <div className="relative flex items-center">
                       <Input
@@ -334,56 +474,66 @@ const EditProfile = () => {
                       <p className="text-red-600">{errors.email.message}</p>
                     )}
                   </div>
-                  <div className="grid w-full max-w-md items-center gap-2">
-                    <Label htmlFor="addressCda">Direccion (Carmen)</Label>
-                    <Input
-                      type="text"
-                      id="addressCda"
-                      {...register("addressCda", {
-                        required: {
-                          value: true,
-                          message: "Por favor, ingresa tu domicilio.",
-                        },
-                        minLength: {
-                          value: 3,
-                          message: "Domicilio no puede ser tan corto.",
-                        },
-                        maxLength: {
-                          value: 25,
-                          message: "Domicilio no puede ser tan largo.",
-                        },
-                      })}
-                    />
-                    {errors.addressCda && (
-                      <p className="text-red-600">
-                        {errors.addressCda.message}
+
+                  <Separator className="w-8 my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
+                  <p className="flex items-center gap-1 text-lg mb-2 lg:text-xl lg:mb-0 lg:col-start-1 lg:col-end-3 lg:self-start dark:text-white">
+                    Domicilios
+                  </p>
+
+                  <div className="w-full flex flex-col items-center gap-2 md:flex-row md:items-start md:col-start-1 md:col-end-3">
+                    <div className="w-full flex flex-col gap-2">
+                      <p className="flex items-center gap-1">
+                        <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                        Carmen de Areco
                       </p>
-                    )}
-                  </div>
-                  <div className="grid w-full max-w-md items-center gap-2">
-                    <Label htmlFor="address-cap">Direccion (Capital)</Label>
-                    <Input
-                      type="text"
-                      {...register("addressCapital", {
-                        required: {
-                          value: true,
-                          message: "Por favor, ingresa tu domicilio.",
-                        },
-                        minLength: {
-                          value: 3,
-                          message: "Domicilio no puede ser tan corto.",
-                        },
-                        maxLength: {
-                          value: 25,
-                          message: "Domicilio no puede ser tan largo.",
-                        },
+                      {userAddressInputs.map((input: UserInput) => {
+                        const key = input.id;
+                        const fieldName: any = `addressCda.${key}`;
+                        return (
+                          <div
+                            key={input.id}
+                            className="grid w-full items-center gap-2"
+                          >
+                            <Label htmlFor={input.id}>{input.label}</Label>
+                            <Input
+                              type={input.type}
+                              id={input.id}
+                              placeholder={input.placeholder}
+                              {...register(fieldName, input.validation)}
+                            />
+                            {errors[input.id as keyof typeof errors] && (
+                              <p className="text-red-600">
+                                {
+                                  errors[input.id as keyof typeof errors]
+                                    ?.message
+                                }
+                              </p>
+                            )}
+                          </div>
+                        );
                       })}
-                    />
-                    {errors.addressCapital && (
-                      <p className="text-red-600">
-                        {errors.addressCapital.message}
+                    </div>
+                    <Separator className="w-8 my-2 bg-border-color md:hidden dark:bg-border-color-dark" />
+
+                    <div className="w-full flex flex-col gap-2">
+                      <p className="flex items-center gap-1">
+                        <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                        Capital Federal
                       </p>
-                    )}
+                      <div className="grid w-full items-center gap-2">
+                        <Label htmlFor="addressCapital">Dirección</Label>
+                        <Input
+                          ref={addressCapitalRef}
+                          type="text"
+                          id="addressCapital"
+                          value={addressCapitalValue}
+                          onChange={(e) =>
+                            setAddressCapitalValue(e.target.value)
+                          }
+                          placeholder="Las Heras 2304"
+                        />
+                      </div>
+                    </div>
                   </div>
                   {err && <p className="text-red-600 self-start">{err}</p>}
                   <div className="w-full max-w-md lg:w-[10rem]">

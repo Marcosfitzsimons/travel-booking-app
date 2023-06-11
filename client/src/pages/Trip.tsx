@@ -8,20 +8,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/SectionTitle";
 import {
-  AlertCircle,
   CalendarDays,
   MapPin,
   Clock,
-  ClipboardList,
   Milestone,
   Crop,
+  User,
 } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../components/ui/tooltip";
+
 import { Button } from "../components/ui/button";
 import { toast } from "../hooks/ui/use-toast";
 import Loading from "../components/Loading";
@@ -29,7 +23,6 @@ import miniBus from "../assets/minibus1-sm.png";
 import { DollarSign } from "lucide-react";
 import BackButton from "../components/BackButton";
 import { Separator } from "../components/ui/separator";
-import { spawn } from "child_process";
 
 type ProfileProps = {
   setIsUserInfo: (value: boolean) => void;
@@ -231,8 +224,9 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                 <Separator className="w-8 self-center mt-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
                 <div className="flex flex-col gap-1 py-2">
                   <div className="flex items-center gap-2">
-                    <h5 className="font-medium flex items-center gap-1 dark:text-white">
-                      Mis datos para este viaje:
+                    <h5 className="font-medium flex items-center gap-[2px] dark:text-white">
+                      <User className="h-5 w-5 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                      Mis datos para este viaje
                     </h5>
                     <Button
                       onClick={() => navigate("/mi-perfil/editar-perfil")}
@@ -242,7 +236,9 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                     </Button>
                   </div>
                   <div className="flex flex-col gap-1 px-1 text-sm">
-                    <h6>Carmen de Areco:</h6>
+                    <h6 className="font-serif dark:text-white">
+                      Carmen de Areco:
+                    </h6>
                     <div className="flex items-center gap-[2px] ">
                       <Milestone className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
                       <span className="font-medium dark:text-white">
@@ -261,7 +257,9 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                         {user.addressCda.crossStreets}
                       </div>
                     )}
-                    <h6>Capital Federal:</h6>
+                    <h6 className="font-serif dark:text-white">
+                      Capital Federal:
+                    </h6>
                     <div className="flex items-center gap-[2px]">
                       <Milestone className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
                       <span className="font-medium dark:text-white">

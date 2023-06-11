@@ -55,17 +55,24 @@ type TripProps = {
   available: boolean;
 };
 
+type addressCda = {
+  street: string;
+  streetNumber: number | undefined;
+  crossStreets: string;
+};
+
 type UserData = {
   _id: string;
-  addressCapital: string;
-  addressCda: string;
-  email: string;
-  isReminder: boolean;
   fullName: string;
+  username: string;
+  addressCda: addressCda;
+  addressCapital: string;
+  dni: number | undefined;
+  phone: undefined | number;
+  email: string;
   image?: string;
   myTrips: TripProps[];
-  phone: undefined | number;
-  username: string;
+  isReminder: boolean;
 };
 interface myTripsProps {
   userTrips: TripProps[];
