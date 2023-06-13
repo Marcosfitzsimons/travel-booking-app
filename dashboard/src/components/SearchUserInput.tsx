@@ -3,13 +3,20 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 
+type addressCda = {
+  street: string;
+  streetNumber: number | null;
+  crossStreets: string;
+};
+
 type User = {
   _id: string | undefined;
   username: string | undefined;
   fullName: string | undefined;
   email: string | undefined;
-  addressCda: string | undefined;
-  addressCapital?: string | undefined;
+  dni: number | undefined;
+  addressCda: addressCda | undefined;
+  addressCapital: string | undefined;
   phone: number | undefined;
   image?: string | undefined;
 };

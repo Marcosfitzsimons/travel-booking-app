@@ -5,12 +5,12 @@ import axios from "axios";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { User } from "lucide-react";
+import { MapPin, User } from "lucide-react";
 import { useToast } from "../hooks/ui/use-toast";
 import DefaultButton from "./DefaultButton";
 import { Upload } from "lucide-react";
-import Autocomplete from "react-google-autocomplete";
-import PlacesAutocomplete from "./PlacesAutocomplete";
+import { userAddressInputs } from "../formSource";
+import { Separator } from "./ui/separator";
 interface InputValidation {
   required: {
     value: boolean;
@@ -39,14 +39,21 @@ interface UserInput {
   icon?: any;
 }
 
+type addressCda = {
+  street: string;
+  streetNumber: number | null;
+  crossStreets: string;
+};
+
 type User = {
   username: string;
   fullName: string;
   email: string;
   phone: number | null;
+  dni: number | null;
   image?: string;
-  addressCda: string;
-  addressCapital?: string;
+  addressCda: addressCda;
+  addressCapital: string;
   password: string;
 };
 
@@ -58,6 +65,9 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
   const [image, setImage] = useState<File | string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
+  const [addressCapitalValue, setAddressCapitalValue] = useState("");
+
+  const addressCapitalRef = useRef(null);
 
   let imageInput: UserInput = {
     id: "imageInput",
@@ -81,9 +91,13 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
       password: "",
       email: "",
       phone: null,
-      addressCda: "",
+      dni: null,
+      addressCda: {
+        street: "",
+        streetNumber: null,
+        crossStreets: "",
+      },
       addressCapital: "",
-      address1: "",
       imageInput: "",
     },
   });
@@ -95,12 +109,14 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
     imgData.append("upload_preset", "upload");
     try {
       if (!image) {
-        await axios.post(
+        const datasent = await axios.post(
           "https://fabebus-api-example.onrender.com/api/auth/register",
           {
             ...data,
+            addressCapital: addressCapitalValue,
           }
         );
+        console.log(datasent);
         setIsLoading(false);
         toast({
           description: "Usuario creado con éxito.",
@@ -112,13 +128,15 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
         );
         const { url } = uploadRes.data;
 
-        await axios.post(
-          "https://travel-booking-api-production.up.railway.app/api/auth/register",
+        const datasent = await axios.post(
+          "https://fabebus-api-example.onrender.com/api/auth/register",
           {
             ...data,
             image: url,
+            addressCapital: addressCapitalValue,
           }
         );
+        console.log(datasent);
         setIsLoading(false);
         toast({
           description: "Usuario creado con éxito.",
@@ -136,13 +154,29 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
     }
   };
 
+  useEffect(() => {
+    const addressCapital = new window.google.maps.places.Autocomplete(
+      addressCapitalRef.current!,
+      {
+        componentRestrictions: { country: "AR" },
+        types: ["address"],
+        fields: ["address_components"],
+      }
+    );
+
+    addressCapital.addListener("place_changed", () => {
+      const place = addressCapital.getPlace();
+      console.log(place);
+    });
+  }, []);
+
   return (
     <div className="">
       <form
         onSubmit={handleSubmit(handleOnSubmit)}
-        className="relative w-full mt-6 p-3 py-6 flex flex-col gap-5 items-center lg:flex-row lg:items-start "
+        className="relative w-full mt-6 p-3 py-3 flex flex-col gap-5 items-center lg:flex-row lg:items-start "
       >
-        <div className="w-full relative flex flex-col items-center lg:basis-1/3">
+        <div className="w-full relative flex flex-col items-center lg:basis-1/4">
           <Avatar className="w-32 h-32 relative">
             <AvatarImage
               className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle object-cover"
@@ -182,11 +216,11 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
           </div>
         </div>
 
-        {/* <div className="w-full relative flex flex-col items-center lg:basis-1/3">
-          <PlacesAutocomplete />
-        </div>} */}
-
         <div className="w-full flex flex-col items-center gap-2 lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
+          <p className="text-lg mb-2 lg:text-xl lg:mb-0 lg:col-start-1 lg:col-end-3 dark:text-white">
+            Información del usuario
+          </p>
+
           {inputs.map((input) => (
             <div key={input.id} className="grid w-full items-center gap-2">
               <Label htmlFor={input.id}>{input.label}</Label>
@@ -203,8 +237,64 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
               )}
             </div>
           ))}
+
+          <Separator className="w-8 my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
+          <p className="flex items-center gap-1 text-lg mb-2 lg:text-xl lg:mb-0 lg:col-start-1 lg:col-end-3 dark:text-white">
+            Domicilios
+          </p>
+
+          <div className="w-full flex flex-col items-center gap-2 md:flex-row md:items-start md:col-start-1 md:col-end-3">
+            <div className="w-full flex flex-col gap-2">
+              <p className="flex items-center gap-1">
+                <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                Carmen de Areco
+              </p>
+              {userAddressInputs.map((input: UserInput) => {
+                const key = input.id;
+                const fieldName: any = `addressCda.${key}`;
+                return (
+                  <div
+                    key={input.id}
+                    className="grid w-full items-center gap-2"
+                  >
+                    <Label htmlFor={input.id}>{input.label}</Label>
+                    <Input
+                      type={input.type}
+                      id={input.id}
+                      placeholder={input.placeholder}
+                      {...register(fieldName, input.validation)}
+                    />
+                    {errors[input.id as keyof typeof errors] && (
+                      <p className="text-red-600">
+                        {errors[input.id as keyof typeof errors]?.message}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <Separator className="w-8 my-2 bg-border-color md:hidden dark:bg-border-color-dark" />
+
+            <div className="w-full flex flex-col gap-2">
+              <p className="flex items-center gap-1">
+                <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                Capital Federal
+              </p>
+              <div className="grid w-full items-center gap-2">
+                <Label htmlFor="addressCapital">Dirección</Label>
+                <Input
+                  ref={addressCapitalRef}
+                  type="text"
+                  id="addressCapital"
+                  value={addressCapitalValue}
+                  onChange={(e) => setAddressCapitalValue(e.target.value)}
+                  placeholder="Las Heras 2304"
+                />
+              </div>
+            </div>
+          </div>
           {err && <p className="text-red-600 self-start">{err}</p>}
-          <div className="w-full mt-2 lg:flex lg:self-end lg:justify-end">
+          <div className="w-full mt-2 lg:max-w-[10rem] lg:self-center lg:justify-self-center lg:col-start-1 lg:col-end-3">
             <DefaultButton loading={isLoading}>
               {isLoading ? "Creando..." : "Crear usuario"}
             </DefaultButton>

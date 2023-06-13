@@ -41,8 +41,7 @@ const NewUser = ({ inputs, title }: NewUserProps) => {
       <div className="self-start mb-2">
         <BackButton linkTo="/users" />
       </div>
-      <div className="p-5 rounded-md bg-white/40 border border-border-color shadow-md dark:border-border-color-dark dark:hover:border-zinc-500 dark:bg-black">
-        <h2 className="text-lg dark:text-white">Información del usuario</h2>
+      <div className="p-2 w-full max-w-lg self-center rounded-md bg-white/40 border border-border-color shadow-md lg:w-full lg:max-w-6xl dark:border-border-color-dark dark:hover:border-zinc-500 dark:bg-black">
         <NewUserForm inputs={inputs} />
       </div>
     </section>

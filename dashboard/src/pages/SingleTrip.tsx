@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import moment from "moment-timezone";
 import "moment/locale/es";
@@ -48,23 +48,55 @@ type Trip = {
   maxCapacity: string;
   price: string;
 };
+interface InputValidation {
+  required: {
+    value: boolean;
+    message: string;
+  };
+  minLength: {
+    value: number;
+    message: string;
+  };
+  maxLength: {
+    value: number;
+    message: string;
+  };
+  pattern?: {
+    value: RegExp;
+    message: string;
+  };
+}
+interface UserInput {
+  id: any;
+  label: string;
+  type: string;
+  placeholder?: string;
+  validation?: InputValidation;
+  icon?: any;
+}
+
+type addressCda = {
+  street: string;
+  streetNumber: number | undefined;
+  crossStreets: string;
+};
 
 type UserData = {
   _id: string;
-  addressCapital: string;
-  addressCda: string;
-  email: string;
+  username: string;
   fullName: string;
+  addressCda: addressCda;
+  addressCapital: string;
+  email: string;
+  phone: number | undefined;
+  dni: number | undefined;
   image?: string;
   myTrips: Trip[];
-  phone: undefined | number;
-  dni: undefined | number;
-  username: string;
 };
 
 type Passenger = {
   createdBy?: UserData;
-  addressCda?: string;
+  addressCda?: addressCda;
   addressCapital?: string;
   fullName?: string;
   dni?: string;
@@ -93,11 +125,14 @@ const SingleTrip = () => {
   const [isSubmitted2, setIsSubmitted2] = useState(false);
   const [arrivalTimeValue, setArrivalTimeValue] = useState("10:00");
   const [departureTimeValue, setDepartureTimeValue] = useState("10:00");
+  const [addressCapitalValue, setAddressCapitalValue] = useState("");
   const [error, setError] = useState<unknown | boolean>(false);
   const [err, setErr] = useState<null | string>(null);
 
   const isMaxCapacity = data.passengers.length === data.maxCapacity;
   const availableSeats = `${data.passengers.length} / ${data.maxCapacity}`;
+
+  const addressCapital1Ref = useRef(null);
 
   const todayDate = moment().locale("es").format("ddd DD/MM");
 
@@ -136,8 +171,11 @@ const SingleTrip = () => {
     defaultValues: {
       fullName: "",
       dni: undefined,
-      addressCda: "",
-      addressCapital: "",
+      addressCda: {
+        street: "",
+        streetNumber: undefined,
+        crossStreets: "",
+      },
     },
   });
 
@@ -182,6 +220,7 @@ const SingleTrip = () => {
         `https://fabebus-api-example.onrender.com/api/passengers/${user?._id}/${id}`,
         {
           ...data,
+          addressCapital: addressCapitalValue,
         },
         { headers }
       );
@@ -236,6 +275,74 @@ const SingleTrip = () => {
     return formatted_date;
   };
 
+  const userAddressInputs = [
+    {
+      id: "street",
+      label: "Calle",
+      type: "text",
+      placeholder: "Matheu",
+      validation: {
+        required: {
+          value: true,
+          message: "Por favor, ingresar domicilio.",
+        },
+        minLength: {
+          value: 3,
+          message: "Domicilio no puede ser tan corto.",
+        },
+        maxLength: {
+          value: 25,
+          message: "Domicilio no puede ser tan largo.",
+        },
+      },
+    },
+    {
+      id: "streetNumber",
+      label: "Número",
+      type: "text",
+      placeholder: "354",
+      validation: {
+        required: {
+          value: true,
+          message: "Por favor, ingresar número de domicilio ",
+        },
+        minLength: {
+          value: 1,
+          message: "Número de domicilio no puede ser tan corto.",
+        },
+        maxLength: {
+          value: 5,
+          message: "Número de domicilio no puede ser tan largo.",
+        },
+        pattern: {
+          value: /^[0-9]+$/,
+          message: "Debe incluir solo números.",
+        },
+      },
+    },
+    {
+      id: "crossStreets",
+      label: "Calles que cruzan",
+      type: "text",
+      placeholder: "Matheu y D. Romero",
+      validation: {
+        required: {
+          value: true,
+          message:
+            "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
+        },
+        minLength: {
+          value: 3,
+          message: "No puede ser tan corto.",
+        },
+        maxLength: {
+          value: 40,
+          message: "No puede ser tan largo.",
+        },
+      },
+    },
+  ];
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -273,6 +380,22 @@ const SingleTrip = () => {
       setLoading(false);
     };
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const addressCapital1 = new window.google.maps.places.Autocomplete(
+      addressCapital1Ref.current!,
+      {
+        componentRestrictions: { country: "AR" },
+        types: ["address"],
+        fields: ["address_components"],
+      }
+    );
+
+    addressCapital1.addListener("place_changed", () => {
+      const place = addressCapital1.getPlace();
+      console.log(place);
+    });
   }, []);
 
   return (
@@ -546,6 +669,7 @@ const SingleTrip = () => {
               </p>
             )}
           </article>
+
           <div className="flex flex-col gap-2">
             <div className="w-full flex flex-col gap-4">
               <h3 className="font-bold text-xl uppercase dark:text-white lg:text-2xl">
@@ -622,37 +746,6 @@ const SingleTrip = () => {
                                       </p>
                                     )}
                                   </div>
-
-                                  <div className="grid w-full max-w-md items-center gap-2">
-                                    <Label htmlFor="addressCda">
-                                      Dirección (Carmen)
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      id="addressCda"
-                                      {...register2("addressCda")}
-                                    />
-                                    {errors2.addressCda && (
-                                      <p className="text-red-600">
-                                        {errors2.addressCda.message}
-                                      </p>
-                                    )}
-                                  </div>
-                                  <div className="grid w-full max-w-md items-center gap-2">
-                                    <Label htmlFor="addressCapital">
-                                      Dirección (Capital)
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      id="addressCapital"
-                                      {...register2("addressCapital")}
-                                    />
-                                    {errors2.addressCapital && (
-                                      <p className="text-red-600">
-                                        {errors2.addressCapital.message}
-                                      </p>
-                                    )}
-                                  </div>
                                   <div className="grid w-full max-w-md items-center gap-2">
                                     <Label htmlFor="dni">
                                       DNI{" "}
@@ -670,6 +763,83 @@ const SingleTrip = () => {
                                         {errors2.dni.message}
                                       </p>
                                     )}
+                                  </div>
+                                  <Separator className="w-8 my-2 bg-border-color dark:bg-border-color-dark" />
+                                  <p className="flex items-center gap-1 text-lg mb-2 lg:text-xl lg:mb-0 lg:col-start-1 lg:col-end-3 dark:text-white">
+                                    Domicilios
+                                  </p>
+
+                                  <div className="w-full flex flex-col items-center gap-2 md:flex-row md:items-start md:col-start-1 md:col-end-3">
+                                    <div className="w-full flex flex-col gap-2">
+                                      <p className="flex items-center gap-1">
+                                        <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                                        Carmen de Areco
+                                      </p>
+                                      {userAddressInputs.map(
+                                        (input: UserInput) => {
+                                          const key = input.id;
+                                          const fieldName: any = `addressCda.${key}`;
+                                          return (
+                                            <div
+                                              key={input.id}
+                                              className="grid w-full items-center gap-2"
+                                            >
+                                              <Label htmlFor={input.id}>
+                                                {input.label}
+                                              </Label>
+                                              <Input
+                                                type={input.type}
+                                                id={input.id}
+                                                placeholder={input.placeholder}
+                                                {...register(
+                                                  fieldName,
+                                                  input.validation
+                                                )}
+                                              />
+                                              {errors[
+                                                input.id as keyof typeof errors
+                                              ] && (
+                                                <p className="text-red-600">
+                                                  {
+                                                    errors[
+                                                      input.id as keyof typeof errors
+                                                    ]?.message
+                                                  }
+                                                </p>
+                                              )}
+                                            </div>
+                                          );
+                                        }
+                                      )}
+                                    </div>
+                                    <Separator className="w-8 my-2 bg-border-color md:hidden dark:bg-border-color-dark" />
+
+                                    <div className="w-full flex flex-col gap-2">
+                                      <p className="flex items-center gap-1">
+                                        <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                                        Capital Federal
+                                      </p>
+                                      <div className="grid w-full items-center gap-2">
+                                        <Label htmlFor="addressCapital1">
+                                          Dirección
+                                        </Label>
+                                        <span className="text-red-600">
+                                          fix problem with autocomplete{" "}
+                                        </span>
+                                        <Input
+                                          ref={addressCapital1Ref}
+                                          type="text"
+                                          id="addressCapital1"
+                                          value={addressCapitalValue}
+                                          onChange={(e) =>
+                                            setAddressCapitalValue(
+                                              e.target.value
+                                            )
+                                          }
+                                          placeholder="Las Heras 2304"
+                                        />
+                                      </div>
+                                    </div>
                                   </div>
 
                                   {err && (

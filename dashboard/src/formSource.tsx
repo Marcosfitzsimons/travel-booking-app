@@ -7,7 +7,7 @@ export const userInputs = [
     validation: {
       required: {
         value: true,
-        message: "Por favor, ingresa tu nombre de usuario.",
+        message: "Por favor, ingresar nombre de usuario.",
       },
       minLength: {
         value: 3,
@@ -27,7 +27,7 @@ export const userInputs = [
     validation: {
       required: {
         value: true,
-        message: "Por favor, ingresa tu nombre completo.",
+        message: "Por favor, ingresar nombre completo.",
       },
       minLength: {
         value: 3,
@@ -47,7 +47,7 @@ export const userInputs = [
     validation: {
       required: {
         value: true,
-        message: "Por favor, ingresa tu email.",
+        message: "Por favor, ingresar email.",
       },
       minLength: {
         value: 3,
@@ -61,13 +61,13 @@ export const userInputs = [
   },
   {
     id: "phone",
-    label: "Phone",
+    label: "Celular",
     type: "text",
     placeholder: "+1 234 567 89",
     validation: {
       required: {
         value: true,
-        message: "Por favor, ingresa tu número celular.",
+        message: "Por favor, ingresar número celular.",
       },
       minLength: {
         value: 3,
@@ -84,13 +84,37 @@ export const userInputs = [
     },
   },
   {
+    id: "dni",
+    label: "DNI",
+    type: "text",
+    placeholder: "41260178",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar DNI.",
+      },
+      minLength: {
+        value: 3,
+        message: "DNI no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 25,
+        message: "DNI no puede ser tan largo.",
+      },
+      pattern: {
+        value: /^[0-9]+$/,
+        message: "DNI debe incluir solo números.",
+      },
+    },
+  },
+  {
     id: "password",
-    label: "Password",
+    label: "Contraseña",
     type: "password",
     validation: {
       required: {
         value: true,
-        message: "Por favor, ingresa tu contraseña.",
+        message: "Por favor, ingresar contraseña.",
       },
       minLength: {
         value: 3,
@@ -102,15 +126,18 @@ export const userInputs = [
       },
     },
   },
+];
+
+export const userAddressInputs = [
   {
-    id: "addressCda",
-    label: "Direccion Carmen",
+    id: "street",
+    label: "Calle",
     type: "text",
-    placeholder: "Matheu 88",
+    placeholder: "Matheu",
     validation: {
       required: {
         value: true,
-        message: "Por favor, ingresa tu domicilio.",
+        message: "Por favor, ingresar domicilio.",
       },
       minLength: {
         value: 3,
@@ -123,10 +150,49 @@ export const userInputs = [
     },
   },
   {
-    id: "addressCapital",
-    label: "Direccion Capital",
+    id: "streetNumber",
+    label: "Número",
     type: "text",
-    placeholder: "Dr. Lemon 448",
+    placeholder: "354",
+    validation: {
+      required: {
+        value: true,
+        message: "Por favor, ingresar número de domicilio ",
+      },
+      minLength: {
+        value: 1,
+        message: "Número de domicilio no puede ser tan corto.",
+      },
+      maxLength: {
+        value: 5,
+        message: "Número de domicilio no puede ser tan largo.",
+      },
+      pattern: {
+        value: /^[0-9]+$/,
+        message: "Debe incluir solo números.",
+      },
+    },
+  },
+  {
+    id: "crossStreets",
+    label: "Calles que cruzan",
+    type: "text",
+    placeholder: "Matheu y D. Romero",
+    validation: {
+      required: {
+        value: true,
+        message:
+          "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
+      },
+      minLength: {
+        value: 3,
+        message: "No puede ser tan corto.",
+      },
+      maxLength: {
+        value: 40,
+        message: "No puede ser tan largo.",
+      },
+    },
   },
 ];
 
