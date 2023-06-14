@@ -49,12 +49,12 @@ const Home = () => {
               <span className="inline-block -rotate-3">s</span>
             </h1>
             <div className="flex items-center relative bottom-2">
-              <p className="font-serif dark:text-white flex items-center">
+              <p className="font-serif text-icon-color flex items-center dark:text-icon-color-dark">
                 Carmen de Areco
               </p>
             </div>
           </div>
-          <p className="font-medium dark:text-slate-100">
+          <p className="font-medium px-4 dark:text-slate-100">
             Una empresa familiar con más de 28 años de trayectoria.
           </p>
           <div className="">
@@ -68,9 +68,9 @@ const Home = () => {
           </div>
         </div>
         <div className="py-4 flex flex-col items-center gap-3 lg:items-start lg:basis-[45%]">
-          <h2 className="flex items-center gap-2 text-xl uppercase font-bold lg:text-2xl dark:text-white">
+          <h2 className="flex items-center gap-2 my-2 text-xl uppercase font-bold lg:text-2xl dark:text-white">
             <Newspaper className="w-6 h-6 text-icon-color dark:text-icon-color-dark" />
-            Ultimas novedades
+            Anuncios destacados
           </h2>
           <div className="flex flex-col gap-2">
             <PublicationCard />

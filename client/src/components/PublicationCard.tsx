@@ -11,7 +11,7 @@ import {
 
 const PublicationCard = () => {
   return (
-    <article className="w-full relative max-w-md rounded-md border border-border-color bg-white/80 px-4 pt-2 pb-8 flex flex-col gap-3 dark:border-border-color-dark dark:bg-black/60">
+    <article className="w-full relative max-w-lg rounded-md border border-border-color bg-white/80 px-2 pt-6 pb-10 flex flex-col gap-3 lg:px-4 lg:pt-[10px] dark:border-border-color-dark dark:bg-black/60">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -45,12 +45,12 @@ const PublicationCard = () => {
         Nombre publicación
       </h3>
       <div className="">
-        <p>
+        <p className="text-slate-600 dark:text-slate-400">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores,
           reprehenderit assumenda. Totam, architecto labore?
         </p>
       </div>
-      <p className="absolute right-2 top-2 text-sm">
+      <p className="absolute right-2 top-2 text-sm lg:right-4">
         Martes 05/11
         <span className="text-[#737373] font-extralight dark:text-slate-500 text-sm">
           {" "}
