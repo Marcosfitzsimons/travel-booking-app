@@ -9,6 +9,7 @@ import { Label } from "../components/ui/label";
 import { AuthContext } from "../context/AuthContext";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
+import { Lock, User } from "lucide-react";
 
 type User = {
   emailOrUsername: String;
@@ -102,48 +103,60 @@ const Login = () => {
           >
             <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
-              <Input
-                type="text"
-                id="emailOrUsername"
-                {...register("emailOrUsername", {
-                  required: {
-                    value: true,
-                    message: "Por favor, ingresa tu email o nombre de usuario.",
-                  },
-                  minLength: {
-                    value: 3,
-                    message: "Email o nombre de usuario demasiado corto.",
-                  },
-                  maxLength: {
-                    value: 40,
-                    message: "Email o nombre de usuario demasiado largo.",
-                  },
-                })}
-              />
+              <div className="relative flex items-center">
+                <User className="z-30 h-5 w-5 text-icon-color absolute left-[10px] pb-[1px] dark:text-icon-color-dark" />
+                <Input
+                  type="text"
+                  id="emailOrUsername"
+                  placeholder="juanperez22"
+                  className="pl-[32px]"
+                  {...register("emailOrUsername", {
+                    required: {
+                      value: true,
+                      message:
+                        "Por favor, ingresa tu email o nombre de usuario.",
+                    },
+                    minLength: {
+                      value: 3,
+                      message: "Email o nombre de usuario demasiado corto.",
+                    },
+                    maxLength: {
+                      value: 40,
+                      message: "Email o nombre de usuario demasiado largo.",
+                    },
+                  })}
+                />
+              </div>
+
               {errors.emailOrUsername && (
                 <p className="text-red-600">{errors.emailOrUsername.message}</p>
               )}
             </div>
             <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="password">Contraseña</Label>
-              <Input
-                type="password"
-                id="password"
-                {...register("password", {
-                  required: {
-                    value: true,
-                    message: "Por favor, ingresa tu contraseña",
-                  },
-                  minLength: {
-                    value: 3,
-                    message: "Contraseña no puede ser tan corta.",
-                  },
-                  maxLength: {
-                    value: 25,
-                    message: "Contraseña no puede ser tan larga.",
-                  },
-                })}
-              />
+              <div className="relative flex items-center">
+                <Lock className="z-30 h-5 w-5 text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                <Input
+                  type="password"
+                  id="password"
+                  className="pl-[32px]"
+                  placeholder="..."
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Por favor, ingresa tu contraseña",
+                    },
+                    minLength: {
+                      value: 3,
+                      message: "Contraseña no puede ser tan corta.",
+                    },
+                    maxLength: {
+                      value: 25,
+                      message: "Contraseña no puede ser tan larga.",
+                    },
+                  })}
+                />
+              </div>
               {errors.password && (
                 <p className="text-red-600">{errors.password.message}</p>
               )}
