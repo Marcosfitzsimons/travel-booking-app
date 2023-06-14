@@ -40,7 +40,6 @@ type UserData = {
   addressCapital: string | undefined;
   password?: string | undefined;
 };
-
 interface InputValidation {
   required: {
     value: boolean;
@@ -322,13 +321,13 @@ const EditProfile = () => {
                     </AvatarFallback>
                   </Avatar>
 
-                  <div className="absolute -bottom-1 ">
+                  <div className="absolute -bottom-1">
                     <Label
                       htmlFor="image"
-                      className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-border-color bg-white dark:border-border-color-dark dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-zinc-300"
+                      className="flex items-center gap-1 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-border-color bg-white dark:border-border-color-dark dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-zinc-300"
                     >
+                      <Upload className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
                       Subir{" "}
-                      <Upload className="w-4 h-4 dark:text-blue-lagoon-100" />
                     </Label>
                     <Input
                       type="file"
