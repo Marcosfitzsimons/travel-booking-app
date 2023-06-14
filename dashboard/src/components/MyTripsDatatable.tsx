@@ -35,6 +35,7 @@ type addressCda = {
 };
 
 type UserData = {
+  _id: string;
   fullName: string;
   username: string;
   addressCda: addressCda;
