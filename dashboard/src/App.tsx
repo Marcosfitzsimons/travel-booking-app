@@ -46,9 +46,9 @@ function App() {
   };
 
   return (
-    <div className="App flex w-[min(95%,1300px)] mx-auto">
+    <div className="App flex w-[min(95%,1500px)] mx-auto">
       <SideBar />
-      <div className="flex-[6] w-[min(100%,1000px)]">
+      <div className="flex-[6] w-[min(100%,1300px)]">
         <Header />
         <main className="pt-6 py-2">
           <Routes>
