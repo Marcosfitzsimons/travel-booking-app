@@ -251,7 +251,7 @@ const PassengersDatable = ({
               borderTop: "none",
             },
           }}
-          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <div className="mx-auto flex flex-col items-center gap-3">

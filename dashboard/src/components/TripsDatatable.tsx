@@ -244,7 +244,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
           }}
           pageSizeOptions={[9]}
           getRowId={(row) => row._id}
-          className="w-[min(100%,1200px)] shadow-md border-none dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-md border-none dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <DataGrid
@@ -277,7 +277,7 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
               borderTop: "none",
             },
           }}
-          className="w-[min(100%,1200px)] shadow-md dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-md dark:border-border-color-dark dark:text-neutral-100"
         />
       )}
     </div>

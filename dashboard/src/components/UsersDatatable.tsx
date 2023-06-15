@@ -205,7 +205,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
           }}
           pageSizeOptions={[9]}
           getRowId={(row) => row._id ?? ""}
-          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <DataGrid
@@ -238,7 +238,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
           }}
           pageSizeOptions={[9]}
           getRowId={(row) => row._id ?? ""} // ?? operator is used to provide a default value of an empty string '' if row._id is null or undefined.
-          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       )}
     </div>

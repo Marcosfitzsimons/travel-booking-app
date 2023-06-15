@@ -253,7 +253,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
               borderTop: "none",
             },
           }}
-          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       ) : (
         <DataGrid<MyRowType>
@@ -286,7 +286,7 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
               borderTop: "none",
             },
           }}
-          className="w-[min(100%,1200px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
         />
       )}
     </div>
