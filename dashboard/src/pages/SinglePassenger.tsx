@@ -21,26 +21,52 @@ import { useForm } from "react-hook-form";
 import DefaultButton from "../components/DefaultButton";
 import { Button } from "../components/ui/button";
 import Loading from "../components/Loading";
+import UserInfo from "../components/UserInfo";
+
+type TripProps = {
+  id: string;
+  name: string;
+  date: string;
+  from: string;
+  to: string;
+  departureTime: string;
+  arrivalTime: string;
+  maxCapacity: number;
+  price: number;
+  available: boolean;
+};
+
+type addressCda = {
+  street: string;
+  streetNumber: number | undefined;
+  crossStreets: string;
+};
 
 type UserData = {
-  username: string | undefined;
-  fullName: string | undefined;
-  email: string | undefined;
-  addressCda: string | undefined;
-  addressCapital: string | undefined;
-  phone: number | undefined;
+  _id: string;
+  fullName: string;
+  username: string;
+  addressCda: addressCda;
+  addressCapital: string;
   dni: number | undefined;
-  image?: string | undefined;
+  phone: undefined | number;
+  email: string;
+  image?: string;
 };
 
 const INITIAL_STATES = {
+  _id: "",
   username: "",
   fullName: "",
-  email: "",
-  addressCda: "",
+  addressCda: {
+    street: "",
+    streetNumber: undefined,
+    crossStreets: "",
+  },
   addressCapital: "",
   phone: undefined,
   dni: undefined,
+  email: "",
   image: "",
 };
 
@@ -167,343 +193,10 @@ const SinglePassenger = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="relative self-center flex flex-col gap-3 p-5 w-full max-w-md rounded-md">
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-full relative flex flex-col items-center lg:basis-1/3">
-              <Avatar className="w-32 h-32">
-                <AvatarImage
-                  className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
-                  src={data?.image}
-                  alt="avatar"
-                />
-                <AvatarFallback>
-                  <User className="w-12 h-12" />
-                </AvatarFallback>
-              </Avatar>
-            </div>
-            <div className="flex flex-col items-center">
-              <h3 className="font-medium text-xl dark:text-white ">
-                {data?.fullName}
-              </h3>
-              <h4 className="text-[#737373]">@{data?.username}</h4>
-            </div>
-            <div className="w-full flex flex-col items-center gap-5">
-              <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 items-start max-w-sm border border-border-color p-4 shadow-inner rounded-md dark:bg-black/60 dark:border-zinc-500">
-                <li className="flex items-center gap-1 shrink-0">
-                  <MapPin className="w-4 h-4 text-icon-color dark:text-icon-color-dark shrink-0" />
-                  <span className="font-medium shrink-0">
-                    Dirrección Carmen:
-                  </span>
-                  <span className="shrink-0">{data?.addressCda}</span>
-                </li>
-                <li className="flex items-center gap-1 shrink-0">
-                  <MapPin className="w-4 h-4 text-icon-color dark:text-icon-color-dark shrink-0" />
-                  <span className="font-medium shrink-0">
-                    Dirrecion Capital:
-                  </span>
-                  <span className="shrink-0">{data?.addressCapital}</span>
-                </li>
-                <li className="flex items-center gap-1">
-                  <Phone className="w-4 h-4 text-icon-color dark:text-icon-color-dark shrink-0" />
-                  <span className="font-medium">Celular:</span> {data?.phone}
-                </li>
-                <li className="flex items-center gap-1 shrink-0">
-                  <ContactIcon className="w-4 h-4 text-icon-color dark:text-icon-color-dark shrink-0" />
-                  <span className="font-medium shrink-0">DNI:</span>
-                  <span className="shrink-0">{data?.dni}</span>
-                </li>
-                <li className="flex items-center gap-1">
-                  <Mail className="w-4 h-4 text-icon-color dark:text-icon-color-dark shrink-0" />
-                  <span className="font-medium">Email:</span>
-                  {data?.email}
-                </li>
-              </ul>
-              <Dialog>
-                <div className="relative w-full max-w-sm mx-auto after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:h-8 lg:w-[9rem]">
-                  <DialogTrigger asChild>
-                    <Button className="relative w-full bg-[#9e4a4f] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 max-w-sm dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f] lg:h-8 lg:w-[9rem]">
-                      Editar
-                    </Button>
-                  </DialogTrigger>
-                </div>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Editar perfil</DialogTitle>
-                    <DialogDescription>
-                      Hace cambios en el perfil del usuario.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="w-full flex flex-col items-center gap-5">
-                    <div className="w-full flex flex-col items-center gap-5">
-                      <form
-                        onSubmit={handleSubmit(handleOnSubmit)}
-                        className="w-full flex flex-col items-center gap-3"
-                      >
-                        <div className="relative flex flex-col items-center ">
-                          <Avatar className="w-32 h-32">
-                            <AvatarImage
-                              className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
-                              src={
-                                image instanceof File
-                                  ? URL.createObjectURL(image)
-                                  : data?.image
-                              }
-                              alt="avatar"
-                            />
-                            <AvatarFallback>
-                              <User className="w-12 h-12 dark:text-blue-lagoon-100" />
-                            </AvatarFallback>
-                          </Avatar>
-
-                          <div className="absolute -bottom-1 ">
-                            <Label
-                              htmlFor="image"
-                              className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
-                            >
-                              Subir
-                              <Upload className="w-4 h-4 dark:text-blue-lagoon-100" />
-                            </Label>
-                            <Input
-                              type="file"
-                              id="image"
-                              accept="image/*"
-                              className="hidden"
-                              {...register("image", {
-                                onChange: (e) => {
-                                  const file = e.target.files[0];
-                                  if (file instanceof File) {
-                                    setImage(file);
-                                  } else {
-                                    console.error("Invalid file type");
-                                  }
-                                },
-                              })}
-                            />
-                            {errors.image && (
-                              <p className="text-red-600">
-                                {errors.image.message}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        <div className="grid w-full max-w-md items-center gap-2">
-                          <Label htmlFor="username">Username</Label>
-                          <Input
-                            type="text"
-                            id="username"
-                            {...register("username", {
-                              required: {
-                                value: true,
-                                message:
-                                  "Por favor, ingresa tu nombre de usuario.",
-                              },
-                              minLength: {
-                                value: 3,
-                                message:
-                                  "Nombre de usuario debe ser mas corto.",
-                              },
-                              maxLength: {
-                                value: 15,
-                                message:
-                                  "Nombre de usuario debe ser mas largo.",
-                              },
-                            })}
-                          />
-                          {errors.username && (
-                            <p className="text-red-600">
-                              {errors.username.message}
-                            </p>
-                          )}
-                        </div>
-                        <div className="grid w-full max-w-md items-center gap-2">
-                          <Label htmlFor="fullName">Nombre completo</Label>
-                          <Input
-                            type="text"
-                            id="fullName"
-                            {...register("fullName", {
-                              required: {
-                                value: true,
-                                message:
-                                  "Por favor, ingresa tu nombre completo.",
-                              },
-                              minLength: {
-                                value: 3,
-                                message:
-                                  "Nombre y apellido no puede ser tan corto.",
-                              },
-                              maxLength: {
-                                value: 25,
-                                message:
-                                  "Nombre y apellido no puede ser tan largo.",
-                              },
-                            })}
-                          />
-                          {errors.fullName && (
-                            <p className="text-red-600">
-                              {errors.fullName.message}
-                            </p>
-                          )}
-                        </div>
-                        <div className="grid w-full max-w-md items-center gap-2">
-                          <Label htmlFor="tel">Celular</Label>
-                          <Input
-                            type="tel"
-                            id="phone"
-                            {...register("phone", {
-                              required: {
-                                value: true,
-                                message:
-                                  "Por favor, ingresa tu número celular.",
-                              },
-                              minLength: {
-                                value: 3,
-                                message:
-                                  "Número celular no puede ser tan corto.",
-                              },
-                              maxLength: {
-                                value: 25,
-                                message:
-                                  "Número celular no puede ser tan largo.",
-                              },
-                              pattern: {
-                                value: /^[0-9]+$/,
-                                message:
-                                  "Número celular debe incluir solo números.",
-                              },
-                            })}
-                          />
-                          {errors.phone && (
-                            <p className="text-red-600">
-                              {errors.phone.message}
-                            </p>
-                          )}
-                        </div>
-                        <div className="grid w-full max-w-md items-center gap-2">
-                          <Label htmlFor="dni">DNI</Label>
-                          <Input
-                            type="number"
-                            id="dni"
-                            {...register("dni", {
-                              required: {
-                                value: true,
-                                message: "Por favor, ingresa tu DNI.",
-                              },
-                              minLength: {
-                                value: 3,
-                                message: "DNI no puede ser tan corto.",
-                              },
-                              maxLength: {
-                                value: 25,
-                                message: "DNI no puede ser tan largo.",
-                              },
-                              pattern: {
-                                value: /^[0-9]+$/,
-                                message: "DNI debe incluir solo números.",
-                              },
-                            })}
-                          />
-                          {errors.dni && (
-                            <p className="text-red-600">{errors.dni.message}</p>
-                          )}
-                        </div>
-                        <div className="grid w-full max-w-md items-center gap-2">
-                          <Label htmlFor="email">Email</Label>
-                          <Input
-                            type="email"
-                            id="email"
-                            {...register("email", {
-                              required: {
-                                value: true,
-                                message: "Por favor, ingresa tu email.",
-                              },
-                              minLength: {
-                                value: 3,
-                                message: "Email no puede ser tan corto.",
-                              },
-                              maxLength: {
-                                value: 40,
-                                message: "Email no puede ser tan largo.",
-                              },
-                            })}
-                          />
-                          {errors.email && (
-                            <p className="text-red-600">
-                              {errors.email.message}
-                            </p>
-                          )}
-                        </div>
-                        <div className="grid w-full max-w-md items-center gap-2">
-                          <Label htmlFor="addressCda">Dirección (Carmen)</Label>
-                          <Input
-                            type="text"
-                            id="addressCda"
-                            {...register("addressCda", {
-                              required: {
-                                value: true,
-                                message: "Por favor, ingresa tu domicilio.",
-                              },
-                              minLength: {
-                                value: 3,
-                                message: "Domicilio no puede ser tan corto.",
-                              },
-                              maxLength: {
-                                value: 25,
-                                message: "Domicilio no puede ser tan largo.",
-                              },
-                            })}
-                          />
-                          {errors.addressCda && (
-                            <p className="text-red-600">
-                              {errors.addressCda.message}
-                            </p>
-                          )}
-                        </div>
-                        <div className="grid w-full max-w-md items-center gap-2">
-                          <Label htmlFor="addressCda">
-                            Dirección (Capital)
-                          </Label>
-                          <Input
-                            type="text"
-                            id="addressCapital"
-                            {...register("addressCapital", {
-                              required: {
-                                value: true,
-                                message: "Por favor, ingresa tu domicilio.",
-                              },
-                              minLength: {
-                                value: 3,
-                                message: "Domicilio no puede ser tan corto.",
-                              },
-                              maxLength: {
-                                value: 25,
-                                message: "Domicilio no puede ser tan largo.",
-                              },
-                            })}
-                          />
-                          {errors.addressCapital && (
-                            <p className="text-red-600">
-                              {errors.addressCapital.message}
-                            </p>
-                          )}
-                        </div>
-                        {err && (
-                          <p className="text-red-600 self-start">
-                            {err.message}
-                          </p>
-                        )}
-                        <DialogFooter>
-                          <div className="w-[min(28rem,100%)] flex justify-center">
-                            <DefaultButton loading={loading}>
-                              Guardar cambios
-                            </DefaultButton>
-                          </div>
-                        </DialogFooter>
-                      </form>
-                    </div>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
+        <div className="w-full flex flex-col items-center">
+          <UserInfo userData={data} />
+          <div className="my-4 px-2 w-full max-w-sm lg:w-[10rem] lg:self-center">
+            <DefaultButton>Editar</DefaultButton>
           </div>
         </div>
       )}
