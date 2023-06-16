@@ -1,17 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../components/ui/dialog";
 import BackButton from "../components/BackButton";
-import { ContactIcon, Mail, MapPin, Phone, Upload, User } from "lucide-react";
 import SectionTitle from "../components/SectionTitle";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
