@@ -124,8 +124,11 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <button className="px-[12px] pl-[29px] py-[2px] rounded-md border border-neutral-600 bg-[#b4343a] text-white font-semibold transition-colors hover:border-black dark:bg-[#b4343a] dark:border-blue-lagoon-400/80 dark:hover:border-blue-lagoon-300">
-                    <Trash2 className="absolute text-white left-3 top-[4px] h-4 w-4" />
+                  <button
+                    disabled={isLoading}
+                    className="pl-[21px] rounded-md text-[#b4343a] font-semibold transition-colors hover:text-red-300"
+                  >
+                    <Trash2 className="absolute left-1 top-[.6px] h-4 w-4" />
                     Borrar
                   </button>
                 </div>
@@ -169,16 +172,14 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
     <div className="h-[600px] w-full">
       <div className="w-full my-3 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div className="relative flex items-end gap-1 w-[min(100%,184px)]">
-          <div className="shadow-input shadow-blue-lagoon-800/10 rounded-lg">
-            <DatePickerContainer
-              startDate={startDate}
-              setStartDate={setStartDate}
-            />
-          </div>
-          <div className="absolute -right-[46px] h-full shadow shadow-blue-lagoon-800/10 rounded-lg">
-            <div className="relative flex w-[38px] h-full aspect-square before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-blue-lagoon-400 before:ring-2 before:ring-blue-lagoon-200/50 before:transition after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/5 focus-within:after:shadow-blue-lagoon-400 after:transition dark:focus-within:after:shadow-blue-lagoon-300/40 dark:before:ring-blue-lagoon-500/20 dark:before:border-blue-lagoon-300">
+          <DatePickerContainer
+            startDate={startDate}
+            setStartDate={setStartDate}
+          />
+          <div className="absolute -right-[46px] h-full">
+            <div className="relative flex w-[38px] h-full aspect-square before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-pink-1-800/50 before:ring-2 before:ring-slate-400/10 before:transition after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 focus-within:after:shadow-pink-1-700/30 after:transition dark:focus-within:after:shadow-pink-1-300/40 dark:before:ring-slate-800/60 dark:before:border-pink-1-300">
               <Button
-                className="absolute w-[38px] h-full flex items-center justify-center cursor-pointer p-2 bg-white/80 shadow-input shadow-blue-lagoon-500/10 rounded-lg border border-border-color focus:border-blue-lagoon-200/50  dark:border-color-black dark:bg-black/40 dark:hover:text-white dark:focus:border-blue-lagoon-500/20"
+                className="absolute w-[38px] h-full flex items-center justify-center cursor-pointer p-2 bg-card rounded-lg border border-slate-800/20 shadow-input dark:bg-[hsl(0,0%,11%)] dark:border-slate-800 dark:shadow-none !outline-none dark:hover:text-white"
                 onClick={() => setStartDate(null)}
               >
                 <RotateCcw className="w-4 h-4" />
@@ -189,8 +190,8 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
           {error && <p>{error}</p>}
         </div>
         <div className="flex justify-between items-end gap-1 lg:gap-3">
-          <div className="flex items-center gap-2 text-sm lg:text-base">
-            <Map className="hidden animate-pulse sm:flex sm:h-5 sm:w-5" />
+          <div className="flex items-center gap-1 text-sm lg:text-base">
+            <Map className="hidden animate-pulse text-accent sm:flex sm:h-5 sm:w-5" />
             <p className="font-medium">Viajes disponibles:</p>
             <p className="font-light flex items-center gap-1">
               <span

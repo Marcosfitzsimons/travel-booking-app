@@ -15,15 +15,19 @@ type ListProps = {
   title: string;
   columns: Column[];
   linkText: string;
+  icon: any;
 };
 
-const List = ({ title, columns, linkText }: ListProps) => {
+const List = ({ icon, title, columns, linkText }: ListProps) => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
 
   return (
     <section className="flex flex-col gap-5">
-      <SectionTitle>{title}</SectionTitle>
+      <SectionTitle>
+        {icon}
+        {title}
+      </SectionTitle>
       {path === "users" ? (
         <UsersDatatable columns={columns} linkText={linkText} />
       ) : path === "trips" || path === "" ? (

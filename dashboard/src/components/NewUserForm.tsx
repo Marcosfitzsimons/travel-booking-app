@@ -184,7 +184,7 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
               alt="avatar"
             />
             <AvatarFallback>
-              <User className="w-12 h-12 dark:text-blue-lagoon-100" />
+              <User className="w-12 h-12 dark:text-pink-1-100" />
             </AvatarFallback>
           </Avatar>
           <div className="absolute bottom-0">
@@ -217,9 +217,12 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
         </div>
 
         <div className="w-full flex flex-col items-center gap-2 lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
-          <p className="text-lg mb-2 lg:text-xl lg:mb-0 lg:col-start-1 lg:col-end-3 dark:text-white">
-            Información del usuario
-          </p>
+          <div className="my-2 w-full flex flex-col items-center lg:mt-0 lg:col-start-1 lg:col-end-3">
+            <Separator className="w-8 my-2 bg-border lg:hidden" />
+            <h5 className="text-center w-full font-medium dark:text-white lg:text-start lg:text-xl">
+              Datos personales
+            </h5>
+          </div>
 
           {inputs.map((input) => (
             <div key={input.id} className="grid w-full items-center gap-2">
@@ -237,59 +240,57 @@ const NewUserForm = ({ inputs }: NewUserFormProps) => {
               )}
             </div>
           ))}
-
-          <Separator className="w-8 my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
-          <p className="flex items-center gap-1 text-lg mb-2 lg:text-xl lg:mb-0 lg:col-start-1 lg:col-end-3 dark:text-white">
-            Domicilios
-          </p>
-
-          <div className="w-full flex flex-col items-center gap-2 md:flex-row md:items-start md:col-start-1 md:col-end-3">
-            <div className="w-full flex flex-col gap-2">
-              <p className="flex items-center gap-1">
-                <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
-                Carmen de Areco
-              </p>
-              {userAddressInputs.map((input: UserInput) => {
-                const key = input.id;
-                const fieldName: any = `addressCda.${key}`;
-                return (
-                  <div
-                    key={input.id}
-                    className="grid w-full items-center gap-2"
-                  >
-                    <Label htmlFor={input.id}>{input.label}</Label>
-                    <Input
-                      type={input.type}
-                      id={input.id}
-                      placeholder={input.placeholder}
-                      {...register(fieldName, input.validation)}
-                    />
-                    {errors[input.id as keyof typeof errors] && (
-                      <p className="text-red-600">
-                        {errors[input.id as keyof typeof errors]?.message}
-                      </p>
-                    )}
-                  </div>
-                );
-              })}
+          <div className="w-full flex flex-col items-center gap-3 lg:col-start-1 lg:col-end-3">
+            <Separator className="w-8 my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
+            <div className="w-full flex flex-col items-center">
+              <Separator className="w-8 my-2 bg-border lg:hidden" />
+              <h6 className="text-center  w-full font-medium dark:text-white lg:my-1 lg:text-start lg:text-xl">
+                Domicilios
+              </h6>
             </div>
-            <Separator className="w-8 my-2 bg-border-color md:hidden dark:bg-border-color-dark" />
 
-            <div className="w-full flex flex-col gap-2">
-              <p className="flex items-center gap-1">
-                <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
-                Capital Federal
-              </p>
-              <div className="grid w-full items-center gap-2">
-                <Label htmlFor="addressCapital">Dirección</Label>
-                <Input
-                  ref={addressCapitalRef}
-                  type="text"
-                  id="addressCapital"
-                  value={addressCapitalValue}
-                  onChange={(e) => setAddressCapitalValue(e.target.value)}
-                  placeholder="Las Heras 2304"
-                />
+            <div className="w-full flex flex-col items-center gap-2 md:flex-row md:items-start md:col-start-1 md:col-end-3">
+              <div className="w-full flex flex-col gap-2">
+                <h6 className="font-serif text-accent">Carmen de Areco</h6>
+                {userAddressInputs.map((input: UserInput) => {
+                  const key = input.id;
+                  const fieldName: any = `addressCda.${key}`;
+                  return (
+                    <div
+                      key={input.id}
+                      className="grid w-full items-center gap-2"
+                    >
+                      <Label htmlFor={input.id}>{input.label}</Label>
+                      <Input
+                        type={input.type}
+                        id={input.id}
+                        placeholder={input.placeholder}
+                        {...register(fieldName, input.validation)}
+                      />
+                      {errors[input.id as keyof typeof errors] && (
+                        <p className="text-red-600">
+                          {errors[input.id as keyof typeof errors]?.message}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              <Separator className="w-8 my-2 bg-border-color md:hidden dark:bg-border-color-dark" />
+
+              <div className="w-full flex flex-col gap-2">
+                <h6 className="font-serif text-accent">Capital Federal</h6>
+                <div className="grid w-full items-center gap-2">
+                  <Label htmlFor="addressCapital">Dirección</Label>
+                  <Input
+                    ref={addressCapitalRef}
+                    type="text"
+                    id="addressCapital"
+                    value={addressCapitalValue}
+                    onChange={(e) => setAddressCapitalValue(e.target.value)}
+                    placeholder="Las Heras 2304"
+                  />
+                </div>
               </div>
             </div>
           </div>

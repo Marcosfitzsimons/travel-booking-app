@@ -31,6 +31,7 @@ import SinglePublication from "./pages/SinglePublication";
 import NewPublication from "./pages/NewPublication";
 import SingleSpecialTrip from "./pages/SingleSpecialTrip";
 import NewSpecialTrip from "./pages/NewSpecialTrip";
+import { Map, Users } from "lucide-react";
 
 type Props = {
   children: ReactElement;
@@ -60,18 +61,9 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <List
-                      columns={tripColumns}
-                      title="Viajes semanales"
-                      linkText="Agregar viaje"
-                    />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                index
-                element={
-                  <ProtectedRoute>
-                    <List
+                      icon={
+                        <Map className="w-6 h-6 text-accent sm:h-7 sm:w-7" />
+                      }
                       columns={tripColumns}
                       title="Viajes semanales"
                       linkText="Agregar viaje"
@@ -85,6 +77,9 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <List
+                        icon={
+                          <Users className="w-6 h-6 text-accent sm:h-7 sm:w-7" />
+                        }
                         columns={userColumns}
                         title="Usuarios"
                         linkText="Agregar usuario"
@@ -118,6 +113,9 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <List
+                        icon={
+                          <Map className="w-6 h-6 text-accent sm:h-7 sm:w-7" />
+                        }
                         columns={tripColumns}
                         title="Viajes semanales"
                         linkText="Agregar viaje"
@@ -148,6 +146,9 @@ function App() {
                   element={
                     <ProtectedRoute>
                       <List
+                        icon={
+                          <Map className="w-6 h-6 text-accent sm:h-7 sm:w-7" />
+                        }
                         columns={specialTripColumns}
                         title="Viajes particulares"
                         linkText="Agregar viaje"

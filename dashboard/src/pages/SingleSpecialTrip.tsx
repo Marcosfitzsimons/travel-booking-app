@@ -36,6 +36,7 @@ import DatePickerContainer from "../components/DatePickerContainer";
 import Logo from "../components/Logo";
 import TimePickerContainer from "../components/TimePickerContainer";
 import { Separator } from "../components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 type SpecialTrip = {
   name: string;
@@ -252,8 +253,8 @@ const SingleSpecialTrip = () => {
         <div className="flex flex-col gap-6">
           <article
             className={`${
-              isMaxCapacity ? "dark:border-zinc-800" : "dark:border-zinc-500"
-            } w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-4 max-w-[400px] bg-white/40 border border-border-color dark:bg-black/60`}
+              isMaxCapacity ? "dark:border-zinc-800" : "dark:border"
+            } w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-4 max-w-[400px] bg-card border dark:shadow-none`}
           >
             <div className="w-full px-2 pt-9 sm:px-4">
               <div className="flex flex-col gap-2">
@@ -285,36 +286,36 @@ const SingleSpecialTrip = () => {
                       Información acerca del viaje:
                     </h4>
                   </div>
-                  <div className="flex flex-col w-full bg-blue-lagoon-300/10 gap-2 border border-border-color py-4 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-900/5 dark:border-border-color-dark">
+                  <div className="flex flex-col w-full bg-card gap-2 border py-4 px-1 shadow-inner rounded-md dark:bg-[#171717]">
                     <div className="flex flex-col gap-2 overflow-auto pb-2">
                       <div className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <MapPin className="h-4 w-4 text-accent shrink-0 " />
                         <span className="font-medium shrink-0 dark:text-white">
                           Salida:
                         </span>{" "}
                         <span className="shrink-0">{data.from}</span>
                         <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                        <Clock className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <Clock className="h-4 w-4 text-accent shrink-0 " />
                         <span className="shrink-0">
                           {data.departureTime} hs.
                         </span>
                       </div>
                       <p className="flex items-center gap-1">
-                        <MapPin className="h-4 w-4 text-blue-lagoon-900/60 shrink-0 dark:text-blue-lagoon-300" />
+                        <MapPin className="h-4 w-4 text-accent shrink-0 " />
                         <span className="dark:text-white shrink-0 font-medium">
                           Destino:
                         </span>{" "}
                         <span className="shrink-0">{data.to}</span>
                       </p>
                       <p className="flex items-center gap-1">
-                        <DollarSign className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        <DollarSign className="h-4 w-4 text-accent " />
                         <span className="dark:text-white font-medium">
                           Precio:{" "}
                         </span>
                         <span className="">${data.price}</span>
                       </p>
                       <p className="flex items-center gap-1">
-                        <Users className="h-4 w-4 text-blue-lagoon-900/60 dark:text-blue-lagoon-300" />
+                        <Users className="h-4 w-4 text-accent " />
                         <span className="dark:text-white font-medium">
                           Capacidad máxima:
                         </span>{" "}
@@ -324,12 +325,10 @@ const SingleSpecialTrip = () => {
                   </div>
 
                   <Dialog>
-                    <div className="lg:flex lg:items-center lg:justify-end">
-                      <div className="mt-2 relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 lg:w-auto lg:h-[31px]">
-                        <DialogTrigger className="relative w-full rounded-lg px-6 py-1.5 lg:py-0 bg-[#9e4a4f] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f] lg:w-auto lg:h-[31px]">
-                          Editar
-                        </DialogTrigger>
-                      </div>
+                    <div className="mt-2 relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200">
+                      <DialogTrigger className="relative w-full rounded-lg px-6 py-1.5 lg:py-0 bg-[#9e4a4f] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f] lg:h-[35px]">
+                        Editar
+                      </DialogTrigger>
                     </div>
                     <DialogContent>
                       <DialogHeader>
@@ -505,7 +504,7 @@ const SingleSpecialTrip = () => {
               </h3>
               <div className="flex flex-col items-end gap-1 sm:flex-row sm:gap-2">
                 <div className="flex items-center gap-1 text-sm lg:text-base">
-                  <Users className="animate-pulse text-blue-lagoon-900/60 h-4 w-4 lg:w-5 lg:h-5 dark:text-blue-lagoon-300" />
+                  <Users className="animate-pulse text-accent h-4 w-4 lg:w-5 lg:h-5 " />
                   <p className="font-medium">Pasajeros:</p>
                   <p className="font-light flex items-center lg:gap-1">
                     {data.passengers.length}/{data.maxCapacity}
@@ -577,7 +576,7 @@ const SingleSpecialTrip = () => {
                                 <div className="grid w-full max-w-md items-center gap-2">
                                   <Label htmlFor="dni">
                                     DNI{" "}
-                                    <span className="text-sm text-blue-lagoon-900/60 dark:text-blue-lagoon-300">
+                                    <span className="text-sm text-accent ">
                                       (opcional)
                                     </span>
                                   </Label>
@@ -614,9 +613,13 @@ const SingleSpecialTrip = () => {
                               className="w-auto"
                               onClick={handleOnSubmitAnonymousPassenger}
                             >
-                              <DefaultButton loading={isSubmitted2}>
+                              <Button
+                                variant="secondary"
+                                className="lg:h-8 border"
+                                disabled={isSubmitted2}
+                              >
                                 Crear pasajero anónimo
-                              </DefaultButton>
+                              </Button>
                             </div>
                           </div>
                         </DialogContent>

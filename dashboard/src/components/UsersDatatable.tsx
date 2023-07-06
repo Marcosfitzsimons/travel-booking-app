@@ -108,8 +108,11 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <button className="px-[12px] pl-[29px] py-[2px] rounded-md border border-neutral-600 bg-[#b4343a] text-white font-semibold transition-colors hover:border-black dark:bg-[#b4343a] dark:border-blue-lagoon-400/80 dark:hover:border-blue-lagoon-300">
-                    <Trash2 className="absolute text-white left-3 top-[4px] h-4 w-4" />
+                  <button
+                    disabled={isLoading}
+                    className="pl-[21px] rounded-md text-[#b4343a] font-semibold transition-colors hover:text-red-300"
+                  >
+                    <Trash2 className="absolute left-1 top-[.6px] h-4 w-4" />
                     Borrar
                   </button>
                 </div>
@@ -156,7 +159,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
         </div>
         <div className="w-full flex items-end justify-between sm:w-auto sm:gap-3">
           <div className="flex items-center gap-1 text-sm lg:text-base">
-            <Users className="animate-pulse h-5 w-5" />
+            <Users className="animate-pulse h-5 w-5 text-accent" />
             <p className="font-medium">
               Usuarios{" "}
               <span className="hidden sm:inline-flex">registrados</span>:
@@ -188,8 +191,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
             },
           }}
           sx={{
-            borderColor: "#007F9633",
-            borderRadius: "7px",
+            borderRadius: "4px",
             "&>.MuiDataGrid-main": {
               "&>.MuiDataGrid-columnHeaders": {
                 borderBottom: "none",
@@ -205,7 +207,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
           }}
           pageSizeOptions={[9]}
           getRowId={(row) => row._id ?? ""}
-          className="w-[min(100%,1400px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-input border dark:text-neutral-100"
         />
       ) : (
         <DataGrid
@@ -238,7 +240,7 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
           }}
           pageSizeOptions={[9]}
           getRowId={(row) => row._id ?? ""} // ?? operator is used to provide a default value of an empty string '' if row._id is null or undefined.
-          className="w-[min(100%,1400px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-input border dark:shadow-none dark:text-neutral-100"
         />
       )}
     </div>

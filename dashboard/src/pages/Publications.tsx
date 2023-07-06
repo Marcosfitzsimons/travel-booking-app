@@ -29,12 +29,14 @@ const PublicationsDatatable = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <SectionTitle>Publicaciones</SectionTitle>
+      <SectionTitle>
+        <Newspaper className="w-6 h-6 text-accent sm:h-7 sm:w-7" />
+        Publicaciones importantes
+      </SectionTitle>
       <div className="">
         <div className="w-full my-3 flex flex-col items-center gap-3 md:flex-row md:items-end md:justify-between">
           {error && <p className="text-red-500 order-2">{error.message}</p>}
           <div className="w-full flex items-center gap-1 text-sm md:gap-2 md:text-base md:w-auto">
-            <Newspaper className="animate-pulse w-4 h-4 text-icon-color dark:text-icon-color-dark sm:h-5 sm:w-5" />
             <p className="font-medium">Total de publicaciones:</p>
             <p className="font-light flex items-center gap-1">
               <span

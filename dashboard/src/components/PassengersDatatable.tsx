@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { ContactIcon, Eye, Trash2 } from "lucide-react";
+import { Crop, Eye, Fingerprint, Milestone, Trash2 } from "lucide-react";
 import axios from "axios";
 import {
   AlertDialog,
@@ -22,17 +22,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { MapPin, User } from "lucide-react";
+import { User } from "lucide-react";
 import { DialogDescription } from "./ui/dialog";
-
-type Passenger = {
-  _id: string;
-  createdBy?: UserData;
-  addressCda?: string;
-  addressCapital?: string;
-  fullName?: string;
-  dni?: string;
-};
+import { Separator } from "./ui/separator";
 
 type Trip = {
   name: string;
@@ -45,17 +37,32 @@ type Trip = {
   price: string;
 };
 
+type addressCda = {
+  street: string;
+  streetNumber: number | undefined;
+  crossStreets: string;
+};
+
 type UserData = {
   _id: string;
-  addressCapital: string;
-  addressCda: string;
-  email: string;
+  username: string;
   fullName: string;
+  addressCda: addressCda;
+  addressCapital: string;
+  email: string;
+  phone: number | undefined;
+  dni: number | undefined;
   image?: string;
   myTrips: Trip[];
-  phone: undefined | number;
-  dni: undefined | number;
-  username: string;
+};
+
+type Passenger = {
+  _id: string;
+  createdBy?: UserData;
+  addressCda?: addressCda;
+  addressCapital?: string;
+  fullName?: string;
+  dni?: string;
 };
 
 type DataTableProps = {
@@ -76,6 +83,8 @@ const PassengersDatable = ({
   const headers = {
     Authorization: `Bearer ${token}`,
   };
+
+  console.log(list);
 
   const handleDelete = async (userId: string) => {
     setLoading(true);
@@ -141,41 +150,90 @@ const PassengersDatable = ({
                           <span>{params.row._id ? params.row._id : ""}</span>
                         </DialogDescription>
                       </DialogHeader>
-                      <div className="w-full mx-auto flex flex-col overflow-hidden bg-white gap-2 max-w-sm border border-border-color items-start py-4 px-1 shadow-inner rounded-md dark:bg-black/40 dark:border-border-color-dark md:w-10/12 md:px-4">
-                        <p className="flex items-center gap-1">
-                          <User className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
-                          <span className="font-bold">Nombre completo:</span>
-                          <span>
-                            {params.row.fullName
-                              ? params.row.fullName
-                              : "Pasajero anónimo"}
-                          </span>
-                        </p>
-                        <p className="flex items-center gap-1">
-                          <ContactIcon className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
-                          <span className="font-bold">DNI:</span>{" "}
-                          <span>{params.row.dni ? params.row.dni : "-"}</span>
-                        </p>{" "}
-                        <p className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
-                          <span className="font-bold">Dirección (Carmen):</span>{" "}
-                          <span>
-                            {params.row.addressCda
-                              ? params.row.addressCda
-                              : "-"}
-                          </span>
-                        </p>{" "}
-                        <p className="flex items-center gap-1">
-                          <MapPin className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
-                          <span className="font-bold">
-                            Dirección (Capital):
-                          </span>{" "}
-                          <span>
-                            {params.row.addressCapital
-                              ? params.row.addressCapital
-                              : "-"}
-                          </span>
-                        </p>
+                      <div className="flex flex-col w-full overflow-hidden gap-2 max-w-sm items-start px-2 lg:px-0 lg:flex-row lg:pt-0 lg:justify-around lg:max-w-6xl">
+                        <div className="w-full flex flex-col gap-1 lg:basis-1/3 lg:my-2">
+                          <Separator className="w-8 self-center my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
+                          <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-xl">
+                            Datos personales
+                          </h5>
+
+                          <ul className="flex flex-col w-full overflow-hidden gap-1 lg:shadow-md lg:py-2 lg:px-4 lg:rounded-md lg:bg-white lg:border lg:border-border-color lg:dark:border-border-color-dark lg:dark:bg-black">
+                            <li>
+                              <User className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
+                              <span className="font-bold">
+                                Nombre completo:
+                              </span>
+                              <span>
+                                {params.row.fullName
+                                  ? params.row.fullName
+                                  : "Pasajero anónimo"}
+                              </span>
+                            </li>
+                            <li className="flex items-center gap-1 shrink-0">
+                              <Fingerprint className="w-4 h-4 text-icon-color dark:text-icon-color-dark shrink-0" />
+                              <span className="font-medium shrink-0">DNI:</span>
+                              <span className="shrink-0">
+                                {params.row.dni ? params.row.dni : "-"}
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div className="w-full flex flex-col gap-1 lg:basis-[60%] lg:my-2">
+                          <Separator className="w-8 self-center my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
+                          <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-xl">
+                            Domicilios
+                          </h5>
+                          <div className="flex flex-col gap-1 lg:shadow-md lg:flex-row lg:justify-between lg:py-2 lg:px-4 lg:rounded-md lg:bg-white lg:border lg:border-border-color lg:dark:border-border-color-dark lg:dark:bg-black">
+                            <div className="flex flex-col gap-1 lg:basis-[55%]">
+                              <h6 className="font-serif text-icon-color dark:text-icon-color-dark">
+                                Carmen de Areco
+                              </h6>
+                              <div className="flex items-center gap-1">
+                                <Milestone className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
+                                <span className="font-medium dark:text-white">
+                                  Dirreción:
+                                </span>
+                                <span>
+                                  {params.row.addressCda
+                                    ? `${params.row.addressCda.street} ${params.row.addressCda.streetNumber}`
+                                    : "-"}
+                                </span>
+                              </div>
+                              <div className="flex flex-col gap-[2px] sm:flex-row sm:items-center sm:gap-1">
+                                <div className="flex items-center gap-1">
+                                  <Crop className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
+                                  <span className="font-medium dark:text-white">
+                                    Calles que cruzan:
+                                  </span>
+                                </div>
+                                <span className="">
+                                  {" "}
+                                  {params.row.addressCda
+                                    ? params.row.addressCda.crossStreets
+                                    : "-"}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="flex flex-col gap-1 lg:basis-[40%]">
+                              <h6 className="font-serif text-icon-color dark:text-icon-color-dark">
+                                Capital Federal
+                              </h6>
+                              <div className="flex items-center gap-1">
+                                <Milestone className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
+                                <span className="font-medium dark:text-white">
+                                  Dirreción:
+                                </span>{" "}
+                                <p>
+                                  {params.row.addressCapital
+                                    ? params.row.addressCapital
+                                    : "-"}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </DialogContent>
                   </Dialog>
@@ -185,8 +243,8 @@ const PassengersDatable = ({
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <button className="px-[12px] pl-[29px] py-[2px] rounded-md border border-neutral-600 bg-[#b4343a] text-white font-semibold transition-colors hover:border-black dark:bg-[#b4343a] dark:border-blue-lagoon-400/80 dark:hover:border-blue-lagoon-300">
-                    <Trash2 className="absolute text-white left-3 top-[4px] h-4 w-4" />
+                  <button className="pl-[21px] rounded-md text-[#b4343a] font-semibold transition-colors hover:text-red-300">
+                    <Trash2 className="absolute left-1 top-[.6px] h-4 w-4" />
                     Borrar
                   </button>
                 </div>
@@ -204,7 +262,11 @@ const PassengersDatable = ({
                     No, volver atrás.
                   </AlertDialogCancel>
                   <AlertDialogAction
-                    onClick={() => handleDelete(params.row._id)}
+                    onClick={() =>
+                      handleDelete(
+                        isPassenger ? params.row.createdBy._id : params.row._id
+                      )
+                    }
                     className="md:w-auto"
                   >
                     Si, borrar pasajero
@@ -251,7 +313,7 @@ const PassengersDatable = ({
               borderTop: "none",
             },
           }}
-          className="w-[min(100%,1400px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-input dark:text-neutral-100"
         />
       ) : (
         <div className="mx-auto flex flex-col items-center gap-3">

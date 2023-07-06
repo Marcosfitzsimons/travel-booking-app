@@ -54,7 +54,10 @@ const Profile = () => {
 
   return (
     <section className="">
-      <SectionTitle>Mi cuenta</SectionTitle>
+      <SectionTitle>
+        <User className="w-6 h-6 text-accent sm:h-7 sm:w-7" />
+        Mi perfil
+      </SectionTitle>
       {loading ? (
         <Loading />
       ) : (
@@ -80,16 +83,18 @@ const Profile = () => {
                 <h3 className="font-medium text-xl dark:text-white">
                   {data?.fullName}
                 </h3>
-                <h4 className="text-[#737373]">@{data?.username}</h4>
+                <h4 className="text-slate-500 dark:text-slate-400">
+                  @{data?.username}
+                </h4>
               </div>
-              <ul className="flex flex-col w-full overflow-hidden bg-white gap-2 max-w-sm border border-border-color items-start p-4 shadow-inner rounded-md dark:bg-black/40 dark:border-border-color-dark">
+              <ul className="flex flex-col w-full overflow-hidden bg-card gap-2 max-w-sm border items-start p-4 shadow-inner rounded-md dark:bg-[#171717]">
                 <li className="flex items-center gap-1">
-                  <Mail className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
+                  <Mail className="h-4 w-4 text-accent " />
                   <span className="font-medium">Email:</span>
                   {data?.email}
                 </li>
                 <li className="flex items-center gap-1">
-                  <Phone className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
+                  <Phone className="h-4 w-4 text-accent " />
                   <span className="font-medium">Celular:</span> {data?.phone}
                 </li>
               </ul>

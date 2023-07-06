@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Upload, User } from "lucide-react";
+import { Upload, User, UserCog } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -95,7 +95,10 @@ const EditProfile = () => {
 
   return (
     <section className="">
-      <SectionTitle>Editar perfil</SectionTitle>
+      <SectionTitle>
+        <UserCog className="w-6 h-6 text-accent sm:h-7 sm:w-7" />
+        Editar perfil
+      </SectionTitle>
       {isLoading ? (
         <Loading />
       ) : (
@@ -122,17 +125,17 @@ const EditProfile = () => {
                         alt="avatar"
                       />
                       <AvatarFallback>
-                        <User className="w-12 h-12 dark:text-blue-lagoon-100" />
+                        <User className="w-12 h-12 dark:text-slate-200" />
                       </AvatarFallback>
                     </Avatar>
 
                     <div className="absolute -bottom-1 ">
                       <Label
                         htmlFor="image"
-                        className="flex items-center gap-2 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-blue-lagoon-200 bg-white hover:border-blue-lagoon-600/50 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-blue-lagoon-300/80"
+                        className="flex items-center gap-1.5 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-slate-200/40 border border-black/60 bg-secondary text-secondary-foreground hover:border-slate-100 dark:border-slate-600 dark:hover:border-slate-100"
                       >
-                        Subir
-                        <Upload className="w-4 h-4 dark:text-blue-lagoon-100" />
+                        Editar
+                        <Upload className="w-4 h-4 text-secondary-foreground" />
                       </Label>
                       <Input
                         type="file"

@@ -69,7 +69,7 @@ const PublicationCard = ({ item, setList, list }: PublicationCardProps) => {
   };
 
   return (
-    <article className="w-full flex flex-col gap-2 p-4 rounded-md border border-border-color lg:flex-row lg:justify-between lg:h-[120px] dark:border-border-color-dark dark:hover:border-zinc-400">
+    <article className="w-full flex flex-col gap-2 p-4 rounded-md border bg-card lg:flex-row lg:justify-between lg:h-[120px] dark:border-border-color-dark dark:hover:border-zinc-400">
       <div className="overflow-y-scroll relative w-full">
         <h3 className="font-bold dark:text-white text-xl shrink-0">{title}</h3>
         {subtitle && <h4>{subtitle}</h4>}

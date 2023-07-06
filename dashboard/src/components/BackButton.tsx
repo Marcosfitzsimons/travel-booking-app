@@ -7,12 +7,12 @@ type ButtonProps = {
 
 const BackButton = ({ linkTo }: ButtonProps) => {
   return (
-    <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] mb-5 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 after:transition dark:after:hover:shadow-zinc-300 focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-zinc-200 dark:hover:text-white">
+    <div className="flex items-center relative mb-5 after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
       <Link
         to={linkTo}
-        className="h-8 py-2 pr-[15px] pl-8 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none data-[state=open]:bg-slate-100 dark:data-[state=open]:bg-slate-800 rounded-lg shadow-sm shadow-blue-lagoon-900/30 bg-white border border-border-color hover:bg-white dark:bg-black dark:text-neutral-200 dark:shadow-input dark:shadow-black/5 dark:border-none dark:hover:text-white"
+        className="h-8 py-2 pr-[15px] pl-8 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white"
       >
-        <ChevronsLeft className="w-5 h-5 absolute left-2 aspect-square cursor-pointer" />
+        <ChevronsLeft className="w-5 h-5 absolute left-2.5 aspect-square cursor-pointer" />
         Volver
       </Link>
     </div>

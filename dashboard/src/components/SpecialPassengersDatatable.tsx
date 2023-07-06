@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Eye, Trash2 } from "lucide-react";
+import { Eye, Fingerprint, Trash2, User } from "lucide-react";
 import axios from "axios";
 import {
   AlertDialog,
@@ -101,12 +101,13 @@ const SpecialPassengersDatable = ({
                       Información del pasajero:
                     </DialogTitle>
                   </DialogHeader>
-                  <div className="w-10/12 mx-auto">
-                    <p className="flex items-center gap-1">
+                  <div className="w-10/12 mx-auto p-1">
+                    <p className="flex items-center justify-center pb-4 gap-1">
                       ID: <span>{params.row._id ? params.row._id : ""}</span>
                     </p>
                     <p className="flex items-center gap-1">
-                      Nombre completo:
+                      <User className="h-[18px] w-[18px] text-accent" />
+                      <span className="font-semibold">Nombre completo:</span>
                       <span>
                         {params.row.fullName
                           ? params.row.fullName
@@ -114,7 +115,9 @@ const SpecialPassengersDatable = ({
                       </span>
                     </p>
                     <p className="flex items-center gap-1">
-                      DNI: <span>{params.row.dni ? params.row.dni : "-"}</span>
+                      <Fingerprint className="h-[18px] w-[18px] text-accent" />
+                      <span className="font-semibold">DNI:</span>{" "}
+                      <span>{params.row.dni ? params.row.dni : "-"}</span>
                     </p>
                   </div>
                 </DialogContent>
@@ -123,8 +126,8 @@ const SpecialPassengersDatable = ({
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <button className="px-[12px] pl-[29px] py-[2px] rounded-md border border-neutral-600 bg-[#b4343a] text-white font-semibold transition-colors hover:border-black dark:bg-[#b4343a] dark:border-blue-lagoon-400/80 dark:hover:border-blue-lagoon-300">
-                    <Trash2 className="absolute text-white left-3 top-[4px] h-4 w-4" />
+                  <button className="pl-[21px] rounded-md text-[#b4343a] font-semibold transition-colors hover:text-red-300">
+                    <Trash2 className="absolute left-1 top-[.6px] h-4 w-4" />
                     Borrar
                   </button>
                 </div>
@@ -189,7 +192,7 @@ const SpecialPassengersDatable = ({
               borderTop: "none",
             },
           }}
-          className="w-[min(100%,1400px)] shadow-md border-border-color dark:border-border-color-dark dark:text-neutral-100"
+          className="w-[min(100%,1400px)] shadow-md border dark:text-neutral-100"
         />
       ) : (
         <div className="mx-auto flex flex-col items-center gap-3">

@@ -4,10 +4,8 @@ interface Props {
 
 const SectionTitle = ({ children }: Props) => {
   return (
-    <h1 className="relative text-3xl font-medium dark:text-white py-4 pb-6">
+    <h1 className="relative flex items-center justify-center text-2xl gap-1 dark:text-white font-medium lg:justify-start lg:text-3xl">
       {children}
-      <span className="absolute bottom-4 left-0 bg-red-700 h-1 w-20"></span>
-      <span className="absolute bottom-2 left-0 bg-red-700 h-1 w-10"></span>
     </h1>
   );
 };

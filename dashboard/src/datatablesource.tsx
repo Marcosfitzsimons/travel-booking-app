@@ -155,62 +155,29 @@ export const passengerColumns = [
     headerName: "Nombre completo",
     width: 230,
     renderCell: (params: any) => {
+      const isPassenger = params.row.createdBy;
       return (
         <div className="flex items-center gap-2">
-          <Avatar className="w-8 h-8">
-            <AvatarImage
-              className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
-              src={params.row.createdBy?.image || ""}
-              alt="avatar"
-            />
-            <AvatarFallback>
-              <User className="w-12 h-12 dark:text-blue-lagoon-100" />
-            </AvatarFallback>
-          </Avatar>
-          {params.row.fullName
-            ? params.row.fullName
-            : params.row.createdBy
-            ? params.row.createdBy.fullName
-            : "Pasajero anónimo"}
-        </div>
-      );
-    },
-  },
-  {
-    field: "addressCda",
-    headerName: "Dirección (Carmen)",
-    width: 180,
-    renderCell: (params: any) => {
-      return (
-        <p className="">
-          {params.row.addressCda ? (
-            params.row.addressCda
-          ) : params.row.createdBy ? (
+          {isPassenger ? (
             <>
-              <span>{params.row.createdBy.addressCda.street}</span>
-              <span>{params.row.createdBy.addressCda.streetNumber}</span>
-              <span>Entre: {params.row.createdBy.addressCda.crossStrets}</span>
+              <Avatar className="w-8 h-8">
+                <AvatarImage
+                  className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
+                  src={params.row.createdBy?.image || ""}
+                  alt="avatar"
+                />
+                <AvatarFallback>
+                  <User className="w-12 h-12 dark:text-blue-lagoon-100" />
+                </AvatarFallback>
+              </Avatar>
+              <span>{params.row.createdBy.fullName}</span>
             </>
           ) : (
-            "-"
+            <span>
+              {params.row.fullName ? params.row.fullName : "Pasajero anónimo"}
+            </span>
           )}
-        </p>
-      );
-    },
-  },
-  {
-    field: "addressCapital",
-    headerName: "Dirección (Capital)",
-    width: 180,
-    renderCell: (params: any) => {
-      return (
-        <p className="">
-          {params.row.addressCapital
-            ? params.row.addressCapital
-            : params.row.createdBy
-            ? params.row.createdBy.addressCapital
-            : "-"}
-        </p>
+        </div>
       );
     },
   },
@@ -219,13 +186,73 @@ export const passengerColumns = [
     headerName: "DNI",
     width: 130,
     renderCell: (params: any) => {
+      const isPassenger = params.row.createdBy;
+      return (
+        <div className="">
+          {isPassenger ? (
+            <span>{params.row.createdBy.dni}</span>
+          ) : (
+            <span>{params.row.dni ? params.row.dni : ""}</span>
+          )}
+        </div>
+      );
+    },
+  },
+  {
+    field: "addressCda",
+    headerName: "Dirección (Carmen)",
+    width: 230,
+    renderCell: (params: any) => {
+      const isPassenger = params.row.createdBy;
+      return (
+        <div className="">
+          {isPassenger ? (
+            <div className="flex flex-col gap-1">
+              <p className="flex items-center gap-1">
+                <span>{params.row.createdBy.addressCda.street}</span>
+                <span>{params.row.createdBy.addressCda.streetNumber}</span>
+              </p>
+              <span>Entre: {params.row.createdBy.addressCda.crossStreets}</span>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-1">
+              <p className="flex items-center gap-1">
+                <span>
+                  {params.row.addressCda ? params.row.addressCda.street : "-"}
+                </span>
+                <span>
+                  {params.row.addressCda
+                    ? params.row.addressCda.streetNumber
+                    : "-"}
+                </span>
+              </p>
+              <span>
+                {params.row.addressCda
+                  ? `Entre: ${params.row.addressCda.crossStreets}`
+                  : "-"}
+              </span>
+            </div>
+          )}
+        </div>
+      );
+    },
+  },
+  {
+    field: "addressCapital",
+    headerName: "Dirección (Capital)",
+    width: 180,
+    renderCell: (params: any) => {
+      const isPassenger = params.row.createdBy;
+
       return (
         <p className="">
-          {params.row.dni
-            ? params.row.dni
-            : params.row.createdBy
-            ? params.row.createdBy.dni
-            : "-"}
+          {isPassenger ? (
+            <span>{params.row.createdBy.addressCapital}</span>
+          ) : (
+            <span>
+              {params.row.addressCapital ? params.row.addressCapital : "-"}
+            </span>
+          )}
         </p>
       );
     },
@@ -235,13 +262,10 @@ export const passengerColumns = [
     headerName: "Celular",
     width: 130,
     renderCell: (params: any) => {
+      const isPassenger = params.row.createdBy;
       return (
         <p className="">
-          {params.row.phone
-            ? params.row.phone
-            : params.row.createdBy
-            ? params.row.createdBy.phone
-            : "-"}
+          {isPassenger ? <span>{params.row.createdBy.phone}</span> : "-"}
         </p>
       );
     },
@@ -251,9 +275,10 @@ export const passengerColumns = [
     headerName: "Usuario",
     width: 150,
     renderCell: (params: any) => {
+      const isPassenger = params.row.createdBy;
       return (
         <p className="">
-          {params.row.createdBy ? `@${params.row.createdBy.username}` : "-"}
+          {isPassenger ? <span>{params.row.createdBy.username}</span> : "-"}
         </p>
       );
     },
@@ -263,9 +288,10 @@ export const passengerColumns = [
     headerName: "Email",
     width: 230,
     renderCell: (params: any) => {
+      const isPassenger = params.row.createdBy;
       return (
         <p className="">
-          {params.row.createdBy ? params.row.createdBy.email : "-"}
+          {isPassenger ? <span>{params.row.createdBy.email}</span> : "-"}
         </p>
       );
     },

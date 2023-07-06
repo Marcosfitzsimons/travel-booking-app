@@ -244,7 +244,7 @@ const SingleUser = () => {
     {
       id: "street",
       icon: (
-        <Milestone className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
       ),
       label: "Calle",
       type: "text",
@@ -267,7 +267,7 @@ const SingleUser = () => {
     {
       id: "streetNumber",
       icon: (
-        <Milestone className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
       ),
       label: "Número",
       type: "text",
@@ -294,7 +294,7 @@ const SingleUser = () => {
     {
       id: "crossStreets",
       icon: (
-        <Crop className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+        <Crop className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
       ),
       label: "Calles que cruzan",
       type: "text",
@@ -372,9 +372,9 @@ const SingleUser = () => {
                         <div className="absolute -bottom-1">
                           <Label
                             htmlFor="image"
-                            className="flex items-center gap-1 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-border-color bg-white dark:border-border-color-dark dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-zinc-300"
+                            className="flex items-center gap-1 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border bg-card dark:text-blue-lagoon-100 dark:hover:border-zinc-300"
                           >
-                            <Upload className="w-4 h-4 text-icon-color dark:text-icon-color-dark" />
+                            <Upload className="w-4 h-4 text-accent " />
                             Subir{" "}
                           </Label>
                           <Input
@@ -411,13 +411,13 @@ const SingleUser = () => {
                           </div>
 
                           <div className="w-full max-w-xs mx-auto flex flex-col items-center gap-3 lg:max-w-5xl">
-                            <div className="flex w-full flex-col items-center gap-3 lg:flex-row lg:gap-1">
+                            <div className="flex w-full flex-col items-center gap-3 lg:flex-row lg:gap-2">
                               <div className="grid w-full items-center gap-2 mt-4 lg:mt-0">
                                 <Label htmlFor="username">
                                   Nombre de usuario
                                 </Label>
                                 <div className="relative flex items-center">
-                                  <span className="z-30 absolute text-icon-color left-[11px] pb-[2px] select-none dark:text-icon-color-dark">
+                                  <span className="z-30 absolute text-accent left-[11px] pb-[2px] select-none ">
                                     @
                                   </span>
                                   <Input
@@ -455,7 +455,7 @@ const SingleUser = () => {
                                   Nombre completo
                                 </Label>
                                 <div className="relative flex items-center">
-                                  <User className="z-30 h-5 w-5 text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                                  <User className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
                                   <Input
                                     type="text"
                                     id="fullName"
@@ -487,11 +487,11 @@ const SingleUser = () => {
                               </div>
                             </div>
 
-                            <div className="flex w-full flex-col items-center gap-3 lg:flex-row lg:gap-1">
+                            <div className="flex w-full flex-col items-center gap-3 lg:flex-row lg:gap-2">
                               <div className="grid w-full items-center gap-2">
                                 <Label htmlFor="email">Email</Label>
                                 <div className="relative flex items-center">
-                                  <Mail className="z-30 top-[11px] h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                                  <Mail className="z-30 top-[11px] h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                                   <Input
                                     className="pl-[32px]"
                                     type="email"
@@ -524,7 +524,7 @@ const SingleUser = () => {
                               <div className="grid w-full items-center gap-2">
                                 <Label htmlFor="tel">Celular</Label>
                                 <div className="relative flex items-center">
-                                  <Phone className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                                  <Phone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                                   <Input
                                     className="pl-[32px]"
                                     type="tel"
@@ -565,7 +565,7 @@ const SingleUser = () => {
                               <div className="grid w-full items-center gap-2">
                                 <Label htmlFor="dni">DNI</Label>
                                 <div className="relative flex items-center">
-                                  <Fingerprint className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                                  <Fingerprint className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                                   <Input
                                     type="number"
                                     id="dni"
@@ -611,7 +611,7 @@ const SingleUser = () => {
 
                           <div className="w-full max-w-xs flex flex-col items-center gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
                             <div className="w-full flex flex-col gap-2">
-                              <h6 className="font-serif text-icon-color dark:text-icon-color-dark">
+                              <h6 className="font-serif text-accent ">
                                 Carmen de Areco
                               </h6>
                               {userAddressInputs.map((input: UserInput) => {
@@ -656,7 +656,7 @@ const SingleUser = () => {
                             <Separator className="w-8 my-2 bg-border-color md:hidden dark:bg-border-color-dark" />
 
                             <div className="w-full flex flex-col gap-2">
-                              <h6 className="font-serif text-icon-color dark:text-icon-color-dark">
+                              <h6 className="font-serif text-accent ">
                                 Capital Federal
                               </h6>
                               <div className="grid w-full items-center gap-2">
@@ -664,7 +664,7 @@ const SingleUser = () => {
                                   Dirección
                                 </Label>
                                 <div className="relative flex items-center">
-                                  <Milestone className="z-30 h-5 w-5 text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                                  <Milestone className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
                                   <Input
                                     ref={addressCapitalRef}
                                     type="text"

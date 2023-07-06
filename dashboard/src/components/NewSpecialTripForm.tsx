@@ -110,6 +110,9 @@ const NewSpecialTripForm = ({ inputs }: NewTripFormProps) => {
       className="relative w-full flex flex-col gap-3 p-3 py-6"
     >
       <div className="w-full flex flex-col gap-2 items-center lg:basis-2/3 lg:grid lg:grid-cols-2 lg:gap-3">
+        <h2 className="w-full text-center lg:text-start lg:col-start-1 lg:col-end-3">
+          Información acerca del viaje
+        </h2>
         <div className="grid w-full items-center gap-2">
           <Label htmlFor="date">Fecha</Label>
           <DatePickerContainer
