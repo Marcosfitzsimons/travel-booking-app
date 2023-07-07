@@ -13,14 +13,14 @@ const DatePickerContainer = ({ startDate, setStartDate }: any) => {
 
   return (
     <div
-      className="relative flex w-full before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-blue-lagoon-400 before:ring-2 before:ring-blue-lagoon-200/50 before:transition
-      after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/5 focus-within:after:shadow-blue-lagoon-400 after:transition dark:focus-within:after:shadow-blue-lagoon-300/40 dark:before:ring-blue-lagoon-500/20 dark:before:border-blue-lagoon-300"
+      className="w-full relative before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-pink-1-800/50 before:ring-2 before:ring-slate-400/10 before:transition
+      after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 focus-within:after:shadow-pink-1-700/30 after:transition dark:focus-within:after:shadow-pink-1-300/40 dark:before:ring-slate-800/60 dark:before:border-pink-1-300"
     >
-      <CalendarDays className="text-icon-color absolute left-4 top-[9px] w-5 h-5 z-40 dark:text-icon-color-dark" />
+      <CalendarDays className="text-accent absolute left-4 top-[9px] w-5 h-5 z-40" />
       <DatePicker
         dateFormat={"EEE dd/MM"}
         locale="es"
-        className="capitalize cursor-pointer w-full pl-10 py-1.5 font-medium rounded-lg border border-border-color bg-white/80 !outline-none p-2 focus:border-blue-lagoon-200/50 placeholder:text-black/80 dark:border-border-color-dark dark:bg-black/40 dark:focus:border-blue-lagoon-500/20 dark:hover:text-white dark:placeholder:text-neutral-200 dark:placeholder:hover:text-white"
+        className="capitalize cursor-pointer w-full pl-10 py-1.5 font-medium bg-card rounded-lg border border-slate-800/20 shadow-input placeholder:text-zinc-900 dark:placeholder:text-zinc-300 dark:bg-[hsl(0,0%,11%)] dark:border-slate-800 dark:hover:text-white dark:placeholder:hover:text-white dark:shadow-none !outline-none"
         selected={startDate}
         placeholderText="Seleccionar fecha"
         minDate={new Date()}

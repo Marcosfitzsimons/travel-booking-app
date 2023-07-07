@@ -1,26 +1,21 @@
 import moment from "moment";
 import "moment/locale/es"; // without this line it didn't work
 moment.locale("es");
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import {
-  AlertCircle,
   DollarSign,
   CalendarDays,
   Clock,
   Heart,
   MapPin,
-  Star,
-  Flame,
-  PartyPopper,
-  PartyPopperIcon,
   CheckCircle,
 } from "lucide-react";
 
 import miniBus from "../assets/minibus1-sm.png";
 import DefaultButton from "./DefaultButton";
-import logo from "../assets/fabebus-logo.jpg";
+
 import { Separator } from "./ui/separator";
 
 interface Trip {
@@ -88,8 +83,8 @@ const TripCard = ({
       className={`${
         maxCapacity === passengers.length
           ? "dark:border-zinc-800"
-          : "dark:border-zinc-500"
-      } w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-2 max-w-[400px] bg-white/40 border border-border-color dark:bg-black/60`}
+          : "dark:border"
+      } w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-4 max-w-[400px] bg-card border dark:shadow-none`}
     >
       <div
         className={`${
@@ -97,12 +92,10 @@ const TripCard = ({
         } w-full px-2 pt-9 sm:px-4`}
       >
         <div className="flex flex-col gap-2">
-          <div className="absolute top-[.45rem] left-1 sm:left-3">
-            <img
-              src={miniBus}
-              alt="combi"
-              className="w-10 h-9 lg:w-12 lg:h-11 hover:-rotate-12 transition-transform"
-            />
+          <div className="absolute top-[0.75rem] left-2.5 sm:left-3 flex flex-col gap-[3px] transition-transform ">
+            <span className="w-8 h-[4px] bg-black/60 rounded-full dark:bg-white" />
+            <span className="w-4 h-[4px] bg-black/60 rounded-full dark:bg-white" />
+            <span className="w-2 h-[4px] bg-black/60 rounded-full dark:bg-white" />
           </div>
 
           <div
@@ -112,18 +105,18 @@ const TripCard = ({
                 : "right-4"
             } top-2 flex items-center gap-2`}
           >
-            <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
+            <p className="text-teal-900 order-2 font-medium flex items-center shadow-input select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 px-3 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white dark:shadow-none">
               <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
               {formatDate(date)}
             </p>
             {formatDate(date) === todayDate && (
-              <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-lg dark:bg-[#75f5a8]/20 dark:border-[#86dda9] dark:text-white px-3">
+              <p className="order-1 text-green-900 bg-green-300/30 border border-green-800/80  shadow-input select-none font-medium rounded-lg px-3 dark:bg-[#75f5a8]/20 dark:border-[#86dda9] dark:text-white dark:shadow-none">
                 HOY
               </p>
             )}
             {maxCapacity !== passengers.length && (
               <p className="flex items-center gap-1 absolute -right-4">
-                <span className="w-3 h-3 bg-green-600 rounded-full animate-pulse" />
+                <span className="w-3 h-3 bg-green-600 shadow-input rounded-full animate-pulse dark:shadow-none" />
               </p>
             )}
           </div>
@@ -135,30 +128,30 @@ const TripCard = ({
                 Información acerca del viaje:
               </h4>
             </div>
-            <div className="relative flex flex-col w-full bg-blue-lagoon-200/10 gap-2 border border-border-color py-3 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
+            <div className="flex flex-col w-full bg-background gap-2 border px-1 py-4 shadow-inner rounded-md dark:bg-[#171717]">
               <div className="flex flex-col gap-2 overflow-auto pb-2">
                 <div className="flex items-center gap-1">
-                  <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                  <MapPin className="h-4 w-4 text-accent shrink-0 " />
                   <span className="font-medium shrink-0 dark:text-white">
                     Salida:
                   </span>{" "}
                   <span className="shrink-0">{from}</span>
-                  <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                  <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                  <Separator className="w-2 bg-border " />
+                  <Clock className="h-4 w-4 text-accent shrink-0 " />
                   <span className="shrink-0">{departureTime} hs.</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                  <MapPin className="h-4 w-4 text-accent shrink-0 " />
                   <span className="dark:text-white shrink-0 font-medium">
                     Destino:
                   </span>{" "}
                   <span className="shrink-0">{to}</span>
-                  <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                  <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                  <Separator className="w-2 bg-border " />
+                  <Clock className="h-4 w-4 text-accent shrink-0 " />
                   <span className="shrink-0">{arrivalTime} hs.</span>
                 </div>
                 <p className="flex items-center gap-1">
-                  <DollarSign className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
+                  <DollarSign className="h-4 w-4 text-accent " />
                   <span className="dark:text-white font-medium">Precio: </span>
                   <span className="">${price}</span>
                 </p>

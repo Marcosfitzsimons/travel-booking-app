@@ -10,12 +10,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="flex flex-1 items-center">
         <div
-          className="w-full max-w-xs relative before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-icon-color before:ring-2 before:ring-blue-lagoon-800/10 before:transition
-          after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-gray-700/10 focus-within:after:shadow-icon-color/50 after:transition dark:after:shadow-gray-600/50 dark:focus-within:after:shadow-blue-lagoon-300/60 dark:before:ring-blue-lagoon-800/20 dark:before:border-blue-lagoon-300"
+          className="w-full max-w-xs relative before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-pink-1-800/50 before:ring-2 before:ring-slate-400/10 before:transition
+          after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 focus-within:after:shadow-pink-1-700/30 after:transition dark:focus-within:after:shadow-pink-1-300/40 dark:before:ring-slate-800/60 dark:before:border-pink-1-300"
         >
           <input
             className={cn(
-              "w-full px-3.5 py-2 relative text-sm rounded-lg border border-icon-color/5 bg-white text-black placeholder:text-neutral-500/90 dark:border-border-color-dark dark:bg-black/80 dark:placeholder:text-slate-500 shadow-input shadow-black/10 !outline-none dark:text-blue-lagoon-100 ",
+              "w-full px-3.5 py-2 relative text-sm bg-card rounded-lg border border-slate-800/20 shadow-input placeholder:text-neutral-500 dark:placeholder:text-pink-1-100/70 dark:bg-[hsl(0,0%,11%)] dark:border-slate-800 dark:text-white dark:shadow-none !outline-none",
               className
             )}
             ref={ref}

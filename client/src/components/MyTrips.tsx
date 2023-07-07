@@ -40,7 +40,6 @@ import moment from "moment-timezone";
 import { Separator } from "./ui/separator";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
-import DefaultButton from "./DefaultButton";
 
 type TripProps = {
   id: string;
@@ -215,7 +214,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                   />
                 </p>
 
-                <div className="w-full relative flex flex-col gap-3 p-4 rounded-md bg-white border border-yellow-300/80 dark:border-yellow-200/80 dark:bg-black/80">
+                <div className="w-full relative flex flex-col gap-3 p-4 shadow-input rounded-md bg-card border border-yellow-200/60 dark:border-yellow-200/60 dark:shadow-none">
                   <Label htmlFor="airplane-mode dark:text-white">
                     🔔 Activar recordatorio previo al viaje
                   </Label>
@@ -244,13 +243,15 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                   {isUnsaved ? (
                     <div className="w-auto flex flex-col items-center gap-2">
                       <Separator orientation="horizontal" className="w-8" />
-                      <Button
-                        onClick={handleIsReminder}
-                        disabled={isSubmitted}
-                        className="text-sm mt-1 h-7 border border-blue-lagoon-700/50 text-blue-lagoon-100 shadow-blue-lagoon-900/30 bg-gradient-to-r from-[#ac4e54] via-[#91474d] to-[#a84a50] bg-[length:100%] bg-left transition hover:text-white dark:text-blue-lagoon-100 dark:hover:text-white"
-                      >
-                        Guardar cambios
-                      </Button>
+                      <div className="relative h-7 after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100 ">
+                        <Button
+                          onClick={handleIsReminder}
+                          disabled={isSubmitted}
+                          className="relative h-7 bg-primary text-slate-100 hover:text-white dark:text-slate-100 dark:bg-primary dark:hover:text-white "
+                        >
+                          Guardar cambios
+                        </Button>
+                      </div>
                     </div>
                   ) : (
                     ""
@@ -263,7 +264,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
           </div>
           <Separator className="w-16" />
           <h4 className="flex items-center gap-1 font-medium text-xl dark:text-white self-start lg:text-2xl">
-            <ClipboardList className="h-5 w-5 text-icon-color dark:text-icon-color-dark lg:w-6 lg:h-6" />
+            <ClipboardList className="h-5 w-5 text-accent  lg:w-6 lg:h-6" />
             Mis viajes:
           </h4>
           <motion.div
@@ -278,16 +279,14 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                 {userTrips.map((trip: TripProps) => (
                   <article
                     key={trip.id}
-                    className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-md pb-5 max-w-[400px] bg-white/40 border dark:border-zinc-500 dark:bg-black/60"
+                    className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-4 max-w-[400px] bg-card border dark:shadow-none"
                   >
                     <div className="w-full px-2 pt-9 sm:px-4">
                       <div className="flex flex-col gap-2">
-                        <div className="absolute top-[.45rem] left-1 sm:left-3">
-                          <img
-                            src={miniBus}
-                            alt="combi"
-                            className="w-10 h-9 lg:w-12 lg:h-11 hover:-rotate-12 transition-transform"
-                          />
+                        <div className="absolute top-[0.75rem] left-2.5 sm:left-3 flex flex-col gap-[3px] transition-transform ">
+                          <span className="shrink-0 w-8 h-[4px] bg-black/60 rounded-full dark:bg-white" />
+                          <span className="shrink-0 w-4 h-[4px] bg-black/60 rounded-full dark:bg-white" />
+                          <span className="shrink-0 w-2 h-[4px] bg-black/60 rounded-full dark:bg-white" />
                         </div>
                         <div className="absolute right-2 top-2 flex items-center gap-2 sm:right-4">
                           <TooltipProvider>
@@ -330,34 +329,34 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                               Información acerca del viaje:
                             </h4>
                           </div>
-                          <div className="flex flex-col w-full bg-blue-lagoon-200/10 border border-border-color gap-2 py-3 px-1 shadow-inner rounded-md dark:bg-blue-lagoon-700/10 dark:border-border-color-dark">
+                          <div className="flex flex-col w-full bg-background gap-2 border px-1 py-4 shadow-inner rounded-md dark:bg-[#171717]">
                             <div className="flex flex-col gap-2 overflow-auto">
                               <p className="flex items-center gap-1">
-                                <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                                <MapPin className="h-4 w-4 text-accent shrink-0 " />
                                 <span className="dark:text-white font-medium">
                                   Salida:
                                 </span>{" "}
                                 <span className="shrink-0">{trip.from}</span>
-                                <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                                <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                                <Separator className="w-2 bg-border" />
+                                <Clock className="h-4 w-4 text-accent shrink-0 " />
                                 <span className="shrink-0">
                                   {trip.departureTime} hs.
                                 </span>
                               </p>
                               <p className="flex items-center gap-1">
-                                <MapPin className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                                <MapPin className="h-4 w-4 text-accent shrink-0 " />
                                 <span className="dark:text-white font-medium">
                                   Destino:
                                 </span>{" "}
                                 <span className="shrink-0">{trip.to}</span>
-                                <Separator className="w-2 bg-border-color dark:bg-border-color-dark" />
-                                <Clock className="h-4 w-4 text-icon-color shrink-0 dark:text-icon-color-dark" />
+                                <Separator className="w-2 bg-border" />
+                                <Clock className="h-4 w-4 text-accent shrink-0 " />
                                 <span className="shrink-0">
                                   {trip.arrivalTime} hs.
                                 </span>
                               </p>
                               <p className="flex items-center gap-1">
-                                <DollarSign className="h-4 w-4 text-icon-color dark:text-icon-color-dark" />
+                                <DollarSign className="h-4 w-4 text-accent " />
                                 <span className="dark:text-white font-medium">
                                   Precio:
                                 </span>
@@ -369,7 +368,10 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                         <div className="self-center flex items-center justify-between mt-3">
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
-                              <button type="button" className="text-red-700">
+                              <button
+                                type="button"
+                                className="text-red-700 hover:text-red-300"
+                              >
                                 Cancelar viaje
                               </button>
                             </AlertDialogTrigger>

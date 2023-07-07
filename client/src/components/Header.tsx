@@ -42,14 +42,14 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
   };
 
   return (
-    <header className="fixed w-full z-50 bg-[#fafafa] dark:bg-[#0E1217] border-b border-b-border-color dark:border-b-border-color-dark">
+    <header className="fixed w-full z-50 bg-[#fafafa] dark:bg-[#0E1217] border-b">
       <div className="w-[min(95%,1200px)] mx-auto py-3 flex justify-between items-center">
         <div className="flex items-center flex-row-reverse gap-2">
           {user ? (
             <Link
               to="/viajes"
               onClick={() => setIsUserInfo(false)}
-              className="rounded-md px-2 font-medium flex items-center gap-1 w-full text-start bg-transparent hover:text-blue-lagoon-900 dark:hover:text-white lg:hidden"
+              className="rounded-md px-2 font-medium flex items-center gap-1 w-full text-start bg-transparent hover:text-hover dark:hover:text-white lg:hidden"
             >
               Viajes
             </Link>
@@ -64,7 +64,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
               <li>
                 <Link
                   to="/viajes"
-                  className="font-medium rounded-md py-1 px-3 hover:text-blue-lagoon-900 dark:hover:text-white"
+                  className="font-medium rounded-md py-1 px-3 hover:text-hover dark:hover:text-white"
                 >
                   Viajes
                 </Link>
@@ -72,7 +72,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
               <li>
                 <Link
                   to="/nosotros"
-                  className="font-medium rounded-md py-1 px-3 hover:text-blue-lagoon-900 dark:hover:text-white"
+                  className="font-medium rounded-md py-1 px-3 hover:text-hover dark:hover:text-white"
                 >
                   Nosotros
                 </Link>
@@ -84,15 +84,19 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
           <Separator orientation="vertical" className="h-6" />
           {!user ? (
             <div className="flex items-center gap-1">
-              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-white/20 focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 after:transition">
-                <Button className="h-[29px] p-0 relative bg-black text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/20 dark:text-slate-100 dark:hover:text-white dark:bg-black/60 ">
+              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20  after:transition focus-within:after:shadow-slate-100 dark:after:shadow-highlight dark:after:shadow-white/20  dark:focus-within:after:shadow-slate-100">
+                <Button className="h-[28px] p-0 relative bg-black/90 text-slate-100 hover:text-white shadow-input dark:text-slate-100 dark:hover:text-white dark:bg-black dark:shadow-none">
                   <Link to="/login" className="py-2 px-4">
                     Entrar
                   </Link>
                 </Button>
               </div>
-              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 after:transition">
-                <Button className="h-7 p-0 relative bg-[#9e4a4f] text-slate-100 hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f]">
+
+              <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100">
+                <Button
+                  className="h-7 p-0 relative bg-primary shadow-input text-slate-100 hover:text-white
+                dark:text-slate-100 dark:bg-primary dark:hover:text-white dark:shadow-none"
+                >
                   <Link to="/register" className="py-2 px-4">
                     Registrarme
                   </Link>
@@ -111,48 +115,45 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   </Avatar>
                   <ChevronDown className="w-5 h-5" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="border-border-color dark:border-zinc-600"
-                >
+                <DropdownMenuContent align="end" className="border">
                   <DropdownMenuLabel className="text-black/80 font-bold text-sm dark:text-white">
                     Mi Cuenta
                   </DropdownMenuLabel>
-                  <DropdownMenuSeparator className="dark:bg-zinc-600" />
-                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:text-blue-lagoon-700 ">
-                    <User className="absolute left-2 h-4 w-4 text-icon-color dark:text-icon-color-dark" />
+                  <DropdownMenuSeparator className="bg-border" />
+                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:bg-hover/5 dark:hover:bg-hover/50 ">
+                    <User className="absolute left-2 h-4 w-4 text-accent " />
                     <Link
                       to="/mi-perfil"
-                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent text-blue-lagoon-900 hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-50 dark:hover:text-white dark:hover:bg-zinc-700/20"
+                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent  dark:hover:text-white"
                       onClick={() => setIsUserInfo(true)}
                     >
                       Perfil
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:text-blue-lagoon-700">
-                    <ClipboardList className="absolute left-2 h-4 w-4 text-icon-color dark:text-icon-color-dark" />
+                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:bg-hover/5 dark:hover:bg-hover/50">
+                    <ClipboardList className="absolute left-2 h-4 w-4 text-accent " />
                     <Link
                       to="/mi-perfil"
                       onClick={() => setIsUserInfo(false)}
-                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent text-blue-lagoon-900 hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-50 dark:hover:text-white dark:hover:bg-zinc-700/20"
+                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent dark:hover:text-white"
                     >
                       Mis viajes
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:text-blue-lagoon-700">
-                    <UserCog className="absolute left-2 h-4 w-4 text-icon-color dark:text-icon-color-dark" />
+                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:bg-hover/5 dark:hover:bg-hover/50">
+                    <UserCog className="absolute left-2 h-4 w-4 text-accent " />
                     <Link
                       to="/mi-perfil/editar-perfil"
-                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent text-blue-lagoon-900 hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-50 dark:hover:text-white dark:hover:bg-zinc-700/20"
+                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent dark:hover:text-white"
                     >
                       Configuración
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:text-blue-lagoon-700">
-                    <LogOut className="absolute left-2 h-4 w-4 text-icon-color dark:text-icon-color-dark" />
+                  <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:bg-hover/5 dark:hover:bg-hover/50">
+                    <LogOut className="absolute left-2 h-4 w-4 text-accent " />
                     <Link
                       to="/login"
-                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent text-blue-lagoon-900 hover:bg-blue-lagoon-100/20 dark:text-blue-lagoon-50 dark:hover:text-white dark:hover:bg-zinc-700/20"
+                      className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent dark:hover:text-white"
                       onClick={handleLogOut}
                     >
                       Salir

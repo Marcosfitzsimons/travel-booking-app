@@ -82,7 +82,10 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
   }, []);
 
   return (
-    <section className="">
+    <section className="flex flex-col">
+      <div className="self-start mt-4">
+        <BackButton toProfile={false} />
+      </div>
       <SectionTitle>Mi cuenta</SectionTitle>
       {loading ? (
         <Loading />
@@ -96,9 +99,6 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
         >
           <div className="flex flex-col gap-3">
             <div className="flex flex-col items-center">
-              <div className="self-start mb-2">
-                <BackButton toProfile={false} />
-              </div>
               <nav className="flex items-center justify-center">
                 <ul className="flex items-center gap-7 px-5 py-2">
                   <li className="relative">

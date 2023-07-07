@@ -37,10 +37,83 @@ input[type="number"] {
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --background: 0 0% 99%;
+    --foreground: 222.2 84% 4.9%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --primary: 356 36% 45%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 0 0% 100%;
+    --secondary-foreground: 222.2 84% 4.9%;
+
+    --accent: 0 56% 29%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --hover: 0 0% 50%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 216 16% 6%;
+    --foreground: 210 40% 96%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --card: 0 0% 15%;
+    --card-foreground: 210 40% 98%;
+
+    --border: 0 0% 25%;
+    --input: 217.2 32.6% 17.5%;
+
+    --primary: 356 36% 45%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 0 0% 3%;
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 0 85% 84%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+
+    --hover: 0 0% 40%;
+
+    --ring: 217.2 32.6% 17.5%;
+  }
+}
+
+@layer base {
   html {
     font-family: "Ubuntu", sans-serif;
   }
+  * {
+    @apply border-border;
+  }
   body {
-    @apply bg-[#fafafa] text-black/80 dark:bg-[#0E1217] dark:text-neutral-100;
+    @apply bg-background text-foreground;
   }
 }

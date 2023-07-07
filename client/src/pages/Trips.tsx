@@ -82,16 +82,14 @@ const Trips = () => {
       <div className="flex flex-col gap-1 w-[min(100%,320px)] sm:w-[min(80%,320px)] md:flex-row md:items-center md:justify-between md:gap-3">
         <p className="shrink-0">Buscar por fecha:</p>
         <div className="relative flex items-end gap-1 w-[min(100%,188px)] shrink-0">
-          <div className="shadow-input shadow-blue-lagoon-800/10 rounded-lg">
-            <DatePickerContainer
-              startDate={startDate}
-              setStartDate={setStartDate}
-            />
-          </div>
-          <div className="absolute -right-[46px] h-full shadow shadow-blue-lagoon-800/10 rounded-lg">
-            <div className="relative flex w-[38px] h-full aspect-square before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-blue-lagoon-400 before:ring-2 before:ring-blue-lagoon-200/50 before:transition after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/5 focus-within:after:shadow-blue-lagoon-400 after:transition dark:focus-within:after:shadow-blue-lagoon-300/40 dark:before:ring-blue-lagoon-500/20 dark:before:border-blue-lagoon-300">
+          <DatePickerContainer
+            startDate={startDate}
+            setStartDate={setStartDate}
+          />
+          <div className="absolute -right-[46px] h-full">
+            <div className="relative flex w-[38px] h-full aspect-square before:pointer-events-none focus-within:before:opacity-100 before:opacity-0 before:absolute before:-inset-1 before:rounded-[12px] before:border before:border-pink-1-800/50 before:ring-2 before:ring-slate-400/10 before:transition after:pointer-events-none after:absolute after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 focus-within:after:shadow-pink-1-700/30 after:transition dark:focus-within:after:shadow-pink-1-300/40 dark:before:ring-slate-800/60 dark:before:border-pink-1-300">
               <Button
-                className="absolute w-[38px] h-full flex items-center justify-center cursor-pointer p-2 bg-white/80 shadow-input shadow-blue-lagoon-500/10 rounded-lg border border-border-color focus:border-blue-lagoon-200/50  dark:border-color-black dark:bg-black/40 dark:hover:text-white dark:focus:border-blue-lagoon-500/20"
+                className="absolute w-[38px] h-full flex items-center justify-center cursor-pointer p-2 bg-card rounded-lg border  border-slate-800/20 shadow-input dark:bg-[hsl(0,0%,11%)] dark:border-slate-800 dark:shadow-none !outline-none dark:hover:text-white"
                 onClick={() => setStartDate(null)}
               >
                 <RotateCcw className="w-4 h-4" />
