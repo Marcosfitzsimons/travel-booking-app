@@ -92,10 +92,10 @@ const TripCard = ({
         } w-full px-2 pt-9 sm:px-4`}
       >
         <div className="flex flex-col gap-2">
-          <div className="absolute top-[0.75rem] left-2.5 sm:left-3 flex flex-col gap-[3px] transition-transform ">
-            <span className="w-8 h-[4px] bg-black/60 rounded-full dark:bg-white" />
-            <span className="w-4 h-[4px] bg-black/60 rounded-full dark:bg-white" />
-            <span className="w-2 h-[4px] bg-black/60 rounded-full dark:bg-white" />
+          <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
+            <span className="w-8 h-[4px] bg-red-700 rounded-full " />
+            <span className="w-4 h-[4px] bg-red-700 rounded-full " />
+            <span className="w-2 h-[4px] bg-red-700 rounded-full " />
           </div>
 
           <div

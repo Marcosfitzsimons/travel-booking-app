@@ -8,10 +8,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import { Separator } from "./ui/separator";
 
 const PublicationCard = () => {
   return (
-    <article className="w-full relative max-w-lg rounded-md border border-border-color bg-white/80 px-2 pt-6 pb-10 flex flex-col gap-3 lg:px-4 lg:pt-[10px] dark:border-border-color-dark dark:bg-black/60">
+    <article className="w-full relative max-w-lg bg-card rounded-md border px-2 pt-6 pb-10 flex flex-col gap-3 lg:px-4 lg:pt-[10px]">
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
@@ -57,6 +58,10 @@ const PublicationCard = () => {
           - 11:29 AM
         </span>
       </p>
+      <Separator
+        orientation="horizontal"
+        className="absolute -bottom-3 self-center w-6"
+      />
     </article>
   );
 };

@@ -6,7 +6,7 @@ const Logo = () => {
   return (
     <Link
       to="/"
-      className="rounded-full relative after:absolute after:-inset-[3px] after:rounded-full after:border after:shadow-inner after:shadow-white  after:border-gray-100 dark:after:shadow-none"
+      className="rounded-full relative after:absolute after:-inset-[3px] after:rounded-full after:border after:shadow-inner after:shadow-white  after:border-gray-200 dark:after:shadow-none"
     >
       <Avatar className="lg:h-12 lg:w-12">
         <AvatarImage

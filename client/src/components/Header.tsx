@@ -79,9 +79,9 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
               </li>
             </ul>
           </nav>
-          <Separator orientation="vertical" className="hidden h-6 lg:flex" />
+          <Separator orientation="vertical" className="hidden h-4 lg:flex" />
           <ThemeToggle />
-          <Separator orientation="vertical" className="h-6" />
+          <Separator orientation="vertical" className="h-4" />
           {!user ? (
             <div className="flex items-center gap-1">
               <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20  after:transition focus-within:after:shadow-slate-100 dark:after:shadow-highlight dark:after:shadow-white/20  dark:focus-within:after:shadow-slate-100">

@@ -159,10 +159,10 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
           <article className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-input border pb-4 max-w-[400px] bg-card dark:shadow-none">
             <div className="w-full px-2 pt-9 pb-4 sm:px-4">
               <div className="flex flex-col gap-2 ">
-                <div className="absolute top-[0.75rem] left-2.5 sm:left-3 flex flex-col gap-[3px] transition-transform ">
-                  <span className="w-8 h-[4px] bg-black/60 rounded-full dark:bg-white" />
-                  <span className="w-4 h-[4px] bg-black/60 rounded-full dark:bg-white" />
-                  <span className="w-2 h-[4px] bg-black/60 rounded-full dark:bg-white" />
+                <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
+                  <span className="w-8 h-[4px] bg-red-700 rounded-full " />
+                  <span className="w-4 h-[4px] bg-red-700 rounded-full " />
+                  <span className="w-2 h-[4px] bg-red-700 rounded-full " />
                 </div>
 
                 <div className="absolute right-2 top-2 flex items-center gap-2 sm:right-4">

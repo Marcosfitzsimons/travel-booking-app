@@ -22,7 +22,7 @@ const Footer = () => {
         </div>
         <div className="flex items-center justify-center gap-3">
           <Instagram className="cursor-pointer w-5 h-5 hover:text-blue-lagoon-600 dark:hover:text-white" />
-          <Separator orientation="vertical" className="h-6" />
+          <Separator orientation="vertical" className="h-4" />
           <Facebook className="cursor-pointer w-5 h-5 hover:text-blue-lagoon-600 dark:hover:text-white" />
         </div>
       </div>

@@ -49,7 +49,7 @@ const Home = () => {
               <span className="inline-block -rotate-3">s</span>
             </h1>
             <div className="flex items-center relative bottom-2">
-              <p className="font-serif text-icon-color flex items-center dark:text-icon-color-dark">
+              <p className="font-serif text-accent flex items-center ">
                 Carmen de Areco
               </p>
             </div>
@@ -60,7 +60,7 @@ const Home = () => {
           <div className="">
             <Button
               onClick={() => navigate("/viajes")}
-              className="text-sm mt-1 h-10 pl-6 gap-[3px] border border-blue-lagoon-700/50 shadow-md shadow-blue-lagoon-900/30 bg-gradient-to-r from-[#9e4a4f] via-[#854147] to-[#9c595d] bg-[length:200%] bg-left transition text-blue-lagoon-100 hover:shadow-lg hover:border-blue-lagoon-300/80 hover:bg-right hover:text-white hover:shadow-blue-lagoon-900/50 dark:hover:shadow-blue-lagoon-900 dark:border-blue-lagoon-300/60 dark:text-blue-lagoon-100 dark:shadow-blue-lagoon-900/60 dark:bg-[#9e4a4f] dark:hover:border-blue-lagoon-300/80 dark:hover:shadow-lg dark:hover:text-white"
+              className="text-sm mt-1 h-10 pl-6 gap-[3px] border border-pink-1-700/50 shadow-md shadow-pink-1-900/30 bg-gradient-to-r from-[#9e4a4f] via-[#854147] to-[#9c595d] bg-[length:200%] bg-left transition text-pink-1-100 hover:shadow-lg hover:border-pink-1-300/80 hover:bg-right hover:text-white hover:shadow-pink-1-900/50 dark:hover:shadow-pink-1-900 dark:border-pink-1-300/60 dark:text-pink-1-100 dark:shadow-pink-1-900/60 dark:bg-[#9e4a4f] dark:hover:border-pink-1-300/80 dark:hover:shadow-lg dark:hover:text-white"
             >
               Ver Viajes
               <ChevronsRight className="w-5 h-5 relative top-[1px]" />
@@ -69,10 +69,10 @@ const Home = () => {
         </div>
         <div className="py-4 flex flex-col items-center gap-3 lg:items-start lg:basis-[45%]">
           <h2 className="flex items-center gap-2 my-2 text-xl uppercase font-bold lg:text-2xl dark:text-white">
-            <Newspaper className="w-6 h-6 text-icon-color dark:text-icon-color-dark" />
+            <Newspaper className="w-6 h-6 text-accent " />
             Anuncios destacados
           </h2>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-6">
             <PublicationCard />
             <PublicationCard />
             <PublicationCard />

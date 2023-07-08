@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { motion } from "framer-motion";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Separator } from "../components/ui/separator";
 import { Input } from "../components/ui/input";
@@ -88,7 +88,7 @@ const Login = () => {
       >
         <Separator
           orientation="vertical"
-          className="h-28 bg-gradient-to-t from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217] lg:hidden"
+          className="h-28 bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217] lg:hidden"
         />
         <div className="w-full flex flex-col">
           <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl lg:px-3 dark:text-white">
@@ -104,7 +104,7 @@ const Login = () => {
             <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
               <div className="relative flex items-center">
-                <User className="z-30 h-5 w-5 text-icon-color absolute left-[10px] pb-[1px] dark:text-icon-color-dark" />
+                <User className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[1px] " />
                 <Input
                   type="text"
                   id="emailOrUsername"
@@ -135,7 +135,7 @@ const Login = () => {
             <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="password">Contraseña</Label>
               <div className="relative flex items-center">
-                <Lock className="z-30 h-5 w-5 text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                <Lock className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
                 <Input
                   type="password"
                   id="password"
@@ -170,7 +170,7 @@ const Login = () => {
               ¿No tenes cuenta?{" "}
               <Link
                 to="/register"
-                className="font-medium text-blue-lagoon-800 dark:text-blue-lagoon-400"
+                className="font-medium text-pink-1-800 dark:text-pink-1-400"
               >
                 Crear una cuenta nueva
               </Link>
@@ -180,18 +180,18 @@ const Login = () => {
         <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8">
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-t from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217]"
+            className="h-80 bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
           />
           <Logo />
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-b from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217]"
+            className="h-80 bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
           />
         </div>
 
         <Separator
           orientation="vertical"
-          className="h-28 bg-gradient-to-b from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217] lg:hidden"
+          className="h-28 bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217] lg:hidden"
         />
       </motion.div>
     </section>

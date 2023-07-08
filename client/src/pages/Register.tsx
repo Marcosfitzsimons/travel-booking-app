@@ -149,7 +149,7 @@ const Register = () => {
     {
       id: "street",
       icon: (
-        <Milestone className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
       ),
       label: "Calle",
       type: "text",
@@ -172,7 +172,7 @@ const Register = () => {
     {
       id: "streetNumber",
       icon: (
-        <Milestone className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
       ),
       label: "Número",
       type: "text",
@@ -199,7 +199,7 @@ const Register = () => {
     {
       id: "crossStreets",
       icon: (
-        <Crop className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+        <Crop className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
       ),
       label: "Calles que cruzan",
       type: "text",
@@ -249,10 +249,10 @@ const Register = () => {
       >
         <Separator
           orientation="vertical"
-          className="h-20 bg-gradient-to-t from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217] lg:hidden"
+          className="h-20 bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217] lg:hidden"
         />
         <div className="">
-          <div className="lg:mb-8">
+          <div className="mt-4">
             <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl dark:text-white">
               Crear cuenta nueva
             </h2>
@@ -265,8 +265,8 @@ const Register = () => {
             className="relative w-full mt-2 py-6 flex flex-col gap-3 items-center lg:w-[650px]"
           >
             <div className="w-full max-w-xs mx-auto flex flex-col items-center gap-3 lg:max-w-5xl">
-              <div className="my-2 w-full flex flex-col items-center lg:mt-0">
-                <Separator className="w-8 my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
+              <div className="mt-2 w-full flex flex-col items-center lg:mt-0">
+                <Separator className="w-8 my-2 bg-border lg:hidden " />
                 <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-start lg:text-xl">
                   Datos personales
                 </h5>
@@ -275,7 +275,7 @@ const Register = () => {
                 <div className="grid w-full items-center gap-2 mt-4 lg:mt-0">
                   <Label htmlFor="username">Nombre de usuario</Label>
                   <div className="relative flex items-center">
-                    <span className="z-30 absolute text-icon-color left-[11px] pb-[2px] select-none dark:text-icon-color-dark">
+                    <span className="z-30 absolute text-accent left-[11px] pb-[2px] select-none ">
                       @
                     </span>
                     <Input
@@ -306,7 +306,7 @@ const Register = () => {
                 <div className="grid w-full items-center gap-2">
                   <Label htmlFor="fullName">Nombre completo</Label>
                   <div className="relative flex items-center">
-                    <User className="z-30 h-5 w-5 text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                    <User className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
                     <Input
                       type="text"
                       id="fullName"
@@ -338,7 +338,7 @@ const Register = () => {
                 <div className="grid w-full items-center gap-2">
                   <Label htmlFor="email">Email</Label>
                   <div className="relative flex items-center">
-                    <Mail className="z-30 top-[11px] h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                    <Mail className="z-30 top-[11px] h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                     <Input
                       className="pl-[32px]"
                       type="email"
@@ -368,7 +368,7 @@ const Register = () => {
                 <div className="grid w-full items-center gap-2">
                   <Label htmlFor="password">Contraseña</Label>
                   <div className="relative flex items-center">
-                    <Lock className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                    <Lock className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                     <Input
                       className="pl-[32px]"
                       placeholder="..."
@@ -400,7 +400,7 @@ const Register = () => {
                 <div className="grid w-full items-center gap-2">
                   <Label htmlFor="dni">DNI</Label>
                   <div className="relative flex items-center">
-                    <Fingerprint className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                    <Fingerprint className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                     <Input
                       type="number"
                       id="dni"
@@ -433,7 +433,7 @@ const Register = () => {
                 <div className="grid w-full items-center gap-2">
                   <Label htmlFor="tel">Celular</Label>
                   <div className="relative flex items-center">
-                    <Phone className="z-30 h-[18px] w-[18px] text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                    <Phone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                     <Input
                       className="pl-[32px]"
                       placeholder="2273433870"
@@ -468,7 +468,7 @@ const Register = () => {
 
             <div className="w-full flex flex-col items-center gap-3">
               <div className="w-full flex flex-col items-center">
-                <Separator className="w-8 my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
+                <Separator className="w-8 my-2 bg-border lg:hidden " />
                 <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-start lg:text-xl">
                   Domicilios
                 </h5>
@@ -476,9 +476,7 @@ const Register = () => {
 
               <div className="w-full max-w-xs flex flex-col items-center gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
                 <div className="w-full flex flex-col gap-2">
-                  <h6 className="font-serif text-icon-color dark:text-icon-color-dark">
-                    Carmen de Areco
-                  </h6>
+                  <h6 className="font-serif text-accent ">Carmen de Areco</h6>
                   {userAddressInputs.map((input: UserInput) => {
                     const key = input.id;
                     const fieldName: any = `addressCda.${key}`;
@@ -507,16 +505,14 @@ const Register = () => {
                     );
                   })}
                 </div>
-                <Separator className="w-8 my-2 bg-border-color md:hidden dark:bg-border-color-dark" />
+                <Separator className="w-8 my-2 bg-border md:hidden " />
 
                 <div className="w-full flex flex-col gap-2">
-                  <h6 className="font-serif text-icon-color dark:text-icon-color-dark">
-                    Capital Federal
-                  </h6>
+                  <h6 className="font-serif text-accent ">Capital Federal</h6>
                   <div className="grid w-full items-center gap-2">
                     <Label htmlFor="addressCapital">Dirección</Label>
                     <div className="relative flex items-center">
-                      <Milestone className="z-30 h-5 w-5 text-icon-color absolute left-[10px] pb-[2px] dark:text-icon-color-dark" />
+                      <Milestone className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
                       <Input
                         ref={addressCapitalRef}
                         type="text"
@@ -542,7 +538,7 @@ const Register = () => {
                 ¿Ya tenes cuenta?{" "}
                 <Link
                   to="/login"
-                  className="font-medium text-blue-lagoon-800 dark:text-blue-lagoon-400"
+                  className="font-medium text-pink-1-800 dark:text-pink-1-400"
                 >
                   Iniciar sesion
                 </Link>
@@ -553,18 +549,18 @@ const Register = () => {
         <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8">
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-t from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217]"
+            className="h-80 bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
           />
           <Logo />
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-b from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217]"
+            className="h-80 bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
           />
         </div>
 
         <Separator
           orientation="vertical"
-          className="h-20 bg-gradient-to-b from-border-color to-[#fafafa] dark:from-blue-lagoon-50 dark:to-[#0E1217] lg:hidden"
+          className="h-20 bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217] lg:hidden"
         />
       </motion.div>
     </section>

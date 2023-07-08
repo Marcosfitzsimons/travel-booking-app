@@ -1,4 +1,9 @@
 import { motion } from "framer-motion";
+import construction from "@/assets/construction.png";
+import DefaultButton from "@/components/DefaultButton";
+import Logo from "@/components/Logo";
+import { Link } from "react-router-dom";
+import BackButton from "@/components/BackButton";
 
 const AboutUs = () => {
   const sectionVariants = {
@@ -28,9 +33,10 @@ const AboutUs = () => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className=""
+        className="flex flex-col items-center justify-center"
       >
-        AboutUs
+        <BackButton toProfile={false} />
+        <img src={construction} alt="under construction" />
       </motion.div>
     </section>
   );

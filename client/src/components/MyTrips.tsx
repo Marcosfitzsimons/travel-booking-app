@@ -214,7 +214,11 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                   />
                 </p>
 
-                <div className="w-full relative flex flex-col gap-3 p-4 shadow-input rounded-md bg-card border border-yellow-200/60 dark:border-yellow-200/60 dark:shadow-none">
+                <div
+                  className={` ${
+                    reminder ? "border-[#5FC488] dark:border-[#6cd395]" : ""
+                  } w-full relative flex flex-col gap-3 p-4 shadow-input rounded-md bg-card border dark:shadow-none`}
+                >
                   <Label htmlFor="airplane-mode dark:text-white">
                     🔔 Activar recordatorio previo al viaje
                   </Label>
@@ -283,10 +287,10 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                   >
                     <div className="w-full px-2 pt-9 sm:px-4">
                       <div className="flex flex-col gap-2">
-                        <div className="absolute top-[0.75rem] left-2.5 sm:left-3 flex flex-col gap-[3px] transition-transform ">
-                          <span className="shrink-0 w-8 h-[4px] bg-black/60 rounded-full dark:bg-white" />
-                          <span className="shrink-0 w-4 h-[4px] bg-black/60 rounded-full dark:bg-white" />
-                          <span className="shrink-0 w-2 h-[4px] bg-black/60 rounded-full dark:bg-white" />
+                        <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
+                          <span className="w-8 h-[4px] bg-red-700 rounded-full " />
+                          <span className="w-4 h-[4px] bg-red-700 rounded-full " />
+                          <span className="w-2 h-[4px] bg-red-700 rounded-full " />
                         </div>
                         <div className="absolute right-2 top-2 flex items-center gap-2 sm:right-4">
                           <TooltipProvider>
