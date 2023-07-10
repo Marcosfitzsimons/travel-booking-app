@@ -18,6 +18,7 @@ import { Toaster } from "./components/ui/toaster";
 import AboutUs from "./pages/AboutUs";
 import NotFound from "./pages/NotFound";
 import { AuthContext } from "./context/AuthContext";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 type Props = {
   children: ReactElement;
@@ -47,6 +48,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<Home />} />
             <Route path="/viajes" element={<Trips />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route
               path="/viajes/:id"
               element={

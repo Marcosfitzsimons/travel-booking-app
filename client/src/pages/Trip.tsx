@@ -4,7 +4,7 @@ import moment from "moment";
 import "moment/locale/es"; // without this line it didn't work
 moment.locale("es");
 import { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/SectionTitle";
 import {
@@ -14,21 +14,24 @@ import {
   Milestone,
   Crop,
   User,
+  CheckCircle2,
+  CheckCircle,
 } from "lucide-react";
 
 import { Button } from "../components/ui/button";
-import { toast } from "../hooks/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 import Loading from "../components/Loading";
-import miniBus from "../assets/minibus1-sm.png";
 import { DollarSign } from "lucide-react";
 import BackButton from "../components/BackButton";
 import { Separator } from "../components/ui/separator";
+import { ToastAction } from "@/components/ui/toast";
 
 type ProfileProps = {
   setIsUserInfo: (value: boolean) => void;
 };
 
 const INITIAL_VALUES = {
+  _id: "",
   name: "",
   date: "",
   from: "",
@@ -69,6 +72,8 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const tripId = path.split("/")[2];
   const { user } = useContext(AuthContext);
 
+  const { toast } = useToast();
+
   const navigate = useNavigate();
 
   const todayDate = moment().locale("es").format("ddd DD/MM");
@@ -81,7 +86,8 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     Authorization: `Bearer ${token}`,
   };
 
-  const handleOnConfirm = async () => {
+  /*const handleOnConfirm = async () => {
+
     setLoading(true);
     try {
       await axios.post(
@@ -91,9 +97,13 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         },
         { headers }
       );
-
       toast({
-        description: "Lugar guardado con éxito.",
+        description: (
+          <div className="flex items-center gap-1">
+            {<CheckCircle className="w-[15px] h-[15px]" />} Lugar guardado con
+            éxito.
+          </div>
+        ),
       });
       setLoading(false);
       setIsUserInfo(false);
@@ -103,10 +113,39 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
       console.log(err);
       toast({
         variant: "destructive",
+        title: "Error al guardar su lugar",
+        action: (
+          <ToastAction altText="Mis viajes" asChild>
+            <Link to="/mi-perfil" onClick={() => setIsUserInfo(false)}>
+              Mis viajes
+            </Link>
+          </ToastAction>
+        ),
         description: err.response.data.msg
           ? err.response.data.msg
           : "Error al guardar lugar, intente más tarde.",
       });
+    }
+  };
+*/
+
+  const handleOnConfirm = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        `https://fabebus-api-example.onrender.com/api/payments`,
+        {
+          trip: {
+            _id: data._id,
+            price: 20,
+          },
+        },
+        { headers }
+      );
+      console.log(res);
+      window.location.href = res.data.init_point;
+    } catch (err: any) {
+      console.log(err);
     }
   };
 
