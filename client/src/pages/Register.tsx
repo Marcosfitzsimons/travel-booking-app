@@ -15,7 +15,6 @@ import {
   Fingerprint,
   Lock,
   Mail,
-  MapPin,
   Milestone,
   Phone,
   User,
