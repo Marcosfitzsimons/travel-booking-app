@@ -246,7 +246,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                   </div>
                   {isUnsaved ? (
                     <div className="w-auto flex flex-col items-center gap-2">
-                      <Separator orientation="horizontal" className="w-8" />
+                      <Separator orientation="horizontal" className="w-4" />
                       <div className="relative h-7 after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100 ">
                         <Button
                           onClick={handleIsReminder}
@@ -266,7 +266,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
               ""
             )}
           </div>
-          <Separator className="w-16" />
+          <Separator className="w-4" />
           <h4 className="flex items-center gap-1 font-medium text-xl dark:text-white self-start lg:text-2xl">
             <ClipboardList className="h-5 w-5 text-accent  lg:w-6 lg:h-6" />
             Mis viajes:
@@ -429,7 +429,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
               </div>
             )}
           </motion.div>
-          <Separator className="w-16" />
+          <Separator className="w-4" />
         </>
       )}
     </section>
