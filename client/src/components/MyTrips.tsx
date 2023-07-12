@@ -276,14 +276,14 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="w-full flex flex-col items-center gap-3 md:gap-5 md:grid md:justify-items-center md:grid-cols-2"
+            className="w-full flex flex-col items-center gap-6 md:gap-5 md:grid md:justify-items-center md:grid-cols-2"
           >
             {userTrips && userTrips.length > 0 ? (
               <>
                 {userTrips.map((trip: TripProps) => (
                   <article
                     key={trip.id}
-                    className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-4 max-w-[400px] bg-card border dark:shadow-none"
+                    className="relative w-full flex justify-center items-center mx-auto rounded-md shadow-input pb-4 max-w-[400px] bg-card border dark:shadow-none"
                   >
                     <div className="w-full px-2 pt-9 sm:px-4">
                       <div className="flex flex-col gap-2">
@@ -412,6 +412,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                         </div>
                       </div>
                     </div>
+                    <Separator className="absolute -bottom-3 w-4 self-center" />
                   </article>
                 ))}
               </>
@@ -429,7 +430,6 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
               </div>
             )}
           </motion.div>
-          <Separator className="w-4" />
         </>
       )}
     </section>
