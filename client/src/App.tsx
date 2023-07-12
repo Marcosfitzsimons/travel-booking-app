@@ -48,7 +48,10 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<Home />} />
             <Route path="/viajes" element={<Trips />} />
-            <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route
+              path="/payment-success/:userid/:tripid"
+              element={<PaymentSuccess setIsUserInfo={setIsUserInfo} />}
+            />
             <Route
               path="/viajes/:id"
               element={
