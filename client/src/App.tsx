@@ -19,6 +19,7 @@ import AboutUs from "./pages/AboutUs";
 import NotFound from "./pages/NotFound";
 import { AuthContext } from "./context/AuthContext";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentFailure from "./pages/PaymentFailure";
 
 type Props = {
   children: ReactElement;
@@ -51,6 +52,10 @@ function App() {
             <Route
               path="/payment-success/:userid/:tripid"
               element={<PaymentSuccess setIsUserInfo={setIsUserInfo} />}
+            />
+            <Route
+              path="/payment-failure"
+              element={<PaymentFailure setIsUserInfo={setIsUserInfo} />}
             />
             <Route
               path="/viajes/:id"
