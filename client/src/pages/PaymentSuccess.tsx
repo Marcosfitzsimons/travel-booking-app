@@ -35,6 +35,7 @@ type PaymentProps = {
 
 const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
   const [loading, setLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const locationn = useLocation();
   const path = locationn.pathname;
@@ -50,46 +51,50 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
     Authorization: `Bearer ${token}`,
   };
 
-  // useEffect(() => {
-  //   const handleConfirmPassenger = async () => {
-  //     setLoading(true);
-  //     try {
-  //       await axios.post(
-  //         `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
-  //         {
-  //           userId: userId,
-  //         },
-  //         { headers }
-  //       );
-  //       toast({
-  //         description: (
-  //           <div className="flex items-center gap-1">
-  //             {<CheckCircle className="w-[15px] h-[15px]" />} Lugar guardado con
-  //             éxito.
-  //           </div>
-  //         ),
-  //       });
-  //     } catch (err: any) {
-  //       console.log(err);
-  //       toast({
-  //         variant: "destructive",
-  //         title: "Error al guardar su lugar",
-  //         action: (
-  //           <ToastAction altText="Mis viajes" asChild>
-  //             <Link to="/mi-perfil" onClick={() => setIsUserInfo(false)}>
-  //               Mis viajes
-  //             </Link>
-  //           </ToastAction>
-  //         ),
-  //         description: err.response.data.msg
-  //           ? err.response.data.msg
-  //           : "Error al guardar lugar, intente más tarde.",
-  //       });
-  //     }
-  //     setLoading(false);
-  //   };
-  //   handleConfirmPassenger();
-  // }, []);
+  useEffect(() => {
+    if (!isLoaded) {
+      setIsLoaded(true);
+      return;
+    }
+    const handleConfirmPassenger = async () => {
+      setLoading(true);
+      try {
+        await axios.post(
+          `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
+          {
+            userId: userId,
+          },
+          { headers }
+        );
+        toast({
+          description: (
+            <div className="flex items-center gap-1">
+              {<CheckCircle className="w-[15px] h-[15px]" />} Lugar guardado con
+              éxito.
+            </div>
+          ),
+        });
+      } catch (err: any) {
+        console.log(err);
+        toast({
+          variant: "destructive",
+          title: "Error al guardar su lugar",
+          action: (
+            <ToastAction altText="Mis viajes" asChild>
+              <Link to="/mi-perfil" onClick={() => setIsUserInfo(false)}>
+                Mis viajes
+              </Link>
+            </ToastAction>
+          ),
+          description: err.response.data.msg
+            ? err.response.data.msg
+            : "Error al guardar lugar, intente más tarde.",
+        });
+      }
+      setLoading(false);
+    };
+    handleConfirmPassenger();
+  }, [isLoaded]);
 
   return (
     <section className="section">

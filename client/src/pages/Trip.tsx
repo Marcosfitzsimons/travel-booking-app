@@ -230,7 +230,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     }
   };
 
-  // is WORKING. TO DO: REDIRECT TO FINISH PAGE AND AUTO-RESERVE TRIP WHEN PAYMENT IS SUCCESSFUL.
   const handleConfirmPayment = async () => {
     setLoading(true);
     try {
