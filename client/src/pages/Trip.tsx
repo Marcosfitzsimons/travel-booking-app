@@ -696,7 +696,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                           animate="visible"
                           className="absolute flex items-center gap-[2px] -left-1 -bottom-6 text-red-600"
                         >
-                          <ArrowUp className="h-4 w-4 animate-pulse shrink-0" />
+                          <ArrowUp className="h-4 w-4 animate-bounce shrink-0" />
                           Antes debes confirmar tus domicilios.
                         </motion.p>
                       )}
