@@ -2,7 +2,7 @@ import { createContext, Dispatch, useEffect, useReducer } from "react";
 
 type addressCda = {
   street: string;
-  streetNumber: number | null;
+  streetNumber: any;
   crossStreets: string;
 };
 
