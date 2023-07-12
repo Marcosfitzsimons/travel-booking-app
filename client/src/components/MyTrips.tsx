@@ -1,5 +1,4 @@
 import {
-  AlertCircle,
   DollarSign,
   CalendarDays,
   Clock,
@@ -8,7 +7,6 @@ import {
   X,
   ClipboardList,
   Check,
-  FileCheck,
   MapPin,
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -35,7 +33,6 @@ import axios from "axios";
 import { toast } from "../hooks/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
-import miniBus from "../assets/minibus1-sm.png";
 import moment from "moment-timezone";
 import { Separator } from "./ui/separator";
 import { Switch } from "./ui/switch";
