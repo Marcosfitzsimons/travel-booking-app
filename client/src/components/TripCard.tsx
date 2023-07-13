@@ -1,7 +1,7 @@
 import moment from "moment";
 import "moment/locale/es"; // without this line it didn't work
 moment.locale("es");
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import {
@@ -17,6 +17,7 @@ import miniBus from "../assets/minibus1-sm.png";
 import DefaultButton from "./DefaultButton";
 
 import { Separator } from "./ui/separator";
+import CountdownTimer from "./CountdownTimer";
 
 interface Trip {
   _id: number;
@@ -46,8 +47,8 @@ const TripCard = ({
   maxCapacity,
   passengers,
 }: TripProps) => {
+  const [showCount, setShowCount] = useState(true);
   const isMaxCapacity = maxCapacity === passengers.length;
-
   const todayDate = moment().locale("es").format("ddd DD/MM");
 
   moment.locale("es", {
@@ -80,12 +81,21 @@ const TripCard = ({
 
   return (
     <article
+      onMouseEnter={() => setShowCount(false)}
+      onMouseLeave={() => setShowCount(true)}
       className={`${
         maxCapacity === passengers.length
           ? "dark:border-zinc-800"
           : "dark:border"
       } w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-4 max-w-[400px] bg-card border dark:shadow-none`}
     >
+      <div
+        className={`absolute -z-10 ${
+          !showCount ? "-top-5" : "-top-[5px]"
+        } transition-all text-white right-2 bg-orange-600 rounded-t-md px-2 h-10 lg:right-4 dark:bg-orange-700 `}
+      >
+        <CountdownTimer date={date} departureTime={departureTime} />
+      </div>
       <div
         className={`${
           maxCapacity === passengers.length ? "opacity-50" : ""
@@ -99,11 +109,7 @@ const TripCard = ({
           </div>
 
           <div
-            className={`absolute ${
-              maxCapacity !== passengers.length
-                ? "right-6 sm:right-8"
-                : "right-4"
-            } top-2 flex items-center gap-2`}
+            className={`absolute right-2 sm:right-4 top-2 flex items-center gap-2`}
           >
             <p className="text-teal-900 order-2 font-medium flex items-center shadow-input select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 px-3 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white dark:shadow-none">
               <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
@@ -114,16 +120,11 @@ const TripCard = ({
                 HOY
               </p>
             )}
-            {maxCapacity !== passengers.length && (
-              <p className="flex items-center gap-1 absolute -right-4">
-                <span className="w-3 h-3 bg-green-600 shadow-input rounded-full animate-pulse dark:shadow-none" />
-              </p>
-            )}
           </div>
 
-          <div className="flex flex-col gap-1 mt-6 lg:mt-8 relative">
-            <div className="flex flex-col sm:gap-2">
-              <h3 className="font-bold text-lg lg:text-xl">{name}</h3>
+          <div className="flex flex-col gap-1 relative">
+            <div className="flex flex-col mt-2 sm:gap-2">
+              <h3 className="font-bold text-lg mb-2 lg:text-xl">{name}</h3>
               <h4 className="text-sm font-light">
                 Información acerca del viaje:
               </h4>
