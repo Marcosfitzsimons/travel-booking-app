@@ -91,8 +91,8 @@ const TripCard = ({
     >
       <div
         className={`absolute -z-10 ${
-          !showCount ? "-top-5" : "-top-[5px]"
-        } transition-all text-white right-2 bg-orange-600 rounded-t-md px-2 h-10 lg:right-4 dark:bg-orange-700 `}
+          !showCount ? "-top-[22px]" : "-top-[5px]"
+        } transition-all text-white right-2 pt-[2px] bg-orange-600 rounded-t-md px-2 h-10 lg:right-4 dark:bg-orange-700`}
       >
         <CountdownTimer date={date} departureTime={departureTime} />
       </div>
