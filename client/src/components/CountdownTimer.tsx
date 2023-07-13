@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 type CountdownTimerProps = {
@@ -16,7 +15,7 @@ const CountdownTimer = ({ date, departureTime }: CountdownTimerProps) => {
       const targetDateTime = new Date(combinedDateTime); // Convert the date string to a Date object
 
       // Calculate the time difference in milliseconds between the target time and the current time
-      const timeDifference = targetDateTime - new Date();
+      const timeDifference = targetDateTime.getTime() - new Date().getTime();
 
       if (timeDifference > 0) {
         // Convert the time difference to hours, minutes, and seconds
@@ -45,7 +44,7 @@ const CountdownTimer = ({ date, departureTime }: CountdownTimerProps) => {
   return (
     <p className="text-xs">
       <span className="font-bold uppercase">sale en: </span>
-      <motion.span>{remainingTime}</motion.span>
+      <span>{remainingTime}</span>
     </p>
   );
 };

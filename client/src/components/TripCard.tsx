@@ -108,9 +108,7 @@ const TripCard = ({
             <span className="w-2 h-[4px] bg-red-700 rounded-full " />
           </div>
 
-          <div
-            className={`absolute right-2 sm:right-4 top-2 flex items-center gap-2`}
-          >
+          <div className="absolute right-2 sm:right-4 top-2 flex items-center gap-2">
             <p className="text-teal-900 order-2 font-medium flex items-center shadow-input select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 px-3 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white dark:shadow-none">
               <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
               {formatDate(date)}

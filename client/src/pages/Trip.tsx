@@ -40,6 +40,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { ToastAction } from "@/components/ui/toast";
 import { Checkbox } from "@/components/ui/checkbox";
+import CountdownTimer from "@/components/CountdownTimer";
 
 type addressCda = {
   street: string;
@@ -136,6 +137,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | boolean>(false);
   const [dialogVisible, setDialogVisible] = useState(false);
+  const [showCount, setShowCount] = useState(true);
   const [isConfirm, setIsConfirm] = useState(false);
   const [isConfirmError, setIsConfirmError] = useState(false);
 
@@ -453,7 +455,21 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         {loading ? (
           <Loading />
         ) : (
-          <article className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-input border pb-4 max-w-[400px] bg-card dark:shadow-none">
+          <article
+            onMouseEnter={() => setShowCount(false)}
+            onMouseLeave={() => setShowCount(true)}
+            className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-input border pb-4 max-w-[400px] bg-card dark:shadow-none"
+          >
+            <div
+              className={`absolute -z-10 ${
+                !showCount ? "-top-5" : "-top-[5px]"
+              } transition-all text-white right-2 bg-orange-600 rounded-t-md px-2 h-10 lg:right-4 dark:bg-orange-700 `}
+            >
+              <CountdownTimer
+                date={data.date}
+                departureTime={data.departureTime}
+              />
+            </div>
             <div className="w-full px-2 pt-9 pb-4 sm:px-4">
               <div className="flex flex-col gap-2 ">
                 <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">

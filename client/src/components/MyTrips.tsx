@@ -105,7 +105,6 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
   const [isUnsaved, setIsUnsaved] = useState(false);
 
   const userId = userData._id;
-  console.log(userData);
   const navigate = useNavigate();
 
   const todayDate = moment().locale("es").format("ddd DD/MM");
