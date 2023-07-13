@@ -326,7 +326,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         const res = await axios.get(
           `https://fabebus-api-example.onrender.com/api/trips/${tripId}`
         );
-
+        console.log(res.data);
         setData({ ...res.data });
         reset({
           addressCda: {
