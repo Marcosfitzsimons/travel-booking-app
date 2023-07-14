@@ -186,6 +186,7 @@ const TripCard = ({
           </span>
         </div>
       )}
+      <Separator className="bg-border w-4 absolute -bottom-4 self-center" />
     </article>
   );
 };
