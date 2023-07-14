@@ -11,6 +11,8 @@ import DatePickerContainer from "../components/DatePickerContainer";
 import Loading from "../components/Loading";
 import { Button } from "../components/ui/button";
 import { RotateCcw } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 interface TripProps {
   _id: number;
@@ -97,6 +99,12 @@ const Trips = () => {
               </Button>
             </div>
           </div>
+        </div>
+        <div className="flex items-center mt-2 space-x-2">
+          <Checkbox id="terms" defaultChecked />
+          <Label htmlFor="terms">
+            Mostrar solo viajes con lugares disponibles
+          </Label>
         </div>
       </div>
       {loading ? (
