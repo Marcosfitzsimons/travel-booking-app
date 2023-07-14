@@ -39,6 +39,7 @@ import Logo from "../components/Logo";
 import TimePickerContainer from "../components/TimePickerContainer";
 import { Separator } from "../components/ui/separator";
 import { AuthContext } from "../context/AuthContext";
+import { Button } from "@/components/ui/button";
 
 type Trip = {
   name: string;
@@ -701,9 +702,9 @@ const SingleTrip = () => {
                     ) : (
                       <div className="flex flex-col gap-2 md:flex-row md:items-center ">
                         <Dialog>
-                          <div className="lg:flex lg:items-center lg:justify-end">
-                            <DialogTrigger className="px-3.5 relative py-1 pl-[35px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500">
-                              <UserPlus className="absolute cursor-pointer left-3 top-[6px] h-5 w-5" />
+                          <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100">
+                            <DialogTrigger className="px-3.5 w-auto h-8 pl-[35px] z-20 rounded-lg bg-black/80 text-slate-100 hover:text-white dark:text-slate-100 dark:hover:text-white">
+                              <UserPlus className="absolute cursor-pointer left-3 top-[5px] h-5 w-5" />
                               Agregar pasajero anónimo
                             </DialogTrigger>
                           </div>
@@ -819,10 +820,7 @@ const SingleTrip = () => {
                                                       input.placeholder
                                                     }
                                                     className="pl-[32px]"
-                                                    {...register2(
-                                                      fieldName,
-                                                      input.validation
-                                                    )}
+                                                    {...register2(fieldName)}
                                                   />
                                                   {errors[
                                                     input.id as keyof typeof errors
@@ -902,15 +900,24 @@ const SingleTrip = () => {
                         </Dialog>
                         <Separator
                           orientation="vertical"
-                          className="h-4 bg-border-color hidden lg:flex dark:bg-border-color-dark"
+                          className="h-4 shrink-0 bg-border hidden lg:flex"
                         />
-                        <Link
-                          to={`/passengers/newPassenger/${id}`}
-                          className="px-3.5 relative py-1 pl-[35px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-                        >
-                          <UserPlus className="absolute cursor-pointer left-3 top-[6px] h-5 w-5" />
-                          Agregar pasajero
-                        </Link>
+                        <div className="flex items-center self-center">
+                          <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100">
+                            <Button
+                              className="h-8 px-3.5 pl-[35px] relative bg-teal-800/60 text-white shadow-input hover:text-white
+                dark:text-slate-100 dark:bg-teal-700/60 dark:hover:text-white dark:shadow-none"
+                            >
+                              <Link
+                                to={`/passengers/newPassenger/${id}`}
+                                className=""
+                              >
+                                <UserPlus className="absolute cursor-pointer left-3 top-[5px] h-5 w-5" />
+                                Agregar pasajero
+                              </Link>
+                            </Button>
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
