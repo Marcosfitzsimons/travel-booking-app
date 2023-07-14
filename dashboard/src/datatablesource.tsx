@@ -1,4 +1,4 @@
-import { User } from "lucide-react";
+import { Check, User, X } from "lucide-react";
 import moment from "moment";
 import { Avatar, AvatarFallback, AvatarImage } from "./components/ui/avatar";
 
@@ -150,6 +150,28 @@ export const specialTripColumns = [
 ];
 
 export const passengerColumns = [
+  {
+    field: "isPaid",
+    headerName: "Estado pago",
+    width: 120,
+    renderCell: (params: any) => {
+      return (
+        <div className="">
+          {params.row.isPaid ? (
+            <span className="flex items-center gap-[3px]">
+              PAGO{" "}
+              <Check className="w-4 h-4 relative bottom-[1px] text-green-600 lg:w-5 lg:h-5" />
+            </span>
+          ) : (
+            <span className="flex items-center gap-[3px]">
+              NO PAGO{" "}
+              <X className="w-4 h-4 relative bottom-[1px] text-red-600 lg:w-5 lg:h-5" />
+            </span>
+          )}
+        </div>
+      );
+    },
+  },
   {
     field: "user",
     headerName: "Nombre completo",
