@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from "react";
+import { ReactElement, useContext } from "react";
 import { useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
@@ -68,7 +68,6 @@ function App() {
               }
             />
             <Route path="/nosotros" element={<AboutUs />} />
-
             <Route
               path="/mi-perfil"
               element={

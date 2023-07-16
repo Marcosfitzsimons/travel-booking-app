@@ -52,7 +52,6 @@ const sectionVariants = {
 
 const Trips = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
-  const [showCount, setShowCount] = useState(false);
 
   const { data, loading, error, reFetch } = useFetch(
     "https://fabebus-api-example.onrender.com/api/trips"
