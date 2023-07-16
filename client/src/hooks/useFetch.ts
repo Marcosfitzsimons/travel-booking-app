@@ -29,7 +29,11 @@ const useFetch = (url: string) => {
 const reFetch = async () => {
     setLoading(true)
     try {
-        const res = await axios.get(url)
+        const token = localStorage.getItem('token');
+        const headers = {
+        Authorization: `Bearer ${token}`
+        };
+        const res = await axios.get(url, { headers })
         setData(res.data)
     } catch(err) {
         setError(err)
