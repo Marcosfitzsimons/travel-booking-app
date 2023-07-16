@@ -20,6 +20,7 @@ import NotFound from "./pages/NotFound";
 import { AuthContext } from "./context/AuthContext";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailure from "./pages/PaymentFailure";
+import PhoneVerify from "./pages/PhoneVerify";
 
 type Props = {
   children: ReactElement;
@@ -47,6 +48,7 @@ function App() {
             <Route path="*" element={<NotFound />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/phone/verify" element={<PhoneVerify />} />
             <Route path="/" element={<Home />} />
             <Route path="/viajes" element={<Trips />} />
             <Route
