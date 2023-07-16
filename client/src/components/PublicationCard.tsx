@@ -67,6 +67,16 @@ const PublicationCard = ({
         </div>
 
         <DialogContent className="pt-12 gap-6 sm:max-w-[425px]">
+          <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
+            <span className="w-8 h-[4px] bg-red-700 rounded-full " />
+            <span className="w-4 h-[4px] bg-red-700 rounded-full " />
+            <span className="w-2 h-[4px] bg-red-700 rounded-full " />
+          </div>
+          <div className="absolute bottom-[0.75rem] right-2.5 sm:left-4 flex flex-col rotate-180 gap-[3px] transition-transform ">
+            <span className="w-8 h-[4px] bg-red-700 rounded-full " />
+            <span className="w-4 h-[4px] bg-red-700 rounded-full " />
+            <span className="w-2 h-[4px] bg-red-700 rounded-full " />
+          </div>
           <DialogHeader className="relative">
             <p className="absolute right-0 top-0 text-sm lg:right-4">
               {datePart}
@@ -74,7 +84,7 @@ const PublicationCard = ({
                 {timePart}
               </span>
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 py-2">
               <Avatar className="w-8 h-8">
                 <AvatarImage
                   src={logo}
@@ -83,12 +93,7 @@ const PublicationCard = ({
                 />
                 <AvatarFallback>Fabebus</AvatarFallback>
               </Avatar>
-              <p className="text-black font-medium dark:text-white">
-                Fabebus{" "}
-                <span className="text-[#737373] font-extralight dark:text-slate-500 text-sm">
-                  @fabebus
-                </span>
-              </p>
+              <p className="text-black font-medium dark:text-white">Fabebus</p>
             </div>
 
             <DialogTitle>{title}</DialogTitle>
