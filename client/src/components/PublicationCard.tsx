@@ -130,12 +130,7 @@ const PublicationCard = ({
           />
           <AvatarFallback>Fabebus</AvatarFallback>
         </Avatar>
-        <p className="text-black font-medium dark:text-white">
-          Fabebus{" "}
-          <span className="text-[#737373] font-extralight dark:text-slate-500 text-sm">
-            @fabebus
-          </span>
-        </p>
+        <p className="text-black font-medium dark:text-white">Fabebus</p>
       </div>
       <div className="flex flex-col">
         <h3 className="font-medium text-lg dark:text-white">{title}</h3>
