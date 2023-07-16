@@ -200,7 +200,7 @@ const MyTripCard = ({
           </div>
         </div>
       </div>
-      <Separator className="absolute -bottom-3 w-4 self-center" />
+      <Separator className="absolute -bottom-5 w-4 self-center" />
     </article>
   );
 };

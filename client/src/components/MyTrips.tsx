@@ -239,7 +239,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="w-full flex flex-col items-center gap-6 md:gap-5 md:grid md:justify-items-center md:grid-cols-2"
+            className="w-full flex flex-col items-center gap-10 md:gap-5 md:grid md:justify-items-center md:grid-cols-2"
           >
             {userTrips && userTrips.length > 0 ? (
               <>
