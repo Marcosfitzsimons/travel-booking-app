@@ -1,32 +1,48 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
+
 import PublicationCard from "../components/PublicationCard";
 import { ChevronsRight, Newspaper } from "lucide-react";
+import useFetch from "@/hooks/useFetch";
+import Loading from "@/components/Loading";
+
+const sectionVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeIn",
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.2,
+      ease: "backInOut",
+    },
+  },
+};
+
+type Publication = {
+  _id: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+  image?: string;
+  createdAt: string;
+};
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const sectionVariants = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.4,
-        ease: "easeIn",
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: 0.2,
-        ease: "backInOut",
-      },
-    },
-  };
+  const { data, loading, error } = useFetch(
+    "https://fabebus-api-example.onrender.com/api/publications"
+  );
 
   return (
     <div className="section lg:pt-28">
@@ -72,11 +88,24 @@ const Home = () => {
             <Newspaper className="w-6 h-6 text-accent " />
             Anuncios destacados
           </h2>
-          <div className="flex flex-col gap-6">
-            <PublicationCard />
-            <PublicationCard />
-            <PublicationCard />
-          </div>
+
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className="flex flex-col gap-6">
+              {data.map((publication: Publication) => (
+                <motion.div
+                  variants={sectionVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  exit="exit"
+                  key={publication._id}
+                >
+                  <PublicationCard {...publication} />
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </motion.div>
     </div>
