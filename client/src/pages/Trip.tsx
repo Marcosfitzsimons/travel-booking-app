@@ -555,8 +555,18 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                           </Button>
                         </DialogTrigger>
                       </div>
-                      <DialogContent>
-                        <AlertDialogHeader>
+                      <DialogContent className="">
+                        <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
+                          <span className="w-8 h-[4px] bg-red-700 rounded-full " />
+                          <span className="w-4 h-[4px] bg-red-700 rounded-full " />
+                          <span className="w-2 h-[4px] bg-red-700 rounded-full " />
+                        </div>
+                        <div className="absolute bottom-[0.75rem] right-2.5 sm:left-4 flex flex-col rotate-180 gap-[3px] transition-transform ">
+                          <span className="w-8 h-[4px] bg-red-700 rounded-full " />
+                          <span className="w-4 h-[4px] bg-red-700 rounded-full " />
+                          <span className="w-2 h-[4px] bg-red-700 rounded-full " />
+                        </div>
+                        <AlertDialogHeader className="mt-7">
                           <DialogTitle className="text-center lg:text-2xl">
                             Editar domicilios
                           </DialogTitle>
@@ -566,7 +576,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                         </AlertDialogHeader>
                         <form
                           onSubmit={handleSubmit(handleOnSubmit)}
-                          className="w-full flex flex-col items-center gap-3"
+                          className="w-full flex flex-col items-center gap-3 mb-7"
                         >
                           <div className="w-full flex flex-col items-center gap-2 lg:max-w-2xl">
                             <div className="w-full max-w-xs flex flex-col items-center lg:gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
@@ -741,16 +751,26 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                         </Button>
                       </DialogTrigger>
                     </div>
-                    <DialogContent>
-                      <AlertDialogHeader>
+                    <DialogContent className="">
+                      <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
+                        <span className="w-8 h-[4px] bg-red-700 rounded-full " />
+                        <span className="w-4 h-[4px] bg-red-700 rounded-full " />
+                        <span className="w-2 h-[4px] bg-red-700 rounded-full " />
+                      </div>
+                      <div className="absolute bottom-[0.75rem] right-2.5 sm:left-4 flex flex-col rotate-180 gap-[3px] transition-transform ">
+                        <span className="w-8 h-[4px] bg-red-700 rounded-full " />
+                        <span className="w-4 h-[4px] bg-red-700 rounded-full " />
+                        <span className="w-2 h-[4px] bg-red-700 rounded-full " />
+                      </div>
+                      <AlertDialogHeader className="mt-6">
                         <DialogTitle className="text-center lg:text-2xl">
                           Método de pago
                         </DialogTitle>
                         <DialogDescription className="text-center lg:text-lg">
-                          Elegí como queres pagar tu viaje
+                          Elegí cómo querés pagar tu viaje
                         </DialogDescription>
                       </AlertDialogHeader>
-                      <div className="w-full flex flex-col items-center gap-2 lg:max-w-2xl">
+                      <div className="w-full flex flex-col items-center gap-2 lg:max-w-2xl mb-8">
                         <div className="w-full max-w-xs">
                           <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100">
                             <Button

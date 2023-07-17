@@ -57,11 +57,20 @@ const Trips = () => {
     "https://fabebus-api-example.onrender.com/api/trips"
   );
 
+  const availableTrips = data.filter((trip: TripProps) => {
+    const combinedDateTime = `${trip.date.split("T")[0]}T${trip.departureTime}`;
+    const targetDateTime = new Date(combinedDateTime); // Convert the date string to a Date object
+
+    // Calculate the time difference in milliseconds between the target time and the current time
+    const timeDifference = targetDateTime.getTime() - new Date().getTime();
+    return timeDifference > 0;
+  });
+
   let filteredTrips;
   let dateSelected: string;
   if (startDate) {
     dateSelected = moment(startDate).locale("es").format("ddd DD/MM");
-    filteredTrips = data.filter((trip: TripProps) => {
+    filteredTrips = availableTrips.filter((trip: TripProps) => {
       moment.locale("es", {
         weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
       });
@@ -116,7 +125,7 @@ const Trips = () => {
           animate="visible"
           exit="exit"
         >
-          <div className="mt-8 flex flex-col items-center gap-8 md:grid md:justify-items-center md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-8 flex flex-col items-center gap-10 md:grid md:justify-items-center md:grid-cols-2 xl:grid-cols-3">
             {filteredTrips ? (
               <>
                 <AnimatePresence mode="wait">
@@ -150,8 +159,8 @@ const Trips = () => {
             ) : (
               <>
                 <AnimatePresence mode="wait">
-                  {data.length !== 0 ? (
-                    data.map((trip: TripProps) => (
+                  {availableTrips.length !== 0 ? (
+                    availableTrips.map((trip: TripProps) => (
                       <motion.div
                         variants={sectionVariants}
                         initial="hidden"
