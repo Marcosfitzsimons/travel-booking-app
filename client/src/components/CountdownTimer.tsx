@@ -18,15 +18,26 @@ const CountdownTimer = ({ date, departureTime }: CountdownTimerProps) => {
       const timeDifference = targetDateTime.getTime() - new Date().getTime();
 
       if (timeDifference > 0) {
-        // Convert the time difference to hours, minutes, and seconds
-        const hours = Math.floor(timeDifference / 3600000);
-        const minutes = Math.floor((timeDifference % 3600000) / 60000);
-        const seconds = Math.floor((timeDifference % 60000) / 1000);
+        // Calculate days, hours, minutes, and seconds
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+          (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+        );
 
-        // Format the remaining time as HH:MM:SS
-        const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
-          .toString()
-          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        let formattedTime = "";
+
+        if (days > 0) {
+          formattedTime += `${days}d `;
+        }
+
+        if (hours > 0 || days > 0) {
+          formattedTime += `${hours}hr `;
+        }
+
+        formattedTime += `${minutes}min`;
 
         setRemainingTime(formattedTime);
       } else {

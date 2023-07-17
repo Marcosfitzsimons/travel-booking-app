@@ -48,6 +48,7 @@ const TripCard = ({
   passengers,
 }: TripProps) => {
   const [showCount, setShowCount] = useState(true);
+
   const isMaxCapacity = maxCapacity === passengers.length;
   const todayDate = moment().locale("es").format("ddd DD/MM");
 
@@ -186,7 +187,7 @@ const TripCard = ({
           </span>
         </div>
       )}
-      <Separator className="bg-border w-4 absolute -bottom-4 self-center" />
+      <Separator className="bg-border w-4 absolute -bottom-5 self-center" />
     </article>
   );
 };
