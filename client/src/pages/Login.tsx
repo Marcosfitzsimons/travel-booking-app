@@ -101,7 +101,7 @@ const Login = () => {
             onSubmit={handleSubmit(handleOnSubmit)}
             className="relative w-full mt-2 p-3 py-6 flex flex-col gap-3 lg:my-4 lg:max-w-[350px]"
           >
-            <div className="grid w-full max-w-xs items-center self-center gap-2">
+            <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
               <div className="relative flex items-center">
                 <User className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[1px] " />
@@ -132,7 +132,7 @@ const Login = () => {
                 <p className="text-red-600">{errors.emailOrUsername.message}</p>
               )}
             </div>
-            <div className="grid w-full max-w-xs items-center self-center gap-2">
+            <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="password">Contraseña</Label>
               <div className="relative flex items-center">
                 <Lock className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
@@ -163,7 +163,7 @@ const Login = () => {
             </div>
             {err && <p className="text-red-600 self-start">{err}</p>}
 
-            <div className="w-full self-center max-w-xs lg:max-w-[9rem]">
+            <div className="w-full self-center max-w-sm lg:max-w-[9rem]">
               <DefaultButton loading={loading}>Entrar</DefaultButton>
             </div>
             <p className="w-full text-center lg:text-start lg:my-4">

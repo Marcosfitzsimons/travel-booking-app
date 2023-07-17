@@ -185,15 +185,20 @@ const MyTripCard = ({
                 </AlertDialogHeader>
                 <AlertDialogFooter className="flex flex-col-reverse gap-1 md:flex-row md:justify-end">
                   <AlertDialogCancel className="md:w-auto" asChild>
-                    <Button className="">No, volver a mis viajes</Button>
+                    <Button>No, volver a mis viajes</Button>
                   </AlertDialogCancel>
-                  <AlertDialogAction
-                    id={id}
-                    onClick={handleDelete}
-                    className="md:w-auto"
-                  >
-                    Si, cancelar mi lugar
-                  </AlertDialogAction>
+                  <div className="flex w-full items-center z-20 after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white md:w-auto">
+                    <AlertDialogAction
+                      id={id}
+                      onClick={handleDelete}
+                      className=""
+                      asChild
+                    >
+                      <Button className="h-10 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white md:w-auto">
+                        Si, cancelar mi lugar
+                      </Button>
+                    </AlertDialogAction>
+                  </div>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>

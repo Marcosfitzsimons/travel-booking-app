@@ -88,7 +88,7 @@ const TripCard = ({
         maxCapacity === passengers.length
           ? "dark:border-zinc-800"
           : "dark:border"
-      } w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-4 max-w-[400px] bg-card border dark:shadow-none`}
+      } w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none`}
     >
       <div
         className={`absolute -z-10 ${

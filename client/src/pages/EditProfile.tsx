@@ -360,7 +360,7 @@ const EditProfile = () => {
                       </h5>
                     </div>
 
-                    <div className="w-full max-w-xs mx-auto flex flex-col items-center gap-3 lg:max-w-5xl">
+                    <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-3 lg:max-w-5xl">
                       <div className="flex w-full flex-col items-center gap-3 lg:flex-row lg:gap-1 lg:mt-5">
                         <div className="grid w-full items-center gap-2 mt-4 lg:mt-0">
                           <Label htmlFor="username">Nombre de usuario</Label>
@@ -506,7 +506,7 @@ const EditProfile = () => {
                       </div>
 
                       <div className="flex w-full flex-col items-center gap-3">
-                        <div className="grid w-full items-center gap-2">
+                        <div className="grid w-full items-center gap-2 md:max-w-xs">
                           <Label htmlFor="dni">DNI</Label>
                           <div className="relative flex items-center">
                             <Fingerprint className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
@@ -550,7 +550,7 @@ const EditProfile = () => {
                       </h5>
                     </div>
 
-                    <div className="w-full max-w-xs flex flex-col items-center gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
+                    <div className="w-full max-w-sm flex flex-col items-center gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
                       <div className="w-full flex flex-col gap-2">
                         <h6 className="font-serif text-accent ">
                           Carmen de Areco
@@ -615,7 +615,7 @@ const EditProfile = () => {
 
                   {err && <p className="text-red-600 self-start">{err}</p>}
 
-                  <div className="w-full max-w-xs lg:w-[10rem]">
+                  <div className="w-full max-w-sm lg:w-[10rem]">
                     <DefaultButton>Guardar cambios</DefaultButton>
                   </div>
                 </div>
