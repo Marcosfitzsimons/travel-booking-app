@@ -8,11 +8,11 @@ import TripCard from "../components/TripCard";
 import useFetch from "../hooks/useFetch";
 import SectionTitle from "../components/SectionTitle";
 import DatePickerContainer from "../components/DatePickerContainer";
-import Loading from "../components/Loading";
 import { Button } from "../components/ui/button";
 import { RotateCcw } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import CardSkeleton from "@/components/CardSkeleton";
 
 interface TripProps {
   _id: number;
@@ -117,7 +117,7 @@ const Trips = () => {
         </div>
       </div>
       {loading ? (
-        <Loading />
+        <CardSkeleton cards={6} />
       ) : (
         <motion.div
           variants={sectionVariants}
