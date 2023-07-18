@@ -235,15 +235,17 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
               <ClipboardList className="h-5 w-5 text-accent lg:w-6 lg:h-6" />
               Mis viajes:
             </h4>
-            <p className="">
-              Tenes{" "}
-              <span className="font-medium text-accent">
-                {userTrips && userTrips.length}
-              </span>{" "}
-              viaje
-              {userTrips.length > 1 && "s"} reservado
-              {userTrips.length > 1 && "s"}
-            </p>
+            {userTrips && userTrips.length > 0 && (
+              <p className="flex items-center gap-[3px]">
+                Tenes
+                <span className="font-medium text-accent">
+                  {userTrips && userTrips.length}
+                </span>
+                viaje
+                {userTrips.length > 1 && "s"} reservado
+                {userTrips.length > 1 && "s"}
+              </p>
+            )}
           </div>
           <motion.div
             variants={tripVariants}

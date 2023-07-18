@@ -263,10 +263,9 @@ const Register = () => {
             onSubmit={handleSubmit(handleOnSubmit)}
             className="relative w-full mt-2 py-6 flex flex-col gap-3 items-center lg:w-[650px]"
           >
-            <div className="w-full max-w-xs mx-auto flex flex-col items-center gap-3 lg:max-w-5xl">
+            <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-1 lg:max-w-5xl">
               <div className="mt-2 w-full flex flex-col items-center lg:mt-0">
-                <Separator className="w-8 my-2 bg-border lg:hidden " />
-                <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-start lg:text-xl">
+                <h5 className="text-center w-full text-lg font-medium dark:text-white lg:mb-2 lg:text-start lg:text-xl">
                   Datos personales
                 </h5>
               </div>
@@ -389,8 +388,8 @@ const Register = () => {
                       })}
                     />
                   </div>
-                  {errors.phone && (
-                    <p className="text-red-600">{errors.phone.message}</p>
+                  {errors.password && (
+                    <p className="text-red-600">{errors.password.message}</p>
                   )}
                 </div>
               </div>
@@ -430,7 +429,7 @@ const Register = () => {
                   )}
                 </div>
                 <div className="grid w-full items-center gap-2">
-                  <Label htmlFor="tel">Celular</Label>
+                  <Label htmlFor="phone">Celular</Label>
                   <div className="relative flex items-center">
                     <Phone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                     <Input
@@ -467,13 +466,12 @@ const Register = () => {
 
             <div className="w-full flex flex-col items-center gap-3">
               <div className="w-full flex flex-col items-center">
-                <Separator className="w-8 my-2 bg-border lg:hidden " />
-                <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-start lg:text-xl">
+                <h5 className="text-center w-full text-lg font-medium dark:text-white lg:mb-2 lg:text-start lg:text-xl">
                   Domicilios
                 </h5>
               </div>
 
-              <div className="w-full max-w-xs flex flex-col items-center gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
+              <div className="w-full max-w-sm flex flex-col items-center gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
                 <div className="w-full flex flex-col gap-2">
                   <h6 className="font-serif text-accent ">Carmen de Areco</h6>
                   {userAddressInputs.map((input: UserInput) => {
@@ -504,7 +502,6 @@ const Register = () => {
                     );
                   })}
                 </div>
-                <Separator className="w-8 my-2 bg-border md:hidden " />
 
                 <div className="w-full flex flex-col gap-2">
                   <h6 className="font-serif text-accent ">Capital Federal</h6>
@@ -530,7 +527,7 @@ const Register = () => {
             {err && <p className="text-red-600 self-start">{err}</p>}
 
             <div className="w-full flex flex-col items-center gap-3">
-              <div className="w-full max-w-xs my-2 lg:max-w-[9rem]">
+              <div className="w-full max-w-sm my-2 lg:max-w-[9rem]">
                 <DefaultButton loading={loading}>Crear cuenta</DefaultButton>
               </div>
               <p className="w-full text-center lg:text-start lg:my-4">
