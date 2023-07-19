@@ -37,6 +37,7 @@ import Logo from "../components/Logo";
 import TimePickerContainer from "../components/TimePickerContainer";
 import { Separator } from "../components/ui/separator";
 import { Button } from "@/components/ui/button";
+import ActionButton from "@/components/ActionButton";
 
 type SpecialTrip = {
   name: string;
@@ -519,9 +520,17 @@ const SingleSpecialTrip = () => {
                     ) : (
                       <Dialog>
                         <div className="lg:flex lg:items-center lg:justify-end">
-                          <DialogTrigger className="mt-2 flex items-center px-3.5 py-1 pl-[37px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500">
-                            <UserPlus className="absolute cursor-pointer left-[15px] h-5 w-5" />
-                            Agregar pasajero
+                          <DialogTrigger
+                            asChild
+                            className="mt-2 flex items-center px-3.5 py-1 pl-[37px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
+                          >
+                            <ActionButton
+                              text="Agregar pasajero"
+                              linkTo={`/passengers/newPassenger/${id}`}
+                              icon={
+                                <UserPlus className="absolute cursor-pointer left-3 top-[6px] h-5 w-5" />
+                              }
+                            />
                           </DialogTrigger>
                         </div>
                         <DialogContent>

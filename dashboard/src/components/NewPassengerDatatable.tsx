@@ -27,6 +27,7 @@ import { toast } from "../hooks/ui/use-toast";
 import SearchUserInput from "./SearchUserInput";
 import { ContactIcon } from "lucide-react";
 import { Separator } from "./ui/separator";
+import { Button } from "./ui/button";
 
 type UserDataTableProps = {
   columns: any;
@@ -91,10 +92,12 @@ const NewPassengerDatatable = ({ columns, tripId }: UserDataTableProps) => {
             <Dialog>
               <DialogTrigger asChild>
                 <div className="relative flex items-center">
-                  <button className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500">
-                    <Plus className="absolute left-3 top-[4px] h-4 w-4" />
-                    Agregar
-                  </button>
+                  <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100">
+                    <Button className="h-[28px] px-[13px] pl-[30px] relative bg-teal-800/60 text-white shadow-input hover:text-white dark:text-slate-100 dark:bg-teal-700/60 dark:hover:text-white dark:shadow-none">
+                      <Plus className="absolute left-[12px] top-[6px] h-4 w-4" />
+                      Agregar
+                    </Button>
+                  </div>
                 </div>
               </DialogTrigger>
               <DialogContent>

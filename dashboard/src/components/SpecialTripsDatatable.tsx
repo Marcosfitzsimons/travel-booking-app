@@ -1,6 +1,15 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { Eye, Trash2, Map, RotateCcw, ListPlus } from "lucide-react";
+import {
+  Eye,
+  Trash2,
+  Map,
+  RotateCcw,
+  ListPlus,
+  Plus,
+  UserPlus,
+  PlusIcon,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import moment from "moment";
 import "moment-timezone";
@@ -20,6 +29,9 @@ import {
 import { toast } from "../hooks/ui/use-toast";
 import DatePickerContainer from "./DatePickerContainer";
 import { Button } from "./ui/button";
+import ActionButton from "./ActionButton";
+import { UserPlusIcon } from "lucide-react";
+import ActionButtonDatatable from "./ActionButtonDatatable";
 
 type Trip = {
   _id: string;
@@ -112,15 +124,14 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
       renderCell: (params: any) => {
         return (
           <div className="flex items-center gap-2">
-            <div className="relative flex items-center">
-              <Link
-                to={`/special-trips/${params.row._id}`}
-                className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-              >
-                <Eye className="absolute left-3 top-[4px] h-4 w-4" />
-                Ver
-              </Link>
-            </div>
+            <ActionButtonDatatable
+              linkTo={`/special-trips/${params.row._id}`}
+              text="Ver"
+              icon={
+                <Eye className="absolute left-[13px] top-[5.5px] h-4 w-4" />
+              }
+            />
+
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
@@ -202,16 +213,13 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
               {loading ? "" : list.length}
             </p>
           </div>
-          <div className="relative flex items-center md:self-end">
-            <Link
-              to="/special-trips/new"
-              className="px-3.5 py-1 pl-[32px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-            >
-              <ListPlus className="absolute left-3 top-[7px] h-5 w-5" />
-
-              {linkText}
-            </Link>
-          </div>
+          <ActionButton
+            text="Crear viaje particular"
+            icon={
+              <Plus className="absolute cursor-pointer left-[13px] top-[7.3px] h-[18px] w-[18px]" />
+            }
+            linkTo={"/special-trips/new"}
+          />
         </div>
       </div>
       {filteredList.length > 0 ? (

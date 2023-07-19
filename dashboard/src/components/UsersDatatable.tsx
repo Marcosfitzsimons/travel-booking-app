@@ -1,6 +1,6 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { Eye, Trash2, User, UserPlus, Users } from "lucide-react";
+import { Eye, Trash2, User, UserPlus, UserPlusIcon, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import axios from "axios";
@@ -17,6 +17,8 @@ import {
 } from "./ui/alert-dialog";
 import SearchUserInput from "./SearchUserInput";
 import { toast } from "../hooks/ui/use-toast";
+import ActionButton from "./ActionButton";
+import ActionButtonDatatable from "./ActionButtonDatatable";
 
 type addressCda = {
   street: string;
@@ -96,15 +98,13 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
       renderCell: (params: any) => {
         return (
           <div className="flex items-center gap-2">
-            <div className="relative flex items-center">
-              <Link
-                to={`/users/${params.row._id}`}
-                className="px-[12px] pl-[29px] py-[2px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white transition-colors hover:border-black font-semibold dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-              >
-                <Eye className="absolute left-3 top-[4px] h-4 w-4" />
-                Ver
-              </Link>
-            </div>
+            <ActionButtonDatatable
+              linkTo={`/users/${params.row._id}`}
+              text="Ver"
+              icon={
+                <Eye className="absolute left-[13px] top-[5.5px] h-4 w-4" />
+              }
+            />
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <div className="relative flex items-center">
@@ -166,15 +166,13 @@ const UsersDatatable = ({ columns, linkText }: DataTableProps) => {
             </p>
             <p className="font-light">{list.length > 0 && list.length}</p>
           </div>
-          <div className="relative flex items-center self-end">
-            <Link
-              to="/users/new"
-              className="px-3.5 py-1 pl-[32px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-            >
-              <UserPlus className="absolute cursor-pointer left-3 top-[6px] h-5 w-5" />
-              {linkText}
-            </Link>
-          </div>
+          <ActionButton
+            text="Crear usuario"
+            icon={
+              <UserPlusIcon className="absolute left-[13px] top-[6px] h-5 w-5" />
+            }
+            linkTo={"/users/new"}
+          />
         </div>
       </div>
       {filteredList.length > 0 ? (

@@ -5,6 +5,7 @@ import useFetch from "../hooks/useFetch";
 import PublicationCard from "../components/PublicationCard";
 import SectionTitle from "../components/SectionTitle";
 import Loading from "../components/Loading";
+import ActionButton from "@/components/ActionButton";
 
 type Publication = {
   _id: string;
@@ -48,15 +49,13 @@ const PublicationsDatatable = () => {
             </p>
           </div>
           <div className="w-full md:w-auto md:shrink-0">
-            <div className="relative flex items-center self-end">
-              <Link
-                to="/publications/new"
-                className="px-3.5 py-1 pl-[32px] z-20 rounded-md border border-teal-800 bg-teal-800/60 text-white font-semibold transition-colors hover:border-black dark:border-teal-600 dark:bg-teal-700/60 dark:hover:text-inherit dark:hover:border-teal-500"
-              >
-                <Plus className="absolute cursor-pointer left-3 top-[7px] h-5 w-5" />
-                Agregar publicación
-              </Link>
-            </div>
+            <ActionButton
+              text="Agregar publicación"
+              linkTo="/publications/new"
+              icon={
+                <Plus className="absolute cursor-pointer left-[13px] top-[7.3px] h-[18px] w-[18px]" />
+              }
+            />
           </div>
         </div>
         <div className="flex flex-col gap-2">

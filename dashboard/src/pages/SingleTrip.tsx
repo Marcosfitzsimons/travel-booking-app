@@ -40,6 +40,7 @@ import TimePickerContainer from "../components/TimePickerContainer";
 import { Separator } from "../components/ui/separator";
 import { AuthContext } from "../context/AuthContext";
 import { Button } from "@/components/ui/button";
+import ActionButton from "@/components/ActionButton";
 
 type Trip = {
   name: string;
@@ -902,22 +903,14 @@ const SingleTrip = () => {
                           orientation="vertical"
                           className="h-4 shrink-0 bg-border hidden lg:flex"
                         />
-                        <div className="flex items-center self-center">
-                          <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100">
-                            <Button
-                              className="h-8 px-3.5 pl-[35px] relative bg-teal-800/60 text-white shadow-input hover:text-white
-                dark:text-slate-100 dark:bg-teal-700/60 dark:hover:text-white dark:shadow-none"
-                            >
-                              <Link
-                                to={`/passengers/newPassenger/${id}`}
-                                className=""
-                              >
-                                <UserPlus className="absolute cursor-pointer left-3 top-[5px] h-5 w-5" />
-                                Agregar pasajero
-                              </Link>
-                            </Button>
-                          </div>
-                        </div>
+
+                        <ActionButton
+                          text="Agregar pasajero"
+                          linkTo={`/passengers/newPassenger/${id}`}
+                          icon={
+                            <UserPlus className="absolute cursor-pointer left-3 top-[5px] h-5 w-5" />
+                          }
+                        />
                       </div>
                     )}
                   </div>
