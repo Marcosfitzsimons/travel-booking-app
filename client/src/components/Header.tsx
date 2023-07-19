@@ -25,6 +25,7 @@ import Logo from "./Logo";
 type HeaderProps = {
   setIsUserInfo: (value: boolean) => void;
 };
+
 // Add arrow to avatar dropdown menu :)
 const Header = ({ setIsUserInfo }: HeaderProps) => {
   const { user, dispatch } = useContext(AuthContext);
@@ -45,7 +46,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
     <header className="fixed w-full z-50 bg-[#fafafa] dark:bg-[#0E1217] border-b">
       <div className="w-[min(95%,1200px)] mx-auto py-3 flex justify-between items-center">
         <div className="flex items-center flex-row-reverse gap-2">
-          {user ? (
+          {user && user?.status != "Pending" ? (
             <Link
               to="/viajes"
               onClick={() => setIsUserInfo(false)}
@@ -82,7 +83,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
           <Separator orientation="vertical" className="hidden h-4 lg:flex" />
           <ThemeToggle />
           <Separator orientation="vertical" className="h-4" />
-          {!user ? (
+          {!user || user?.status != "Active" ? (
             <div className="flex items-center gap-1">
               <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20  after:transition focus-within:after:shadow-slate-100 dark:after:shadow-highlight dark:after:shadow-white/20  dark:focus-within:after:shadow-slate-100">
                 <Button className="h-[28px] p-0 relative bg-black/90 text-slate-100 hover:text-white shadow-input dark:text-slate-100 dark:hover:text-white dark:bg-black dark:shadow-none">
