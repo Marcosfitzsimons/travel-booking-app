@@ -11,6 +11,7 @@ import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
 import { AuthContext } from "../context/AuthContext";
 import {
+  Check,
   CheckCircle,
   Crop,
   Fingerprint,
@@ -563,16 +564,28 @@ const Register = () => {
             </form>
           </div>
         ) : (
-          <div>
-            <h3>¡Registro exitoso!</h3>
-            <p>
-              Por favor, verifique su correo electrónico para activar su cuenta.
-            </p>
-            <div className="">
-              <p>Una vez que active su cuenta, podrá reservar su lugar. :)</p>
-              <p>
-                Estado de su cuenta: <span>Pendiente...</span>
+          <div className="relative flex flex-col items-center gap-2 mt-6">
+            <div className="absolute -top-4 flex items-center justify-center w-8 aspect-square rounded-full border-2 bg-[#4E8D7C] border-white">
+              <Check className="h-5 w-5 text-white" />
+            </div>
+            <div className="w-11/12 pt-6 mx-auto flex flex-col text-center items-center gap-1 p-3 rounded-md bg-[#4E8D7C] text-white">
+              <h3 className="font-medium text-lg">Registro exitoso!</h3>
+              <p className="text-[hsl(224,65%,97%)]">
+                Por favor, verifique su correo electrónico para activar su
+                cuenta.
               </p>
+            </div>
+
+            <div className="text-center flex flex-col items-center gap-3 w-11/12 mx-auto">
+              <p>Una vez que active su cuenta, podrá reservar su lugar</p>
+              <Separator className="w-4 self-center" />
+              <div className="flex flex-col items-center gap-1">
+                <p>Estado de su cuenta</p>
+                <p className="flex items-center gap-1 px-2 rounded-md bg-card border text-sm">
+                  <span className="w-[10px] aspect-square rounded-full bg-orange-600 animate-pulse" />
+                  Pendiente
+                </p>
+              </div>
             </div>
           </div>
         )}
