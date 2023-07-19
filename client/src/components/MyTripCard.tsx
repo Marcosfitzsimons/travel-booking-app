@@ -135,7 +135,7 @@ const MyTripCard = ({
           <div className="flex flex-col gap-1 mt-6 lg:mt-8">
             <div className="flex flex-col sm:gap-2">
               <h3 className="font-bold text-lg lg:text-xl">{name}</h3>
-              <h4 className="text-sm font-light">
+              <h4 className="text-sm font-light text-card-foreground">
                 Información acerca del viaje:
               </h4>
             </div>

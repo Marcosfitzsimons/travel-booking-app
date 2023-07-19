@@ -70,7 +70,7 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <p className="font-medium px-4 dark:text-slate-100">
+          <p className="font-medium px-4 text-card-foreground dark:text-slate-100">
             Una empresa familiar con más de 28 años de trayectoria.
           </p>
           <div className="">
@@ -78,7 +78,7 @@ const Home = () => {
               onClick={() => navigate("/viajes")}
               className="text-sm mt-1 h-10 pl-6 gap-[3px] border border-pink-1-700/50 shadow-md shadow-pink-1-900/30 bg-gradient-to-r from-[#9e4a4f] via-[#854147] to-[#9c595d] bg-[length:200%] bg-left transition text-pink-1-100 hover:shadow-lg hover:border-pink-1-300/80 hover:bg-right hover:text-white hover:shadow-pink-1-900/50 dark:hover:shadow-pink-1-900 dark:border-pink-1-300/60 dark:text-pink-1-100 dark:shadow-pink-1-900/60 dark:bg-[#9e4a4f] dark:hover:border-pink-1-300/80 dark:hover:shadow-lg dark:hover:text-white"
             >
-              Ver Viajes
+              Viajes disponibles
               <ChevronsRight className="w-5 h-5 relative top-[1px]" />
             </Button>
           </div>

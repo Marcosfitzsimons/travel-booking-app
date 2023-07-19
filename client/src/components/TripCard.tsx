@@ -124,7 +124,7 @@ const TripCard = ({
           <div className="flex flex-col gap-1 relative">
             <div className="flex flex-col mt-2 sm:gap-2">
               <h3 className="font-bold text-lg mb-2 lg:text-xl">{name}</h3>
-              <h4 className="text-sm font-light">
+              <h4 className="text-sm font-light text-card-foreground">
                 Información acerca del viaje:
               </h4>
             </div>

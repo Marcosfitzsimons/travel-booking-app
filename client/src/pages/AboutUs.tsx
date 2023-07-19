@@ -30,10 +30,10 @@ const AboutUs = () => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="flex flex-col items-center justify-center"
+        className="flex flex-col items-center justify-center my-4 gap-4"
       >
+        <p>Nothing to see here...</p>
         <BackButton toProfile={false} />
-        <img src={construction} alt="under construction" />
       </motion.div>
     </section>
   );

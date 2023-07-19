@@ -91,7 +91,7 @@ const PublicationCard = ({
 
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>
-              {subtitle && <h4>{subtitle}</h4>}
+              {subtitle && <h4 className="">{subtitle}</h4>}
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-4">
@@ -104,11 +104,9 @@ const PublicationCard = ({
                     <Download className="w-[14px] h-[14px] cursor-pointer" />
                   </Button>
                 </div>
-
-                <p className="flex items-center  "></p>
               </div>
             )}
-            <p className="text-slate-600 dark:text-slate-400">{description}</p>
+            <p className="text-card-foreground">{description}</p>
           </div>
           <DialogFooter></DialogFooter>
         </DialogContent>
@@ -127,7 +125,7 @@ const PublicationCard = ({
         </div>
         <div className="flex flex-col">
           <h3 className="font-medium text-lg dark:text-white">{title}</h3>
-          {subtitle && <h4>{subtitle}</h4>}
+          {subtitle && <h4 className="text-card-foreground">{subtitle}</h4>}
         </div>
 
         {image && (
@@ -135,7 +133,7 @@ const PublicationCard = ({
             <img src={image} className="" alt="imagen adjunta" />
           </div>
         )}
-        <p className="text-slate-600 dark:text-slate-400">{description}</p>
+        <p className="text-card-foreground">{description}</p>
         <p className="absolute right-2 top-1 text-sm lg:right-4">
           {datePart}
           <span className="text-[#737373] text-xs font-extralight dark:text-slate-500 ">

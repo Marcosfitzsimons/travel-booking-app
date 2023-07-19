@@ -1,4 +1,3 @@
-import { Coins } from "lucide-react";
 import AuthService from "../components/services/auth-service";
 import { Link, useParams } from "react-router-dom";
 
@@ -15,7 +14,7 @@ const Welcome = () => {
           <strong>Account confirmed!</strong>
         </h3>
       </div>
-      <Link to="/login">Viajes disponibles</Link>
+      <Link to="/login">Entra a tu cuenta</Link>
     </div>
   );
 };

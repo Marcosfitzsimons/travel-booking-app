@@ -258,18 +258,14 @@ const Register = () => {
         exit="exit"
         className="flex flex-col items-center lg:flex-row lg:justify-between"
       >
-        <Separator
-          orientation="vertical"
-          className="h-20 bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217] lg:hidden"
-        />
         {!isSuccess ? (
           <div className="">
             <div className="mt-4">
               <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl dark:text-white">
                 Crear cuenta nueva
               </h2>
-              <p className="text-center lg:text-start">
-                Una vez que tengas tu cuenta podrás reservar tu lugar.
+              <p className="text-center text-card-foreground lg:text-start">
+                Una vez que tengas tu cuenta podrás reservar tu lugar
               </p>
             </div>
 
@@ -591,11 +587,6 @@ const Register = () => {
             className="h-80 bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
           />
         </div>
-
-        <Separator
-          orientation="vertical"
-          className="h-20 bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217] lg:hidden"
-        />
       </motion.div>
     </section>
   );

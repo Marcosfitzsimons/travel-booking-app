@@ -495,7 +495,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                     <h3 className="font-bold text-lg lg:text-xl">
                       {data.name}
                     </h3>
-                    <h4 className="text-sm font-light">
+                    <h4 className="text-sm font-light text-card-foreground">
                       Información acerca del viaje:
                     </h4>
                   </div>
@@ -667,7 +667,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                     </Dialog>
                   </div>
                   <div className="flex flex-col gap-1 px-1 text-sm">
-                    <h6 className="font-serif dark:text-white font-semibold">
+                    <h6 className="font-serif font-semibold">
                       Carmen de Areco:
                     </h6>
                     <div className="flex items-center gap-[2px] ">
@@ -706,7 +706,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                       />
                       <label
                         htmlFor="confirmAddress"
-                        className="text-sm font-medium flex items-center gap-[2px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        className="text-sm font-medium  flex items-center gap-[2px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Confirmar domicilios{" "}
                         {isConfirm ? (

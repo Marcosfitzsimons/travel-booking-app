@@ -78,7 +78,7 @@ const Login = () => {
   };
 
   return (
-    <section className="">
+    <section className="section">
       <motion.div
         variants={sectionVariants}
         initial="hidden"
@@ -86,20 +86,16 @@ const Login = () => {
         exit="exit"
         className="flex flex-col items-center lg:flex-row lg:justify-between"
       >
-        <Separator
-          orientation="vertical"
-          className="h-28 bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217] lg:hidden"
-        />
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col my-6 mt-8">
           <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl lg:px-3 dark:text-white">
             Entra a tu cuenta
           </h2>
-          <p className="text-center lg:text-start lg:px-3">
-            Una vez dentro vas a poder reservar tu lugar.
+          <p className="text-center text-card-foreground lg:text-start lg:px-3">
+            Una vez dentro vas a poder reservar tu lugar
           </p>
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
-            className="relative w-full mt-2 p-3 py-6 flex flex-col gap-3 lg:my-4 lg:max-w-[350px]"
+            className="relative w-full mt-2 py-6 flex flex-col gap-3 lg:my-4 lg:max-w-[350px]"
           >
             <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
@@ -177,7 +173,7 @@ const Login = () => {
             </p>
           </form>
         </div>
-        <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8">
+        <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8 ">
           <Separator
             orientation="vertical"
             className="h-80 bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
@@ -188,11 +184,6 @@ const Login = () => {
             className="h-80 bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
           />
         </div>
-
-        <Separator
-          orientation="vertical"
-          className="h-28 bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217] lg:hidden"
-        />
       </motion.div>
     </section>
   );
