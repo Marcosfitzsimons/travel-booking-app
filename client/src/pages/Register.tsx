@@ -117,7 +117,6 @@ const Register = () => {
 
   const { toast } = useToast();
 
-  const navigate = useNavigate();
   const addressCapitalRef = useRef(null);
 
   const handleOnSubmit = async (data: User) => {
@@ -131,13 +130,13 @@ const Register = () => {
         );
         const token = res.data.token;
         localStorage.setItem("token", token);
-        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
         toast({
-          title: "Usuario se ha registrado correctamente",
+          title: "¡Registro exitoso!",
           description:
             "Por favor verifique su email para poder activar su cuenta.",
         });
         setIsSuccess(true);
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
       } catch (err: any) {
         dispatch({
           type: "LOGIN_FAILURE",
@@ -263,16 +262,17 @@ const Register = () => {
           orientation="vertical"
           className="h-20 bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217] lg:hidden"
         />
-        <div className="">
-          <div className="mt-4">
-            <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl dark:text-white">
-              Crear cuenta nueva
-            </h2>
-            <p className="text-center lg:text-start">
-              Una vez que tengas tu cuenta podrás reservar tu lugar.
-            </p>
-          </div>
-          {!isSuccess ? (
+        {!isSuccess ? (
+          <div className="">
+            <div className="mt-4">
+              <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl dark:text-white">
+                Crear cuenta nueva
+              </h2>
+              <p className="text-center lg:text-start">
+                Una vez que tengas tu cuenta podrás reservar tu lugar.
+              </p>
+            </div>
+
             <form
               onSubmit={handleSubmit(handleOnSubmit)}
               className="relative w-full mt-2 py-6 flex flex-col gap-3 items-center lg:w-[650px]"
@@ -565,10 +565,21 @@ const Register = () => {
                 </p>
               </div>
             </form>
-          ) : (
-            <p>User was registered successfully!</p>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div>
+            <h3>¡Registro exitoso!</h3>
+            <p>
+              Por favor, verifique su correo electrónico para activar su cuenta.
+            </p>
+            <div className="">
+              <p>Una vez que active su cuenta, podrá reservar su lugar. :)</p>
+              <p>
+                Estado de su cuenta: <span>Pendiente...</span>
+              </p>
+            </div>
+          </div>
+        )}
         <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8">
           <Separator
             orientation="vertical"

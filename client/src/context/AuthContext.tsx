@@ -18,6 +18,7 @@ type User = {
   addressCapital: string;
   dni: number;
   password: string;
+  status: "Pending" | "Active";
   myTrips: [];
 };
 interface AuthContextType {

@@ -35,7 +35,7 @@ function App() {
 
   const ProtectedRoute = ({ children }: Props) => {
     const { user } = useContext(AuthContext);
-    if (!user) {
+    if (!user || user.status != "Active") {
       return <Navigate to="/login" />;
     }
     return children;
