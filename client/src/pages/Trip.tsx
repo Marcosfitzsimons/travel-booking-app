@@ -137,7 +137,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | boolean>(false);
   const [dialogVisible, setDialogVisible] = useState(false);
-  const [showCount, setShowCount] = useState(true);
   const [isConfirm, setIsConfirm] = useState(false);
   const [isConfirmError, setIsConfirmError] = useState(false);
 
@@ -455,15 +454,9 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         {loading ? (
           <Loading />
         ) : (
-          <article
-            onMouseEnter={() => setShowCount(false)}
-            onMouseLeave={() => setShowCount(true)}
-            className="w-full flex justify-center items-center relative mx-auto rounded-md shadow-input border pb-4 max-w-[400px] bg-card dark:shadow-none"
-          >
+          <article className="w-full flex justify-center items-center relative mx-auto rounded-md group shadow-input border pb-4 max-w-[400px] bg-card dark:shadow-none">
             <div
-              className={`absolute -z-10 ${
-                !showCount ? "-top-[22px]" : "-top-[5px]"
-              } transition-all text-white right-2 pt-[2px] bg-orange-600 rounded-t-md px-2 h-10 lg:right-4 dark:bg-orange-700`}
+              className={`absolute -z-10 -top-[5px] transition-all text-white right-2 pt-[2px] bg-orange-600 rounded-t-md px-2 h-10 group-hover:-top-[22px] lg:right-4 dark:bg-orange-700`}
             >
               <CountdownTimer
                 date={data.date}

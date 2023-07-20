@@ -60,8 +60,6 @@ const MyTripCard = ({
   reminder,
   handleDelete,
 }: MyTripCardProps) => {
-  const [showCount, setShowCount] = useState(true);
-
   const todayDate = moment().locale("es").format("ddd DD/MM");
   moment.locale("es", {
     weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
@@ -82,15 +80,9 @@ const MyTripCard = ({
   return (
     <article
       key={id}
-      onMouseEnter={() => setShowCount(false)}
-      onMouseLeave={() => setShowCount(true)}
-      className="relative w-full flex justify-center items-center mx-auto rounded-md shadow-input pb-4 max-w-[400px] bg-card border dark:shadow-none"
+      className="relative w-full flex justify-center items-center mx-auto rounded-md shadow-input group pb-4 max-w-[400px] bg-card border dark:shadow-none"
     >
-      <div
-        className={`absolute -z-10 ${
-          !showCount ? "-top-[22px]" : "-top-[5px]"
-        } transition-all text-white right-2 pt-[2px] bg-orange-600 rounded-t-md px-2 h-10 lg:right-4 dark:bg-orange-700`}
-      >
+      <div className="absolute -z-10 transition-all text-white right-2 pt-[2px] bg-orange-600 rounded-t-md px-2 h-10 -top-[5px] group-hover:-top-[22px] lg:right-4 dark:bg-orange-700">
         <CountdownTimer date={date} departureTime={departureTime} />
       </div>
       <div className="w-full px-2 pt-9 sm:px-4">

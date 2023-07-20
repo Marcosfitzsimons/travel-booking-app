@@ -1,7 +1,7 @@
 import moment from "moment";
 import "moment/locale/es"; // without this line it didn't work
 moment.locale("es");
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import {
@@ -13,9 +13,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 
-import miniBus from "../assets/minibus1-sm.png";
 import DefaultButton from "./DefaultButton";
-
 import { Separator } from "./ui/separator";
 import CountdownTimer from "./CountdownTimer";
 
@@ -47,8 +45,6 @@ const TripCard = ({
   maxCapacity,
   passengers,
 }: TripProps) => {
-  const [showCount, setShowCount] = useState(true);
-
   const isMaxCapacity = maxCapacity === passengers.length;
   const todayDate = moment().locale("es").format("ddd DD/MM");
 
@@ -82,19 +78,13 @@ const TripCard = ({
 
   return (
     <article
-      onMouseEnter={() => setShowCount(false)}
-      onMouseLeave={() => setShowCount(true)}
       className={`${
         maxCapacity === passengers.length
           ? "dark:border-zinc-800"
           : "dark:border"
-      } w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none`}
+      } group w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none`}
     >
-      <div
-        className={`absolute -z-10 ${
-          !showCount ? "-top-[22px]" : "-top-[5px]"
-        } transition-all text-white right-2 pt-[2px] bg-orange-600 rounded-t-md px-2 h-10 lg:right-4 dark:bg-orange-700`}
-      >
+      <div className="absolute -z-10 transition-all text-white right-2 pt-[2px] bg-orange-600 rounded-t-md px-2 h-10 -top-[5px] group-hover:-top-[22px] lg:right-4 dark:bg-orange-700">
         <CountdownTimer date={date} departureTime={departureTime} />
       </div>
       <div
