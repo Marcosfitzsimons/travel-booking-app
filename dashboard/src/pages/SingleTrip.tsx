@@ -366,7 +366,7 @@ const SingleTrip = () => {
           Authorization: `Bearer ${token}`,
         };
         const res = await axios.get(
-          `https://fabebus-api-example.onrender.com/api/trips/${id}`,
+          `https://fabebus-api-example.onrender.com/api/trips/${user?._id}/${id}`,
           {
             headers,
           }
