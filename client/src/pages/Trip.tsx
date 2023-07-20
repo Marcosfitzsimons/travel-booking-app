@@ -325,7 +325,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://fabebus-api-example.onrender.com/api/trips/${tripId}`
+          `https://fabebus-api-example.onrender.com/api/trips/${user?._id}/${tripId}`
         );
         console.log(res.data);
         setData({ ...res.data });
