@@ -23,7 +23,7 @@ const Overview = () => {
             <MenuItem value="viajes">Viajes</MenuItem>
           </Select>
         </FormControl>
-        <OverviewChart view={view} />
+        {/* <OverviewChart view={view} /> */}
       </Box>
     </Box>
   );
