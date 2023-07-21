@@ -65,6 +65,8 @@ const TripsDatatable = ({ columns, linkText }: DataTableProps) => {
     Authorization: `Bearer ${token}`,
   };
 
+  console.log(data);
+
   const handleDelete = async (id: string) => {
     setIsLoading(true);
     try {

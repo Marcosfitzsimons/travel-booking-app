@@ -37,6 +37,7 @@ interface UserInfoProps {
 }
 
 const UserInfo = ({ userData }: UserInfoProps) => {
+  console.log(userData);
   return (
     <div className="w-full relative flex flex-col items-center gap-5">
       <Avatar className="w-32 h-32">
