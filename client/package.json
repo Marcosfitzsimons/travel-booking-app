@@ -37,7 +37,6 @@
     "react-datepicker": "^4.10.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.8",
-    "react-loading-skeleton": "^3.3.1",
     "react-rough-notation": "^1.0.3",
     "react-router-dom": "^6.3.0",
     "tailwind-merge": "^1.13.2",
