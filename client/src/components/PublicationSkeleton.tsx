@@ -6,7 +6,7 @@ type CardSkeletonProps = {
 
 const PublicationSkeleton = ({ cards }: CardSkeletonProps) => {
   return (
-    <div className="w-full flex flex-col items-center gap-10 pb-4 md:grid md:justify-items-center md:grid-cols-2 xl:grid-cols-3">
+    <div className="w-full flex flex-col items-center gap-10 pb-4">
       {Array(cards)
         .fill(0)
         .map((_, index) => (

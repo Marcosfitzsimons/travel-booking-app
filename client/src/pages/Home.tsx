@@ -90,9 +90,7 @@ const Home = () => {
           </h2>
 
           {loading ? (
-            <div className="flex flex-col gap-6">
-              <PublicationSkeleton cards={3} />
-            </div>
+            <PublicationSkeleton cards={3} />
           ) : (
             <div className="flex flex-col gap-6">
               {data.map((publication: Publication) => (
