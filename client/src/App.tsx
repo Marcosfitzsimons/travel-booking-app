@@ -2,8 +2,6 @@ import { ReactElement, useContext } from "react";
 import { useState } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import moment from "moment-timezone";
 import "moment/locale/es";
 moment.locale("es"); // Set the default locale to Spanish
