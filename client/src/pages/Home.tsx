@@ -5,7 +5,7 @@ import { Button } from "../components/ui/button";
 import PublicationCard from "../components/PublicationCard";
 import { ChevronsRight, Newspaper } from "lucide-react";
 import useFetch from "@/hooks/useFetch";
-import Loading from "@/components/Loading";
+import PublicationSkeleton from "@/components/PublicationSkeleton";
 
 const sectionVariants = {
   hidden: {
@@ -90,7 +90,7 @@ const Home = () => {
           </h2>
 
           {loading ? (
-            <Loading />
+            <PublicationSkeleton cards={3} />
           ) : (
             <div className="flex flex-col gap-6">
               {data.map((publication: Publication) => (
