@@ -59,7 +59,7 @@ input[type="number"] {
     --secondary: 0 0% 100%;
     --secondary-foreground: 222.2 84% 4.9%;
 
-    --accent: 0 56% 29%;
+    --accent: 0 0 100%;
     --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 74.2% 50.2%;
