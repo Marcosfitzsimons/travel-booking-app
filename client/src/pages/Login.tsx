@@ -1,6 +1,18 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { motion } from "framer-motion";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Separator } from "../components/ui/separator";
@@ -9,7 +21,8 @@ import { Label } from "../components/ui/label";
 import { AuthContext } from "../context/AuthContext";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
-import { Lock, User } from "lucide-react";
+import { CheckCircle, Lock, Mail, User } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 type User = {
   emailOrUsername: String;
@@ -47,10 +60,13 @@ const Login = () => {
       password: "",
     },
   });
-
+  const [email, setEmail] = useState("");
   const [err, setErr] = useState<null | string>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { loading, dispatch } = useContext(AuthContext);
+
+  const { toast } = useToast();
 
   const navigate = useNavigate();
 
@@ -77,6 +93,40 @@ const Login = () => {
     }
   };
 
+  const handleSendLink = async () => {
+    if (email === "") {
+      toast({
+        variant: "destructive",
+        description: "Email es requerido",
+      });
+    } else {
+      setIsLoading(true);
+      try {
+        const res = await axios.post(
+          `https://fabebus-api-example.onrender.com/api/auth/sendpasswordlink`,
+          { email: email }
+        );
+        console.log(res);
+        toast({
+          description: (
+            <div className="flex items-center gap-1">
+              {<CheckCircle className="w-[15px] h-[15px]" />} Link envíado a tu
+              email con éxito.
+            </div>
+          ),
+        });
+        setEmail("");
+        setIsLoading(false);
+      } catch (err) {
+        console.log(err);
+        toast({
+          variant: "destructive",
+          description: "Error al enviar email, intentar más tarde.",
+        });
+      }
+    }
+  };
+
   return (
     <section className="section">
       <motion.div
@@ -87,10 +137,10 @@ const Login = () => {
         className="flex flex-col items-center lg:flex-row lg:justify-between"
       >
         <div className="w-full flex flex-col my-6 mt-8">
-          <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl lg:px-3 dark:text-white">
+          <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl dark:text-white">
             Entra a tu cuenta
           </h2>
-          <p className="text-center text-card-foreground lg:text-start lg:px-3">
+          <p className="text-center text-card-foreground lg:text-start">
             Una vez dentro vas a poder reservar tu lugar
           </p>
           <form
@@ -100,7 +150,7 @@ const Login = () => {
             <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="emailOrUsername">Email o nombre de usuario</Label>
               <div className="relative flex items-center">
-                <User className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[1px] " />
+                <User className="z-30 h-5 w-5 text-accent absolute left-[10px] " />
                 <Input
                   type="text"
                   id="emailOrUsername"
@@ -131,7 +181,7 @@ const Login = () => {
             <div className="grid w-full max-w-sm items-center self-center gap-2">
               <Label htmlFor="password">Contraseña</Label>
               <div className="relative flex items-center">
-                <Lock className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
+                <Lock className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px]  " />
                 <Input
                   type="password"
                   id="password"
@@ -164,13 +214,53 @@ const Login = () => {
             </div>
             <p className="w-full text-center lg:text-start lg:my-4">
               ¿No tenes cuenta?{" "}
-              <Link
-                to="/register"
-                className="font-medium text-pink-1-800 dark:text-pink-1-400"
-              >
+              <Link to="/register" className="font-medium text-accent">
                 Crear una cuenta nueva
               </Link>
             </p>
+            <Separator className="w-4 self-center" />
+            <AlertDialog>
+              <AlertDialogTrigger
+                asChild
+                className="w-full flex justify-center items-center "
+              >
+                <Button className="h-auto w-auto mx-auto text-base py-0 px-0 dark:text-accent">
+                  Olvidé mi contraseña
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Recuperar contraseña</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Te enviaremos un link a tu correo electrónico. Tenes 5
+                    minutos para utilizar el link antes de que expire.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <div className="grid w-full max-w-sm items-center self-center gap-2">
+                  <Label htmlFor="email">Email</Label>
+                  <div className="relative flex items-center">
+                    <Mail className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] " />
+                    <Input
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      type="email"
+                      id="email"
+                      placeholder="email@example.com"
+                      className="pl-[32px]"
+                    />
+                  </div>
+                </div>
+                <AlertDialogFooter className="lg:gap-3">
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogAction
+                    className="lg:w-auto"
+                    onClick={handleSendLink}
+                  >
+                    Recuperar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </form>
         </div>
         <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8 ">
