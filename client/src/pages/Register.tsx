@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "../components/ui/separator";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import axios from "axios";
@@ -12,7 +12,6 @@ import DefaultButton from "../components/DefaultButton";
 import { AuthContext } from "../context/AuthContext";
 import {
   Check,
-  CheckCircle,
   Crop,
   Fingerprint,
   Lock,
@@ -38,35 +37,8 @@ type User = {
   addressCda: addressCda;
   addressCapital: string;
   password: string;
+  cpassword: string;
 };
-
-interface InputValidation {
-  required: {
-    value: boolean;
-    message: string;
-  };
-  minLength: {
-    value: number;
-    message: string;
-  };
-  maxLength: {
-    value: number;
-    message: string;
-  };
-  pattern?: {
-    value: RegExp;
-    message: string;
-  };
-}
-
-interface UserInput {
-  id: any;
-  label: string;
-  type: string;
-  placeholder?: string;
-  validation?: InputValidation;
-  icon?: any;
-}
 
 const sectionVariants = {
   hidden: {
@@ -102,6 +74,7 @@ const Register = () => {
       username: "",
       fullName: "",
       password: "",
+      cpassword: "",
       email: "",
       phone: null,
       dni: null,
@@ -157,83 +130,6 @@ const Register = () => {
     }
   };
 
-  const userAddressInputs = [
-    {
-      id: "street",
-      icon: (
-        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-      ),
-      label: "Calle",
-      type: "text",
-      placeholder: "Matheu",
-      validation: {
-        required: {
-          value: true,
-          message: "Por favor, ingresar domicilio.",
-        },
-        minLength: {
-          value: 3,
-          message: "Domicilio no puede ser tan corto.",
-        },
-        maxLength: {
-          value: 25,
-          message: "Domicilio no puede ser tan largo.",
-        },
-      },
-    },
-    {
-      id: "streetNumber",
-      icon: (
-        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-      ),
-      label: "Número",
-      type: "text",
-      placeholder: "354",
-      validation: {
-        required: {
-          value: true,
-          message: "Por favor, ingresar número de domicilio ",
-        },
-        minLength: {
-          value: 1,
-          message: "Número de domicilio no puede ser tan corto.",
-        },
-        maxLength: {
-          value: 5,
-          message: "Número de domicilio no puede ser tan largo.",
-        },
-        pattern: {
-          value: /^[0-9]+$/,
-          message: "Debe incluir solo números.",
-        },
-      },
-    },
-    {
-      id: "crossStreets",
-      icon: (
-        <Crop className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-      ),
-      label: "Calles que cruzan",
-      type: "text",
-      placeholder: "Matheu y D. Romero",
-      validation: {
-        required: {
-          value: true,
-          message:
-            "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
-        },
-        minLength: {
-          value: 3,
-          message: "No puede ser tan corto.",
-        },
-        maxLength: {
-          value: 40,
-          message: "No puede ser tan largo.",
-        },
-      },
-    },
-  ];
-
   useEffect(() => {
     const addressCapital = new window.google.maps.places.Autocomplete(
       addressCapitalRef.current!,
@@ -272,210 +168,253 @@ const Register = () => {
 
             <form
               onSubmit={handleSubmit(handleOnSubmit)}
-              className="relative w-full mt-2 py-6 flex flex-col gap-3 items-center lg:w-[650px]"
+              className="relative w-full mt-2 py-6 flex flex-col gap-3 items-center lg:w-[750px]"
             >
-              <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-1 lg:max-w-5xl">
-                <div className="mt-2 w-full flex flex-col items-center lg:mt-0">
+              <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-2 lg:max-w-5xl">
+                <div className="my-2 w-full flex flex-col items-center lg:mt-0">
                   <h5 className="text-center w-full text-lg font-medium dark:text-white lg:mb-2 lg:text-start lg:text-xl">
                     Datos personales
                   </h5>
                 </div>
-                <div className="flex w-full flex-col items-center gap-3 lg:flex-row lg:gap-1 ">
-                  <div className="grid w-full items-center gap-2 mt-4 lg:mt-0">
-                    <Label htmlFor="username">Nombre de usuario</Label>
-                    <div className="relative flex items-center">
-                      <span className="z-30 absolute text-accent left-[11px] pb-[2px] select-none ">
-                        @
-                      </span>
-                      <Input
-                        type="text"
-                        id="username"
-                        placeholder="juanperez22"
-                        className="pl-[30px]"
-                        {...register("username", {
-                          required: {
-                            value: true,
-                            message: "Por favor, ingresa tu nombre de usuario.",
-                          },
-                          minLength: {
-                            value: 3,
-                            message:
-                              "Nombre de usuario no puede ser tan corto.",
-                          },
-                          maxLength: {
-                            value: 15,
-                            message:
-                              "Nombre de usuario no puede ser tan largo.",
-                          },
-                        })}
-                      />
+                <div className="w-full flex flex-col gap-2 lg:flex-row">
+                  <div className="w-full flex flex-col gap-2">
+                    <div className="grid w-full items-center gap-2">
+                      <Label htmlFor="fullName">Nombre completo</Label>
+                      <div className="relative flex items-center">
+                        <User className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
+                        <Input
+                          type="text"
+                          id="fullName"
+                          className="pl-[32px]"
+                          placeholder="Juan Pérez"
+                          {...register("fullName", {
+                            required: {
+                              value: true,
+                              message:
+                                "Por favor, ingresa tu nombre y apellido.",
+                            },
+                            minLength: {
+                              value: 3,
+                              message:
+                                "Nombre y apellido no puede ser tan corto.",
+                            },
+                            maxLength: {
+                              value: 25,
+                              message:
+                                "Nombre y apellido no puede ser tan largo.",
+                            },
+                          })}
+                        />
+                      </div>
+                      {errors.fullName && (
+                        <p className="text-red-600 text-sm">
+                          {errors.fullName.message}
+                        </p>
+                      )}
                     </div>
-                    {errors.username && (
-                      <p className="text-red-600">{errors.username.message}</p>
-                    )}
-                  </div>
-                  <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="fullName">Nombre completo</Label>
-                    <div className="relative flex items-center">
-                      <User className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
-                      <Input
-                        type="text"
-                        id="fullName"
-                        className="pl-[32px]"
-                        placeholder="Juan Perez"
-                        {...register("fullName", {
-                          required: {
-                            value: true,
-                            message: "Por favor, ingresa tu nombre y apellido.",
-                          },
-                          minLength: {
-                            value: 3,
-                            message:
-                              "Nombre y apellido no puede ser tan corto.",
-                          },
-                          maxLength: {
-                            value: 25,
-                            message:
-                              "Nombre y apellido no puede ser tan largo.",
-                          },
-                        })}
-                      />
+                    <div className="grid w-full items-center gap-2">
+                      <Label htmlFor="username">Nombre de usuario</Label>
+                      <div className="relative flex items-center">
+                        <span className="z-30 absolute text-accent left-[11px] pb-[2px] select-none ">
+                          @
+                        </span>
+                        <Input
+                          type="text"
+                          id="username"
+                          placeholder="juan00"
+                          className="pl-[30px]"
+                          {...register("username", {
+                            required: {
+                              value: true,
+                              message:
+                                "Por favor, ingresa tu nombre de usuario.",
+                            },
+                            minLength: {
+                              value: 3,
+                              message:
+                                "Nombre de usuario no puede ser tan corto.",
+                            },
+                            maxLength: {
+                              value: 15,
+                              message:
+                                "Nombre de usuario no puede ser tan largo.",
+                            },
+                          })}
+                        />
+                      </div>
+                      {errors.username && (
+                        <p className="text-red-600 text-sm">
+                          {errors.username.message}
+                        </p>
+                      )}
                     </div>
-                    {errors.fullName && (
-                      <p className="text-red-600">{errors.fullName.message}</p>
-                    )}
+                    <div className="grid w-full items-center gap-2">
+                      <Label htmlFor="password">Contraseña</Label>
+                      <div className="relative flex items-center">
+                        <Lock className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                        <Input
+                          className="pl-[32px]"
+                          placeholder="..."
+                          type="password"
+                          id="password"
+                          {...register("password", {
+                            required: {
+                              value: true,
+                              message: "Por favor, ingresa tu contraseña.",
+                            },
+                            minLength: {
+                              value: 6,
+                              message: "Contraseña no puede ser tan corta.",
+                            },
+                            maxLength: {
+                              value: 20,
+                              message: "Contraseña no puede ser tan larga.",
+                            },
+                          })}
+                        />
+                      </div>
+                      {errors.password && (
+                        <p className="text-red-600 text-sm">
+                          {errors.password.message}
+                        </p>
+                      )}
+                    </div>
+                    <div className="grid w-full items-center gap-2">
+                      <Label htmlFor="cpassword">Confirmar contraseña</Label>
+                      <div className="relative flex items-center">
+                        <Lock className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                        <Input
+                          className="pl-[32px]"
+                          placeholder="..."
+                          type="password"
+                          id="cpassword"
+                          {...register("cpassword", {
+                            required: {
+                              value: true,
+                              message: "Por favor, ingresa tu contraseña.",
+                            },
+                            minLength: {
+                              value: 6,
+                              message: "Contraseña no puede ser tan corta.",
+                            },
+                            maxLength: {
+                              value: 20,
+                              message: "Contraseña no puede ser tan larga.",
+                            },
+                          })}
+                        />
+                      </div>
+                      {errors.cpassword && (
+                        <p className="text-red-600 text-sm">
+                          {errors.cpassword.message}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
+                  <div className="flex w-full flex-col items-center gap-2">
+                    <div className="grid w-full items-center gap-2">
+                      <Label htmlFor="email">Email</Label>
+                      <div className="relative flex items-center">
+                        <Mail className="z-30 top-[11px] h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                        <Input
+                          className="pl-[32px]"
+                          type="email"
+                          placeholder="ejemplo@gmail.com"
+                          id="email"
+                          {...register("email", {
+                            required: {
+                              value: true,
+                              message: "Por favor, ingresa tu email.",
+                            },
+                            minLength: {
+                              value: 3,
+                              message: "Email no puede ser tan corto.",
+                            },
+                            maxLength: {
+                              value: 40,
+                              message: "Email no puede ser tan largo.",
+                            },
+                          })}
+                        />
+                      </div>
 
-                <div className="flex w-full flex-col items-center gap-3 lg:flex-row lg:gap-1">
-                  <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="email">Email</Label>
-                    <div className="relative flex items-center">
-                      <Mail className="z-30 top-[11px] h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-                      <Input
-                        className="pl-[32px]"
-                        type="email"
-                        placeholder="juanperez@ejemplo.com"
-                        id="email"
-                        {...register("email", {
-                          required: {
-                            value: true,
-                            message: "Por favor, ingresa tu email.",
-                          },
-                          minLength: {
-                            value: 3,
-                            message: "Email no puede ser tan corto.",
-                          },
-                          maxLength: {
-                            value: 40,
-                            message: "Email no puede ser tan largo.",
-                          },
-                        })}
-                      />
+                      {errors.email && (
+                        <p className="text-red-600 text-sm">
+                          {errors.email.message}
+                        </p>
+                      )}
                     </div>
-
-                    {errors.email && (
-                      <p className="text-red-600">{errors.email.message}</p>
-                    )}
-                  </div>
-                  <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="password">Contraseña</Label>
-                    <div className="relative flex items-center">
-                      <Lock className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-                      <Input
-                        className="pl-[32px]"
-                        placeholder="..."
-                        type="password"
-                        id="password"
-                        {...register("password", {
-                          required: {
-                            value: true,
-                            message: "Por favor, ingresa tu contraseña.",
-                          },
-                          minLength: {
-                            value: 3,
-                            message: "Contraseña no puede ser tan corta.",
-                          },
-                          maxLength: {
-                            value: 20,
-                            message: "Contraseña no puede ser tan larga.",
-                          },
-                        })}
-                      />
+                    <div className="grid w-full items-center gap-2">
+                      <Label htmlFor="dni">DNI</Label>
+                      <div className="relative flex items-center">
+                        <Fingerprint className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                        <Input
+                          type="number"
+                          id="dni"
+                          placeholder="41260122"
+                          className="appearance-none pl-[32px]"
+                          {...register("dni", {
+                            required: {
+                              value: true,
+                              message: "Por favor, ingresa tu DNI.",
+                            },
+                            minLength: {
+                              value: 3,
+                              message: "DNI no puede ser tan corto.",
+                            },
+                            maxLength: {
+                              value: 25,
+                              message: "DNI no puede ser tan largo.",
+                            },
+                            pattern: {
+                              value: /^[0-9]+$/,
+                              message: "DNI debe incluir solo números.",
+                            },
+                          })}
+                        />
+                      </div>
+                      {errors.dni && (
+                        <p className="text-red-600 text-sm">
+                          {errors.dni.message}
+                        </p>
+                      )}
                     </div>
-                    {errors.password && (
-                      <p className="text-red-600">{errors.password.message}</p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex w-full flex-col items-center gap-3 lg:flex-row lg:gap-1">
-                  <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="dni">DNI</Label>
-                    <div className="relative flex items-center">
-                      <Fingerprint className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-                      <Input
-                        type="number"
-                        id="dni"
-                        placeholder="41260122"
-                        className="appearance-none pl-[32px]"
-                        {...register("dni", {
-                          required: {
-                            value: true,
-                            message: "Por favor, ingresa tu DNI.",
-                          },
-                          minLength: {
-                            value: 3,
-                            message: "DNI no puede ser tan corto.",
-                          },
-                          maxLength: {
-                            value: 25,
-                            message: "DNI no puede ser tan largo.",
-                          },
-                          pattern: {
-                            value: /^[0-9]+$/,
-                            message: "DNI debe incluir solo números.",
-                          },
-                        })}
-                      />
+                    <div className="grid w-full items-center gap-2">
+                      <Label htmlFor="phone">Celular</Label>
+                      <div className="relative flex items-center">
+                        <Phone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                        <Input
+                          className="pl-[32px]"
+                          placeholder="2273433870"
+                          type="tel"
+                          id="phone"
+                          {...register("phone", {
+                            required: {
+                              value: true,
+                              message: "Por favor, ingresa tu número celular.",
+                            },
+                            minLength: {
+                              value: 3,
+                              message: "Número celular no puede ser tan corto.",
+                            },
+                            maxLength: {
+                              value: 25,
+                              message: "Número celular no puede ser tan largo.",
+                            },
+                            pattern: {
+                              value: /^[0-9]+$/,
+                              message:
+                                "Número celular debe incluir solo números.",
+                            },
+                          })}
+                        />
+                      </div>
+                      {errors.phone && (
+                        <p className="text-red-600 text-sm">
+                          {errors.phone.message}
+                        </p>
+                      )}
                     </div>
-                    {errors.dni && (
-                      <p className="text-red-600">{errors.dni.message}</p>
-                    )}
-                  </div>
-                  <div className="grid w-full items-center gap-2">
-                    <Label htmlFor="phone">Celular</Label>
-                    <div className="relative flex items-center">
-                      <Phone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-                      <Input
-                        className="pl-[32px]"
-                        placeholder="2273433870"
-                        type="tel"
-                        id="phone"
-                        {...register("phone", {
-                          required: {
-                            value: true,
-                            message: "Por favor, ingresa tu número celular.",
-                          },
-                          minLength: {
-                            value: 3,
-                            message: "Número celular no puede ser tan corto.",
-                          },
-                          maxLength: {
-                            value: 25,
-                            message: "Número celular no puede ser tan largo.",
-                          },
-                          pattern: {
-                            value: /^[0-9]+$/,
-                            message:
-                              "Número celular debe incluir solo números.",
-                          },
-                        })}
-                      />
-                    </div>
-                    {errors.phone && (
-                      <p className="text-red-600">{errors.phone.message}</p>
-                    )}
                   </div>
                 </div>
               </div>
@@ -487,58 +426,140 @@ const Register = () => {
                   </h5>
                 </div>
 
-                <div className="w-full max-w-sm flex flex-col items-center gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
-                  <div className="w-full flex flex-col gap-2">
-                    <h6 className="font-serif text-accent ">Carmen de Areco</h6>
-                    {userAddressInputs.map((input: UserInput) => {
-                      const key = input.id;
-                      const fieldName: any = `addressCda.${key}`;
-                      return (
-                        <div
-                          key={input.id}
-                          className="grid w-full items-center gap-2"
-                        >
-                          <Label htmlFor={input.id}>{input.label}</Label>
-                          <div className="relative flex items-center">
-                            {input.icon}
-                            <Input
-                              type={input.type}
-                              id={input.id}
-                              placeholder={input.placeholder}
-                              className="pl-[32px]"
-                              {...register(fieldName, input.validation)}
-                            />
-                            {errors[input.id as keyof typeof errors] && (
-                              <p className="text-red-600">
-                                {
-                                  errors[input.id as keyof typeof errors]
-                                    ?.message
-                                }
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                <div className="w-full flex flex-col gap-2 lg:max-w-5xl">
+                  <div className="w-full flex flex-col gap-2 lg:flex-row">
+                    <div className="w-full flex flex-col gap-2">
+                      <div className="w-full flex flex-col gap-2">
+                        <h6 className="font-serif text-accent ">
+                          Carmen de Areco
+                        </h6>
 
-                  <div className="w-full flex flex-col gap-2">
-                    <h6 className="font-serif text-accent ">Capital Federal</h6>
-                    <div className="grid w-full items-center gap-2">
-                      <Label htmlFor="addressCapital">Dirección</Label>
-                      <div className="relative flex items-center">
-                        <Milestone className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
-                        <Input
-                          ref={addressCapitalRef}
-                          type="text"
-                          id="addressCapital"
-                          className="pl-[32px]"
-                          value={addressCapitalValue}
-                          onChange={(e) =>
-                            setAddressCapitalValue(e.target.value)
-                          }
-                          placeholder="Las Heras 2304"
-                        />
+                        <div className="grid w-full items-center gap-2">
+                          <Label htmlFor="street">Calle</Label>
+                          <div className="relative flex items-center">
+                            <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                            <Input
+                              type="text"
+                              id="street"
+                              className="pl-[32px]"
+                              placeholder="Matheu"
+                              {...register("addressCda.street", {
+                                required: {
+                                  value: true,
+                                  message: "Por favor, ingresar domicilio.",
+                                },
+                                minLength: {
+                                  value: 3,
+                                  message: "Domicilio no puede ser tan corto.",
+                                },
+                                maxLength: {
+                                  value: 25,
+                                  message: "Domicilio no puede ser tan largo.",
+                                },
+                              })}
+                            />
+                          </div>
+                          {errors.addressCda?.street && (
+                            <p className="text-red-600 text-sm">
+                              {errors.addressCda.street.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="grid w-full items-center gap-2">
+                        <Label htmlFor="streetNumber">Número</Label>
+                        <div className="relative flex items-center">
+                          <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                          <Input
+                            type="number"
+                            id="streetNumber"
+                            className="pl-[32px]"
+                            placeholder="522"
+                            {...register("addressCda.streetNumber", {
+                              required: {
+                                value: true,
+                                message:
+                                  "Por favor, ingresar número de domicilio ",
+                              },
+                              minLength: {
+                                value: 1,
+                                message:
+                                  "Número de domicilio no puede ser tan corto.",
+                              },
+                              maxLength: {
+                                value: 5,
+                                message:
+                                  "Número de domicilio no puede ser tan largo.",
+                              },
+                              pattern: {
+                                value: /^[0-9]+$/,
+                                message: "Debe incluir solo números.",
+                              },
+                            })}
+                          />
+                        </div>
+                        {errors.addressCda?.streetNumber && (
+                          <p className="text-red-600 text-sm">
+                            {errors.addressCda.streetNumber.message}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="grid w-full items-center gap-2">
+                        <Label htmlFor="crossStreets">Calles que cruzan</Label>
+                        <div className="relative flex items-center">
+                          <Crop className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                          <Input
+                            type="text"
+                            id="crossStreets"
+                            className="pl-[32px]"
+                            placeholder="Matheu y D. Romero"
+                            {...register("addressCda.crossStreets", {
+                              required: {
+                                value: true,
+                                message:
+                                  "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
+                              },
+                              minLength: {
+                                value: 3,
+                                message: "No puede ser tan corto.",
+                              },
+                              maxLength: {
+                                value: 45,
+                                message: "No puede ser tan largo.",
+                              },
+                            })}
+                          />
+                        </div>
+                        {errors.addressCda?.crossStreets && (
+                          <p className="text-red-600 text-sm">
+                            {errors.addressCda.crossStreets.message}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="w-full flex flex-col gap-2 ">
+                      <h6 className="font-serif text-accent ">
+                        Capital Federal
+                      </h6>
+                      <div className="grid w-full items-center gap-2">
+                        <Label htmlFor="addressCapital">Dirección</Label>
+                        <div className="relative flex items-center">
+                          <Milestone className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
+                          <Input
+                            ref={addressCapitalRef}
+                            type="text"
+                            id="addressCapital"
+                            className="pl-[32px]"
+                            value={addressCapitalValue}
+                            onChange={(e) =>
+                              setAddressCapitalValue(e.target.value)
+                            }
+                            placeholder="Las Heras 2304"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -553,10 +574,7 @@ const Register = () => {
                 </div>
                 <p className="w-full text-center lg:text-start lg:my-4">
                   ¿Ya tenes cuenta?{" "}
-                  <Link
-                    to="/login"
-                    className="font-medium text-pink-1-800 dark:text-pink-1-400"
-                  >
+                  <Link to="/login" className="font-medium text-accent">
                     Iniciar sesion
                   </Link>
                 </p>
