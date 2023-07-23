@@ -99,6 +99,12 @@ const Login = () => {
         variant: "destructive",
         description: "Email es requerido",
       });
+    } else if (!email.includes("@")) {
+      toast({
+        variant: "destructive",
+        description: "Email no válido",
+      });
+      setEmail("");
     } else {
       setIsLoading(true);
       try {
@@ -110,18 +116,21 @@ const Login = () => {
         toast({
           description: (
             <div className="flex items-center gap-1">
-              {<CheckCircle className="w-[15px] h-[15px]" />} Link envíado a tu
+              {<CheckCircle className="w-[15px] h-[15px]" />} Link enviado a tu
               email con éxito.
             </div>
           ),
         });
         setEmail("");
         setIsLoading(false);
-      } catch (err) {
-        console.log(err);
+      } catch (err: any) {
+        setEmail("");
+        setIsLoading(false);
         toast({
           variant: "destructive",
-          description: "Error al enviar email, intentar más tarde.",
+          description: err.response.data.msg
+            ? err.response.data.msg
+            : "Error al enviar email, intentar más tarde.",
         });
       }
     }
@@ -224,7 +233,7 @@ const Login = () => {
                 asChild
                 className="w-full flex justify-center items-center "
               >
-                <Button className="h-auto w-auto mx-auto text-base py-0 px-0 dark:text-accent">
+                <Button className="h-auto w-auto mx-auto bg-transparent text-base py-0 px-0 dark:bg-transparent dark:text-accent">
                   Olvidé mi contraseña
                 </Button>
               </AlertDialogTrigger>
