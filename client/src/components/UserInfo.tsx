@@ -128,7 +128,7 @@ const UserInfo = ({ userData }: UserInfoProps) => {
             <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-xl">
               Domicilios
             </h5>
-            <div className="flex flex-col w-full overflow-hidden gap-1 shadow-input py-2 px-4 rounded-md bg-card border dark:shadow-none">
+            <div className="flex flex-col w-full overflow-hidden gap-1 shadow-input py-2 px-4 rounded-md bg-card border lg:flex-row dark:shadow-none">
               <div className="flex flex-col gap-1 lg:basis-[55%]">
                 <h6 className="font-serif text-accent ">Carmen de Areco</h6>
                 <div className="flex items-center gap-1">
