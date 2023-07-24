@@ -21,6 +21,7 @@ import { AuthContext } from "./context/AuthContext";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailure from "./pages/PaymentFailure";
 import Welcome from "./pages/Welcome";
+import ForgotPassword from "./components/ForgotPassword";
 
 type Props = {
   children: ReactElement;
@@ -49,6 +50,10 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/confirm/:confirmationCode" element={<Welcome />} />
+            <Route
+              path="/forgotpassword/:id/:token"
+              element={<ForgotPassword />}
+            />
             <Route path="/" element={<Home />} />
             <Route path="/viajes" element={<Trips />} />
             <Route

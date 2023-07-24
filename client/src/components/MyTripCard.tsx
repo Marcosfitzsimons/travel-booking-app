@@ -28,7 +28,6 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import { Separator } from "./ui/separator";
-import { useState } from "react";
 import CountdownTimer from "./CountdownTimer";
 
 type MyTripCardProps = {

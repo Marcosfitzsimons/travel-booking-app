@@ -115,10 +115,10 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
       setErr(err.message);
       toast({
         variant: "destructive",
-        title: "Error al guardar su lugar",
+        title: "Error al cancelar su lugar",
         description: err.response.data.msg
           ? err.response.data.msg
-          : "Error al guardar lugar, intente más tarde.",
+          : "Error al cancelar lugar, intente más tarde.",
       });
     }
   };
