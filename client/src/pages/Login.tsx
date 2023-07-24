@@ -147,10 +147,10 @@ const Login = () => {
       >
         <div className="w-full flex flex-col my-6 mt-8">
           <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl dark:text-white">
-            Entra a tu cuenta
+            Bienvenido de vuelta
           </h2>
           <p className="text-center text-card-foreground lg:text-start">
-            Una vez dentro vas a poder reservar tu lugar
+            Entra a tu cuenta para reservar tu lugar
           </p>
           <form
             onSubmit={handleSubmit(handleOnSubmit)}
