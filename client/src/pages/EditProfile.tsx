@@ -360,8 +360,8 @@ const EditProfile = () => {
                       </h5>
                     </div>
 
-                    <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-3 lg:max-w-5xl">
-                      <div className="flex w-full flex-col items-center gap-3 lg:flex-row lg:gap-1 lg:mt-5">
+                    <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-2 mt-2 lg:max-w-5xl lg:flex-row lg:items-start">
+                      <div className="flex w-full flex-col items-center gap-3">
                         <div className="grid w-full items-center gap-2 mt-4 lg:mt-0">
                           <Label htmlFor="username">Nombre de usuario</Label>
                           <div className="relative flex items-center">
@@ -431,9 +431,6 @@ const EditProfile = () => {
                             </p>
                           )}
                         </div>
-                      </div>
-
-                      <div className="flex w-full flex-col items-center gap-3 lg:flex-row lg:gap-1">
                         <div className="grid w-full items-center gap-2">
                           <Label htmlFor="email">Email</Label>
                           <div className="relative flex items-center">
@@ -465,6 +462,9 @@ const EditProfile = () => {
                             </p>
                           )}
                         </div>
+                      </div>
+
+                      <div className="flex w-full flex-col items-center gap-3">
                         <div className="grid w-full items-center gap-2">
                           <Label htmlFor="tel">Celular</Label>
                           <div className="relative flex items-center">
@@ -503,10 +503,7 @@ const EditProfile = () => {
                             </p>
                           )}
                         </div>
-                      </div>
-
-                      <div className="flex w-full flex-col items-center gap-3">
-                        <div className="grid w-full items-center gap-2 md:max-w-xs">
+                        <div className="grid w-full items-center gap-2">
                           <Label htmlFor="dni">DNI</Label>
                           <div className="relative flex items-center">
                             <Fingerprint className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
