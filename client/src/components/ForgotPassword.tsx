@@ -29,11 +29,11 @@ const ForgotPassword = () => {
       console.log(`User valid: ${res}`);
     } catch (err) {
       console.log(err);
-      // toast({
-      //   variant: "destructive",
-      //   description: "Tu link ha expirado. Debes enviar uno nuevo",
-      // });
-      // history("/")
+      toast({
+        variant: "destructive",
+        description: "Tu link ha expirado. Debes enviar uno nuevo",
+      });
+      history("/");
     }
   };
 
