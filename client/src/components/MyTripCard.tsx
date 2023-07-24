@@ -1,13 +1,6 @@
 import moment from "moment";
 
-import {
-  DollarSign,
-  CalendarDays,
-  Clock,
-  Bell,
-  Check,
-  MapPin,
-} from "lucide-react";
+import { DollarSign, CalendarDays, Clock, MapPin } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,13 +13,6 @@ import {
   AlertDialogTrigger,
 } from "../components/ui/alert-dialog";
 import { Button } from "../components/ui/button";
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip";
 import { Separator } from "./ui/separator";
 import CountdownTimer from "./CountdownTimer";
 
@@ -41,7 +27,6 @@ type MyTripCardProps = {
   maxCapacity: number;
   price: number;
   available: boolean;
-  reminder: boolean;
   handleDelete: (e: any) => void;
 };
 
@@ -56,7 +41,6 @@ const MyTripCard = ({
   maxCapacity,
   price,
   available,
-  reminder,
   handleDelete,
 }: MyTripCardProps) => {
   const todayDate = moment().locale("es").format("ddd DD/MM");
@@ -92,26 +76,6 @@ const MyTripCard = ({
             <span className="w-2 h-[4px] bg-red-700 rounded-full " />
           </div>
           <div className="absolute right-2 top-2 flex items-center gap-2 sm:right-4">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    disabled={!reminder}
-                    className="w-8 h-8 p-0 cursor-default bg-yellow-200/50 text-yellow-900/80 border border-yellow-900/60 dark:border-yellow-200/70 dark:text-yellow-200/90"
-                  >
-                    <Bell className="w-4 h-4" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent className="w-42">
-                  <p className="text-xs flex items-center gap-[3px]">
-                    Recordatorio activado{" "}
-                    <Check className="w-4 h-4 relative top-[1px] text-green-600 " />
-                  </p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-
-            <Separator orientation="vertical" className="h-4" />
             <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
               <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
               {formatDate(date)}

@@ -44,7 +44,6 @@ type UserData = {
   email: string;
   image?: string;
   myTrips: TripProps[];
-  isReminder: boolean;
 };
 interface myTripsProps {
   userTrips: TripProps[];
@@ -77,8 +76,6 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [err, setErr] = useState<null | string>(null);
-  const [reminder, setReminder] = useState(userData.isReminder);
-  const [isUnsaved, setIsUnsaved] = useState(false);
 
   const { toast } = useToast();
 
@@ -123,39 +120,6 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
     }
   };
 
-  const handleCheckedChange = () => {
-    setReminder((prev) => !prev);
-    setIsUnsaved(true);
-  };
-
-  const handleIsReminder = async () => {
-    setIsSubmitted(true);
-    try {
-      const res = await axios.put(
-        `https://fabebus-api-example.onrender.com/api/users/${userData._id}`,
-        { userData: { isReminder: reminder } },
-        { headers }
-      );
-      localStorage.setItem("user", JSON.stringify(res.data));
-      setIsSubmitted(false);
-      setIsUnsaved(false);
-      toast({
-        description: "Cambios guardados con éxito.",
-      });
-      setTimeout(() => {
-        navigate(0);
-      }, 1000);
-    } catch (err: any) {
-      const errorMsg = err.response.data.msg;
-      setIsSubmitted(false);
-      setErr(errorMsg);
-      toast({
-        variant: "destructive",
-        description: "Error al guardar los cambios, intentar mas tarde.",
-      });
-    }
-  };
-
   return (
     <section className="min-h-[70vh] w-full mx-auto mt-3 bg-transparent flex flex-col gap-5 items-center">
       {loading ? (
@@ -176,54 +140,6 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                     fill="red"
                   />
                 </p>
-
-                <div
-                  className={` ${
-                    reminder ? "border-[#5FC488] dark:border-[#6cd395]" : ""
-                  } w-full relative flex flex-col gap-3 p-4 shadow-input rounded-md bg-card border dark:shadow-none`}
-                >
-                  <Label htmlFor="airplane-mode dark:text-white">
-                    🔔 Activar recordatorio previo al viaje
-                  </Label>
-
-                  <div className="flex items-center gap-1">
-                    <Switch
-                      id="airplane-mode"
-                      checked={reminder}
-                      onCheckedChange={handleCheckedChange}
-                      className={
-                        reminder ? "bg-[#5FC488] dark:bg-[#6cd395]" : ""
-                      }
-                    />
-                    {reminder ? (
-                      <span className="text-xs flex items-center gap-[3px]">
-                        Recordatorio activado{" "}
-                        <Check className="w-4 h-4 relative top-[1px] text-green-600 lg:w-5 lg:h-5" />
-                      </span>
-                    ) : (
-                      <span className="text-xs flex items-center gap-[3px]">
-                        Recordatorio desactivado{" "}
-                        <X className="w-4 h-4 relative top-[1.2px] text-red-600 lg:w-5 lg:h-5" />
-                      </span>
-                    )}
-                  </div>
-                  {isUnsaved ? (
-                    <div className="w-auto flex flex-col items-center gap-2">
-                      <Separator orientation="horizontal" className="w-4" />
-                      <div className="relative h-7 after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100 ">
-                        <Button
-                          onClick={handleIsReminder}
-                          disabled={isSubmitted}
-                          className="relative h-7 bg-primary text-slate-100 hover:text-white dark:text-slate-100 dark:bg-primary dark:hover:text-white "
-                        >
-                          Guardar cambios
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
               </div>
             ) : (
               ""
@@ -257,11 +173,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
             {userTrips && userTrips.length > 0 ? (
               <>
                 {userTrips.map((trip: TripProps) => (
-                  <MyTripCard
-                    {...trip}
-                    reminder={reminder}
-                    handleDelete={handleDelete}
-                  />
+                  <MyTripCard {...trip} handleDelete={handleDelete} />
                 ))}
               </>
             ) : (
