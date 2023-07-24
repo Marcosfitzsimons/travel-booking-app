@@ -58,7 +58,7 @@ const PublicationCard = ({
           </DialogTrigger>
         </div>
 
-        <DialogContent className="pt-12 gap-6 sm:max-w-[425px]">
+        <DialogContent className="pt-12 gap-6 sm:max-w-[600px]">
           <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
             <span className="w-8 h-[4px] bg-red-700 rounded-full " />
             <span className="w-4 h-[4px] bg-red-700 rounded-full " />
