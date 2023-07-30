@@ -52,6 +52,7 @@ const sectionVariants = {
 
 const Trips = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
+  const [isOnlyAvailable, setIsOnlyAvailable] = useState(true);
 
   const { data, loading, error, reFetch } = useFetch(
     "https://fabebus-api-example.onrender.com/api/trips"
@@ -66,11 +67,15 @@ const Trips = () => {
     return timeDifference > 0;
   });
 
+  const onlyAvailableSeats = availableTrips.filter(
+    (trip: TripProps) => trip.passengers.length !== trip.maxCapacity
+  );
+
   let filteredTrips;
   let dateSelected: string;
   if (startDate) {
     dateSelected = moment(startDate).locale("es").format("ddd DD/MM");
-    filteredTrips = availableTrips.filter((trip: TripProps) => {
+    filteredTrips = onlyAvailableSeats.filter((trip: TripProps) => {
       moment.locale("es", {
         weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
       });
@@ -110,7 +115,11 @@ const Trips = () => {
           </div>
         </div>
         <div className="flex items-center mt-2 space-x-2 md:self-end">
-          <Checkbox id="terms" defaultChecked />
+          <Checkbox
+            id="terms"
+            checked={isOnlyAvailable}
+            onCheckedChange={() => setIsOnlyAvailable((prev) => !prev)}
+          />
           <Label htmlFor="terms">
             Mostrar solo viajes con lugares disponibles
           </Label>
@@ -159,8 +168,8 @@ const Trips = () => {
             ) : (
               <>
                 <AnimatePresence mode="wait">
-                  {availableTrips.length !== 0 ? (
-                    availableTrips.map((trip: TripProps) => (
+                  {isOnlyAvailable ? (
+                    onlyAvailableSeats.map((trip: TripProps) => (
                       <motion.div
                         variants={sectionVariants}
                         initial="hidden"
@@ -173,16 +182,33 @@ const Trips = () => {
                       </motion.div>
                     ))
                   ) : (
-                    <motion.p
-                      className="w-full mb-[20rem] lg:mb-[28rem]"
-                      variants={sectionVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      key="empty-trip"
-                    >
-                      No hay viajes disponibles.
-                    </motion.p>
+                    <>
+                      {availableTrips.length !== 0 ? (
+                        availableTrips.map((trip: TripProps) => (
+                          <motion.div
+                            variants={sectionVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            className="w-full max-w-md"
+                            exit="exit"
+                            key={trip._id}
+                          >
+                            <TripCard {...trip} />
+                          </motion.div>
+                        ))
+                      ) : (
+                        <motion.p
+                          className="w-full mb-[20rem] lg:mb-[28rem]"
+                          variants={sectionVariants}
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                          key="empty-trip"
+                        >
+                          No hay viajes disponibles.
+                        </motion.p>
+                      )}
+                    </>
                   )}
                 </AnimatePresence>
               </>
