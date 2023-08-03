@@ -216,7 +216,9 @@ const Login = () => {
                 <p className="text-red-600">{errors.password.message}</p>
               )}
             </div>
-            {err && <p className="text-red-600 self-start">{err}</p>}
+            {err && (
+              <p className="text-red-600 w-full self-center max-w-sm">{err}</p>
+            )}
 
             <div className="w-full self-center max-w-sm lg:max-w-[9rem]">
               <DefaultButton loading={loading}>Entrar</DefaultButton>

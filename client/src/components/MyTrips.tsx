@@ -146,7 +146,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
             )}
           </div>
           <Separator className="w-4" />
-          <div className="w-full flex items-end text-sm mb-2 justify-between">
+          <div className="w-full flex items-end text-sm mb-4 justify-between">
             <h4 className="flex items-center gap-1 font-medium text-xl dark:text-white self-start lg:text-2xl">
               <ClipboardList className="h-5 w-5 text-accent lg:w-6 lg:h-6" />
               Mis viajes:

@@ -84,7 +84,7 @@ const TripCard = ({
           : "dark:border"
       } group w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none`}
     >
-      <div className="absolute -z-10 transition-all text-white right-2 pt-[2px] bg-orange-600 rounded-t-md px-2 h-10 -top-[5px] group-hover:-top-[22px] lg:right-4 dark:bg-orange-700">
+      <div className="absolute -z-10 transition-all min-w- text-white right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 -top-[5px] group-hover:-top-[23px] lg:right-4 dark:bg-orange-700">
         <CountdownTimer date={date} departureTime={departureTime} />
       </div>
       <div
