@@ -114,6 +114,7 @@ const Register = () => {
           type: "LOGIN_FAILURE",
           payload: err.response?.data,
         });
+        console.log(err);
         toast({
           variant: "destructive",
           title: "Error al guardar cambios",
