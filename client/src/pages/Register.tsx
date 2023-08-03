@@ -20,6 +20,7 @@ import {
   Phone,
   User,
 } from "lucide-react";
+import AddressAutocomplete from "@/components/AddressAutocomplete";
 
 type addressCda = {
   street: string;
@@ -91,10 +92,7 @@ const Register = () => {
 
   const { toast } = useToast();
 
-  const addressCapitalRef = useRef(null);
-
   const handleOnSubmit = async (data: User) => {
-    console.log(data);
     if (dispatch) {
       dispatch({ type: "LOGIN_START" });
       try {
@@ -129,22 +127,6 @@ const Register = () => {
       }
     }
   };
-
-  useEffect(() => {
-    const addressCapital = new window.google.maps.places.Autocomplete(
-      addressCapitalRef.current!,
-      {
-        componentRestrictions: { country: "AR" },
-        types: ["address"],
-        fields: ["address_components"],
-      }
-    );
-
-    addressCapital.addListener("place_changed", () => {
-      const place = addressCapital.getPlace();
-      console.log(place);
-    });
-  }, []);
 
   return (
     <section className="">
@@ -545,19 +527,14 @@ const Register = () => {
                         Capital Federal
                       </h6>
                       <div className="grid w-full items-center gap-2">
-                        <Label htmlFor="addressCapital">Dirección</Label>
-                        <div className="relative flex items-center">
-                          <Milestone className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
-                          <Input
-                            ref={addressCapitalRef}
-                            type="text"
-                            id="addressCapital"
-                            className="pl-[32px]"
+                        <Label htmlFor="registerAddressCapital">
+                          Dirección
+                        </Label>
+                        <div className="w-full">
+                          <AddressAutocomplete
+                            id="registerAddressCapital"
                             value={addressCapitalValue}
-                            onChange={(e) =>
-                              setAddressCapitalValue(e.target.value)
-                            }
-                            placeholder="Las Heras 2304"
+                            setValue={setAddressCapitalValue}
                           />
                         </div>
                       </div>
@@ -569,7 +546,7 @@ const Register = () => {
               {err && <p className="text-red-600 self-start">{err}</p>}
 
               <div className="w-full flex flex-col items-center gap-3">
-                <div className="w-full max-w-sm my-2 lg:max-w-[9rem]">
+                <div className="w-full max-w-sm mt-6 mb-2 lg:max-w-[9rem]">
                   <DefaultButton loading={loading}>Crear cuenta</DefaultButton>
                 </div>
                 <p className="w-full text-center lg:text-start lg:my-4">

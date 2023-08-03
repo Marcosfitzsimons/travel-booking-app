@@ -41,6 +41,7 @@ import { useForm } from "react-hook-form";
 import { ToastAction } from "@/components/ui/toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import CountdownTimer from "@/components/CountdownTimer";
+import AddressAutocomplete from "@/components/AddressAutocomplete";
 
 type addressCda = {
   street: string;
@@ -136,21 +137,15 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const [data, setData] = useState(INITIAL_VALUES);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | boolean>(false);
-  const [dialogVisible, setDialogVisible] = useState(false);
   const [isConfirm, setIsConfirm] = useState(false);
   const [isConfirmError, setIsConfirmError] = useState(false);
-
-  const userAddressRef = useRef<HTMLInputElement>(null);
+  const [addressCapitalValue, setAddressCapitalValue] = useState("");
 
   const locationn = useLocation();
   const path = locationn.pathname;
   const tripId = path.split("/")[2];
 
   const { user } = useContext(AuthContext);
-
-  const [userAddressValue, setUserAddressValue] = useState(
-    user?.addressCapital
-  );
 
   const { toast } = useToast();
 
@@ -188,12 +183,11 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     try {
       const res = await axios.put(
         `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
-        { userData: { ...data, addressCapital: userAddressValue } },
+        { userData: { ...data, addressCapital: addressCapitalValue } },
         { headers }
       );
       console.log(res);
       setLoading(false);
-      setDialogVisible((prev) => !prev);
       localStorage.setItem("user", JSON.stringify(res.data));
       toast({
         description: (
@@ -336,6 +330,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
             crossStreets: user?.addressCda.crossStreets,
           },
         });
+        setAddressCapitalValue(user?.addressCapital ?? "");
       } catch (err) {
         setError(err);
       }
@@ -343,22 +338,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     };
     fetchData();
   }, []);
-
-  useEffect(() => {
-    const userAddress = new window.google.maps.places.Autocomplete(
-      userAddressRef.current!,
-      {
-        componentRestrictions: { country: "AR" },
-        types: ["address"],
-        fields: ["address_components"],
-      }
-    );
-
-    userAddress.addListener("place_changed", () => {
-      const place = userAddress.getPlace();
-      console.log(place);
-    });
-  }, [dialogVisible]);
 
   const userAddressInputs = [
     {
@@ -456,7 +435,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         ) : (
           <article className="w-full flex justify-center items-center relative mx-auto rounded-md group shadow-input border pb-4 max-w-[400px] bg-card dark:shadow-none">
             <div
-              className={`absolute -z-10 -top-[5px] transition-all text-white right-2 pt-[2px] bg-orange-600 rounded-t-md px-2 h-10 group-hover:-top-[22px] lg:right-4 dark:bg-orange-700`}
+              className={`absolute -z-10 -top-[5px] transition-all text-white right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 group-hover:-top-[23px] lg:right-4 dark:bg-orange-700`}
             >
               <CountdownTimer
                 date={data.date}
@@ -537,10 +516,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                       Mis datos para este viaje
                     </h5>
 
-                    <Dialog
-                      open={dialogVisible}
-                      onOpenChange={() => setDialogVisible((prev) => !prev)}
-                    >
+                    <Dialog>
                       <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
                         <DialogTrigger asChild>
                           <Button className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white">
@@ -623,19 +599,14 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                                   Capital Federal
                                 </h6>
                                 <div className="grid w-full items-center gap-2">
-                                  <Label htmlFor="userAddress">Dirección</Label>
-                                  <div className="relative flex items-center">
-                                    <Milestone className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
-                                    <Input
-                                      ref={userAddressRef}
-                                      type="text"
-                                      id="userAddress"
-                                      className="pl-[32px]"
-                                      value={userAddressValue}
-                                      onChange={(e) =>
-                                        setUserAddressValue(e.target.value)
-                                      }
-                                      placeholder="Las Heras 2304"
+                                  <Label htmlFor="editAddressCapital">
+                                    Dirección
+                                  </Label>
+                                  <div className="w-full">
+                                    <AddressAutocomplete
+                                      id="editAddressCapital"
+                                      value={addressCapitalValue}
+                                      setValue={setAddressCapitalValue}
                                     />
                                   </div>
                                 </div>
