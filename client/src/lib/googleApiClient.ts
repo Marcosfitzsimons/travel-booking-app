@@ -59,7 +59,7 @@ export async function getGoogleMapsApiClient(): Promise<GoogleApiClient> {
     return googleApiClient;
   }
   const loader = new Loader({
-    apiKey: import.meta.env.VITE_REACT_APP_GOOGLE_PLACES_API || "",
+    apiKey: process.env.VITE_REACT_APP_GOOGLE_PLACES_API || "",
     version: "weekly",
     libraries: ["places"],
   });
