@@ -114,12 +114,9 @@ const Login = () => {
         );
         console.log(res);
         toast({
-          description: (
-            <div className="flex items-center gap-1">
-              {<CheckCircle className="w-[15px] h-[15px]" />} Link enviado a tu
-              email con éxito.
-            </div>
-          ),
+          title: "Link enviado a tu email con éxito",
+          description:
+            "Tenes 5 minutos para utilizar el link antes de que expire.",
         });
         setEmail("");
         setIsLoading(false);

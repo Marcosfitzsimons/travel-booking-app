@@ -93,6 +93,7 @@ const Register = () => {
   const { toast } = useToast();
 
   const handleOnSubmit = async (data: User) => {
+    setErr("");
     if (dispatch) {
       dispatch({ type: "LOGIN_START" });
       try {
@@ -110,21 +111,40 @@ const Register = () => {
         setIsSuccess(true);
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
       } catch (err: any) {
+        setIsSuccess(false);
         dispatch({
           type: "LOGIN_FAILURE",
           payload: err.response?.data,
         });
         console.log(err);
-        toast({
-          variant: "destructive",
-          title: "Error al guardar cambios",
-          description: err.response.data.msg
-            ? err.response.data.msg
-            : "Error al guardar cambios, intente más tarde.",
-        });
-        setIsSuccess(false);
-        const errorMsg = err.response.data.msg;
-        setErr(errorMsg);
+        if (err.response.data.err?.keyValue.username) {
+          setErr(
+            `Nombre de usuario ${err.response.data.err.keyValue.username} ya está en uso`
+          );
+          toast({
+            variant: "destructive",
+            title: "Error al crear cuenta",
+            description: "Nombre de usuario ya está en uso",
+          });
+        } else if (err.response.data.err?.keyValue.email) {
+          setErr(
+            `Email ${err.response.data.err.keyValue.email} ya está en uso`
+          );
+          toast({
+            variant: "destructive",
+            title: "Error al crear cuenta",
+            description: "Email ya está en uso",
+          });
+        } else {
+          setErr(err.response.data.msg);
+          toast({
+            variant: "destructive",
+            title: "Error al crear cuenta",
+            description: err.response.data.msg
+              ? err.response.data.msg
+              : "Error al crear cuenta, intente más tarde.",
+          });
+        }
       }
     }
   };
@@ -221,6 +241,11 @@ const Register = () => {
                               value: 15,
                               message:
                                 "Nombre de usuario no puede ser tan largo.",
+                            },
+                            pattern: {
+                              value: /^[a-zA-Z0-9]*$/,
+                              message:
+                                "Nombre de usuario no debe tener espacios ni caracteres especiales.",
                             },
                           })}
                         />
@@ -544,7 +569,7 @@ const Register = () => {
                 </div>
               </div>
 
-              {err && <p className="text-red-600 self-start">{err}</p>}
+              {err && <p className="text-red-600 self-start max-w-sm">{err}</p>}
 
               <div className="w-full flex flex-col items-center gap-3">
                 <div className="w-full max-w-sm mt-6 mb-2 lg:max-w-[9rem]">
