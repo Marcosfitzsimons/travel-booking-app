@@ -173,7 +173,11 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
             {userTrips && userTrips.length > 0 ? (
               <>
                 {userTrips.map((trip: TripProps) => (
-                  <MyTripCard {...trip} handleDelete={handleDelete} />
+                  <MyTripCard
+                    {...trip}
+                    key={trip.id}
+                    handleDelete={handleDelete}
+                  />
                 ))}
               </>
             ) : (

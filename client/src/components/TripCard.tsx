@@ -84,7 +84,7 @@ const TripCard = ({
           : "dark:border"
       } group w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none`}
     >
-      <div className="absolute -z-10 transition-all min-w- text-white right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 -top-[5px] group-hover:-top-[23px] lg:right-4 dark:bg-orange-700">
+      <div className="absolute -z-10 transition-all min-w-[120px] text-white right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 -top-[5px] lg:right-4 group-hover:-top-[23px] dark:bg-orange-700">
         <CountdownTimer date={date} departureTime={departureTime} />
       </div>
       <div
@@ -177,7 +177,7 @@ const TripCard = ({
           </span>
         </div>
       )}
-      <Separator className="bg-border w-4 absolute -bottom-5 self-center" />
+      <Separator className="bg-border w-4 absolute -bottom-7 self-center" />
     </article>
   );
 };

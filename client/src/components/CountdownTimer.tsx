@@ -53,10 +53,10 @@ const CountdownTimer = ({ date, departureTime }: CountdownTimerProps) => {
   }, [combinedDateTime]);
 
   return (
-    <p className="text-xs">
+    <div className="text-xs">
       <span className="font-bold uppercase">sale en: </span>
-      <span>{remainingTime}</span>
-    </p>
+      <span>{remainingTime ? remainingTime : "..."}</span>
+    </div>
   );
 };
 

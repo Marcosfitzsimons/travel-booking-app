@@ -44,8 +44,8 @@ const AlertDialogContent = React.forwardRef<
     <AlertDialogPrimitive.Content
       ref={ref}
       className={cn(
-        "animate-in fade-in-90 slide-in-from-bottom-10 sm:zoom-in-90 sm:slide-in-from-bottom-0 fixed z-50 grid w-full max-w-[35rem] scale-100 gap-4 bg-white p-6 opacity-100 sm:rounded-lg md:max-w-lg",
-        "dark:bg-[#010e11] lg:border lg:border-border-color lg:dark:border-zinc-500",
+        "animate-in fade-in-90 slide-in-from-bottom-10 sm:zoom-in-90 sm:slide-in-from-bottom-0 fixed z-50 grid w-full max-w-[35rem] scale-100 gap-4 bg-zinc-50 p-6 opacity-100 sm:rounded-lg md:max-w-lg dark:bg-background",
+        "md:border",
         className
       )}
       {...props}
@@ -74,7 +74,7 @@ const AlertDialogFooter = ({
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={cn(
-      "flex flex-col-reverse items-center sm:flex-row sm:justify-end sm:space-x-2",
+      "flex flex-col-reverse items-center gap-1 sm:flex-row sm:gap-3 sm:justify-end",
       className
     )}
     {...props}
@@ -115,15 +115,18 @@ const AlertDialogAction = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Action>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
 >(({ className, ...props }, ref) => (
-  <AlertDialogPrimitive.Action
-    ref={ref}
-    className={cn(
-      "inline-flex h-10 w-full items-center justify-center rounded-md py-2 px-4 text-sm bg-card font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-black/80 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 border border-border-color bg-white hover:border-blue-lagoon-600/50 dark:border-zinc-500 dark:text-white dark:bg-black dark:hover:border-blue-lagoon-300/80 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900",
-      className
-    )}
-    {...props}
-  />
+  <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-800/10 dark:after:shadow-highlight dark:after:shadow-slate-400/20 after:transition focus-within:after:shadow-slate-600 dark:focus-within:after:shadow-slate-200">
+    <AlertDialogPrimitive.Action
+      ref={ref}
+      className={cn(
+        "h-auto w-auto py-2 px-6 z-20 rounded-lg bg-white/90 sm:w-auto dark:bg-zinc-900/80 dark:text-slate-100 dark:hover:text-white",
+        className
+      )}
+      {...props}
+    />
+  </div>
 ));
+
 AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName;
 
 const AlertDialogCancel = React.forwardRef<
@@ -133,7 +136,7 @@ const AlertDialogCancel = React.forwardRef<
   <AlertDialogPrimitive.Cancel
     ref={ref}
     className={cn(
-      "mt-2 flex w-auto text-red-600 items-center justify-center rounded-md text-sm font-semibold sm:mt-0 dark:text-red-600 dark:bg-transparent",
+      "mt-2 flex w-auto text-red-600 items-center justify-center rounded-md text-sm font-medium sm:mt-0 sm:w-auto dark:text-red-600 dark:bg-transparent",
       className
     )}
     {...props}

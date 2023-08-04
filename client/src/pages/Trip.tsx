@@ -435,7 +435,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         ) : (
           <article className="w-full flex justify-center items-center relative mx-auto rounded-md group shadow-input border pb-4 max-w-[400px] bg-card dark:shadow-none">
             <div
-              className={`absolute -z-10 -top-[5px] transition-all text-white right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 group-hover:-top-[23px] lg:right-4 dark:bg-orange-700`}
+              className={`absolute -z-10 -top-[5px] transition-all min-w-[120px] text-white right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 group-hover:-top-[23px] lg:right-4 dark:bg-orange-700`}
             >
               <CountdownTimer
                 date={data.date}
