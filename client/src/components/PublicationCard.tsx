@@ -85,7 +85,7 @@ const PublicationCard = ({
                 <AvatarImage
                   src={logo}
                   alt="fabebus"
-                  className="border border-border-color rounded-full"
+                  className="border rounded-full"
                 />
                 <AvatarFallback>Fabebus</AvatarFallback>
               </Avatar>
@@ -97,7 +97,8 @@ const PublicationCard = ({
               {subtitle && <h4 className="">{subtitle}</h4>}
             </DialogDescription>
           </DialogHeader>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <p className="text-card-foreground">{description}</p>
             {image && (
               <div className="relative flex flex-col">
                 <img src={image} alt="imagen adjunta" />
@@ -112,7 +113,6 @@ const PublicationCard = ({
                 </div>
               </div>
             )}
-            <p className="text-card-foreground">{description}</p>
           </div>
         </DialogContent>
       </Dialog>
@@ -132,7 +132,6 @@ const PublicationCard = ({
           <h3 className="font-medium text-lg dark:text-white">{title}</h3>
           {subtitle && <h4 className="text-card-foreground">{subtitle}</h4>}
         </div>
-
         {image && (
           <div className="relative after:bg-gradient-to-b after:from-transparent after:to-black/5 after:inset-0 after:absolute after:z-10 dark:after:to-black/20">
             <img src={image} className="" alt="imagen adjunta" />
