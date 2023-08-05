@@ -57,7 +57,6 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
   const [data, setData] = useState(INITIAL_STATES);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | boolean>(false);
-
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -79,7 +78,7 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
       setLoading(false);
     };
     fetchData();
-  }, []);
+  }, [user]);
 
   return (
     <section className="flex flex-col">

@@ -133,14 +133,24 @@ const errorVariants = {
   },
 };
 
+const INITIAL_USER_VALUES = {
+  addressCda: {
+    street: "",
+    streetNumber: undefined,
+    crossStreets: "",
+  },
+  addressCapital: "",
+};
+
 const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const [data, setData] = useState(INITIAL_VALUES);
+  const [userInfo, setUserInfo] = useState(INITIAL_USER_VALUES);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | boolean>(false);
   const [isConfirm, setIsConfirm] = useState(false);
   const [isConfirmError, setIsConfirmError] = useState(false);
   const [addressCapitalValue, setAddressCapitalValue] = useState("");
-
+  console.log(userInfo);
   const locationn = useLocation();
   const path = locationn.pathname;
   const tripId = path.split("/")[2];
@@ -177,6 +187,30 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     Authorization: `Bearer ${token}`,
   };
 
+  const fetchUserData = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
+        { headers }
+      );
+      // Add backend endpoint to only fetch address data and not all the user data
+      const userData = res.data.user;
+      setUserInfo(userData);
+      reset({
+        addressCda: {
+          street: userData.addressCda.street,
+          streetNumber: userData.addressCda.streetNumber,
+          crossStreets: userData.addressCda.crossStreets,
+        },
+      });
+      setAddressCapitalValue(userData.addressCapital);
+    } catch (err) {
+      setError(err);
+    }
+    setLoading(false);
+  };
+
   const handleOnSubmit = async (data: UserData) => {
     setLoading(true);
 
@@ -186,9 +220,18 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         { userData: { ...data, addressCapital: addressCapitalValue } },
         { headers }
       );
-      console.log(res);
       setLoading(false);
       localStorage.setItem("user", JSON.stringify(res.data));
+      const userUpdated = res.data;
+      setUserInfo(userUpdated);
+      reset({
+        addressCda: {
+          street: userUpdated.addressCda.street,
+          streetNumber: userUpdated.addressCda.streetNumber,
+          crossStreets: userUpdated.addressCda.crossStreets,
+        },
+      });
+      setAddressCapitalValue(userUpdated.addressCapital);
       toast({
         description: (
           <div className="flex items-center gap-1">
@@ -197,9 +240,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
           </div>
         ),
       });
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
     } catch (err: any) {
       const errorMsg = err.response.data.msg;
       console.log(errorMsg);
@@ -211,9 +251,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
           ? err.response.data.msg
           : "Error al guardar cambios, intente más tarde.",
       });
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
     }
   };
 
@@ -315,6 +352,10 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   };
 
   useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -323,14 +364,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         );
         console.log(res.data);
         setData({ ...res.data });
-        reset({
-          addressCda: {
-            street: user?.addressCda.street,
-            streetNumber: user?.addressCda.streetNumber,
-            crossStreets: user?.addressCda.crossStreets,
-          },
-        });
-        setAddressCapitalValue(user?.addressCapital ?? "");
       } catch (err) {
         setError(err);
       }
@@ -338,83 +371,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     };
     fetchData();
   }, []);
-
-  const userAddressInputs = [
-    {
-      id: "street",
-      icon: (
-        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-      ),
-      label: "Calle",
-      type: "text",
-      placeholder: "Matheu",
-      validation: {
-        required: {
-          value: true,
-          message: "Por favor, ingresar domicilio.",
-        },
-        minLength: {
-          value: 3,
-          message: "Domicilio no puede ser tan corto.",
-        },
-        maxLength: {
-          value: 25,
-          message: "Domicilio no puede ser tan largo.",
-        },
-      },
-    },
-    {
-      id: "streetNumber",
-      icon: (
-        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-      ),
-      label: "Número",
-      type: "text",
-      placeholder: "354",
-      validation: {
-        required: {
-          value: true,
-          message: "Por favor, ingresar número de domicilio ",
-        },
-        minLength: {
-          value: 1,
-          message: "Número de domicilio no puede ser tan corto.",
-        },
-        maxLength: {
-          value: 5,
-          message: "Número de domicilio no puede ser tan largo.",
-        },
-        pattern: {
-          value: /^[0-9]+$/,
-          message: "Debe incluir solo números.",
-        },
-      },
-    },
-    {
-      id: "crossStreets",
-      icon: (
-        <Crop className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-      ),
-      label: "Calles que cruzan",
-      type: "text",
-      placeholder: "Matheu y D. Romero",
-      validation: {
-        required: {
-          value: true,
-          message:
-            "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
-        },
-        minLength: {
-          value: 3,
-          message: "No puede ser tan corto.",
-        },
-        maxLength: {
-          value: 40,
-          message: "No puede ser tan largo.",
-        },
-      },
-    },
-  ];
 
   return (
     <section className="section">
@@ -547,67 +503,156 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                           onSubmit={handleSubmit(handleOnSubmit)}
                           className="w-full flex flex-col items-center gap-3 mb-7"
                         >
-                          <div className="w-full flex flex-col items-center gap-2 lg:max-w-2xl">
-                            <div className="w-full max-w-xs flex flex-col items-center lg:gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
-                              <div className="w-full flex flex-col gap-2">
-                                <h6 className="font-serif text-accent ">
-                                  Carmen de Areco
-                                </h6>
-                                {userAddressInputs.map((input: UserInput) => {
-                                  const key = input.id;
-                                  const fieldName: any = `addressCda.${key}`;
-                                  return (
-                                    <div
-                                      key={input.id}
-                                      className="grid w-full items-center gap-2"
-                                    >
-                                      <Label htmlFor={input.id}>
-                                        {input.label}
-                                      </Label>
-                                      <div className="relative flex items-center">
-                                        {input.icon}
-                                        <Input
-                                          type={input.type}
-                                          id={input.id}
-                                          placeholder={input.placeholder}
-                                          className="pl-[32px]"
-                                          {...register(
-                                            fieldName,
-                                            input.validation
-                                          )}
-                                        />
-                                        {errors[
-                                          input.id as keyof typeof errors
-                                        ] && (
-                                          <p className="text-red-600">
-                                            {
-                                              errors[
-                                                input.id as keyof typeof errors
-                                              ]?.message
-                                            }
-                                          </p>
-                                        )}
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                              <Separator className="w-4 mb-2 mt-4 bg-border md:hidden" />
+                          <div className="w-full flex flex-col items-center gap-3">
+                            <div className="w-full flex flex-col items-center">
+                              <h5 className="text-center w-full text-lg font-medium dark:text-white lg:text-start lg:text-xl">
+                                Domicilios
+                              </h5>
+                            </div>
 
-                              <div className="w-full flex flex-col gap-2">
-                                <h6 className="font-serif text-accent ">
-                                  Capital Federal
-                                </h6>
-                                <div className="grid w-full items-center gap-2">
-                                  <Label htmlFor="editAddressCapital">
-                                    Dirección
-                                  </Label>
-                                  <div className="w-full">
-                                    <AddressAutocomplete
-                                      id="editAddressCapital"
-                                      value={addressCapitalValue}
-                                      setValue={setAddressCapitalValue}
-                                    />
+                            <div className="w-full flex flex-col gap-2 lg:max-w-5xl">
+                              <div className="w-full flex flex-col gap-2 lg:flex-row">
+                                <div className="w-full flex flex-col gap-2">
+                                  <div className="w-full flex flex-col gap-2">
+                                    <h6 className="font-serif text-accent ">
+                                      Carmen de Areco
+                                    </h6>
+
+                                    <div className="grid w-full items-center gap-2">
+                                      <Label htmlFor="street">Calle</Label>
+                                      <div className="relative flex items-center">
+                                        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                                        <Input
+                                          type="text"
+                                          id="street"
+                                          className="pl-[32px]"
+                                          placeholder="Matheu"
+                                          {...register("addressCda.street", {
+                                            required: {
+                                              value: true,
+                                              message:
+                                                "Por favor, ingresar domicilio.",
+                                            },
+                                            minLength: {
+                                              value: 3,
+                                              message:
+                                                "Domicilio no puede ser tan corto.",
+                                            },
+                                            maxLength: {
+                                              value: 25,
+                                              message:
+                                                "Domicilio no puede ser tan largo.",
+                                            },
+                                          })}
+                                        />
+                                      </div>
+                                      {errors.addressCda?.street && (
+                                        <p className="text-red-600 text-sm">
+                                          {errors.addressCda.street.message}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </div>
+
+                                  <div className="grid w-full items-center gap-2">
+                                    <Label htmlFor="streetNumber">Número</Label>
+                                    <div className="relative flex items-center">
+                                      <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                                      <Input
+                                        type="number"
+                                        id="streetNumber"
+                                        className="pl-[32px]"
+                                        placeholder="522"
+                                        {...register(
+                                          "addressCda.streetNumber",
+                                          {
+                                            required: {
+                                              value: true,
+                                              message:
+                                                "Por favor, ingresar número de domicilio ",
+                                            },
+                                            minLength: {
+                                              value: 1,
+                                              message:
+                                                "Número de domicilio no puede ser tan corto.",
+                                            },
+                                            maxLength: {
+                                              value: 5,
+                                              message:
+                                                "Número de domicilio no puede ser tan largo.",
+                                            },
+                                            pattern: {
+                                              value: /^[0-9]+$/,
+                                              message:
+                                                "Debe incluir solo números.",
+                                            },
+                                          }
+                                        )}
+                                      />
+                                    </div>
+                                    {errors.addressCda?.streetNumber && (
+                                      <p className="text-red-600 text-sm">
+                                        {errors.addressCda.streetNumber.message}
+                                      </p>
+                                    )}
+                                  </div>
+
+                                  <div className="grid w-full items-center gap-2">
+                                    <Label htmlFor="crossStreets">
+                                      Calles que cruzan
+                                    </Label>
+                                    <div className="relative flex items-center">
+                                      <Crop className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                                      <Input
+                                        type="text"
+                                        id="crossStreets"
+                                        className="pl-[32px]"
+                                        placeholder="Matheu y D. Romero"
+                                        {...register(
+                                          "addressCda.crossStreets",
+                                          {
+                                            required: {
+                                              value: true,
+                                              message:
+                                                "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
+                                            },
+                                            minLength: {
+                                              value: 3,
+                                              message:
+                                                "No puede ser tan corto.",
+                                            },
+                                            maxLength: {
+                                              value: 45,
+                                              message:
+                                                "No puede ser tan largo.",
+                                            },
+                                          }
+                                        )}
+                                      />
+                                    </div>
+                                    {errors.addressCda?.crossStreets && (
+                                      <p className="text-red-600 text-sm">
+                                        {errors.addressCda.crossStreets.message}
+                                      </p>
+                                    )}
+                                  </div>
+                                </div>
+
+                                <div className="w-full flex flex-col gap-2 ">
+                                  <h6 className="font-serif text-accent ">
+                                    Capital Federal
+                                  </h6>
+                                  <div className="grid w-full items-center gap-2">
+                                    <Label htmlFor="editAddressCapital">
+                                      Dirección
+                                    </Label>
+                                    <div className="w-full">
+                                      <AddressAutocomplete
+                                        id="editAddressCapital"
+                                        value={addressCapitalValue}
+                                        setValue={setAddressCapitalValue}
+                                      />
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -615,7 +660,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                           </div>
 
                           <DialogFooter>
-                            <div className="w-full max-w-xs">
+                            <div className="w-full max-w-xs mt-5">
                               <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100">
                                 <Button
                                   disabled={loading}
@@ -639,17 +684,20 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                       <span className="font-medium dark:text-white">
                         Dirreción:
                       </span>
-                      {user && (
-                        <p>{`${user.addressCda.street} ${user.addressCda.streetNumber}`}</p>
+                      {userInfo && (
+                        <p>
+                          {userInfo.addressCda.street}{" "}
+                          {userInfo.addressCda.streetNumber}
+                        </p>
                       )}
                     </div>
-                    {user && (
+                    {userInfo && (
                       <div className="flex items-center gap-[2px]">
                         <Crop className="w-4 h-4 text-accent " />
                         <span className="font-medium dark:text-white">
                           Calles que cruzan:
                         </span>{" "}
-                        {user.addressCda.crossStreets}
+                        {userInfo.addressCda.crossStreets}
                       </div>
                     )}
                     <h6 className="font-serif dark:text-white font-semibold">
@@ -660,7 +708,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                       <span className="font-medium dark:text-white">
                         Dirreción:
                       </span>{" "}
-                      <p>{user && user.addressCapital}</p>
+                      {userInfo && <p> {userInfo.addressCapital}</p>}
                     </div>
                     <div className="relative flex items-center mt-2 space-x-1">
                       <Checkbox
@@ -738,7 +786,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                         <div className="w-full max-w-xs">
                           <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100">
                             <Button
-                              disabled={loading}
+                              disabled={true} // disabled={loading}
                               onClick={handleConfirmPayment}
                               className="relative w-full bg-primary text-slate-100 hover:text-white dark:text-slate-100 dark:bg-primary dark:hover:text-white h-8"
                             >

@@ -3,18 +3,18 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { saveAs } from "file-saver";
 import moment from "moment";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Download } from "lucide-react";
 import logo from "../assets/fabebus-logo.jpg";
 
 interface PublicationProps {
-  _id: string;
+  _id?: string;
   title: string;
   subtitle?: string;
   description: string;
@@ -23,7 +23,6 @@ interface PublicationProps {
 }
 
 const PublicationCard = ({
-  _id,
   title,
   description,
   subtitle,
@@ -47,6 +46,11 @@ const PublicationCard = ({
   });
 
   const { datePart, timePart } = convertToArgentineTimezone(createdAt);
+
+  const downloadImage = () => {
+    saveAs(image ?? "", "fabebus-img.jpg");
+  };
+
   return (
     <article className="w-full relative h-72 max-w-lg bg-card shadow-input rounded-md border px-2 py-3 flex flex-col gap-3 lg:px-4 lg:pt-[10px] dark:shadow-none">
       <Dialog>
@@ -58,13 +62,13 @@ const PublicationCard = ({
           </DialogTrigger>
         </div>
 
-        <DialogContent className="pt-12 gap-6 sm:max-w-[600px]">
+        <DialogContent className="py-12 gap-6 sm:max-w-[600px]">
           <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
             <span className="w-8 h-[4px] bg-red-700 rounded-full " />
             <span className="w-4 h-[4px] bg-red-700 rounded-full " />
             <span className="w-2 h-[4px] bg-red-700 rounded-full " />
           </div>
-          <div className="absolute bottom-[0.75rem] right-2.5 sm:left-4 flex flex-col rotate-180 gap-[3px] transition-transform ">
+          <div className="absolute bottom-[0.75rem] right-2.5 sm:right-4 flex flex-col rotate-180 gap-[3px]">
             <span className="w-8 h-[4px] bg-red-700 rounded-full " />
             <span className="w-4 h-[4px] bg-red-700 rounded-full " />
             <span className="w-2 h-[4px] bg-red-700 rounded-full " />
@@ -98,7 +102,10 @@ const PublicationCard = ({
               <div className="relative flex flex-col">
                 <img src={image} alt="imagen adjunta" />
                 <div className="flex items-center absolute bottom-2 right-2 after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
-                  <Button className="h-8 py-2 px-3 outline-none inline-flex items-center gap-1 justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white">
+                  <Button
+                    onClick={downloadImage}
+                    className="h-8 py-2 px-3 outline-none inline-flex items-center gap-1 justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white"
+                  >
                     Descargar
                     <Download className="w-[14px] h-[14px] cursor-pointer" />
                   </Button>
@@ -107,7 +114,6 @@ const PublicationCard = ({
             )}
             <p className="text-card-foreground">{description}</p>
           </div>
-          <DialogFooter></DialogFooter>
         </DialogContent>
       </Dialog>
       <div className="overflow-hidden flex flex-col gap-3">

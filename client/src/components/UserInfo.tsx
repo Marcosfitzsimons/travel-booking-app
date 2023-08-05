@@ -98,9 +98,8 @@ const UserInfo = ({ userData }: UserInfoProps) => {
           </h4>
           <Separator className="hidden w-8 self-center mt-7 lg:flex" />
         </div>
-        <div className="flex flex-col w-full overflow-hidden gap-2 max-w-sm items-start px-2 lg:px-0 lg:flex-row lg:pt-0 lg:justify-around lg:max-w-6xl">
+        <div className="flex flex-col w-full overflow-hidden gap-5 max-w-sm items-start px-2 lg:px-0 lg:flex-row lg:pt-0 lg:justify-around lg:max-w-6xl">
           <div className="w-full flex flex-col gap-3 lg:basis-1/3 lg:my-2">
-            <Separator className="w-8 self-center my-2 lg:hidden" />
             <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-xl">
               Datos personales
             </h5>
@@ -124,7 +123,6 @@ const UserInfo = ({ userData }: UserInfoProps) => {
           </div>
 
           <div className="w-full flex flex-col gap-3 lg:basis-[60%] lg:my-2">
-            <Separator className="w-8 self-center my-2 lg:hidden" />
             <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-xl">
               Domicilios
             </h5>

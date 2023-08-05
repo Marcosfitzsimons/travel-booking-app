@@ -2,17 +2,13 @@ import { Heart, X, ClipboardList, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "../hooks/ui/use-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import { Separator } from "./ui/separator";
-import { Switch } from "./ui/switch";
-import { Label } from "./ui/label";
 import MyTripCard from "./MyTripCard";
 import { Button } from "./ui/button";
 import { useToast } from "./../components/ui/use-toast";
 import { CheckCircle } from "lucide-react";
-import { ToastAction } from "./ui/toast";
 
 type TripProps = {
   id: string;
@@ -119,6 +115,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
       });
     }
   };
+  console.log(userData);
 
   return (
     <section className="min-h-[70vh] w-full mx-auto mt-3 bg-transparent flex flex-col gap-5 items-center">

@@ -94,6 +94,7 @@ const Register = () => {
 
   const handleOnSubmit = async (data: User) => {
     setErr("");
+
     if (dispatch) {
       dispatch({ type: "LOGIN_START" });
       try {

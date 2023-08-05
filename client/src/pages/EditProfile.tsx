@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Crop,
@@ -14,7 +14,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/SectionTitle";
-import { toast } from "../hooks/ui/use-toast";
+import { useToast } from "../components/ui/use-toast";
 import axios from "axios";
 import DefaultButton from "../components/DefaultButton";
 import BackButton from "../components/BackButton";
@@ -22,6 +22,7 @@ import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
 import { Separator } from "../components/ui/separator";
+import AddressAutocomplete from "@/components/AddressAutocomplete";
 
 type addressCda = {
   street: string | undefined;
@@ -37,7 +38,7 @@ type UserData = {
   dni: number | undefined;
   image?: string | undefined;
   addressCda: addressCda | undefined;
-  addressCapital: string | undefined;
+  addressCapital?: string | undefined;
   password?: string | undefined;
 };
 interface InputValidation {
@@ -87,40 +88,85 @@ const sectionVariants = {
   },
 };
 
-const EditProfile = () => {
-  const [image, setImage] = useState<File | string>("");
+const INITIAL_VALUES = {
+  username: "",
+  fullName: "",
+  email: "",
+  phone: undefined,
+  dni: undefined,
+  addressCda: {
+    street: "",
+    streetNumber: undefined,
+    crossStreets: "",
+  },
+  addressCapital: "",
+  image: "",
+};
 
+const EditProfile = () => {
+  const [userData, setUserData] = useState(INITIAL_VALUES);
+  const [image, setImage] = useState<File | string>("");
+  const [addressCapitalValue, setAddressCapitalValue] = useState(
+    userData.addressCapital ?? ""
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
 
   const { user } = useContext(AuthContext);
 
-  const [addressCapitalValue, setAddressCapitalValue] = useState(
-    "" || user?.addressCapital
-  );
-
-  const addressCapitalRef = useRef(null);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
-      username: user?.username,
-      fullName: user?.fullName,
-      email: user?.email,
-      phone: user?.phone,
-      dni: user?.dni,
+      username: userData.username,
+      fullName: userData.fullName,
+      email: userData.email,
+      phone: userData.phone,
+      dni: userData.dni,
       addressCda: {
-        street: user?.addressCda.street,
-        streetNumber: user?.addressCda.streetNumber,
-        crossStreets: user?.addressCda.crossStreets,
+        street: userData.addressCda.street,
+        streetNumber: userData.addressCda.streetNumber,
+        crossStreets: userData.addressCda.crossStreets,
       },
-      addressCapital: user?.addressCapital,
-      image: user?.image,
+      image: userData.image,
     },
   });
+
+  const fetchUserData = async () => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(
+        `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
+        { headers }
+      );
+      // Add backend endpoint to only fetch address data and not all the user data
+      const userData = res.data.user;
+      setUserData(userData);
+      reset({
+        username: userData.username,
+        fullName: userData.fullName,
+        email: userData.email,
+        phone: userData.phone,
+        dni: userData.dni,
+        addressCda: {
+          street: userData.addressCda.street,
+          streetNumber: userData.addressCda.streetNumber,
+          crossStreets: userData.addressCda.crossStreets,
+        },
+        image: userData.image,
+      });
+
+      setAddressCapitalValue(userData.addressCapital);
+    } catch (err: any) {
+      console.log(err);
+    }
+    setIsLoading(false);
+  };
+
+  const { toast } = useToast();
 
   const navigate = useNavigate();
 
@@ -141,17 +187,23 @@ const EditProfile = () => {
       if (!image) {
         const res = await axios.put(
           `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
-          { userData: { ...data, addressCapital: addressCapitalValue } },
+          {
+            userData: {
+              ...data,
+              addressCapital: addressCapitalValue,
+            },
+          },
           { headers }
         );
         localStorage.setItem("user", JSON.stringify(res.data));
+        setUserData(res.data);
         setIsLoading(false);
         toast({
           description: "Cambios guardados con exito.",
         });
         setTimeout(() => {
           navigate("/mi-perfil");
-        }, 1000);
+        }, 500);
       } else {
         const uploadRes = await axios.post(
           "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
@@ -172,115 +224,28 @@ const EditProfile = () => {
         );
         localStorage.setItem("user", JSON.stringify(res.data));
         setIsLoading(false);
-        toast({
-          description: "Cambios guardados con éxito.",
-        });
+
         setTimeout(() => {
-          navigate("/mi-perfil");
-        }, 1000);
+          window.location.replace("/mi-perfil");
+        }, 500);
       }
     } catch (err: any) {
-      const errorMsg = err.response.data.msg;
       setIsLoading(false);
-      setErr(errorMsg);
+      console.log(err.response.data.err);
+
+      setErr(err.response.data.msg);
       toast({
         variant: "destructive",
-        description: "Error al guardar los cambios, intentar mas tarde.",
+        title: "Error al crear cuenta",
+        description: err.response.data.msg
+          ? err.response.data.msg
+          : "Error al crear cuenta, intente más tarde.",
       });
     }
   };
 
-  const userAddressInputs = [
-    {
-      id: "street",
-      icon: (
-        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-      ),
-      label: "Calle",
-      type: "text",
-      placeholder: "Matheu",
-      validation: {
-        required: {
-          value: true,
-          message: "Por favor, ingresar domicilio.",
-        },
-        minLength: {
-          value: 3,
-          message: "Domicilio no puede ser tan corto.",
-        },
-        maxLength: {
-          value: 25,
-          message: "Domicilio no puede ser tan largo.",
-        },
-      },
-    },
-    {
-      id: "streetNumber",
-      icon: (
-        <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-      ),
-      label: "Número",
-      type: "text",
-      placeholder: "354",
-      validation: {
-        required: {
-          value: true,
-          message: "Por favor, ingresar número de domicilio ",
-        },
-        minLength: {
-          value: 1,
-          message: "Número de domicilio no puede ser tan corto.",
-        },
-        maxLength: {
-          value: 5,
-          message: "Número de domicilio no puede ser tan largo.",
-        },
-        pattern: {
-          value: /^[0-9]+$/,
-          message: "Debe incluir solo números.",
-        },
-      },
-    },
-    {
-      id: "crossStreets",
-      icon: (
-        <Crop className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-      ),
-      label: "Calles que cruzan",
-      type: "text",
-      placeholder: "Matheu y D. Romero",
-      validation: {
-        required: {
-          value: true,
-          message:
-            "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
-        },
-        minLength: {
-          value: 3,
-          message: "No puede ser tan corto.",
-        },
-        maxLength: {
-          value: 40,
-          message: "No puede ser tan largo.",
-        },
-      },
-    },
-  ];
-
   useEffect(() => {
-    const addressCapital = new window.google.maps.places.Autocomplete(
-      addressCapitalRef.current!,
-      {
-        componentRestrictions: { country: "AR" },
-        types: ["address"],
-        fields: ["address_components"],
-      }
-    );
-
-    addressCapital.addListener("place_changed", () => {
-      const place = addressCapital.getPlace();
-      console.log(place);
-    });
+    fetchUserData();
   }, []);
 
   return (
@@ -353,14 +318,13 @@ const EditProfile = () => {
 
                 <div className="w-full flex flex-col items-center gap-5 lg:max-w-2xl">
                   <div className="w-full flex flex-col items-center">
-                    <div className="my-2 w-full flex flex-col items-center lg:mt-0">
-                      <Separator className="w-8 my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
+                    <div className="w-full flex flex-col items-center ">
                       <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-start lg:text-xl">
                         Datos personales
                       </h5>
                     </div>
 
-                    <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-2 mt-2 lg:max-w-5xl lg:flex-row lg:items-start">
+                    <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
                       <div className="flex w-full flex-col items-center gap-3">
                         <div className="grid w-full items-center gap-2 mt-4 lg:mt-0">
                           <Label htmlFor="username">Nombre de usuario</Label>
@@ -539,71 +503,149 @@ const EditProfile = () => {
                     </div>
                   </div>
 
-                  <div className="w-full flex flex-col items-center gap-3">
+                  <div className="w-full flex flex-col items-center gap-3 lg:gap-1">
                     <div className="w-full flex flex-col items-center">
-                      <Separator className="w-8 my-2 bg-border-color lg:hidden dark:bg-border-color-dark" />
-                      <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-start lg:text-xl">
+                      <h5 className="text-center w-full font-medium dark:text-white lg:text-start lg:text-xl">
                         Domicilios
                       </h5>
                     </div>
 
-                    <div className="w-full max-w-sm flex flex-col items-center gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
-                      <div className="w-full flex flex-col gap-2">
-                        <h6 className="font-serif text-accent ">
-                          Carmen de Areco
-                        </h6>
-                        {userAddressInputs.map((input: UserInput) => {
-                          const key = input.id;
-                          const fieldName: any = `addressCda.${key}`;
-                          return (
-                            <div
-                              key={input.id}
-                              className="grid w-full items-center gap-2"
-                            >
-                              <Label htmlFor={input.id}>{input.label}</Label>
-                              <div className="relative flex items-center">
-                                {input.icon}
-                                <Input
-                                  type={input.type}
-                                  id={input.id}
-                                  placeholder={input.placeholder}
-                                  className="pl-[32px]"
-                                  {...register(fieldName, input.validation)}
-                                />
-                                {errors[input.id as keyof typeof errors] && (
-                                  <p className="text-red-600">
-                                    {
-                                      errors[input.id as keyof typeof errors]
-                                        ?.message
-                                    }
+                    <div className="w-full flex flex-col items-center gap-3">
+                      <div className="w-full flex flex-col gap-2 lg:max-w-5xl">
+                        <div className="w-full flex flex-col gap-2 lg:flex-row">
+                          <div className="w-full flex flex-col gap-2">
+                            <div className="w-full flex flex-col gap-2">
+                              <h6 className="font-serif text-accent ">
+                                Carmen de Areco
+                              </h6>
+
+                              <div className="grid w-full items-center gap-2">
+                                <Label htmlFor="street">Calle</Label>
+                                <div className="relative flex items-center">
+                                  <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                                  <Input
+                                    type="text"
+                                    id="street"
+                                    className="pl-[32px]"
+                                    placeholder="Matheu"
+                                    {...register("addressCda.street", {
+                                      required: {
+                                        value: true,
+                                        message:
+                                          "Por favor, ingresar domicilio.",
+                                      },
+                                      minLength: {
+                                        value: 3,
+                                        message:
+                                          "Domicilio no puede ser tan corto.",
+                                      },
+                                      maxLength: {
+                                        value: 25,
+                                        message:
+                                          "Domicilio no puede ser tan largo.",
+                                      },
+                                    })}
+                                  />
+                                </div>
+                                {errors.addressCda?.street && (
+                                  <p className="text-red-600 text-sm">
+                                    {errors.addressCda.street.message}
                                   </p>
                                 )}
                               </div>
                             </div>
-                          );
-                        })}
-                      </div>
-                      <Separator className="w-8 my-2 bg-border-color md:hidden dark:bg-border-color-dark" />
 
-                      <div className="w-full flex flex-col gap-2">
-                        <h6 className="font-serif text-accent ">
-                          Capital Federal
-                        </h6>
-                        <div className="grid w-full items-center gap-2">
-                          <Label htmlFor="addressCapital">Dirección</Label>
-                          <div className="relative flex items-center">
-                            <Milestone className="z-30 h-5 w-5 text-accent absolute left-[10px] pb-[2px] " />
-                            <Input
-                              ref={addressCapitalRef}
-                              type="text"
-                              id="addressCapital"
-                              className="pl-[32px]"
-                              value={addressCapitalValue}
-                              onChange={(e) =>
-                                setAddressCapitalValue(e.target.value)
-                              }
-                              placeholder="Las Heras 2304"
-                            />
+                            <div className="grid w-full items-center gap-2">
+                              <Label htmlFor="streetNumber">Número</Label>
+                              <div className="relative flex items-center">
+                                <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                                <Input
+                                  type="number"
+                                  id="streetNumber"
+                                  className="pl-[32px]"
+                                  placeholder="522"
+                                  {...register("addressCda.streetNumber", {
+                                    required: {
+                                      value: true,
+                                      message:
+                                        "Por favor, ingresar número de domicilio ",
+                                    },
+                                    minLength: {
+                                      value: 1,
+                                      message:
+                                        "Número de domicilio no puede ser tan corto.",
+                                    },
+                                    maxLength: {
+                                      value: 5,
+                                      message:
+                                        "Número de domicilio no puede ser tan largo.",
+                                    },
+                                    pattern: {
+                                      value: /^[0-9]+$/,
+                                      message: "Debe incluir solo números.",
+                                    },
+                                  })}
+                                />
+                              </div>
+                              {errors.addressCda?.streetNumber && (
+                                <p className="text-red-600 text-sm">
+                                  {errors.addressCda.streetNumber.message}
+                                </p>
+                              )}
+                            </div>
+
+                            <div className="grid w-full items-center gap-2">
+                              <Label htmlFor="crossStreets">
+                                Calles que cruzan
+                              </Label>
+                              <div className="relative flex items-center">
+                                <Crop className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                                <Input
+                                  type="text"
+                                  id="crossStreets"
+                                  className="pl-[32px]"
+                                  placeholder="Matheu y D. Romero"
+                                  {...register("addressCda.crossStreets", {
+                                    required: {
+                                      value: true,
+                                      message:
+                                        "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
+                                    },
+                                    minLength: {
+                                      value: 3,
+                                      message: "No puede ser tan corto.",
+                                    },
+                                    maxLength: {
+                                      value: 45,
+                                      message: "No puede ser tan largo.",
+                                    },
+                                  })}
+                                />
+                              </div>
+                              {errors.addressCda?.crossStreets && (
+                                <p className="text-red-600 text-sm">
+                                  {errors.addressCda.crossStreets.message}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+
+                          <div className="w-full flex flex-col gap-2 ">
+                            <h6 className="font-serif text-accent ">
+                              Capital Federal
+                            </h6>
+                            <div className="grid w-full items-center gap-2">
+                              <Label htmlFor="editProfileAddressCapital">
+                                Dirección
+                              </Label>
+                              <div className="w-full">
+                                <AddressAutocomplete
+                                  id="editProfileAddressCapital"
+                                  value={addressCapitalValue}
+                                  setValue={setAddressCapitalValue}
+                                />
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -612,7 +654,7 @@ const EditProfile = () => {
 
                   {err && <p className="text-red-600 self-start">{err}</p>}
 
-                  <div className="w-full max-w-sm lg:w-[10rem]">
+                  <div className="w-full mt-4 max-w-sm lg:w-[10rem]">
                     <DefaultButton>Guardar cambios</DefaultButton>
                   </div>
                 </div>

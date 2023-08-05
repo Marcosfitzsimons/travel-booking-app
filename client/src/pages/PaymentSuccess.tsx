@@ -102,6 +102,7 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
           `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
           {
             userId: userId,
+            isPaid: true,
           },
           { headers }
         );
@@ -139,7 +140,7 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://fabebus-api-example.onrender.com/api/trips/${tripId}`
+          `https://fabebus-api-example.onrender.com/api/trips/${userId}/${tripId}`
         );
 
         setData({ ...res.data });
@@ -161,11 +162,11 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
         className="flex flex-col items-center justify-center gap-6 mt-4"
       >
         <div className="flex w-full flex-col items-center gap-6">
-          <div className="w-full relative flex flex-col items-center mt-2">
-            <div className="absolute -top-4 flex items-center justify-center w-8 aspect-square rounded-full border-2 bg-[#4E8D7C] border-white">
+          <div className="w-full relative flex flex-col items-center mt-2 max-w-sm">
+            <div className="absolute -top-4 flex items-center justify-center w-8 aspect-square rounded-full border-2 bg-[#6fa194] border-white dark:bg-[#609285]">
               <Check className="h-5 w-5 text-white" />
             </div>
-            <div className="w-11/12 pt-6 mx-auto flex flex-col text-center items-center gap-1 p-3 rounded-md bg-[#4E8D7C] text-white">
+            <div className="w-11/12 pt-6 mx-auto flex flex-col text-center items-center gap-1 p-3 rounded-md bg-[#6fa194] text-white dark:bg-[#609285]">
               <h3 className="font-medium text-lg">Pago realizado con éxito!</h3>
             </div>
           </div>
@@ -182,11 +183,11 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
             />
           </p>
 
-          <div className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100 ">
+          <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
             <Link
               to="/mi-perfil"
               onClick={() => setIsUserInfo(false)}
-              className="relative py-0.5 px-4 inline-flex items-center justify-center bg-primary text-slate-100 rounded-lg hover:text-white dark:text-slate-100 dark:bg-primary dark:hover:text-white "
+              className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white "
             >
               Ir a mis viajes
             </Link>
@@ -196,7 +197,7 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
         {loading ? (
           <Loading />
         ) : (
-          <>
+          <div className="flex flex-col gap-2">
             <h1>Más información acerca de tu viaje</h1>
             <article
               key={data._id}
@@ -269,7 +270,7 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
                 </div>
               </div>
             </article>
-          </>
+          </div>
         )}
       </motion.div>
     </section>
