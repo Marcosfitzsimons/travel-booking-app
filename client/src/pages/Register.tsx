@@ -211,13 +211,18 @@ const Register = () => {
                         />
                       </div>
                       {errors.fullName && (
-                        <p className="text-red-600 text-sm">
+                        <p className="text-red-600 text-xs sm:text-sm">
                           {errors.fullName.message}
                         </p>
                       )}
                     </div>
                     <div className="grid w-full items-center gap-2">
-                      <Label htmlFor="username">Nombre de usuario</Label>
+                      <div className="flex items-center gap-1">
+                        <Label htmlFor="username">Nombre de usuario </Label>
+                        <span className="text-xs select-none text-accent">
+                          * Req. para ingresar
+                        </span>
+                      </div>
                       <div className="relative flex items-center">
                         <span className="z-30 absolute text-accent left-[11px] pb-[2px] select-none ">
                           @
@@ -252,7 +257,7 @@ const Register = () => {
                         />
                       </div>
                       {errors.username && (
-                        <p className="text-red-600 text-sm">
+                        <p className="text-red-600 text-xs sm:text-sm">
                           {errors.username.message}
                         </p>
                       )}
@@ -283,7 +288,7 @@ const Register = () => {
                         />
                       </div>
                       {errors.password && (
-                        <p className="text-red-600 text-sm">
+                        <p className="text-red-600 text-xs sm:text-sm">
                           {errors.password.message}
                         </p>
                       )}
@@ -314,7 +319,7 @@ const Register = () => {
                         />
                       </div>
                       {errors.cpassword && (
-                        <p className="text-red-600 text-sm">
+                        <p className="text-red-600 text-xs sm:text-sm">
                           {errors.cpassword.message}
                         </p>
                       )}
@@ -322,7 +327,13 @@ const Register = () => {
                   </div>
                   <div className="flex w-full flex-col items-center gap-2">
                     <div className="grid w-full items-center gap-2">
-                      <Label htmlFor="email">Email</Label>
+                      <div className="flex items-center gap-1">
+                        <Label htmlFor="email">Email </Label>
+                        <span className="text-xs select-none text-accent">
+                          * Req. para ingresar
+                        </span>
+                      </div>
+
                       <div className="relative flex items-center">
                         <Mail className="z-30 top-[11px] h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                         <Input
@@ -348,7 +359,7 @@ const Register = () => {
                       </div>
 
                       {errors.email && (
-                        <p className="text-red-600 text-sm">
+                        <p className="text-red-600 text-xs sm:text-sm">
                           {errors.email.message}
                         </p>
                       )}
@@ -383,7 +394,7 @@ const Register = () => {
                         />
                       </div>
                       {errors.dni && (
-                        <p className="text-red-600 text-sm">
+                        <p className="text-red-600 text-xs sm:text-sm">
                           {errors.dni.message}
                         </p>
                       )}
@@ -419,7 +430,7 @@ const Register = () => {
                         />
                       </div>
                       {errors.phone && (
-                        <p className="text-red-600 text-sm">
+                        <p className="text-red-600 text-xs sm:text-sm">
                           {errors.phone.message}
                         </p>
                       )}
@@ -442,7 +453,8 @@ const Register = () => {
                         <h6 className="font-serif text-accent ">
                           Carmen de Areco
                         </h6>
-
+                      </div>
+                      <div className="flex items-center gap-1 max-w-sm">
                         <div className="grid w-full items-center gap-2">
                           <Label htmlFor="street">Calle</Label>
                           <div className="relative flex items-center">
@@ -469,50 +481,49 @@ const Register = () => {
                             />
                           </div>
                           {errors.addressCda?.street && (
-                            <p className="text-red-600 text-sm">
+                            <p className="text-red-600 text-xs sm:text-sm">
                               {errors.addressCda.street.message}
                             </p>
                           )}
                         </div>
-                      </div>
-
-                      <div className="grid w-full items-center gap-2">
-                        <Label htmlFor="streetNumber">Número</Label>
-                        <div className="relative flex items-center">
-                          <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-                          <Input
-                            type="number"
-                            id="streetNumber"
-                            className="pl-[32px]"
-                            placeholder="522"
-                            {...register("addressCda.streetNumber", {
-                              required: {
-                                value: true,
-                                message:
-                                  "Por favor, ingresar número de domicilio ",
-                              },
-                              minLength: {
-                                value: 1,
-                                message:
-                                  "Número de domicilio no puede ser tan corto.",
-                              },
-                              maxLength: {
-                                value: 5,
-                                message:
-                                  "Número de domicilio no puede ser tan largo.",
-                              },
-                              pattern: {
-                                value: /^[0-9]+$/,
-                                message: "Debe incluir solo números.",
-                              },
-                            })}
-                          />
+                        <div className="grid w-full items-center gap-2">
+                          <Label htmlFor="streetNumber">Número</Label>
+                          <div className="relative flex items-center">
+                            <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                            <Input
+                              type="number"
+                              id="streetNumber"
+                              className="pl-[32px]"
+                              placeholder="522"
+                              {...register("addressCda.streetNumber", {
+                                required: {
+                                  value: true,
+                                  message:
+                                    "Por favor, ingresar número de domicilio ",
+                                },
+                                minLength: {
+                                  value: 1,
+                                  message:
+                                    "Número de domicilio no puede ser tan corto.",
+                                },
+                                maxLength: {
+                                  value: 5,
+                                  message:
+                                    "Número de domicilio no puede ser tan largo.",
+                                },
+                                pattern: {
+                                  value: /^[0-9]+$/,
+                                  message: "Debe incluir solo números.",
+                                },
+                              })}
+                            />
+                          </div>
+                          {errors.addressCda?.streetNumber && (
+                            <p className="text-red-600 text-xs sm:text-sm">
+                              {errors.addressCda.streetNumber.message}
+                            </p>
+                          )}
                         </div>
-                        {errors.addressCda?.streetNumber && (
-                          <p className="text-red-600 text-sm">
-                            {errors.addressCda.streetNumber.message}
-                          </p>
-                        )}
                       </div>
 
                       <div className="grid w-full items-center gap-2">
@@ -542,7 +553,7 @@ const Register = () => {
                           />
                         </div>
                         {errors.addressCda?.crossStreets && (
-                          <p className="text-red-600 text-sm">
+                          <p className="text-red-600 text-xs sm:text-sm">
                             {errors.addressCda.crossStreets.message}
                           </p>
                         )}

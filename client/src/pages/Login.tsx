@@ -160,7 +160,6 @@ const Login = () => {
                 <Input
                   type="text"
                   id="emailOrUsername"
-                  placeholder="juanperez22"
                   className="pl-[32px]"
                   {...register("emailOrUsername", {
                     required: {
@@ -181,7 +180,9 @@ const Login = () => {
               </div>
 
               {errors.emailOrUsername && (
-                <p className="text-red-600">{errors.emailOrUsername.message}</p>
+                <p className="text-red-600 text-xs sm:text-sm">
+                  {errors.emailOrUsername.message}
+                </p>
               )}
             </div>
             <div className="grid w-full max-w-sm items-center self-center gap-2">
@@ -192,7 +193,6 @@ const Login = () => {
                   type="password"
                   id="password"
                   className="pl-[32px]"
-                  placeholder="..."
                   {...register("password", {
                     required: {
                       value: true,
@@ -210,7 +210,9 @@ const Login = () => {
                 />
               </div>
               {errors.password && (
-                <p className="text-red-600">{errors.password.message}</p>
+                <p className="text-red-600 text-xs sm:text-sm">
+                  {errors.password.message}
+                </p>
               )}
             </div>
             {err && (
