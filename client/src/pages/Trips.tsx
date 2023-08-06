@@ -55,7 +55,7 @@ const Trips = () => {
   const [isOnlyAvailable, setIsOnlyAvailable] = useState(true);
 
   const { data, loading, error, reFetch } = useFetch(
-    "https://fabebus-api-example.onrender.com/api/trips"
+    `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/trips`
   );
 
   const availableTrips = data.filter((trip: TripProps) => {

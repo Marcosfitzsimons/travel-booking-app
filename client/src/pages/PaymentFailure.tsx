@@ -41,7 +41,7 @@ const PaymentFailure = ({ setIsUserInfo }: PaymentProps) => {
       variant: "destructive",
       title: "Error al guardar su lugar",
       description:
-        "Lo siento, pero ha ocurrido un fallo en el procesamiento del pago.",
+        "Lo siento, ha ocurrido un fallo en el procesamiento del pago.",
     });
   }, [isLoaded]);
 

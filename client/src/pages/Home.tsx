@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
-
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import PublicationCard from "../components/PublicationCard";
 import { ChevronsRight, Newspaper } from "lucide-react";
 import useFetch from "@/hooks/useFetch";
@@ -41,7 +41,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const { data, loading, error } = useFetch(
-    "https://fabebus-api-example.onrender.com/api/publications"
+    `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/publications`
   );
 
   return (

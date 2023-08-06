@@ -139,7 +139,9 @@ const EditProfile = () => {
     setIsLoading(true);
     try {
       const res = await axios.get(
-        `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
+        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
+          user?._id
+        }`,
         { headers }
       );
       // Add backend endpoint to only fetch address data and not all the user data
@@ -186,7 +188,9 @@ const EditProfile = () => {
     try {
       if (!image) {
         const res = await axios.put(
-          `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
+          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
+            user?._id
+          }`,
           {
             userData: {
               ...data,
@@ -212,7 +216,9 @@ const EditProfile = () => {
         const { url } = uploadRes.data;
 
         const res = await axios.put(
-          `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
+          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
+            user?._id
+          }`,
           {
             userData: {
               ...data,

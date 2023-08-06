@@ -88,7 +88,9 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
     const tripId = e.target.id;
     try {
       await axios.delete(
-        `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
+        `${
+          import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
+        }/passengers/${userId}/${tripId}`,
         { headers }
       );
       toast({

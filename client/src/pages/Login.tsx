@@ -75,7 +75,7 @@ const Login = () => {
       dispatch({ type: "LOGIN_START" });
       try {
         const res = await axios.post(
-          "https://fabebus-api-example.onrender.com/api/auth/login",
+          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/auth/login`,
           data
         );
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
@@ -109,7 +109,9 @@ const Login = () => {
       setIsLoading(true);
       try {
         const res = await axios.post(
-          `https://fabebus-api-example.onrender.com/api/auth/sendpasswordlink`,
+          `${
+            import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
+          }/auth/sendpasswordlink`,
           { email: email }
         );
         console.log(res);

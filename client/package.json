@@ -11,7 +11,7 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.2",
     "@radix-ui/react-alert-dialog": "^1.0.2",
-    "@radix-ui/react-aspect-ratio": "^1.0.1",
+    "@radix-ui/react-aspect-ratio": "^1.0.3",
     "@radix-ui/react-avatar": "^1.0.1",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.4",

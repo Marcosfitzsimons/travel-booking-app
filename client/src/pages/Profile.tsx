@@ -68,7 +68,9 @@ const Profile = ({ isUserInfo, setIsUserInfo }: ProfileProps) => {
           Authorization: `Bearer ${token}`,
         };
         const res = await axios.get(
-          `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
+          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
+            user?._id
+          }`,
           { headers }
         );
         setData(res.data.user);

@@ -191,7 +191,9 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
+        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
+          user?._id
+        }`,
         { headers }
       );
       // Add backend endpoint to only fetch address data and not all the user data
@@ -216,7 +218,9 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
 
     try {
       const res = await axios.put(
-        `https://fabebus-api-example.onrender.com/api/users/${user?._id}`,
+        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
+          user?._id
+        }`,
         { userData: { ...data, addressCapital: addressCapitalValue } },
         { headers }
       );
@@ -266,7 +270,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     setLoading(true);
     try {
       const res = await axios.post(
-        `https://fabebus-api-example.onrender.com/api/payments`,
+        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/payments`,
         {
           trip: {
             _id: data._id,
@@ -302,7 +306,9 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     setLoading(true);
     try {
       await axios.post(
-        `https://fabebus-api-example.onrender.com/api/passengers/${user?._id}/${tripId}`,
+        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/passengers/${
+          user?._id
+        }/${tripId}`,
         {
           userId: user?._id,
         },
@@ -360,7 +366,9 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://fabebus-api-example.onrender.com/api/trips/${user?._id}/${tripId}`
+          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/trips/${
+            user?._id
+          }/${tripId}`
         );
         console.log(res.data);
         setData({ ...res.data });

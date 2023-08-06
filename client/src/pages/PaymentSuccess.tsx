@@ -99,7 +99,9 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
     const handleConfirmPassenger = async () => {
       try {
         await axios.post(
-          `https://fabebus-api-example.onrender.com/api/passengers/${userId}/${tripId}`,
+          `${
+            import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
+          }/passengers/${userId}/${tripId}`,
           {
             userId: userId,
             isPaid: true,
@@ -140,7 +142,9 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://fabebus-api-example.onrender.com/api/trips/${userId}/${tripId}`
+          `${
+            import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
+          }/trips/${userId}/${tripId}`
         );
 
         setData({ ...res.data });

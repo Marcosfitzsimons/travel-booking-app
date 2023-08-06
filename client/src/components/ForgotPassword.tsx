@@ -24,7 +24,9 @@ const ForgotPassword = () => {
   const userValid = async () => {
     try {
       const res = await axios.get(
-        `https://fabebus-api-example.onrender.com/api/auth/forgotpassword/${id}/${token}`
+        `${
+          import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
+        }/auth/forgotpassword/${id}/${token}`
       );
       console.log(`User valid: ${res}`);
     } catch (err) {
@@ -58,7 +60,9 @@ const ForgotPassword = () => {
     } else {
       try {
         const res = await axios.post(
-          `https://fabebus-api-example.onrender.com/api/auth/changepassword/${id}/${token}`,
+          `${
+            import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
+          }/auth/changepassword/${id}/${token}`,
           {
             password: password,
           }
