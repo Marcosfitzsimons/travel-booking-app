@@ -96,15 +96,14 @@ const UserInfo = ({ userData }: UserInfoProps) => {
           <h4 className="text-[#737373] dark:text-slate-500">
             @{userData?.username}
           </h4>
-          <Separator className="hidden w-8 self-center mt-7 lg:flex" />
         </div>
-        <div className="flex flex-col w-full overflow-hidden gap-5 max-w-sm items-start px-2 lg:px-0 lg:flex-row lg:pt-0 lg:justify-around lg:max-w-6xl">
+        <div className="flex flex-col w-full overflow-hidden gap-5 max-w-sm items-start px-1 lg:px-0 lg:flex-row lg:pt-0 lg:justify-around lg:max-w-6xl">
           <div className="w-full flex flex-col gap-3 lg:basis-1/3 lg:my-2">
             <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-xl">
               Datos personales
             </h5>
 
-            <ul className="flex flex-col w-full overflow-hidden gap-1 shadow-input py-2 px-4 rounded-md bg-card border dark:shadow-none">
+            <ul className="flex flex-col w-full overflow-hidden gap-1 shadow-input py-2 px-2 rounded-md bg-card border dark:shadow-none">
               <li className="flex items-center gap-1">
                 <Mail className="h-4 w-4 text-accent shrink-0 " />
                 <span className="font-medium">Email:</span>
@@ -126,7 +125,7 @@ const UserInfo = ({ userData }: UserInfoProps) => {
             <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-xl">
               Domicilios
             </h5>
-            <div className="flex flex-col w-full overflow-hidden gap-1 shadow-input py-2 px-4 rounded-md bg-card border lg:flex-row dark:shadow-none">
+            <div className="flex flex-col w-full overflow-hidden gap-1 shadow-input py-2 px-2 rounded-md bg-card border lg:flex-row dark:shadow-none">
               <div className="flex flex-col gap-1 lg:basis-[55%]">
                 <h6 className="font-serif text-accent ">Carmen de Areco</h6>
                 <div className="flex items-center gap-1">
@@ -147,13 +146,15 @@ const UserInfo = ({ userData }: UserInfoProps) => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-1 lg:basis-[40%]">
-                <h6 className="font-serif text-accent ">Capital Federal</h6>
+              <div className="flex-col gap-1 lg:basis-[50%]">
+                <h6 className="font-serif text-accent">Capital Federal</h6>
                 <div className="flex items-center gap-1">
-                  <Milestone className="w-4 h-4 text-accent " />
-                  <span className="font-medium dark:text-white">
-                    Dirreción:
-                  </span>{" "}
+                  <div className="flex items-center gap-1 lg:self-start">
+                    <Milestone className="w-4 h-4 text-accent shrink-0" />
+                    <span className="font-medium  shrink-0 lg:self-start dark:text-white">
+                      Dirreción:
+                    </span>{" "}
+                  </div>
                   <p>{userData?.addressCapital}</p>
                 </div>
               </div>
