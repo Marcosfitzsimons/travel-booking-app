@@ -12,6 +12,7 @@ import moment from "moment";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Download } from "lucide-react";
 import logo from "../assets/fabebus-logo.jpg";
+import { convertToArgentineTimezone } from "@/lib/utils/convertToArgentineTimezone";
 
 interface PublicationProps {
   _id?: string;
@@ -29,18 +30,6 @@ const PublicationCard = ({
   image,
   createdAt,
 }: PublicationProps) => {
-  const convertToArgentineTimezone = (dateStr: string) => {
-    const utcDate = moment.utc(dateStr);
-
-    // Use moment.format to display the date in the desired format
-    const formattedDate = utcDate.format("ddd DD/MM - hh:mm A");
-
-    const datePart = formattedDate.slice(0, 10); // "Dom 16/07"
-    const timePart = formattedDate.slice(12); // "04:20 PM"
-
-    return { datePart, timePart };
-  };
-
   moment.locale("es", {
     weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
   });
@@ -76,7 +65,7 @@ const PublicationCard = ({
           <DialogHeader className="relative">
             <p className="absolute right-0 top-0 text-sm lg:right-4">
               {datePart}
-              <span className="text-[#737373] text-xs font-extralight dark:text-slate-500 ">
+              <span className="text-[#737373] text-xs font-extralight dark:text-slate-500">
                 {timePart}
               </span>
             </p>
@@ -132,12 +121,13 @@ const PublicationCard = ({
           <h3 className="font-medium text-lg dark:text-white">{title}</h3>
           {subtitle && <h4 className="text-card-foreground">{subtitle}</h4>}
         </div>
+        <p className="text-card-foreground">{description}</p>
+
         {image && (
           <div className="relative after:bg-gradient-to-b after:from-transparent after:to-black/5 after:inset-0 after:absolute after:z-10 dark:after:to-black/20">
             <img src={image} className="" alt="imagen adjunta" />
           </div>
         )}
-        <p className="text-card-foreground">{description}</p>
         <p className="absolute right-2 top-1 text-sm lg:right-4">
           {datePart}
           <span className="text-[#737373] text-xs font-extralight dark:text-slate-500 ">
