@@ -436,7 +436,7 @@ const EditProfile = () => {
 
                       <div className="flex w-full flex-col items-center gap-3">
                         <div className="grid w-full items-center gap-2">
-                          <Label htmlFor="tel">Celular</Label>
+                          <Label htmlFor="phone">Celular</Label>
                           <div className="relative flex items-center">
                             <Phone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                             <Input
@@ -523,114 +523,115 @@ const EditProfile = () => {
                             <h6 className="font-serif text-accent ">
                               Carmen de Areco
                             </h6>
+                            <div className="flex items-center gap-1 max-w-sm">
+                              <div className="grid w-full items-center gap-2">
+                                <Label htmlFor="street">Calle</Label>
+                                <div className="relative flex items-center">
+                                  <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                                  <Input
+                                    type="text"
+                                    id="street"
+                                    className="pl-[32px]"
+                                    placeholder="Matheu"
+                                    {...register("addressCda.street", {
+                                      required: {
+                                        value: true,
+                                        message:
+                                          "Por favor, ingresar domicilio.",
+                                      },
+                                      minLength: {
+                                        value: 3,
+                                        message:
+                                          "Domicilio no puede ser tan corto.",
+                                      },
+                                      maxLength: {
+                                        value: 25,
+                                        message:
+                                          "Domicilio no puede ser tan largo.",
+                                      },
+                                    })}
+                                  />
+                                </div>
+                                {errors.addressCda?.street && (
+                                  <p className="text-red-600 text-xs sm:text-sm">
+                                    {errors.addressCda.street.message}
+                                  </p>
+                                )}
+                              </div>
+                              <div className="grid w-full items-center gap-2">
+                                <Label htmlFor="streetNumber">Número</Label>
+                                <div className="relative flex items-center">
+                                  <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                                  <Input
+                                    type="number"
+                                    id="streetNumber"
+                                    className="pl-[32px]"
+                                    placeholder="522"
+                                    {...register("addressCda.streetNumber", {
+                                      required: {
+                                        value: true,
+                                        message:
+                                          "Por favor, ingresar número de domicilio ",
+                                      },
+                                      minLength: {
+                                        value: 1,
+                                        message:
+                                          "Número de domicilio no puede ser tan corto.",
+                                      },
+                                      maxLength: {
+                                        value: 5,
+                                        message:
+                                          "Número de domicilio no puede ser tan largo.",
+                                      },
+                                      pattern: {
+                                        value: /^[0-9]+$/,
+                                        message: "Debe incluir solo números.",
+                                      },
+                                    })}
+                                  />
+                                </div>
+                                {errors.addressCda?.streetNumber && (
+                                  <p className="text-red-600 text-xs sm:text-sm">
+                                    {errors.addressCda.streetNumber.message}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
 
                             <div className="grid w-full items-center gap-2">
-                              <Label htmlFor="street">Calle</Label>
+                              <Label htmlFor="crossStreets">
+                                Calles que cruzan
+                              </Label>
                               <div className="relative flex items-center">
-                                <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                                <Crop className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                                 <Input
                                   type="text"
-                                  id="street"
+                                  id="crossStreets"
                                   className="pl-[32px]"
-                                  placeholder="Matheu"
-                                  {...register("addressCda.street", {
+                                  placeholder="Matheu y D. Romero"
+                                  {...register("addressCda.crossStreets", {
                                     required: {
                                       value: true,
-                                      message: "Por favor, ingresar domicilio.",
+                                      message:
+                                        "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
                                     },
                                     minLength: {
                                       value: 3,
-                                      message:
-                                        "Domicilio no puede ser tan corto.",
+                                      message: "No puede ser tan corto.",
                                     },
                                     maxLength: {
-                                      value: 25,
-                                      message:
-                                        "Domicilio no puede ser tan largo.",
+                                      value: 45,
+                                      message: "No puede ser tan largo.",
                                     },
                                   })}
                                 />
                               </div>
-                              {errors.addressCda?.street && (
-                                <p className="text-red-600 text-sm">
-                                  {errors.addressCda.street.message}
+                              {errors.addressCda?.crossStreets && (
+                                <p className="text-red-600 text-xs sm:text-sm">
+                                  {errors.addressCda.crossStreets.message}
                                 </p>
                               )}
                             </div>
-                          </div>
-
-                          <div className="grid w-full items-center gap-2">
-                            <Label htmlFor="streetNumber">Número</Label>
-                            <div className="relative flex items-center">
-                              <Milestone className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-                              <Input
-                                type="number"
-                                id="streetNumber"
-                                className="pl-[32px]"
-                                placeholder="522"
-                                {...register("addressCda.streetNumber", {
-                                  required: {
-                                    value: true,
-                                    message:
-                                      "Por favor, ingresar número de domicilio ",
-                                  },
-                                  minLength: {
-                                    value: 1,
-                                    message:
-                                      "Número de domicilio no puede ser tan corto.",
-                                  },
-                                  maxLength: {
-                                    value: 5,
-                                    message:
-                                      "Número de domicilio no puede ser tan largo.",
-                                  },
-                                  pattern: {
-                                    value: /^[0-9]+$/,
-                                    message: "Debe incluir solo números.",
-                                  },
-                                })}
-                              />
-                            </div>
-                            {errors.addressCda?.streetNumber && (
-                              <p className="text-red-600 text-sm">
-                                {errors.addressCda.streetNumber.message}
-                              </p>
-                            )}
-                          </div>
-
-                          <div className="grid w-full items-center gap-2">
-                            <Label htmlFor="crossStreets">
-                              Calles que cruzan
-                            </Label>
-                            <div className="relative flex items-center">
-                              <Crop className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-                              <Input
-                                type="text"
-                                id="crossStreets"
-                                className="pl-[32px]"
-                                placeholder="Matheu y D. Romero"
-                                {...register("addressCda.crossStreets", {
-                                  required: {
-                                    value: true,
-                                    message:
-                                      "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
-                                  },
-                                  minLength: {
-                                    value: 3,
-                                    message: "No puede ser tan corto.",
-                                  },
-                                  maxLength: {
-                                    value: 45,
-                                    message: "No puede ser tan largo.",
-                                  },
-                                })}
-                              />
-                            </div>
-                            {errors.addressCda?.crossStreets && (
-                              <p className="text-red-600 text-sm">
-                                {errors.addressCda.crossStreets.message}
-                              </p>
-                            )}
                           </div>
                         </div>
 
