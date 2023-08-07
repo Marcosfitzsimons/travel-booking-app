@@ -21,7 +21,6 @@ import BackButton from "../components/BackButton";
 import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
-import { Separator } from "../components/ui/separator";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 
 type addressCda = {
@@ -358,6 +357,11 @@ const EditProfile = () => {
                                   value: 15,
                                   message:
                                     "Nombre de usuario no puede ser tan largo.",
+                                },
+                                pattern: {
+                                  value: /^(?=.*[0-9])[a-zA-Z0-9]{3,}$/,
+                                  message:
+                                    "El nombre de usuario debe tener al menos 3 caracteres y contener al menos un número.",
                                 },
                               })}
                             />

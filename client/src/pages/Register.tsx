@@ -249,9 +249,9 @@ const Register = () => {
                                 "Nombre de usuario no puede ser tan largo.",
                             },
                             pattern: {
-                              value: /^[a-zA-Z0-9]*$/,
+                              value: /^(?=.*[0-9])[a-zA-Z0-9]{3,}$/,
                               message:
-                                "Nombre de usuario no debe tener espacios ni caracteres especiales.",
+                                "El nombre de usuario debe tener al menos 3 caracteres y contener al menos un número.",
                             },
                           })}
                         />
