@@ -64,7 +64,7 @@ const sectionVariants = {
 const Register = () => {
   const [addressCapitalValue, setAddressCapitalValue] = useState("");
   const [err, setErr] = useState<null | string>(null);
-  const [isSuccess, setIsSuccess] = useState(true);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const {
     register,
@@ -102,8 +102,6 @@ const Register = () => {
           `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/auth/register`,
           { ...data, addressCapital: addressCapitalValue }
         );
-        const token = res.data.token;
-        localStorage.setItem("token", token);
         toast({
           title: "¡Registro exitoso!",
           description:
