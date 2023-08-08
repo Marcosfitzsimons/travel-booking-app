@@ -40,32 +40,6 @@ type UserData = {
   addressCapital?: string | undefined;
   password?: string | undefined;
 };
-interface InputValidation {
-  required: {
-    value: boolean;
-    message: string;
-  };
-  minLength: {
-    value: number;
-    message: string;
-  };
-  maxLength: {
-    value: number;
-    message: string;
-  };
-  pattern?: {
-    value: RegExp;
-    message: string;
-  };
-}
-interface UserInput {
-  id: any;
-  label: string;
-  type: string;
-  placeholder?: string;
-  validation?: InputValidation;
-  icon?: any;
-}
 
 const sectionVariants = {
   hidden: {
