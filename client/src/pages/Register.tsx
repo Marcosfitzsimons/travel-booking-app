@@ -64,7 +64,7 @@ const sectionVariants = {
 const Register = () => {
   const [addressCapitalValue, setAddressCapitalValue] = useState("");
   const [err, setErr] = useState<null | string>(null);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(true);
 
   const {
     register,
@@ -157,7 +157,9 @@ const Register = () => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="flex flex-col items-center lg:flex-row lg:justify-between"
+        className={`${
+          isSuccess ? "h-screen lg:h-auto" : ""
+        } flex flex-col items-center lg:flex-row lg:justify-between`}
       >
         {!isSuccess ? (
           <div className="">
