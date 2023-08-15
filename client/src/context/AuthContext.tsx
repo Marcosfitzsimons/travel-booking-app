@@ -1,26 +1,5 @@
 import { createContext, Dispatch, useEffect, useReducer } from "react";
-
-type addressCda = {
-  street: string;
-  streetNumber: any;
-  crossStreets: string;
-};
-
-type User = {
-  _id: string;
-  username: string;
-  fullName: string;
-  email: string;
-  phone: number;
-  image?: string;
-  isReminder: boolean;
-  addressCda: addressCda;
-  addressCapital: string;
-  dni: number;
-  password: string;
-  status: "Pending" | "Active";
-  myTrips: [];
-};
+import { User } from "../types/types";
 interface AuthContextType {
   user: User | null;
   loading: boolean;

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import Loading from "./Loading";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -8,8 +7,8 @@ import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import BackButton from "./BackButton";
 import { Check, CheckCircle } from "lucide-react";
+import { Skeleton } from "./ui/skeleton";
 
-// TO DO...
 const ForgotPassword = () => {
   const { id, token } = useParams();
 
@@ -93,19 +92,23 @@ const ForgotPassword = () => {
     userValid();
     setTimeout(() => {
       setData(true);
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (
     <>
       {data ? (
         <section className="flex flex-col items-center mt-2">
+          <div className="self-start">
+            <BackButton toProfile={false} />
+          </div>
+
           {message ? (
-            <div className="w-full relative flex flex-col items-center gap-3 mt-6">
+            <div className="w-full relative flex flex-col items-center gap-3">
               <div className="absolute -top-4 flex items-center justify-center w-8 aspect-square rounded-full border-2 bg-[#4E8D7C] border-white">
                 <Check className="h-5 w-5 text-white" />
               </div>
-              <div className="w-11/12 pt-6 mx-auto flex flex-col text-center items-center gap-1 p-3 rounded-md bg-[#4E8D7C] text-white">
+              <div className="w-full max-w-md pt-6 mx-auto flex flex-col text-center items-center gap-1 p-3 rounded-md bg-[#4E8D7C] text-white">
                 <h3 className="">Contraseña ha sido actualizada con éxito!</h3>
               </div>
               <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
@@ -118,9 +121,9 @@ const ForgotPassword = () => {
               </div>
             </div>
           ) : (
-            <div className="w-full flex flex-col gap-6">
+            <div className="w-full flex flex-col items-center gap-3 max-w-md">
               <h1 className="w-full text-lg text-center">
-                Escribí tu contraseña nueva
+                Ingresa tu contraseña nueva
               </h1>
               <form onSubmit={handleSubmit} className="w-full max-w-sm">
                 <div className="w-full flex flex-col gap-2">
@@ -144,7 +147,17 @@ const ForgotPassword = () => {
           )}
         </section>
       ) : (
-        <Loading />
+        <div className="flex flex-col gap-7">
+          <Skeleton className="h-7 w-[70px]" />
+          <div className="w-full flex flex-col items-center gap-3 max-w-md">
+            <Skeleton className="h-5 w-48" />
+            <div className="w-full flex flex-col gap-1">
+              <Skeleton className="h-4 w-20" />
+              <Skeleton className="h-8 w-full max-w-sm" />
+            </div>
+            <Skeleton className="h-7 w-[60px] self-end" />
+          </div>
+        </div>
       )}
     </>
   );

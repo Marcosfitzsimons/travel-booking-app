@@ -21,35 +21,16 @@ import { Label } from "../components/ui/label";
 import { AuthContext } from "../context/AuthContext";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
-import { CheckCircle, Lock, Mail, User } from "lucide-react";
+import { Lock, Mail, User } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-
-type User = {
-  emailOrUsername: String;
-  password: String;
-};
-
-const sectionVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "backInOut",
-    },
-  },
-};
+import sectionVariants from "@/lib/variants/sectionVariants";
+import { LoginUser } from "@/types/types";
 
 const Login = () => {
+  const [emailForgotten, setEmailForgotten] = useState("");
+  const [err, setErr] = useState<null | string>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -60,9 +41,6 @@ const Login = () => {
       password: "",
     },
   });
-  const [email, setEmail] = useState("");
-  const [err, setErr] = useState<null | string>(null);
-  const [isLoading, setIsLoading] = useState(false);
 
   const { loading, dispatch } = useContext(AuthContext);
 
@@ -70,7 +48,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleOnSubmit = async (data: User) => {
+  const handleOnSubmit = async (data: LoginUser) => {
     if (dispatch) {
       dispatch({ type: "LOGIN_START" });
       try {
@@ -94,17 +72,17 @@ const Login = () => {
   };
 
   const handleSendLink = async () => {
-    if (email === "") {
+    if (emailForgotten === "") {
       toast({
         variant: "destructive",
         description: "Email es requerido",
       });
-    } else if (!email.includes("@")) {
+    } else if (!emailForgotten.includes("@")) {
       toast({
         variant: "destructive",
         description: "Email no válido",
       });
-      setEmail("");
+      setEmailForgotten("");
     } else {
       setIsLoading(true);
       try {
@@ -112,7 +90,7 @@ const Login = () => {
           `${
             import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
           }/auth/sendpasswordlink`,
-          { email: email }
+          { email: emailForgotten }
         );
         console.log(res);
         toast({
@@ -120,10 +98,10 @@ const Login = () => {
           description:
             "Tenes 5 minutos para utilizar el link antes de que expire.",
         });
-        setEmail("");
+        setEmailForgotten("");
         setIsLoading(false);
       } catch (err: any) {
-        setEmail("");
+        setEmailForgotten("");
         setIsLoading(false);
         toast({
           variant: "destructive",
@@ -249,14 +227,14 @@ const Login = () => {
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <div className="grid w-full max-w-sm items-center self-center gap-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="emailForgotten">Email</Label>
                   <div className="relative flex items-center">
                     <Mail className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] " />
                     <Input
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={emailForgotten}
+                      onChange={(e) => setEmailForgotten(e.target.value)}
                       type="email"
-                      id="email"
+                      id="emailForgotten"
                       placeholder="email@example.com"
                       className="pl-[32px]"
                     />
@@ -267,6 +245,7 @@ const Login = () => {
                   <AlertDialogAction
                     className="lg:w-auto"
                     onClick={handleSendLink}
+                    disabled={isLoading}
                   >
                     Recuperar
                   </AlertDialogAction>
