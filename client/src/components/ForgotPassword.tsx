@@ -147,8 +147,8 @@ const ForgotPassword = () => {
           )}
         </section>
       ) : (
-        <div className="flex flex-col gap-7">
-          <Skeleton className="h-7 w-[70px]" />
+        <div className="flex flex-col items-center gap-7">
+          <Skeleton className="h-7 w-[70px] self-start" />
           <div className="w-full flex flex-col items-center gap-3 max-w-md">
             <Skeleton className="h-5 w-48" />
             <div className="w-full flex flex-col gap-1">
