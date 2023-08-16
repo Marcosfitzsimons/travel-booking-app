@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "../components/ui/separator";
@@ -21,45 +21,9 @@ import {
   User,
 } from "lucide-react";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
-
-type addressCda = {
-  street: string;
-  streetNumber: number | null;
-  crossStreets: string;
-};
-
-type User = {
-  username: string;
-  fullName: string;
-  email: string;
-  phone: number | null;
-  dni: number | null;
-  image?: string;
-  addressCda: addressCda;
-  addressCapital: string;
-  password: string;
-  cpassword: string;
-};
-
-const sectionVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "backInOut",
-    },
-  },
-};
+import { UserInputs } from "../types/types";
+import sectionVariants from "@/lib/variants/sectionVariants";
+import AccountStatus from "@/components/AccountStatus";
 
 const Register = () => {
   const [addressCapitalValue, setAddressCapitalValue] = useState("");
@@ -92,7 +56,7 @@ const Register = () => {
 
   const { toast } = useToast();
 
-  const handleOnSubmit = async (data: User) => {
+  const handleOnSubmit = async (data: UserInputs) => {
     setErr("");
 
     if (dispatch) {
@@ -105,7 +69,7 @@ const Register = () => {
         toast({
           title: "¡Registro exitoso!",
           description:
-            "Por favor verifique su email para poder activar su cuenta.",
+            "Por favor, verifique su email para poder activar su cuenta",
         });
         setIsSuccess(true);
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
@@ -174,9 +138,9 @@ const Register = () => {
               onSubmit={handleSubmit(handleOnSubmit)}
               className="relative w-full mt-2 py-6 flex flex-col gap-3 items-center lg:w-[750px]"
             >
-              <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-2 lg:max-w-5xl">
-                <div className="my-2 w-full flex flex-col items-center lg:mt-0">
-                  <h5 className="text-center w-full text-lg font-medium dark:text-white lg:mb-2 lg:text-start lg:text-xl">
+              <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-3 lg:max-w-5xl">
+                <div className="w-full flex flex-col items-center">
+                  <h5 className="text-center w-full text-lg font-medium dark:text-white lg:text-start lg:text-xl">
                     Datos personales
                   </h5>
                 </div>
@@ -439,7 +403,7 @@ const Register = () => {
                 </div>
               </div>
 
-              <div className="w-full flex flex-col items-center gap-3">
+              <div className="w-full flex flex-col items-center gap-2">
                 <div className="w-full flex flex-col items-center">
                   <h5 className="text-center w-full text-lg font-medium dark:text-white lg:text-start lg:text-xl">
                     Domicilios
@@ -584,10 +548,10 @@ const Register = () => {
               {err && <p className="text-red-600 self-start max-w-sm">{err}</p>}
 
               <div className="w-full flex flex-col items-center gap-3">
-                <div className="w-full max-w-sm mt-6 mb-2 lg:max-w-[9rem]">
+                <div className="w-full max-w-sm mt-4 lg:max-w-[9rem]">
                   <DefaultButton loading={loading}>Crear cuenta</DefaultButton>
                 </div>
-                <p className="w-full text-center lg:text-start lg:my-4">
+                <p className="w-full text-center lg:text-start">
                   ¿Ya tenes cuenta?{" "}
                   <Link to="/login" className="font-medium text-accent">
                     Iniciar sesion
@@ -598,26 +562,21 @@ const Register = () => {
           </div>
         ) : (
           <div className="relative flex flex-col items-center gap-2 mt-6">
-            <div className="absolute -top-4 flex items-center justify-center w-8 aspect-square rounded-full border-2 bg-[#4E8D7C] border-white">
+            <div className="absolute -top-4 flex items-center justify-center w-8 aspect-square rounded-full border-2 bg-[#5b9184] border-white dark:bg-[#4b7c71]">
               <Check className="h-5 w-5 text-white" />
             </div>
-            <div className="w-11/12 pt-6 mx-auto flex flex-col text-center items-center gap-1 p-3 rounded-md bg-[#4E8D7C] text-white">
-              <h3 className="font-medium text-lg">Registro exitoso!</h3>
-              <p className="text-[hsl(224,65%,97%)]">
-                Por favor, verifique su correo electrónico para activar su
-                cuenta.
+            <div className="w-full pt-6 p-5 flex flex-col text-center items-center gap-1 rounded-md bg-[#5b9184] text-white dark:bg-[#4b7c71]">
+              <h3 className="font-medium text-lg">Registro exitoso</h3>
+              <p className="text-zinc-50 lg:w-10/12">
+                Acabamos de enviar un link de activación a tu correo electrónico
               </p>
             </div>
 
-            <div className="text-center flex flex-col items-center gap-3 w-11/12 mx-auto">
-              <p>Una vez que active su cuenta, podrá reservar su lugar</p>
-              <Separator className="w-4 self-center" />
-              <div className="flex flex-col items-center gap-1">
+            <div className="text-center flex flex-col items-center w-11/12 mx-auto">
+              <Separator className="w-4 self-center my-3" />
+              <div className="flex flex-col items-center gap-1 ">
                 <p>Estado de su cuenta</p>
-                <p className="flex items-center gap-1 px-2 rounded-md bg-card border text-sm">
-                  <span className="w-[10px] aspect-square rounded-full bg-orange-600 animate-pulse" />
-                  Pendiente
-                </p>
+                <AccountStatus isActive={false}>Pendiente</AccountStatus>
               </div>
             </div>
           </div>
@@ -625,12 +584,12 @@ const Register = () => {
         <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8">
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
+            className="h-[360px] bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
           />
           <Logo />
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
+            className="h-[360px] bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
           />
         </div>
       </motion.div>

@@ -40,6 +40,10 @@ function App() {
     return children;
   };
 
+  moment.locale("es", {
+    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+  });
+
   return (
     <div className="">
       <Header setIsUserInfo={setIsUserInfo} />

@@ -1,41 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "../components/ui/button";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import PublicationCard from "../components/PublicationCard";
 import { ChevronsRight, Newspaper } from "lucide-react";
 import useFetch from "@/hooks/useFetch";
 import PublicationSkeleton from "@/components/PublicationSkeleton";
-
-const sectionVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "backInOut",
-    },
-  },
-};
-
-type Publication = {
-  _id: string;
-  title: string;
-  subtitle?: string;
-  description: string;
-  image?: string;
-  createdAt: string;
-};
+import sectionVariants from "@/lib/variants/sectionVariants";
+import { Publication } from "@/types/types";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -73,22 +44,20 @@ const Home = () => {
           <p className="font-medium px-4 text-card-foreground dark:text-slate-100">
             Una empresa familiar con más de 28 años de trayectoria.
           </p>
-          <div className="">
-            <Button
-              onClick={() => navigate("/viajes")}
-              className="text-sm mt-1 h-10 pl-6 gap-[3px] border border-pink-1-700/50 shadow-md shadow-pink-1-900/30 bg-gradient-to-r from-[#9e4a4f] via-[#854147] to-[#9c595d] bg-[length:200%] bg-left transition text-pink-1-100 hover:shadow-lg hover:border-pink-1-300/80 hover:bg-right hover:text-white hover:shadow-pink-1-900/50 dark:hover:shadow-pink-1-900 dark:border-pink-1-300/60 dark:text-pink-1-100 dark:shadow-pink-1-900/60 dark:bg-[#9e4a4f] dark:hover:border-pink-1-300/80 dark:hover:shadow-lg dark:hover:text-white"
-            >
-              Viajes disponibles
-              <ChevronsRight className="w-5 h-5 relative top-[1px]" />
-            </Button>
-          </div>
+          <Button
+            onClick={() => navigate("/viajes")}
+            className="text-sm mt-1 h-10 pl-6 gap-[3px] border border-pink-1-700/50 shadow-md shadow-pink-1-900/30 bg-gradient-to-r from-[#9e4a4f] via-[#854147] to-[#9c595d] bg-[length:200%] bg-left transition text-pink-1-100 hover:shadow-lg hover:border-pink-1-300/80 hover:bg-right hover:text-white hover:shadow-pink-1-900/50 dark:hover:shadow-pink-1-900 dark:border-pink-1-300/60 dark:text-pink-1-100 dark:shadow-pink-1-900/60 dark:bg-[#9e4a4f] dark:hover:border-pink-1-300/80 dark:hover:shadow-lg dark:hover:text-white"
+          >
+            Viajes disponibles
+            <ChevronsRight className="w-5 h-5 relative top-[1px]" />
+          </Button>
         </div>
         <div className="py-4 flex flex-col items-center gap-3 lg:items-start lg:basis-[45%]">
           <h2 className="flex items-center gap-2 my-2 text-xl uppercase font-bold lg:text-2xl dark:text-white">
             <Newspaper className="w-6 h-6 text-accent " />
             Anuncios destacados
           </h2>
-
+          {error ? <p>Error al cargar anuncios, intentar más tarde</p> : ""}
           {loading ? (
             <PublicationSkeleton cards={3} />
           ) : (

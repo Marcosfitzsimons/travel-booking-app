@@ -4,11 +4,12 @@ import { useEffect, useState } from "react"
 const useFetch = (url: string) => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState<unknown | boolean>(false)
+    const [error, setError] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
+        setError(false)
         const fetchData = async () => {
-            setLoading(true)
             try {
                 const token = localStorage.getItem('token');
                 const headers = {
@@ -17,7 +18,8 @@ const useFetch = (url: string) => {
                 const res = await axios.get(url, { headers })
                 setData(res.data)
             } catch(err) {
-                setError(err)
+                console.log(err)
+                setError(true)
             }
             setLoading(false)
         }
@@ -28,6 +30,7 @@ const useFetch = (url: string) => {
 
 const reFetch = async () => {
     setLoading(true)
+    setError(false)
     try {
         const token = localStorage.getItem('token');
         const headers = {
@@ -36,7 +39,8 @@ const reFetch = async () => {
         const res = await axios.get(url, { headers })
         setData(res.data)
     } catch(err) {
-        setError(err)
+        console.log(err)
+        setError(true)
     }
     setLoading(false)
 }

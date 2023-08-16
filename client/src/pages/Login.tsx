@@ -24,7 +24,7 @@ import DefaultButton from "../components/DefaultButton";
 import { Lock, Mail, User } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import sectionVariants from "@/lib/variants/sectionVariants";
-import { LoginUser } from "@/types/types";
+import { LoginUserInputs } from "@/types/types";
 
 const Login = () => {
   const [emailForgotten, setEmailForgotten] = useState("");
@@ -48,7 +48,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleOnSubmit = async (data: LoginUser) => {
+  const handleOnSubmit = async (data: LoginUserInputs) => {
     if (dispatch) {
       dispatch({ type: "LOGIN_START" });
       try {
@@ -199,10 +199,10 @@ const Login = () => {
               <p className="text-red-600 w-full self-center max-w-sm">{err}</p>
             )}
 
-            <div className="w-full self-center max-w-sm lg:max-w-[9rem]">
+            <div className="w-full self-center mt-1 max-w-sm lg:max-w-[9rem]">
               <DefaultButton loading={loading}>Entrar</DefaultButton>
             </div>
-            <p className="w-full text-center lg:text-start lg:my-4">
+            <p className="w-full text-center lg:text-start">
               ¿No tenes cuenta?{" "}
               <Link to="/register" className="font-medium text-accent">
                 Crear una cuenta nueva
@@ -257,12 +257,12 @@ const Login = () => {
         <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8 ">
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
+            className="h-[360px] bg-gradient-to-t from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
           />
           <Logo />
           <Separator
             orientation="vertical"
-            className="h-80 bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
+            className="h-[360px] bg-gradient-to-b from-border to-[#fafafa] dark:from-pink-1-50 dark:to-[#0E1217]"
           />
         </div>
       </motion.div>

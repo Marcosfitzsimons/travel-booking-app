@@ -13,15 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Download } from "lucide-react";
 import logo from "../assets/fabebus-logo.jpg";
 import { convertToArgentineTimezone } from "@/lib/utils/convertToArgentineTimezone";
-
-interface PublicationProps {
-  _id?: string;
-  title: string;
-  subtitle?: string;
-  description: string;
-  image?: string;
-  createdAt: string;
-}
+import { PublicationProps } from "@/types/props";
 
 const PublicationCard = ({
   title,

@@ -1,6 +1,3 @@
-import moment from "moment";
-import "moment/locale/es"; // without this line it didn't work
-moment.locale("es");
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -16,22 +13,9 @@ import {
 import DefaultButton from "./DefaultButton";
 import { Separator } from "./ui/separator";
 import CountdownTimer from "./CountdownTimer";
-
-interface Trip {
-  _id: number;
-  name: string;
-  date: string;
-  from: string;
-  departureTime: string;
-  to: string;
-  arrivalTime: string;
-  maxCapacity: number;
-  price: number;
-  available: boolean;
-  passengers: string[];
-}
-
-type TripProps = Trip;
+import formatDate from "@/lib/utils/formatDate";
+import getTodayDate from "@/lib/utils/getTodayDate";
+import { TripProps } from "@/types/props";
 
 const TripCard = ({
   name,
@@ -46,11 +30,7 @@ const TripCard = ({
   passengers,
 }: TripProps) => {
   const isMaxCapacity = maxCapacity === passengers.length;
-  const todayDate = moment().locale("es").format("ddd DD/MM");
-
-  moment.locale("es", {
-    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-  });
+  const todayDate = getTodayDate();
 
   const { user } = useContext(AuthContext);
 
@@ -64,18 +44,6 @@ const TripCard = ({
     }
   };
 
-  const formatDate = (date: string) => {
-    moment.locale("es", {
-      weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-    });
-    const momentDate = moment.utc(date);
-    const timezone = "America/Argentina/Buenos_Aires";
-    const timezone_date = momentDate.tz(timezone);
-    const formatted_date = timezone_date.format("ddd DD/MM");
-    // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
-    return formatted_date;
-  };
-
   return (
     <article
       className={`${
@@ -84,9 +52,7 @@ const TripCard = ({
           : "dark:border"
       } group w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none`}
     >
-      <div className="absolute -z-10 transition-all min-w-[120px] text-white right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 -top-[5px] lg:right-4 group-hover:-top-[23px] dark:bg-orange-700">
-        <CountdownTimer date={date} departureTime={departureTime} />
-      </div>
+      <CountdownTimer date={date} departureTime={departureTime} />
       <div
         className={`${
           maxCapacity === passengers.length ? "opacity-50" : ""

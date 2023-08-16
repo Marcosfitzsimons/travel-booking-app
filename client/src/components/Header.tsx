@@ -26,7 +26,6 @@ type HeaderProps = {
   setIsUserInfo: (value: boolean) => void;
 };
 
-// Add arrow to avatar dropdown menu :)
 const Header = ({ setIsUserInfo }: HeaderProps) => {
   const { user, dispatch } = useContext(AuthContext);
 
@@ -68,14 +67,6 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   className="font-medium rounded-md py-1 px-3 hover:text-hover dark:hover:text-white"
                 >
                   Viajes
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/nosotros"
-                  className="font-medium rounded-md py-1 px-3 hover:text-hover dark:hover:text-white"
-                >
-                  Nosotros
                 </Link>
               </li>
             </ul>

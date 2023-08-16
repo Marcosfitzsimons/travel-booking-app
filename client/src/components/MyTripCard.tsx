@@ -1,5 +1,3 @@
-import moment from "moment";
-
 import { DollarSign, CalendarDays, Clock, MapPin } from "lucide-react";
 import {
   AlertDialog,
@@ -12,9 +10,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../components/ui/alert-dialog";
-import { Button } from "../components/ui/button";
 import { Separator } from "./ui/separator";
 import CountdownTimer from "./CountdownTimer";
+import getTodayDate from "@/lib/utils/getTodayDate";
+import formatDate from "@/lib/utils/formatDate";
 
 type MyTripCardProps = {
   id: string;
@@ -43,28 +42,11 @@ const MyTripCard = ({
   available,
   handleDelete,
 }: MyTripCardProps) => {
-  const todayDate = moment().locale("es").format("ddd DD/MM");
-  moment.locale("es", {
-    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-  });
-
-  const formatDate = (date: string) => {
-    moment.locale("es", {
-      weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-    });
-    const momentDate = moment.utc(date);
-    const timezone = "America/Argentina/Buenos_Aires";
-    const timezone_date = momentDate.tz(timezone);
-    const formatted_date = timezone_date.format("ddd DD/MM");
-    // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
-    return formatted_date;
-  };
+  const todayDate = getTodayDate();
 
   return (
     <article className="relative w-full flex justify-center items-center mx-auto rounded-md shadow-input group pb-4 max-w-[400px] bg-card border dark:shadow-none">
-      <div className="absolute -z-10 transition-all text-white min-w-[120px] right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 -top-[5px] group-hover:-top-[23px] lg:right-4 dark:bg-orange-700">
-        <CountdownTimer date={date} departureTime={departureTime} />
-      </div>
+      <CountdownTimer date={date} departureTime={departureTime} />
       <div className="w-full px-2 pt-9 sm:px-4">
         <div className="flex flex-col gap-2">
           <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">

@@ -2,28 +2,11 @@ import { useEffect, useState } from "react";
 import { Moon, SunMedium } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "./ui/button";
-
-const themeIconVariants = {
-  hidden: {
-    y: 30,
-    opacity: 0,
-  },
-  visible: {
-    y: 0,
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-    y: -30,
-    transition: {
-      duration: 0.3,
-      ease: "easeOut",
-    },
-  },
-};
+import themeButtonVariants from "@/lib/variants/themeButtonVariants";
 
 export default function ThemeToggle() {
   const [isMounted, setIsMounted] = useState(false);
+
   const [theme, setTheme] = useState(() => {
     if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
       return localStorage.getItem("theme");
@@ -35,6 +18,7 @@ export default function ThemeToggle() {
     }
     return "light";
   });
+
   const toggleTheme = () => {
     const t = theme === "light" ? "dark" : "light";
     localStorage.setItem("theme", t);
@@ -59,7 +43,7 @@ export default function ThemeToggle() {
       <AnimatePresence mode="wait">
         {theme === "dark" ? (
           <motion.div
-            variants={themeIconVariants}
+            variants={themeButtonVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -76,7 +60,7 @@ export default function ThemeToggle() {
           </motion.div>
         ) : (
           <motion.div
-            variants={themeIconVariants}
+            variants={themeButtonVariants}
             initial="hidden"
             animate="visible"
             exit="exit"

@@ -53,7 +53,11 @@ const CountdownTimer = ({ date, departureTime }: CountdownTimerProps) => {
   }, [combinedDateTime]);
 
   return (
-    <div className="text-xs">
+    <div
+      className={`${
+        remainingTime ? "-top-[5px] group-hover:-top-[23px]" : "top-0"
+      } absolute -z-10 transition-all min-w-[120px] text-xs text-white right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 lg:right-4 dark:bg-orange-700`}
+    >
       <span className="font-bold uppercase">sale en: </span>
       <span>{remainingTime ? remainingTime : "..."}</span>
     </div>

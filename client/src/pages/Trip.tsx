@@ -398,14 +398,10 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
           <Loading />
         ) : (
           <article className="w-full flex justify-center items-center relative mx-auto rounded-md group shadow-input border pb-4 max-w-[400px] bg-card dark:shadow-none">
-            <div
-              className={`absolute -z-10 -top-[5px] transition-all min-w-[120px] text-white right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 group-hover:-top-[23px] lg:right-4 dark:bg-orange-700`}
-            >
-              <CountdownTimer
-                date={data.date}
-                departureTime={data.departureTime}
-              />
-            </div>
+            <CountdownTimer
+              date={data.date}
+              departureTime={data.departureTime}
+            />
             <div className="w-full px-2 pt-9 pb-4 sm:px-4">
               <div className="flex flex-col gap-2 ">
                 <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">

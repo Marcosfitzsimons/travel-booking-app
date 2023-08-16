@@ -1,7 +1,5 @@
 import { useState } from "react";
 import moment from "moment";
-import "moment/locale/es"; // without this line it didn't work
-moment.locale("es");
 import { AnimatePresence, motion } from "framer-motion";
 import "react-datepicker/dist/react-datepicker.css";
 import TripCard from "../components/TripCard";
@@ -13,48 +11,14 @@ import { RotateCcw } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import CardSkeleton from "@/components/CardSkeleton";
-
-interface TripProps {
-  _id: number;
-  name: string;
-  date: string;
-  from: string;
-  to: string;
-  departureTime: string;
-  arrivalTime: string;
-  returnTime?: string;
-  maxCapacity: number;
-  image?: string;
-  price: number;
-  available: boolean;
-  passengers: string[];
-}
-
-const sectionVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "backInOut",
-    },
-  },
-};
+import { TripProps } from "@/types/props";
+import sectionVariants from "@/lib/variants/sectionVariants";
 
 const Trips = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
-  const [isOnlyAvailable, setIsOnlyAvailable] = useState(true);
+  const [isOnlyAvailableTrips, setIsOnlyAvailableTrips] = useState(true);
 
-  const { data, loading, error, reFetch } = useFetch(
+  const { data, loading, error } = useFetch(
     `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/trips`
   );
 
@@ -67,7 +31,7 @@ const Trips = () => {
     return timeDifference > 0;
   });
 
-  const onlyAvailableSeats = availableTrips.filter(
+  const onlyTripsAvailableSeats = availableTrips.filter(
     (trip: TripProps) => trip.passengers.length !== trip.maxCapacity
   );
 
@@ -75,10 +39,7 @@ const Trips = () => {
   let dateSelected: string;
   if (startDate) {
     dateSelected = moment(startDate).locale("es").format("ddd DD/MM");
-    filteredTrips = onlyAvailableSeats.filter((trip: TripProps) => {
-      moment.locale("es", {
-        weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-      });
+    filteredTrips = onlyTripsAvailableSeats.filter((trip: TripProps) => {
       const momentDate = moment.utc(trip.date);
       const timezone = "America/Argentina/Buenos_Aires";
       const timezone_date = momentDate.tz(timezone);
@@ -87,10 +48,6 @@ const Trips = () => {
       return formatted_date === dateSelected;
     });
   }
-
-  moment.locale("es", {
-    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-  });
 
   return (
     <section className="section">
@@ -117,14 +74,15 @@ const Trips = () => {
         <div className="flex items-center mt-2 space-x-2 md:self-end">
           <Checkbox
             id="terms"
-            checked={isOnlyAvailable}
-            onCheckedChange={() => setIsOnlyAvailable((prev) => !prev)}
+            checked={isOnlyAvailableTrips}
+            onCheckedChange={() => setIsOnlyAvailableTrips((prev) => !prev)}
           />
           <Label htmlFor="terms">
             Mostrar solo viajes con lugares disponibles
           </Label>
         </div>
       </div>
+      {error && <p>Error al cargar viajes, intentar más tarde</p>}
       {loading ? (
         <CardSkeleton cards={6} />
       ) : (
@@ -137,7 +95,7 @@ const Trips = () => {
           <div className="mt-8 flex flex-col items-center gap-14 md:grid md:justify-items-center md:grid-cols-2 xl:grid-cols-3">
             {filteredTrips ? (
               <>
-                <AnimatePresence mode="wait">
+                <AnimatePresence>
                   {filteredTrips.length !== 0 ? (
                     filteredTrips.map((item: TripProps) => (
                       <motion.div
@@ -167,9 +125,9 @@ const Trips = () => {
               </>
             ) : (
               <>
-                <AnimatePresence mode="wait">
-                  {isOnlyAvailable ? (
-                    onlyAvailableSeats.map((trip: TripProps) => (
+                <AnimatePresence>
+                  {isOnlyAvailableTrips ? (
+                    onlyTripsAvailableSeats.map((trip: TripProps) => (
                       <motion.div
                         variants={sectionVariants}
                         initial="hidden"
