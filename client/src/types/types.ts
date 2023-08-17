@@ -18,7 +18,12 @@ export type User = {
     password: string;
     status: "Pending" | "Active";
     myTrips: [];
-  };
+};
+
+export  type UserAddresses = {
+    addressCda: addressCda;
+    addressCapital: string;
+};
 
 export type LoginUserInputs = {
     emailOrUsername: String;

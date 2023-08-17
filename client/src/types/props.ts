@@ -26,3 +26,7 @@ export type TripProps = {
     available: boolean;
     passengers: any[];
   }
+
+  export type ProfileProps = {
+    setIsUserInfo: (value: boolean) => void;
+  };

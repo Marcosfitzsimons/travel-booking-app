@@ -1,8 +1,5 @@
 import axios from "axios";
 import { motion } from "framer-motion";
-import moment from "moment";
-import "moment/locale/es"; // without this line it didn't work
-moment.locale("es");
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -42,48 +39,13 @@ import { ToastAction } from "@/components/ui/toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import CountdownTimer from "@/components/CountdownTimer";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
-
-type addressCda = {
-  street: string;
-  streetNumber: any;
-  crossStreets: string;
-};
-
-type UserData = {
-  addressCda: addressCda;
-  addressCapital: string;
-};
-interface InputValidation {
-  required: {
-    value: boolean;
-    message: string;
-  };
-  minLength: {
-    value: number;
-    message: string;
-  };
-  maxLength: {
-    value: number;
-    message: string;
-  };
-  pattern?: {
-    value: RegExp;
-    message: string;
-  };
-}
-
-interface UserInput {
-  id: any;
-  label: string;
-  type: string;
-  placeholder?: string;
-  validation?: InputValidation;
-  icon?: any;
-}
-
-type ProfileProps = {
-  setIsUserInfo: (value: boolean) => void;
-};
+import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
+import getTodayDate from "@/lib/utils/getTodayDate";
+import { UserAddresses } from "@/types/types";
+import formatDate from "@/lib/utils/formatDate";
+import { ProfileProps } from "@/types/props";
+import sectionVariants from "@/lib/variants/sectionVariants";
+import errorVariants from "@/lib/variants/errorVariants";
 
 const INITIAL_VALUES = {
   _id: "",
@@ -96,41 +58,6 @@ const INITIAL_VALUES = {
   price: "",
   image: "",
   maxCapacity: "",
-};
-
-const sectionVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "backInOut",
-    },
-  },
-};
-
-const errorVariants = {
-  hidden: {
-    opacity: 0,
-    y: 15,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
-  },
 };
 
 const INITIAL_USER_VALUES = {
@@ -146,11 +73,11 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const [data, setData] = useState(INITIAL_VALUES);
   const [userInfo, setUserInfo] = useState(INITIAL_USER_VALUES);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<unknown | boolean>(false);
+  const [error, setError] = useState(false);
   const [isConfirm, setIsConfirm] = useState(false);
   const [isConfirmError, setIsConfirmError] = useState(false);
   const [addressCapitalValue, setAddressCapitalValue] = useState("");
-  console.log(userInfo);
+
   const locationn = useLocation();
   const path = locationn.pathname;
   const tripId = path.split("/")[2];
@@ -177,15 +104,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     },
   });
 
-  const todayDate = moment().locale("es").format("ddd DD/MM");
-  moment.locale("es", {
-    weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-  });
-
-  const token = localStorage.getItem("token");
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
+  const todayDate = getTodayDate();
 
   const fetchUserData = async () => {
     setLoading(true);
@@ -194,7 +113,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
           user?._id
         }`,
-        { headers }
+        { headers: createAuthHeaders() }
       );
       // Add backend endpoint to only fetch address data and not all the user data
       const userData = res.data.user;
@@ -208,12 +127,13 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
       });
       setAddressCapitalValue(userData.addressCapital);
     } catch (err) {
-      setError(err);
+      console.log(err);
+      setError(true);
     }
     setLoading(false);
   };
 
-  const handleOnSubmit = async (data: UserData) => {
+  const handleOnSubmit = async (data: UserAddresses) => {
     setLoading(true);
 
     try {
@@ -222,7 +142,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
           user?._id
         }`,
         { userData: { ...data, addressCapital: addressCapitalValue } },
-        { headers }
+        { headers: createAuthHeaders() }
       );
       setLoading(false);
       localStorage.setItem("user", JSON.stringify(res.data));
@@ -278,7 +198,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
           },
           userId: user?._id,
         },
-        { headers }
+        { headers: createAuthHeaders() }
       );
       console.log(res);
       window.location.href = res.data.init_point;
@@ -312,7 +232,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         {
           userId: user?._id,
         },
-        { headers }
+        { headers: createAuthHeaders() }
       );
       toast({
         description: (
@@ -345,18 +265,6 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     }
   };
 
-  const formatDate = (date: string) => {
-    moment.locale("es", {
-      weekdaysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-    });
-    const momentDate = moment.utc(date);
-    const timezone = "America/Argentina/Buenos_Aires";
-    const timezone_date = momentDate.tz(timezone);
-    const formatted_date = timezone_date.format("ddd DD/MM");
-    // with more info: const formatted_date = timezone_date.format("ddd  DD/MM/YYYY HH:mm:ss [GMT]Z (z)");
-    return formatted_date;
-  };
-
   useEffect(() => {
     fetchUserData();
   }, []);
@@ -373,7 +281,8 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         console.log(res.data);
         setData({ ...res.data });
       } catch (err) {
-        setError(err);
+        console.log(err);
+        setError(true);
       }
       setLoading(false);
     };

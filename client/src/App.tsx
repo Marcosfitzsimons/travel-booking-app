@@ -15,7 +15,6 @@ import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "./components/ui/toaster";
-import AboutUs from "./pages/AboutUs";
 import NotFound from "./pages/NotFound";
 import { AuthContext } from "./context/AuthContext";
 import PaymentSuccess from "./pages/PaymentSuccess";
@@ -76,7 +75,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/nosotros" element={<AboutUs />} />
             <Route
               path="/mi-perfil"
               element={
