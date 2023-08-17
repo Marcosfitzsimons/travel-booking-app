@@ -63,10 +63,7 @@ function App() {
               path="/payment-success/:userid/:tripid"
               element={<PaymentSuccess setIsUserInfo={setIsUserInfo} />}
             />
-            <Route
-              path="/payment-failure"
-              element={<PaymentFailure setIsUserInfo={setIsUserInfo} />}
-            />
+            <Route path="/payment-failure" element={<PaymentFailure />} />
             <Route
               path="/viajes/:id"
               element={

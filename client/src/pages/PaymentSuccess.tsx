@@ -18,7 +18,6 @@ import { Link, useLocation } from "react-router-dom";
 import getTodayDate from "@/lib/utils/getTodayDate";
 import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
 import sectionVariants from "@/lib/variants/sectionVariants";
-import WhatsappButton from "@/components/WhatsappButton";
 import formatDate from "@/lib/utils/formatDate";
 import ContactBox from "@/components/ContactBox";
 
