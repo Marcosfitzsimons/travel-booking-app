@@ -33,7 +33,7 @@ const PublicationCard = ({
   };
 
   return (
-    <article className="w-full relative h-32 max-w-lg bg-card shadow-input rounded-md border px-2 py-3 flex flex-col gap-3 lg:px-4 lg:pt-[10px] dark:shadow-none">
+    <article className="w-full relative h-32 max-w-lg bg-card shadow-input rounded-lg border px-2 py-3 flex flex-col gap-3 lg:px-4 lg:pt-[10px] dark:shadow-none">
       <Dialog>
         <div className="flex items-center absolute self-center bottom-2 right-2 z-20 sm:right-4 after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
           <DialogTrigger asChild>
