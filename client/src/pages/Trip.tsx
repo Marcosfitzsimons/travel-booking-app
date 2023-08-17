@@ -16,7 +16,6 @@ import {
   X,
   ArrowUp,
 } from "lucide-react";
-
 import { Button } from "../components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import Loading from "../components/Loading";
@@ -85,8 +84,9 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   const { user } = useContext(AuthContext);
 
   const { toast } = useToast();
-
   const navigate = useNavigate();
+
+  const todayDate = getTodayDate();
 
   const {
     register,
@@ -104,19 +104,16 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     },
   });
 
-  const todayDate = getTodayDate();
-
-  const fetchUserData = async () => {
+  const getUserAddresses = async () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
+        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/addresses/${
           user?._id
         }`,
         { headers: createAuthHeaders() }
       );
-      // Add backend endpoint to only fetch address data and not all the user data
-      const userData = res.data.user;
+      const userData = res.data.userAddresses;
       setUserInfo(userData);
       reset({
         addressCda: {
@@ -266,7 +263,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
   };
 
   useEffect(() => {
-    fetchUserData();
+    getUserAddresses();
   }, []);
 
   useEffect(() => {
