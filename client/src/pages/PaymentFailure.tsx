@@ -3,32 +3,11 @@ import { useToast } from "@/components/ui/use-toast";
 import { motion } from "framer-motion";
 import { XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
+import sectionVariants from "@/lib/variants/sectionVariants";
+import ContactBox from "@/components/ContactBox";
+import { Separator } from "@/components/ui/separator";
 
-const sectionVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "backInOut",
-    },
-  },
-};
-
-type PaymentProps = {
-  setIsUserInfo: (value: boolean) => void;
-};
-
-const PaymentFailure = ({ setIsUserInfo }: PaymentProps) => {
+const PaymentFailure = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const { toast } = useToast();
 
@@ -54,11 +33,13 @@ const PaymentFailure = ({ setIsUserInfo }: PaymentProps) => {
         exit="exit"
         className="flex flex-col items-center justify-center gap-4"
       >
-        <div className="rounded-md border p-4 bg-card shadow-input flex flex-col items-center gap-1 text-center border-destructive dark:shadow-none">
-          <XCircle className="text-destructive w-14 h-14 drop-shadow-sm" />
+        <div className="pt-4 flex flex-col items-center gap-1 text-center border-destructive dark:shadow-none">
+          <XCircle className="text-red-600 w-14 h-14 drop-shadow-sm dark:text-red-800" />
           <p>
-            Lo siento, pero ha ocurrido un fallo en el procesamiento del pago.
+            Lo siento, pero ha ocurrido un fallo en el procesamiento del pago
           </p>
+          <Separator className="w-4 my-2" />
+          <ContactBox>¿Necesitas ayuda?</ContactBox>
         </div>
         <BackButton toProfile={false} />
       </motion.div>
