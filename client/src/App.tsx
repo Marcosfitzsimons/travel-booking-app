@@ -21,14 +21,13 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailure from "./pages/PaymentFailure";
 import Welcome from "./pages/Welcome";
 import ForgotPassword from "./components/ForgotPassword";
+import MyTrips from "./components/MyTrips";
 
 type Props = {
   children: ReactElement;
 };
 
 function App() {
-  const [isUserInfo, setIsUserInfo] = useState(true);
-
   const location = useLocation();
 
   const ProtectedRoute = ({ children }: Props) => {
@@ -45,8 +44,8 @@ function App() {
 
   return (
     <div className="">
-      <Header setIsUserInfo={setIsUserInfo} />
-      <main className="pt-20 w-[min(95%,1200px)] mx-auto py-2">
+      <Header />
+      <main className="pt-[4.6rem] w-[min(95%,1200px)] mx-auto py-2">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="*" element={<NotFound />} />
@@ -61,14 +60,14 @@ function App() {
             <Route path="/viajes" element={<Trips />} />
             <Route
               path="/payment-success/:userid/:tripid"
-              element={<PaymentSuccess setIsUserInfo={setIsUserInfo} />}
+              element={<PaymentSuccess />}
             />
             <Route path="/payment-failure" element={<PaymentFailure />} />
             <Route
               path="/viajes/:id"
               element={
                 <ProtectedRoute>
-                  <Trip setIsUserInfo={setIsUserInfo} />
+                  <Trip />
                 </ProtectedRoute>
               }
             />
@@ -76,10 +75,7 @@ function App() {
               path="/mi-perfil"
               element={
                 <ProtectedRoute>
-                  <Profile
-                    isUserInfo={isUserInfo}
-                    setIsUserInfo={setIsUserInfo}
-                  />
+                  <Profile />
                 </ProtectedRoute>
               }
             />
@@ -88,6 +84,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <EditProfile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/mis-viajes"
+              element={
+                <ProtectedRoute>
+                  <MyTrips />
                 </ProtectedRoute>
               }
             />
