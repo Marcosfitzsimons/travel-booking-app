@@ -15,9 +15,8 @@ import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
 import { AuthContext } from "@/context/AuthContext";
 
 const MyTrips = () => {
-  const [userTrips, setUserTrips] = useState([]);
+  const [userTrips, setUserTrips] = useState<TripProps[]>([]);
   const [loading, setLoading] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [err, setErr] = useState(false);
 
   const { toast } = useToast();
@@ -27,11 +26,6 @@ const MyTrips = () => {
   const { user } = useContext(AuthContext);
   const userId = user?._id;
 
-  const token = localStorage.getItem("token");
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
-
   const handleDelete = async (e: any) => {
     setLoading(true);
     const tripId = e.target.id;
@@ -40,7 +34,7 @@ const MyTrips = () => {
         `${
           import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
         }/passengers/${userId}/${tripId}`,
-        { headers }
+        { headers: createAuthHeaders() }
       );
       toast({
         description: (
@@ -50,8 +44,8 @@ const MyTrips = () => {
           </div>
         ),
       });
+      setUserTrips(userTrips.filter((trip) => trip._id !== tripId));
       setLoading(false);
-      navigate("/viajes");
     } catch (err: any) {
       console.log(err);
       setLoading(false);
