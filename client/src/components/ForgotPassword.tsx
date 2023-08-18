@@ -100,7 +100,7 @@ const ForgotPassword = () => {
       {data ? (
         <section className="flex flex-col items-center mt-2">
           <div className="self-start">
-            <BackButton toProfile={false} />
+            <BackButton linkTo="/viajes" />
           </div>
 
           {message ? (

@@ -41,7 +41,7 @@ const PaymentFailure = () => {
           <Separator className="w-4 my-2" />
           <ContactBox>¿Necesitas ayuda?</ContactBox>
         </div>
-        <BackButton toProfile={false} />
+        <BackButton linkTo="/viajes" />
       </motion.div>
     </section>
   );

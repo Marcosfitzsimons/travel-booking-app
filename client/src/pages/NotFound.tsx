@@ -11,7 +11,7 @@ const NotFound = () => {
           <Frown className="w-5 h-5" />
         </div>
       </div>
-      <BackButton toProfile={false} />
+      <BackButton linkTo="/viajes" />
     </section>
   );
 };
