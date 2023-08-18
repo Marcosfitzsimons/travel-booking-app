@@ -21,12 +21,21 @@ export type TripProps = {
     departureTime: string;
     arrivalTime: string;
     maxCapacity: number;
-    image?: string;
     price: number;
     available: boolean;
     passengers: any[];
   }
 
-  export type ProfileProps = {
-    setIsUserInfo: (value: boolean) => void;
+  export type MyTripCardProps = {
+    _id: number | number;
+    name: string;
+    date: string;
+    from: string;
+    to: string;
+    departureTime: string;
+    arrivalTime: string;
+    maxCapacity: number;
+    price: number;
+    available: boolean;
+    handleDelete: (e: any) => void;
   };

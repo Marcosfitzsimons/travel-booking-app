@@ -22,11 +22,7 @@ import { AuthContext } from "../context/AuthContext";
 import { Separator } from "./ui/separator";
 import Logo from "./Logo";
 
-type HeaderProps = {
-  setIsUserInfo: (value: boolean) => void;
-};
-
-const Header = ({ setIsUserInfo }: HeaderProps) => {
+const Header = () => {
   const { user, dispatch } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -48,7 +44,6 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
           {user && user?.status != "Pending" ? (
             <Link
               to="/viajes"
-              onClick={() => setIsUserInfo(false)}
               className="rounded-md px-2 font-medium flex items-center gap-1 w-full text-start bg-transparent hover:text-hover dark:hover:text-white lg:hidden"
             >
               Viajes
@@ -117,7 +112,6 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                     <Link
                       to="/mi-perfil"
                       className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent  dark:hover:text-white"
-                      onClick={() => setIsUserInfo(true)}
                     >
                       Perfil
                     </Link>
@@ -125,8 +119,7 @@ const Header = ({ setIsUserInfo }: HeaderProps) => {
                   <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:bg-hover/5 dark:hover:bg-hover/50">
                     <ClipboardList className="absolute left-2 h-4 w-4 text-accent " />
                     <Link
-                      to="/mi-perfil"
-                      onClick={() => setIsUserInfo(false)}
+                      to="/mis-viajes"
                       className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent dark:hover:text-white"
                     >
                       Mis viajes

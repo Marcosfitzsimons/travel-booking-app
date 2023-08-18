@@ -14,23 +14,10 @@ import { Separator } from "./ui/separator";
 import CountdownTimer from "./CountdownTimer";
 import getTodayDate from "@/lib/utils/getTodayDate";
 import formatDate from "@/lib/utils/formatDate";
-
-type MyTripCardProps = {
-  id: string;
-  name: string;
-  date: string;
-  from: string;
-  to: string;
-  departureTime: string;
-  arrivalTime: string;
-  maxCapacity: number;
-  price: number;
-  available: boolean;
-  handleDelete: (e: any) => void;
-};
+import { MyTripCardProps } from "@/types/props";
 
 const MyTripCard = ({
-  id,
+  _id,
   name,
   date,
   from,
@@ -119,7 +106,7 @@ const MyTripCard = ({
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>No, volver a mis viajes</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete} id={id}>
+                  <AlertDialogAction onClick={handleDelete} id={String(_id)}>
                     Cancelar mi lugar
                   </AlertDialogAction>
                 </AlertDialogFooter>

@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "./DefaultButton";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Separator } from "./ui/separator";
+import { useState } from "react";
+import tripVariants from "@/lib/variants/tripVariants";
 
 type TripProps = {
   id: string;
@@ -41,28 +42,8 @@ interface UserInfoProps {
   userData: UserData;
 }
 
-const tripVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "backInOut",
-    },
-  },
-};
-
 const UserInfo = ({ userData }: UserInfoProps) => {
+  const [isPersonalData, setIsPersonalData] = useState(false);
   const navigate = useNavigate();
 
   const goToEditProfile = () => {
@@ -78,7 +59,7 @@ const UserInfo = ({ userData }: UserInfoProps) => {
         exit="exit"
         className="w-full relative flex flex-col items-center gap-5 md:w-11/12 md:mx-auto"
       >
-        <Avatar className="w-32 h-32">
+        <Avatar className="w-24 h-24">
           <AvatarImage
             className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
             src={userData?.image}
@@ -97,13 +78,14 @@ const UserInfo = ({ userData }: UserInfoProps) => {
             @{userData?.username}
           </h4>
         </div>
+
         <div className="flex flex-col w-full overflow-hidden gap-5 max-w-sm items-start px-1 lg:px-0 lg:flex-row lg:pt-0 lg:justify-around lg:max-w-6xl">
           <div className="w-full flex flex-col gap-3 lg:basis-1/3 lg:my-2">
             <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-xl">
               Datos personales
             </h5>
 
-            <ul className="flex flex-col w-full overflow-hidden gap-1 shadow-input py-2 px-2 rounded-md bg-card border dark:shadow-none">
+            <ul className="flex flex-col w-full gap-1">
               <li className="flex items-center gap-1">
                 <Mail className="h-4 w-4 text-accent shrink-0 " />
                 <span className="font-medium">Email:</span>

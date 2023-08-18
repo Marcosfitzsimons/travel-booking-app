@@ -1,6 +1,6 @@
-import { Heart, X, ClipboardList, Check } from "lucide-react";
+import { Heart, ClipboardList } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
@@ -9,74 +9,23 @@ import MyTripCard from "./MyTripCard";
 import { Button } from "./ui/button";
 import { useToast } from "./../components/ui/use-toast";
 import { CheckCircle } from "lucide-react";
+import tripVariants from "@/lib/variants/tripVariants";
+import { TripProps } from "@/types/props";
+import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
+import { AuthContext } from "@/context/AuthContext";
 
-type TripProps = {
-  id: string;
-  name: string;
-  date: string;
-  from: string;
-  to: string;
-  departureTime: string;
-  arrivalTime: string;
-  maxCapacity: number;
-  price: number;
-  available: boolean;
-};
-
-type addressCda = {
-  street: string;
-  streetNumber: number | undefined;
-  crossStreets: string;
-};
-
-type UserData = {
-  _id: string;
-  fullName: string;
-  username: string;
-  addressCda: addressCda;
-  addressCapital: string;
-  dni: number | undefined;
-  phone: undefined | number;
-  email: string;
-  image?: string;
-  myTrips: TripProps[];
-};
-interface myTripsProps {
-  userTrips: TripProps[];
-  userData: UserData;
-  setIsUserInfo: (value: boolean) => void;
-}
-
-const tripVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "backInOut",
-    },
-  },
-};
-
-const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
+const MyTrips = () => {
+  const [userTrips, setUserTrips] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [err, setErr] = useState<null | string>(null);
+  const [err, setErr] = useState(false);
 
   const { toast } = useToast();
 
-  const userId = userData._id;
   const navigate = useNavigate();
+
+  const { user } = useContext(AuthContext);
+  const userId = user?._id;
 
   const token = localStorage.getItem("token");
   const headers = {
@@ -102,7 +51,6 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
         ),
       });
       setLoading(false);
-      setIsUserInfo(false);
       navigate("/viajes");
     } catch (err: any) {
       console.log(err);
@@ -117,7 +65,26 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
       });
     }
   };
-  console.log(userData);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await axios.get(
+          `${
+            import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
+          }/users/trips/${userId}`,
+          { headers: createAuthHeaders() }
+        );
+        setUserTrips(res.data.userTrips);
+      } catch (err) {
+        console.log(err);
+        setErr(true);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
 
   return (
     <section className="min-h-[70vh] w-full mx-auto mt-3 bg-transparent flex flex-col gap-5 items-center">
@@ -174,7 +141,7 @@ const MyTrips = ({ userTrips, userData, setIsUserInfo }: myTripsProps) => {
                 {userTrips.map((trip: TripProps) => (
                   <MyTripCard
                     {...trip}
-                    key={trip.id}
+                    key={trip._id}
                     handleDelete={handleDelete}
                   />
                 ))}
