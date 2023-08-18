@@ -17,20 +17,16 @@ const Home = () => {
   );
 
   return (
-    <div className="section relative lg:pt-28">
+    <div className="relative  section lg:pt-28">
       <motion.div
         variants={sectionVariants}
         initial="hidden"
         animate="visible"
         exit="exit"
-        className=" flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-0"
+        className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-0"
       >
-        <div className="pb-10 pt-20  flex flex-col items-center gap-5 text-center lg:h-auto lg:basis-1/2 lg:py-20">
-          <Marquee
-            className="absolute w-full left-0 top-2"
-            direction="right"
-            speed={55}
-          >
+        <div className="absolute w-full left-0 top-2">
+          <Marquee className="" direction="right" speed={55}>
             <p className="px-2 lg:hidden">-</p>
             <p className="flex items-center gap-1 shrink-0">
               <Heart
@@ -46,6 +42,8 @@ const Home = () => {
             <p className="px-2">-</p>
             Viajá como la luz, viajá en fabebus
           </Marquee>
+        </div>
+        <div className="pb-10 pt-20 flex flex-col items-center gap-5 text-center lg:h-auto lg:basis-1/2 lg:py-20">
           <div className="flex flex-col items-center gap-1">
             <h1 className="font-serif tracking-wider text-6xl dark:text-white lg:text-7xl">
               <span className="font-medium text-[5rem]">F</span>
