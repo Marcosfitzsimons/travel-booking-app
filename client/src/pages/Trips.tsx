@@ -10,7 +10,7 @@ import { Button } from "../components/ui/button";
 import { RotateCcw } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import CardSkeleton from "@/components/CardSkeleton";
+import CardSkeleton from "@/components/skeletons/CardSkeleton";
 import { TripProps } from "@/types/props";
 import sectionVariants from "@/lib/variants/sectionVariants";
 
@@ -50,8 +50,8 @@ const Trips = () => {
   }
 
   return (
-    <section className="section">
-      <SectionTitle>Próximos viajes:</SectionTitle>
+    <section className="section flex flex-col gap-3">
+      <SectionTitle>Viajes</SectionTitle>
       <div className="relative flex flex-col gap-1 w-[min(100%,320px)] sm:w-[min(80%,320px)] md:flex-row md:items-center md:justify-between md:w-full">
         <div className="flex flex-col gap-1">
           <div className="relative flex items-end gap-1 w-[min(100%,188px)] shrink-0">
@@ -92,7 +92,7 @@ const Trips = () => {
           animate="visible"
           exit="exit"
         >
-          <div className="mt-8 flex flex-col items-center gap-14 md:grid md:justify-items-center md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-5 flex flex-col items-center gap-14 md:grid md:justify-items-center md:grid-cols-2 xl:grid-cols-3">
             {filteredTrips ? (
               <>
                 <AnimatePresence>

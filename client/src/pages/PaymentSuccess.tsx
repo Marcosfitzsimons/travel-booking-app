@@ -34,11 +34,7 @@ const INITIAL_VALUES = {
   maxCapacity: "",
 };
 
-type PaymentProps = {
-  setIsUserInfo: (value: boolean) => void;
-};
-
-const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
+const PaymentSuccess = () => {
   const [data, setData] = useState(INITIAL_VALUES);
   const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
@@ -93,9 +89,7 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
           title: "Error al guardar su lugar",
           action: (
             <ToastAction altText="Mis viajes" asChild>
-              <Link to="/mi-perfil" onClick={() => setIsUserInfo(false)}>
-                Mis viajes
-              </Link>
+              <Link to="/mis-viajes">Mis viajes</Link>
             </ToastAction>
           ),
           description: err.response.data.msg
@@ -173,8 +167,7 @@ const PaymentSuccess = ({ setIsUserInfo }: PaymentProps) => {
 
                 <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
                   <Link
-                    to="/mi-perfil"
-                    onClick={() => setIsUserInfo(false)}
+                    to="/mis-viajes"
                     className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white "
                   >
                     Ir a mis viajes

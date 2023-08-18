@@ -5,10 +5,9 @@ import { Button } from "../components/ui/button";
 import PublicationCard from "../components/PublicationCard";
 import { ChevronsRight, Heart, Newspaper } from "lucide-react";
 import useFetch from "@/hooks/useFetch";
-import PublicationSkeleton from "@/components/PublicationSkeleton";
+import PublicationSkeleton from "@/components/skeletons/PublicationSkeleton";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import { Publication } from "@/types/types";
-import { Separator } from "@/components/ui/separator";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ const Home = () => {
       >
         <div className="pb-10 pt-20  flex flex-col items-center gap-5 text-center lg:h-auto lg:basis-1/2 lg:py-20">
           <Marquee
-            className="relative select-none bottom-5 lg:bottom-auto lg:absolute lg:w-full lg:left-0 lg:top-10"
+            className="absolute w-full left-0 top-2"
             direction="right"
             speed={55}
           >

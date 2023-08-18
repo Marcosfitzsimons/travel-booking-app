@@ -228,9 +228,9 @@ const EditProfile = () => {
   }, []);
 
   return (
-    <section className="flex flex-col">
-      <div className="self-start mt-4">
-        <BackButton toProfile={true} />
+    <section className="relative flex flex-col gap-5">
+      <div className="self-start absolute left-0 top-[3px]">
+        <BackButton linkTo="/mi-perfil" />
       </div>
       <SectionTitle>Editar perfil</SectionTitle>
       {isLoading ? (
@@ -243,7 +243,7 @@ const EditProfile = () => {
           exit="exit"
           className=""
         >
-          <div className="w-full mt-5 mb-16 flex flex-col items-center gap-5">
+          <div className="w-full mb-16 flex flex-col items-center gap-5">
             <div className="w-full flex flex-col items-center gap-5 md:w-11/12">
               <form
                 onSubmit={handleSubmit(handleOnSubmit)}

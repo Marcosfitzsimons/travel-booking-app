@@ -42,7 +42,6 @@ import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
 import getTodayDate from "@/lib/utils/getTodayDate";
 import { UserAddresses } from "@/types/types";
 import formatDate from "@/lib/utils/formatDate";
-import { ProfileProps } from "@/types/props";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import errorVariants from "@/lib/variants/errorVariants";
 
@@ -68,7 +67,7 @@ const INITIAL_USER_VALUES = {
   addressCapital: "",
 };
 
-const Trip = ({ setIsUserInfo }: ProfileProps) => {
+const Trip = () => {
   const [data, setData] = useState(INITIAL_VALUES);
   const [userInfo, setUserInfo] = useState(INITIAL_USER_VALUES);
   const [loading, setLoading] = useState(false);
@@ -130,19 +129,31 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
     setLoading(false);
   };
 
+  // Add endpoint to only manage user addresses updates
+  // unnecesary data transferred: 1.18kb / data size: 927kb
+  // endpoint updated data transferred: 366B / data size: 110B
   const handleOnSubmit = async (data: UserAddresses) => {
     setLoading(true);
 
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
+        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/addresses/${
           user?._id
         }`,
-        { userData: { ...data, addressCapital: addressCapitalValue } },
+        { ...data, addressCapital: addressCapitalValue },
         { headers: createAuthHeaders() }
       );
       setLoading(false);
-      localStorage.setItem("user", JSON.stringify(res.data));
+      const updatedUserData = {
+        ...user,
+        addressCda: {
+          street: res.data.addressCda.street,
+          streetNumber: res.data.addressCda.streetNumber,
+          crossStreets: res.data.addressCda.crossStreets,
+        },
+        addressCapital: res.data.addressCapital,
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUserData));
       const userUpdated = res.data;
       setUserInfo(userUpdated);
       reset({
@@ -207,9 +218,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         title: "Error al guardar su lugar",
         action: (
           <ToastAction altText="Mis viajes" asChild>
-            <Link to="/mi-perfil" onClick={() => setIsUserInfo(false)}>
-              Mis viajes
-            </Link>
+            <Link to="/mis-viajes">Mis viajes</Link>
           </ToastAction>
         ),
         description: err.response.data.msg
@@ -240,8 +249,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         ),
       });
       setLoading(false);
-      setIsUserInfo(false);
-      navigate("/mi-perfil");
+      navigate("/mis-viajes");
     } catch (err: any) {
       setLoading(false);
       console.log(err);
@@ -250,9 +258,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         title: "Error al guardar su lugar",
         action: (
           <ToastAction altText="Mis viajes" asChild>
-            <Link to="/mi-perfil" onClick={() => setIsUserInfo(false)}>
-              Mis viajes
-            </Link>
+            <Link to="/mis-viajes">Mis viajes</Link>
           </ToastAction>
         ),
         description: err.response.data.msg
@@ -293,10 +299,10 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="flex flex-col gap-3"
+        className="relative flex flex-col gap-5"
       >
-        <div className="self-start mt-4">
-          <BackButton toProfile={false} />
+        <div className="self-start absolute left-0 top-[3px]">
+          <BackButton linkTo="/viajes" />
         </div>
         <SectionTitle>Confirmar lugar</SectionTitle>
 
@@ -672,7 +678,7 @@ const Trip = ({ setIsUserInfo }: ProfileProps) => {
                         <span className="w-4 h-[4px] bg-red-700 rounded-full " />
                         <span className="w-2 h-[4px] bg-red-700 rounded-full " />
                       </div>
-                      <div className="absolute bottom-[0.75rem] right-2.5 sm:left-4 flex flex-col rotate-180 gap-[3px] transition-transform ">
+                      <div className="absolute bottom-[0.75rem] right-2.5 sm:right-4 flex flex-col rotate-180 gap-[3px] transition-transform ">
                         <span className="w-8 h-[4px] bg-red-700 rounded-full " />
                         <span className="w-4 h-[4px] bg-red-700 rounded-full " />
                         <span className="w-2 h-[4px] bg-red-700 rounded-full " />
