@@ -3,6 +3,12 @@ export type AccountStatusProps = {
     isActive: boolean;
 }
 
+export type DataBoxProps = {
+  icon: any;
+  text: string;
+  children: React.ReactNode;
+};
+
 export type PublicationProps = {
     _id?: string;
     title: string;
