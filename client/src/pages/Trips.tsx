@@ -51,7 +51,9 @@ const Trips = () => {
 
   return (
     <section className="section flex flex-col gap-3">
-      <SectionTitle>Viajes</SectionTitle>
+      <div className="relative w-full flex items-center justify-center">
+        <SectionTitle>Viajes</SectionTitle>
+      </div>
       <div className="relative flex flex-col gap-1 w-[min(100%,320px)] sm:w-[min(80%,320px)] md:flex-row md:items-center md:justify-between md:w-full">
         <div className="flex flex-col gap-1">
           <div className="relative flex items-end gap-1 w-[min(100%,188px)] shrink-0">
