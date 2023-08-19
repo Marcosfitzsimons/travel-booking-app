@@ -13,6 +13,8 @@ import tripVariants from "@/lib/variants/tripVariants";
 import { TripProps } from "@/types/props";
 import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
 import { AuthContext } from "@/context/AuthContext";
+import SectionTitle from "./SectionTitle";
+import BackButton from "./BackButton";
 
 const MyTrips = () => {
   const [userTrips, setUserTrips] = useState<TripProps[]>([]);
@@ -46,6 +48,9 @@ const MyTrips = () => {
       });
       setUserTrips(userTrips.filter((trip) => trip._id !== tripId));
       setLoading(false);
+      setTimeout(() => {
+        navigate("/viajes");
+      }, 100);
     } catch (err: any) {
       console.log(err);
       setLoading(false);
@@ -81,48 +86,51 @@ const MyTrips = () => {
   }, []);
 
   return (
-    <section className="min-h-[70vh] w-full mx-auto mt-3 bg-transparent flex flex-col gap-5 items-center">
+    <section
+      className={`min-h-[70vh] w-full mx-auto bg-transparent flex flex-col items-center ${
+        userTrips && userTrips.length > 0 ? "gap-3" : "gap-0"
+      }`}
+    >
       {loading ? (
         <Loading />
       ) : (
         <>
-          <div className="">
-            {userTrips && userTrips.length > 0 ? (
-              <div className="flex flex-col items-center gap-3">
-                <p className="flex items-center gap-1 ">
-                  <Heart
-                    className="w-4 h-4 relative top-[1px] dark:text-black"
-                    fill="red"
-                  />
-                  Gracias por viajar con nosotros
-                  <Heart
-                    className="w-4 h-4 relative top-[1px] dark:text-black"
-                    fill="red"
-                  />
-                </p>
+          <div className="w-full flex items-end text-sm justify-between">
+            <div className="relative w-full flex items-center justify-center">
+              <div className="absolute left-0">
+                <BackButton linkTo="/viajes" />
               </div>
-            ) : (
-              ""
-            )}
+              <SectionTitle>Mis viajes</SectionTitle>
+            </div>
           </div>
-          <Separator className="w-4" />
-          <div className="w-full flex items-end text-sm mb-4 justify-between">
-            <h4 className="flex items-center gap-1 font-medium text-xl dark:text-white self-start lg:text-2xl">
-              <ClipboardList className="h-5 w-5 text-accent lg:w-6 lg:h-6" />
-              Mis viajes:
-            </h4>
-            {userTrips && userTrips.length > 0 && (
-              <p className="flex items-center gap-[3px]">
-                Tenes
-                <span className="font-medium text-accent">
-                  {userTrips && userTrips.length}
-                </span>
-                viaje
-                {userTrips.length > 1 && "s"} reservado
-                {userTrips.length > 1 && "s"}
+          {userTrips && userTrips.length > 0 ? (
+            <div className="flex flex-col items-center gap-3 my-3">
+              <p className="flex items-center gap-1 ">
+                <Heart
+                  className="w-4 h-4 relative top-[1px] dark:text-black"
+                  fill="red"
+                />
+                Gracias por viajar con nosotros
+                <Heart
+                  className="w-4 h-4 relative top-[1px] dark:text-black"
+                  fill="red"
+                />
               </p>
-            )}
-          </div>
+            </div>
+          ) : (
+            ""
+          )}
+          {userTrips && userTrips.length > 0 && (
+            <p className="flex items-center gap-[3px] self-end text-sm mb-4">
+              Tenes
+              <span className="font-medium text-accent">
+                {userTrips && userTrips.length}
+              </span>
+              viaje
+              {userTrips.length > 1 && "s"} reservado
+              {userTrips.length > 1 && "s"}
+            </p>
+          )}
           <motion.div
             variants={tripVariants}
             initial="hidden"

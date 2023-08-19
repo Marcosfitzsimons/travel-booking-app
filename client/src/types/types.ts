@@ -1,3 +1,5 @@
+import { TripProps } from "./props";
+
 export type addressCda = {
     street: string;
     streetNumber: any;
@@ -50,4 +52,18 @@ export type Publication = {
   description?: string;
   image?: string;
   createdAt: string;
+};
+
+export type UserData = {
+  _id: string;
+  fullName: string;
+  username: string;
+  addressCda: addressCda;
+  addressCapital: string;
+  dni: number | undefined;
+  phone: undefined | number;
+  email: string;
+  image?: string;
+  myTrips: TripProps[];
+  isReminder: boolean;
 };

@@ -228,11 +228,13 @@ const EditProfile = () => {
   }, []);
 
   return (
-    <section className="relative flex flex-col gap-5">
-      <div className="self-start absolute left-0 top-[3px]">
-        <BackButton linkTo="/mi-perfil" />
+    <section className="flex flex-col gap-5">
+      <div className="relative w-full flex items-center justify-center">
+        <div className="absolute left-0">
+          <BackButton linkTo="/mi-perfil" />
+        </div>
+        <SectionTitle>Editar perfil</SectionTitle>
       </div>
-      <SectionTitle>Editar perfil</SectionTitle>
       {isLoading ? (
         <Loading />
       ) : (

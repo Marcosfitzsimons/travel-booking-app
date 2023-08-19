@@ -1,43 +1,12 @@
 import { Crop, Fingerprint, Mail, Milestone, Phone, User } from "lucide-react";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "./DefaultButton";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useState } from "react";
-import tripVariants from "@/lib/variants/tripVariants";
+import DataBox from "./DataBox";
+import { UserData } from "@/types/types";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 
-type TripProps = {
-  id: string;
-  name: string;
-  date: string;
-  from: string;
-  to: string;
-  departureTime: string;
-  arrivalTime: string;
-  maxCapacity: number;
-  price: number;
-  available: boolean;
-};
-
-type addressCda = {
-  street: string;
-  streetNumber: number | undefined;
-  crossStreets: string;
-};
-
-type UserData = {
-  _id: string;
-  fullName: string;
-  username: string;
-  addressCda: addressCda;
-  addressCapital: string;
-  dni: number | undefined;
-  phone: undefined | number;
-  email: string;
-  image?: string;
-  myTrips: TripProps[];
-  isReminder: boolean;
-};
 interface UserInfoProps {
   userData: UserData;
 }
@@ -51,14 +20,8 @@ const UserInfo = ({ userData }: UserInfoProps) => {
   };
 
   return (
-    <div className="w-full mt-5 mb-16 bg-transparent flex flex-col gap-5">
-      <motion.div
-        variants={tripVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        className="w-full relative flex flex-col items-center gap-5 md:w-11/12 md:mx-auto"
-      >
+    <div className="w-full mt-3 mb-16 bg-transparent flex flex-col gap-5">
+      <div className="w-full relative flex flex-col items-center gap-5 md:w-11/12 md:mx-auto">
         <Avatar className="w-24 h-24">
           <AvatarImage
             className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
@@ -79,78 +42,78 @@ const UserInfo = ({ userData }: UserInfoProps) => {
           </h4>
         </div>
 
-        <div className="flex flex-col w-full overflow-hidden gap-5 max-w-sm items-start px-1 lg:px-0 lg:flex-row lg:pt-0 lg:justify-around lg:max-w-6xl">
-          <div className="w-full flex flex-col gap-3 lg:basis-1/3 lg:my-2">
-            <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-xl">
+        <Tabs defaultValue="personal" className="w-full max-w-[25rem] ">
+          <TabsList className="grid w-full grid-cols-2 rounded-full p-1 bg-slate-100 dark:bg-border">
+            <TabsTrigger value="personal" className="rounded-full ">
               Datos personales
-            </h5>
-
-            <ul className="flex flex-col w-full gap-1">
-              <li className="flex items-center gap-1">
-                <Mail className="h-4 w-4 text-accent shrink-0 " />
-                <span className="font-medium">Email:</span>
-                {userData?.email}
-              </li>
-              <li className="flex items-center gap-1">
-                <Phone className="h-4 w-4 text-accent " />
-                <span className="font-medium">Celular:</span> {userData?.phone}
-              </li>
-              <li className="flex items-center gap-1 shrink-0">
-                <Fingerprint className="w-4 h-4 text-accent  shrink-0" />
-                <span className="font-medium shrink-0">DNI:</span>
-                <span className="shrink-0">{userData?.dni}</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="w-full flex flex-col gap-3 lg:basis-[60%] lg:my-2">
-            <h5 className="text-center w-full font-medium dark:text-white lg:mb-2 lg:text-xl">
+            </TabsTrigger>
+            <TabsTrigger value="addresses" className="rounded-full">
               Domicilios
-            </h5>
-            <div className="flex flex-col w-full overflow-hidden gap-1 shadow-input py-2 px-2 rounded-md bg-card border lg:flex-row dark:shadow-none">
-              <div className="flex flex-col gap-1 lg:basis-[55%]">
-                <h6 className="font-serif text-accent ">Carmen de Areco</h6>
-                <div className="flex items-center gap-1">
-                  <Milestone className="w-4 h-4 text-accent " />
-                  <span className="font-medium dark:text-white">
-                    Dirreción:
-                  </span>
-                  <p>{`${userData?.addressCda.street} ${userData?.addressCda.streetNumber}`}</p>
-                </div>
-                <div className="flex flex-col gap-[2px] sm:flex-row sm:items-center sm:gap-1">
-                  <div className="flex items-center gap-1">
-                    <Crop className="w-4 h-4 text-accent " />
-                    <span className="font-medium dark:text-white">
-                      Calles que cruzan:
-                    </span>
-                  </div>
-                  <span className="">{userData?.addressCda.crossStreets}</span>
-                </div>
-              </div>
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="personal" className="max-w-sm mx-auto">
+            <ul className="flex flex-col w-full gap-1">
+              <DataBox
+                icon={<Mail className="h-5 w-5 text-accent shrink-0 " />}
+                text="Email"
+              >
+                {userData?.email}
+              </DataBox>
+              <DataBox
+                icon={<Phone className="h-5 w-5 text-accent shrink-0 " />}
+                text="Celular"
+              >
+                {userData?.phone}
+              </DataBox>
+              <DataBox
+                icon={<Fingerprint className="h-5 w-5 text-accent shrink-0 " />}
+                text="DNI"
+              >
+                {userData?.dni}
+              </DataBox>
+            </ul>
+          </TabsContent>
+          <TabsContent value="addresses" className="max-w-sm mx-auto">
+            <div className="flex flex-col w-full gap-1">
+              <h6 className="font-serif text-accent">Carmen de Areco</h6>
+
+              <ul className="flex flex-col gap-1 lg:basis-[55%]">
+                <DataBox
+                  icon={<Milestone className="h-5 w-5 text-accent shrink-0 " />}
+                  text="Dirreción"
+                >
+                  {`${userData?.addressCda.street} ${userData?.addressCda.streetNumber}`}
+                </DataBox>
+                <DataBox
+                  icon={<Crop className="h-5 w-5 text-accent shrink-0 " />}
+                  text="Calles que cruzan"
+                >
+                  {userData?.addressCda.crossStreets}
+                </DataBox>
+              </ul>
 
               <div className="flex-col gap-1 lg:basis-[50%]">
                 <h6 className="font-serif text-accent">Capital Federal</h6>
-                <div className="flex items-center gap-1">
-                  <div className="flex items-center gap-1 lg:self-start">
-                    <Milestone className="w-4 h-4 text-accent shrink-0" />
-                    <span className="font-medium  shrink-0 lg:self-start dark:text-white">
-                      Dirreción:
-                    </span>{" "}
-                  </div>
-                  <p>{userData?.addressCapital}</p>
-                </div>
+
+                <ul className="w-full ">
+                  <DataBox
+                    icon={
+                      <Milestone className="h-5 w-5 text-accent shrink-0 " />
+                    }
+                    text="Dirreción"
+                  >
+                    {userData?.addressCapital}
+                  </DataBox>
+                </ul>
               </div>
             </div>
-          </div>
-        </div>
+          </TabsContent>
+        </Tabs>
 
-        <div
-          className="px-2 w-full max-w-sm lg:w-[10rem]"
-          onClick={goToEditProfile}
-        >
+        <div className="w-full max-w-sm lg:w-[10rem]" onClick={goToEditProfile}>
           <DefaultButton>Editar perfil</DefaultButton>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

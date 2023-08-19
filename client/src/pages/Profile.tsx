@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthContext";
 import UserInfo from "../components/UserInfo";
 import BackButton from "../components/BackButton";
@@ -54,11 +54,13 @@ const Profile = () => {
   }, []);
 
   return (
-    <section className="relative flex flex-col gap-5">
-      <div className="self-start absolute left-0 top-[3px]">
-        <BackButton linkTo="/viajes" />
+    <section className="flex flex-col gap-5">
+      <div className="relative w-full flex items-center justify-center">
+        <div className="absolute left-0">
+          <BackButton linkTo="/viajes" />
+        </div>
+        <SectionTitle>Perfil</SectionTitle>
       </div>
-      <SectionTitle>Perfil</SectionTitle>
       {loading ? (
         <Loading />
       ) : (
@@ -68,11 +70,7 @@ const Profile = () => {
           animate="visible"
           exit="exit"
         >
-          <div className="flex flex-col gap-3">
-            <AnimatePresence mode="wait">
-              <UserInfo key="userinfo" userData={data} />
-            </AnimatePresence>
-          </div>
+          <UserInfo userData={data} />
         </motion.div>
       )}
     </section>

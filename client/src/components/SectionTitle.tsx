@@ -3,7 +3,7 @@ interface MyComponentProps {
 }
 
 const SectionTitle = ({ children }: MyComponentProps) => {
-  return <h3 className="text-center my-2 text-lg font-medium">{children}</h3>;
+  return <h3 className="my-2 text-xl font-medium">{children}</h3>;
 };
 
 export default SectionTitle;

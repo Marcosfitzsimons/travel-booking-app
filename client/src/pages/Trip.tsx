@@ -249,7 +249,9 @@ const Trip = () => {
         ),
       });
       setLoading(false);
-      navigate("/mis-viajes");
+      setTimeout(() => {
+        navigate("/mis-viajes");
+      }, 100);
     } catch (err: any) {
       setLoading(false);
       console.log(err);
