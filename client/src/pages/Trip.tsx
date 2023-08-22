@@ -44,6 +44,8 @@ import formatDate from "@/lib/utils/formatDate";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import errorVariants from "@/lib/variants/errorVariants";
 import SingleTripSkeleton from "@/components/skeletons/SingleTripSkeleton";
+import TripTime from "@/components/TripTime";
+import TripDataBox from "@/components/TripDataBox";
 
 const INITIAL_VALUES = {
   _id: "",
@@ -129,9 +131,9 @@ const Trip = () => {
     setLoading(false);
   };
 
-  // Add endpoint to only manage user addresses updates
-  // unnecesary data transferred: 1.18kb / data size: 927kb
-  // endpoint updated data transferred: 366B / data size: 110B
+  // Added endpoint to only manage user addresses updates
+  // Old endpoint data transferred: 1.18kb / data size: 927kb
+  // Updated endpoint data transferred: 366B / data size: 110B
   const handleOnSubmit = async (data: UserAddresses) => {
     setLoading(true);
 
@@ -312,7 +314,7 @@ const Trip = () => {
             animate="visible"
             exit="exit"
           >
-            <article className="w-full flex justify-center items-center relative mx-auto rounded-md group shadow-input border pb-4 max-w-[400px] bg-card dark:shadow-none">
+            <article className="w-full flex justify-center items-center relative mx-auto rounded-md group shadow-input border max-w-[400px] bg-card dark:shadow-none">
               <CountdownTimer
                 date={data.date}
                 departureTime={data.departureTime}
@@ -337,8 +339,8 @@ const Trip = () => {
                     )}
                   </div>
 
-                  <div className="flex flex-col gap-1 mt-6 lg:mt-8">
-                    <div className="flex flex-col sm:gap-2">
+                  <div className="flex flex-col gap-1 mt-2 ">
+                    <div className="flex flex-col gap-1">
                       <h3 className="font-bold text-lg lg:text-xl">
                         {data.name}
                       </h3>
@@ -346,50 +348,42 @@ const Trip = () => {
                         Información acerca del viaje
                       </h4>
                     </div>
-                    <div className="flex flex-col w-full bg-background gap-2 border px-2 py-1 shadow-inner rounded-md dark:bg-[#171717]">
+                    <div className="flex flex-col w-full gap-2 border px-2 py-1 shadow-inner rounded-md dark:bg-[#171717]">
                       <div className="flex flex-col overflow-auto pb-2">
-                        <div className="flex flex-row items-center gap-3">
-                          <div className="w-full flex flex-col">
-                            <span className="relative top-0.5 font-medium dark:text-white">
-                              Salida
-                            </span>{" "}
-                            <div className="flex items-center gap-1">
-                              <MapPin className="h-4 w-4 text-accent shrink-0" />
-                              <p>{data.from}</p>
-                              <Separator className="w-2" />
-                              <Clock className="h-4 w-4 text-accent shrink-0 " />
-                              {data.departureTime} hs
-                            </div>
+                        <TripDataBox
+                          icon={
+                            <MapPin className="h-5 w-5 text-accent shrink-0" />
+                          }
+                          text="Salida"
+                        >
+                          <div className="flex items-center gap-1">
+                            <p>{data.from}</p>
+                            <Separator className="w-2" />
+                            <TripTime>{data.departureTime} hs</TripTime>
                           </div>
-                        </div>
-                        <div className="flex flex-row items-center gap-3">
-                          <div className="w-full flex flex-col">
-                            <span className="relative top-0.5 font-medium dark:text-white">
-                              Destino
-                            </span>{" "}
-                            <div className="flex items-center gap-1">
-                              <MapPin className="h-4 w-4 text-accent shrink-0" />
-                              <p>{data.to}</p>
-                              <Separator className="w-2" />
-                              <Clock className="h-4 w-4 text-accent shrink-0 " />
-                              {data.arrivalTime} hs
-                            </div>
+                        </TripDataBox>
+                        <TripDataBox
+                          icon={
+                            <MapPin className="h-5 w-5 text-accent shrink-0" />
+                          }
+                          text="Destino"
+                        >
+                          <div className="flex items-center gap-1">
+                            <p>{data.to}</p>
+                            <Separator className="w-2" />
+                            <TripTime>{data.arrivalTime} hs</TripTime>
                           </div>
-                        </div>
-                        <div className="flex flex-row items-center gap-3">
-                          <div className="w-full flex flex-col">
-                            <span className="relative top-0.5 font-medium dark:text-white">
-                              Precio
-                            </span>{" "}
-                            <div className="flex items-center gap-1">
-                              <DollarSign className="h-4 w-4 text-accent " />
-                              {data.price}
-                            </div>
-                          </div>
-                        </div>
+                        </TripDataBox>
+                        <TripDataBox
+                          icon={<DollarSign className="h-5 w-5 text-accent" />}
+                          text="Precio"
+                        >
+                          {data.price}
+                        </TripDataBox>
                       </div>
                     </div>
                   </div>
+
                   <Separator className="w-4 self-center mt-2 bg-border lg:hidden" />
                   <div
                     className={`${

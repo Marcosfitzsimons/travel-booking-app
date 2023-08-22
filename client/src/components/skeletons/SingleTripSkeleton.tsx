@@ -13,7 +13,7 @@ const SingleTripSkeleton = () => {
           <Skeleton className="h-6 w-32" />
         </div>
       </div>
-      <div className="px-2 lg:px-4 flex flex-col gap-3 mt-5">
+      <div className="px-2 lg:px-4 flex flex-col gap-3 mt-2">
         <Skeleton className="h-6 w-52" />
         <div className="flex flex-col gap-2">
           <Skeleton className="h-2 w-40" />

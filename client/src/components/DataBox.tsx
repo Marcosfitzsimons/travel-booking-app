@@ -9,7 +9,7 @@ const DataBox = ({ icon, text, children }: DataBoxProps) => {
         <span className="relative top-0.5 text-sm font-medium text-card-foreground">
           {text}
         </span>
-        <span>{children}</span>
+        <div>{children}</div>
         <Separator className="mt-2" />
       </div>
     </li>

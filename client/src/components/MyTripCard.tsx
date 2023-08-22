@@ -15,6 +15,8 @@ import CountdownTimer from "./CountdownTimer";
 import getTodayDate from "@/lib/utils/getTodayDate";
 import formatDate from "@/lib/utils/formatDate";
 import { MyTripCardProps } from "@/types/props";
+import TripDataBox from "./TripDataBox";
+import TripTime from "./TripTime";
 
 const MyTripCard = ({
   _id,
@@ -60,33 +62,38 @@ const MyTripCard = ({
                 Información acerca del viaje:
               </h4>
             </div>
-            <div className="flex flex-col w-full bg-background gap-2 border px-1 py-4 shadow-inner rounded-md dark:bg-[#171717]">
-              <div className="flex flex-col gap-2 overflow-auto">
-                <p className="flex items-center gap-1">
-                  <MapPin className="h-4 w-4 text-accent shrink-0 " />
-                  <span className="dark:text-white font-medium">Salida:</span>
-                  <span className="shrink-0">{from}</span>
-                  <Separator className="w-2 bg-border" />
-                  <Clock className="h-4 w-4 text-accent shrink-0 " />
-                  <span className="shrink-0">{departureTime} hs.</span>
-                </p>
-                <p className="flex items-center gap-1">
-                  <MapPin className="h-4 w-4 text-accent shrink-0 " />
-                  <span className="dark:text-white font-medium">Destino:</span>
-                  <span className="shrink-0">{to}</span>
-                  <Separator className="w-2 bg-border" />
-                  <Clock className="h-4 w-4 text-accent shrink-0 " />
-                  <span className="shrink-0">{arrivalTime} hs.</span>
-                </p>
-                <p className="flex items-center gap-1">
-                  <DollarSign className="h-4 w-4 text-accent " />
-                  <span className="dark:text-white font-medium">Precio:</span>
-                  <span className="">${price}</span>
-                </p>
+            <div className="flex flex-col w-full gap-2 border px-2 py-1 shadow-inner rounded-md dark:bg-[#171717]">
+              <div className="flex flex-col overflow-auto pb-2">
+                <TripDataBox
+                  icon={<MapPin className="h-5 w-5 text-accent shrink-0" />}
+                  text="Salida"
+                >
+                  <div className="flex items-center gap-1">
+                    <p>{from}</p>
+                    <Separator className="w-2" />
+                    <TripTime>{departureTime} hs</TripTime>
+                  </div>
+                </TripDataBox>
+                <TripDataBox
+                  icon={<MapPin className="h-5 w-5 text-accent shrink-0" />}
+                  text="Destino"
+                >
+                  <div className="flex items-center gap-1">
+                    <p>{to}</p>
+                    <Separator className="w-2" />
+                    <TripTime>{arrivalTime} hs</TripTime>
+                  </div>
+                </TripDataBox>
+                <TripDataBox
+                  icon={<DollarSign className="h-5 w-5 text-accent" />}
+                  text="Precio"
+                >
+                  {price}
+                </TripDataBox>
               </div>
             </div>
           </div>
-          <div className="self-center flex items-center justify-between mt-3">
+          <div className="self-center flex items-center justify-between mt-2">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <button
