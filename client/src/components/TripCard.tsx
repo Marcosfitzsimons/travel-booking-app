@@ -1,14 +1,7 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import {
-  DollarSign,
-  CalendarDays,
-  Heart,
-  MapPin,
-  CheckCircle,
-} from "lucide-react";
-
+import { DollarSign, CalendarDays, Heart, MapPin } from "lucide-react";
 import DefaultButton from "./DefaultButton";
 import { Separator } from "./ui/separator";
 import CountdownTimer from "./CountdownTimer";
@@ -48,17 +41,11 @@ const TripCard = ({
   return (
     <article
       className={`${
-        maxCapacity === passengers.length
-          ? "dark:border-zinc-800"
-          : "dark:border"
+        isMaxCapacity ? "dark:border-zinc-800" : "dark:border"
       } group w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none`}
     >
       <CountdownTimer date={date} departureTime={departureTime} />
-      <div
-        className={`${
-          maxCapacity === passengers.length ? "opacity-50" : ""
-        } w-full px-2 pt-9 sm:px-4`}
-      >
+      <div className="w-full px-2 pt-9 sm:px-4">
         <div className="flex flex-col gap-2">
           <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
             <span className="w-8 h-[4px] bg-red-700 rounded-full " />
@@ -94,7 +81,7 @@ const TripCard = ({
                 >
                   <div className="flex items-center gap-1">
                     <p>{from}</p>
-                    <Separator className="w-2" />
+                    <Separator className="w-1" />
                     <TripTime>{departureTime} hs</TripTime>
                   </div>
                 </TripDataBox>
@@ -104,7 +91,7 @@ const TripCard = ({
                 >
                   <div className="flex items-center gap-1">
                     <p>{to}</p>
-                    <Separator className="w-2" />
+                    <Separator className="w-1" />
                     <TripTime>{arrivalTime} hs</TripTime>
                   </div>
                 </TripDataBox>
@@ -117,35 +104,40 @@ const TripCard = ({
               </div>
             </div>
           </div>
-          <div className="py-1 lg:self-end lg:py-2">
-            <div
-              className="w-[min(24rem,100%)] flex justify-center"
-              onClick={!isMaxCapacity ? handleReservation : undefined}
-            >
-              <DefaultButton isMaxCapacity={isMaxCapacity}>
-                Reservar
-              </DefaultButton>
-            </div>
+          <div
+            className={`${
+              isMaxCapacity ? "lg:self-center" : "lg:self-end"
+            } py-1 lg:py-2`}
+          >
+            {isMaxCapacity ? (
+              <div className="flex flex-col items-center justify-center select-none">
+                <span className="font-medium">¡Combi completa!</span>
+                <span className="flex items-center gap-1">
+                  <Heart
+                    className="w-4 h-4 relative top-[1px] dark:text-black"
+                    fill="red"
+                  />
+                  <p>Gracias por elegirnos</p>
+                  <Heart
+                    className="w-4 h-4 relative top-[1px] dark:text-black"
+                    fill="red"
+                  />
+                </span>
+              </div>
+            ) : (
+              <div
+                className="w-[min(24rem,100%)] flex justify-center"
+                onClick={!isMaxCapacity ? handleReservation : undefined}
+              >
+                <DefaultButton isMaxCapacity={isMaxCapacity}>
+                  Reservar
+                </DefaultButton>
+              </div>
+            )}
           </div>
         </div>
       </div>
-      {maxCapacity === passengers.length && (
-        <div className="absolute bottom-0 w-full px-4 py-4 font-medium order-3 flex flex-col items-center justify-center border-x-0 border-b-0 select-none gap-2 rounded-lg bg-white border border-border-color dark:border-zinc-500 dark:bg-black dark:text-white">
-          <CheckCircle className="w-8 h-8 text-green-500 shrink-0 dark:text-green-300" />
-          <span>¡Combi completa!</span>
-          <span className="flex items-center gap-1">
-            <Heart
-              className="w-4 h-4 relative top-[1px] dark:text-black"
-              fill="red"
-            />
-            Gracias por elegirnos{" "}
-            <Heart
-              className="w-4 h-4 relative top-[1px] dark:text-black"
-              fill="red"
-            />
-          </span>
-        </div>
-      )}
+
       <Separator className="bg-border w-4 absolute -bottom-7 self-center" />
     </article>
   );
