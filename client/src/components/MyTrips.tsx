@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Loading from "./Loading";
 import MyTripCard from "./MyTripCard";
 import { Button } from "./ui/button";
 import { useToast } from "./../components/ui/use-toast";

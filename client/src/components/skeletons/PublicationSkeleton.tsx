@@ -12,7 +12,7 @@ const PublicationSkeleton = ({ cards }: CardSkeletonProps) => {
         .map((_, index) => (
           <div
             key={index}
-            className="w-full flex flex-col gap-4 h-32 max-w-lg relative mx-auto animate-pulse bg-card/80 rounded-sm shadow-input pb-4  border dark:shadow-none"
+            className="w-full flex flex-col gap-4 h-32 max-w-lg relative mx-auto animate-pulse bg-card/80 rounded-sm shadow-input pb-4 dark:shadow-none"
           >
             <div className="w-full flex justify-between">
               <div className="flex items-center gap-[2px] pt-[10px] pl-2 lg:pl-4">

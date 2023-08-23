@@ -2,7 +2,7 @@ import { Skeleton } from "../ui/skeleton";
 
 const SingleTripSkeleton = () => {
   return (
-    <div className="w-full flex flex-col gap-4 relative mx-auto animate-pulse bg-card/80 rounded-sm shadow-input pb-4 max-w-[400px] border dark:shadow-none">
+    <div className="w-full flex flex-col gap-4 relative mx-auto animate-pulse bg-card/80 rounded-sm shadow-input pb-4 max-w-[400px] dark:shadow-none">
       <div className="w-full flex justify-between">
         <div className="flex flex-col gap-[2px] pt-[10px] pl-2 lg:pl-4">
           <Skeleton className="h-1 w-8" />
