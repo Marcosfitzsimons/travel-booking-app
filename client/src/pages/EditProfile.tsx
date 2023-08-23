@@ -22,6 +22,7 @@ import { useForm } from "react-hook-form";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
+import EditProfileSkeleton from "@/components/skeletons/EditProfileSkeleton";
 
 type addressCda = {
   street: string | undefined;
@@ -236,14 +237,13 @@ const EditProfile = () => {
         <SectionTitle>Editar perfil</SectionTitle>
       </div>
       {isLoading ? (
-        <Loading />
+        <EditProfileSkeleton />
       ) : (
         <motion.div
           variants={sectionVariants}
           initial="hidden"
           animate="visible"
           exit="exit"
-          className=""
         >
           <div className="w-full mb-16 flex flex-col items-center gap-5">
             <div className="w-full flex flex-col items-center gap-5 md:w-11/12">
@@ -252,7 +252,7 @@ const EditProfile = () => {
                 className="w-full flex flex-col items-center gap-3 lg:flex-row lg:gap-10 lg:items-start"
               >
                 <div className="relative flex flex-col items-center mb-2 lg:px-6">
-                  <Avatar className="w-32 h-32">
+                  <Avatar className="w-24 h-24 lg:w-32 lg:h-32">
                     <AvatarImage
                       className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
                       src={
@@ -267,13 +267,13 @@ const EditProfile = () => {
                     </AvatarFallback>
                   </Avatar>
 
-                  <div className="absolute -bottom-1">
+                  <div className="absolute -bottom-0.5">
                     <Label
                       htmlFor="image"
-                      className="flex items-center gap-1 cursor-pointer h-7 px-3 py-2 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border border-border-color bg-white dark:border-border-color-dark dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-zinc-300"
+                      className="flex items-center gap-1 cursor-pointer h-6 px-3 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border bg-white dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-zinc-300"
                     >
-                      <Upload className="w-4 h-4 text-accent " />
-                      Subir{" "}
+                      <Upload className="w-4 h-4" />
+                      {user?.image ? "Editar" : "Subir"}
                     </Label>
                     <Input
                       type="file"
