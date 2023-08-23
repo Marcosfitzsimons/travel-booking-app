@@ -19,48 +19,11 @@ import axios from "axios";
 import DefaultButton from "../components/DefaultButton";
 import BackButton from "../components/BackButton";
 import { useForm } from "react-hook-form";
-import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 import EditProfileSkeleton from "@/components/skeletons/EditProfileSkeleton";
-
-type addressCda = {
-  street: string | undefined;
-  streetNumber: number | undefined | null;
-  crossStreets: string | undefined;
-};
-
-type UserData = {
-  username: string | undefined;
-  fullName: string | undefined;
-  email: string | undefined;
-  phone: number | undefined;
-  dni: number | undefined;
-  image?: string | undefined;
-  addressCda: addressCda | undefined;
-  addressCapital?: string | undefined;
-  password?: string | undefined;
-};
-
-const sectionVariants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeIn",
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.2,
-      ease: "backInOut",
-    },
-  },
-};
+import { UserData } from "@/types/types";
+import sectionVariants from "@/lib/variants/sectionVariants";
 
 const INITIAL_VALUES = {
   username: "",
@@ -91,7 +54,7 @@ const EditProfile = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, dirtyFields, isDirty },
     reset,
   } = useForm({
     defaultValues: {
@@ -108,6 +71,8 @@ const EditProfile = () => {
       image: userData.image,
     },
   });
+
+  console.log({ dirtyFields, isDirty });
 
   const fetchUserData = async () => {
     setIsLoading(true);
@@ -152,6 +117,12 @@ const EditProfile = () => {
   };
 
   const handleOnSubmit = async (data: UserData) => {
+    if (!isDirty && addressCapitalValue === userData.addressCapital) {
+      return toast({
+        variant: "destructive",
+        description: "Es necesario realizar cambios antes de enviar",
+      });
+    }
     localStorage.removeItem("user");
     setIsLoading(true);
 
