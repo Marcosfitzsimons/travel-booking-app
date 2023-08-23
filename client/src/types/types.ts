@@ -55,15 +55,15 @@ export type Publication = {
 };
 
 export type UserData = {
-  _id: string;
+  _id?: string;
   fullName: string;
   username: string;
   addressCda: addressCda;
-  addressCapital: string;
+  addressCapital?: string;
   dni: number | undefined;
   phone: undefined | number;
   email: string;
   image?: string;
-  myTrips: TripProps[];
-  isReminder: boolean;
+  myTrips?: TripProps[];
+  isReminder?: boolean;
 };
