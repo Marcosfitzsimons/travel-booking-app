@@ -12,7 +12,6 @@ interface UserInfoProps {
 }
 
 const UserInfo = ({ userData }: UserInfoProps) => {
-  const [isPersonalData, setIsPersonalData] = useState(false);
   const navigate = useNavigate();
 
   const goToEditProfile = () => {
@@ -22,7 +21,7 @@ const UserInfo = ({ userData }: UserInfoProps) => {
   return (
     <div className="w-full mt-3 mb-16 bg-transparent flex flex-col gap-5">
       <div className="w-full relative flex flex-col items-center gap-5 md:w-11/12 md:mx-auto">
-        <Avatar className="w-24 h-24">
+        <Avatar className="w-24 h-24 lg:w-32 lg:h-32">
           <AvatarImage
             className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
             src={userData?.image}
@@ -42,7 +41,7 @@ const UserInfo = ({ userData }: UserInfoProps) => {
           </h4>
         </div>
 
-        <Tabs defaultValue="personal" className="w-full max-w-[25rem] ">
+        <Tabs defaultValue="personal" className="w-full max-w-[25rem]">
           <TabsList className="grid w-full grid-cols-2 rounded-full p-1 bg-slate-100 dark:bg-border">
             <TabsTrigger value="personal" className="rounded-full ">
               Datos personales

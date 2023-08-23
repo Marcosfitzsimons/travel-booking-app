@@ -8,6 +8,7 @@ import axios from "axios";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
 import SectionTitle from "@/components/SectionTitle";
+import ProfileSkeleton from "@/components/skeletons/ProfileSkeleton";
 
 const INITIAL_STATES = {
   _id: "",
@@ -62,7 +63,7 @@ const Profile = () => {
         <SectionTitle>Perfil</SectionTitle>
       </div>
       {loading ? (
-        <Loading />
+        <ProfileSkeleton />
       ) : (
         <motion.div
           variants={sectionVariants}
