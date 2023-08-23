@@ -91,7 +91,7 @@ const UserInfo = ({ userData }: UserInfoProps) => {
                 </DataBox>
               </ul>
 
-              <div className="flex-col gap-1 lg:basis-[50%]">
+              <div className="flex flex-col gap-1 lg:basis-[50%]">
                 <h6 className="font-serif text-accent">Capital Federal</h6>
 
                 <ul className="w-full ">

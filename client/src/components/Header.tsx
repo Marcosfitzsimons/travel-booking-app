@@ -66,7 +66,7 @@ const Header = () => {
               </li>
             </ul>
           </nav>
-          <Separator orientation="vertical" className="hidden h-4 lg:flex" />
+          <Separator orientation="vertical" className="hidden h-2 lg:flex" />
           <ThemeToggle />
           <Separator orientation="vertical" className="h-2" />
           {!user || user?.status != "Active" ? (
