@@ -1,10 +1,10 @@
 import { Facebook, Instagram, Phone } from "lucide-react";
 import { Separator } from "./ui/separator";
-import { AuthContext } from "../context/AuthContext";
-import { useContext } from "react";
+import useAuth from "@/hooks/useAuth";
 
 const Footer = () => {
-  const { user } = useContext(AuthContext);
+  const { auth } = useAuth();
+  const user = auth?.user;
   return (
     <footer className={!user ? "hidden" : ""}>
       <div className="w-[min(95%,1200px)] mx-auto my-6 flex justify-center items-center">

@@ -1,80 +1,43 @@
-import { createContext, Dispatch, useEffect, useReducer } from "react";
-import { User } from "../types/types";
-interface AuthContextType {
-  user: User | null;
-  loading: boolean;
-  error: string | null;
-  dispatch?: Dispatch<AuthAction>;
+import {
+  createContext,
+  useState,
+  ReactNode,
+  Dispatch,
+  SetStateAction,
+} from "react";
+export interface AuthContextType {
+  auth: AuthObject;
+  setAuth: Dispatch<SetStateAction<AuthObject>>;
 }
 
-interface AuthState {
-  user: User | null;
-  loading: boolean;
-  error: string | null;
+type UserData = {
+  _id: string;
+  status: string;
+};
+
+interface AuthObject {
+  user: UserData | null;
+  token?: string;
 }
 
-type AuthAction =
-  | { type: "LOGIN_START" }
-  | { type: "LOGIN_SUCCESS"; payload: User }
-  | { type: "LOGIN_FAILURE"; payload: string }
-  | { type: "LOGOUT" };
+interface AuthProviderProps {
+  children: ReactNode;
+}
 
-const userFromLocalStorage = localStorage.getItem("user");
-const user = userFromLocalStorage ? JSON.parse(userFromLocalStorage) : null;
-
-const INITIAL_STATE = {
-  user: user,
-  loading: false,
-  error: null,
+const defaultAuthObject: AuthObject = {
+  user: null,
 };
 
-export const AuthContext = createContext<AuthContextType>(INITIAL_STATE);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const AuthReducer = (state: AuthState, action: AuthAction) => {
-  switch (action.type) {
-    case "LOGIN_START":
-      return {
-        user: null,
-        loading: true,
-        error: null,
-      };
-    case "LOGIN_SUCCESS":
-      return {
-        user: action.payload,
-        loading: false,
-        error: null,
-      };
-    case "LOGIN_FAILURE":
-      return {
-        user: null,
-        loading: false,
-        error: action.payload,
-      };
-    case "LOGOUT":
-      return {
-        user: null,
-        loading: false,
-        error: null,
-      };
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [auth, setAuth] = useState<AuthObject>(defaultAuthObject);
 
-    default:
-      return state;
-  }
+  return (
+    <AuthContext.Provider value={{ auth, setAuth }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export const AuthContextProvider = ({ children }: any) => {
-  const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
-
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(state.user));
-  }, [state.user]);
-
-  const value = {
-    user: state.user,
-    loading: state.loading,
-    error: state.error,
-    dispatch,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
+export default AuthContext;

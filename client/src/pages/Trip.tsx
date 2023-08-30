@@ -1,13 +1,10 @@
-import axios from "axios";
 import { motion } from "framer-motion";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/SectionTitle";
 import {
   CalendarDays,
   MapPin,
-  Clock,
   Milestone,
   Crop,
   User,
@@ -37,7 +34,6 @@ import { ToastAction } from "@/components/ui/toast";
 import { Checkbox } from "@/components/ui/checkbox";
 import CountdownTimer from "@/components/CountdownTimer";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
-import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
 import getTodayDate from "@/lib/utils/getTodayDate";
 import { UserAddresses } from "@/types/types";
 import formatDate from "@/lib/utils/formatDate";
@@ -46,6 +42,8 @@ import errorVariants from "@/lib/variants/errorVariants";
 import SingleTripSkeleton from "@/components/skeletons/SingleTripSkeleton";
 import TripTime from "@/components/TripTime";
 import TripDataBox from "@/components/TripDataBox";
+import useAuth from "@/hooks/useAuth";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 
 const INITIAL_VALUES = {
   _id: "",
@@ -73,16 +71,19 @@ const Trip = () => {
   const [data, setData] = useState(INITIAL_VALUES);
   const [userInfo, setUserInfo] = useState(INITIAL_USER_VALUES);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [isConfirm, setIsConfirm] = useState(false);
   const [isConfirmError, setIsConfirmError] = useState(false);
   const [addressCapitalValue, setAddressCapitalValue] = useState("");
+
+  const axiosPrivate = useAxiosPrivate();
 
   const locationn = useLocation();
   const path = locationn.pathname;
   const tripId = path.split("/")[2];
 
-  const { user } = useContext(AuthContext);
+  const { auth, setAuth } = useAuth();
+  const user = auth?.user;
 
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -108,14 +109,10 @@ const Trip = () => {
   const getUserAddresses = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/addresses/${
-          user?._id
-        }`,
-        { headers: createAuthHeaders() }
-      );
+      const res = await axiosPrivate.get(`/users/addresses/${user?._id}`);
       const userData = res.data.userAddresses;
       setUserInfo(userData);
+      setLoading(false);
       reset({
         addressCda: {
           street: userData.addressCda.street,
@@ -124,11 +121,18 @@ const Trip = () => {
         },
       });
       setAddressCapitalValue(userData.addressCapital);
-    } catch (err) {
-      console.log(err);
-      setError(true);
+    } catch (err: any) {
+      if (err.response?.status === 403) {
+        setAuth({ user: null });
+        setTimeout(() => {
+          navigate("/login");
+        }, 100);
+      }
+      setLoading(false);
+      setError(
+        "Error al cargar información acerca del viaje, intentar más tarde"
+      );
     }
-    setLoading(false);
   };
 
   // Added endpoint to only manage user addresses updates
@@ -138,13 +142,10 @@ const Trip = () => {
     setLoading(true);
 
     try {
-      const res = await axios.put(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/addresses/${
-          user?._id
-        }`,
-        { ...data, addressCapital: addressCapitalValue },
-        { headers: createAuthHeaders() }
-      );
+      const res = await axiosPrivate.put(`/users/addresses/${user?._id}`, {
+        ...data,
+        addressCapital: addressCapitalValue,
+      });
       setLoading(false);
       const updatedUserData = {
         ...user,
@@ -155,7 +156,10 @@ const Trip = () => {
         },
         addressCapital: res.data.addressCapital,
       };
-      localStorage.setItem("user", JSON.stringify(updatedUserData));
+      setAuth((prev: any) => {
+        console.log({ ...prev, user: updatedUserData });
+        return { ...prev, user: updatedUserData };
+      });
       const userUpdated = res.data;
       setUserInfo(userUpdated);
       reset({
@@ -175,14 +179,19 @@ const Trip = () => {
         ),
       });
     } catch (err: any) {
+      if (err.response?.status === 403) {
+        setAuth({ user: null });
+        setTimeout(() => {
+          navigate("/login");
+        }, 100);
+      }
       const errorMsg = err.response.data.msg;
-      console.log(errorMsg);
       setLoading(false);
       toast({
         variant: "destructive",
         title: "Error al guardar cambios",
-        description: err.response.data.msg
-          ? err.response.data.msg
+        description: errorMsg
+          ? errorMsg
           : "Error al guardar cambios, intente más tarde.",
       });
     }
@@ -199,20 +208,21 @@ const Trip = () => {
   const handleConfirmPayment = async () => {
     setLoading(true);
     try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/payments`,
-        {
-          trip: {
-            _id: data._id,
-            price: data.price,
-          },
-          userId: user?._id,
+      const res = await axiosPrivate.post(`/payments`, {
+        trip: {
+          _id: data._id,
+          price: data.price,
         },
-        { headers: createAuthHeaders() }
-      );
-      console.log(res);
+        userId: user?._id,
+      });
       window.location.href = res.data.init_point;
     } catch (err: any) {
+      if (err.response?.status === 403) {
+        setAuth({ user: null });
+        setTimeout(() => {
+          navigate("/login");
+        }, 100);
+      }
       setLoading(false);
       console.log(err);
       toast({
@@ -233,15 +243,9 @@ const Trip = () => {
   const handleConfirmPassenger = async () => {
     setLoading(true);
     try {
-      await axios.post(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/passengers/${
-          user?._id
-        }/${tripId}`,
-        {
-          userId: user?._id,
-        },
-        { headers: createAuthHeaders() }
-      );
+      await axiosPrivate.post(`/passengers/${user?._id}/${tripId}`, {
+        userId: user?._id,
+      });
       toast({
         description: (
           <div className="flex items-center gap-1">
@@ -255,8 +259,13 @@ const Trip = () => {
         navigate("/mis-viajes");
       }, 100);
     } catch (err: any) {
+      if (err.response?.status === 403) {
+        setAuth({ user: null });
+        setTimeout(() => {
+          navigate("/login");
+        }, 100);
+      }
       setLoading(false);
-      console.log(err);
       toast({
         variant: "destructive",
         title: "Error al guardar su lugar",
@@ -280,16 +289,19 @@ const Trip = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/trips/${
-            user?._id
-          }/${tripId}`
-        );
+        const res = await axiosPrivate.get(`/trips/${user?._id}/${tripId}`);
         console.log(res.data);
         setData({ ...res.data });
-      } catch (err) {
-        console.log(err);
-        setError(true);
+      } catch (err: any) {
+        if (err.response?.status === 403) {
+          setAuth({ user: null });
+          setTimeout(() => {
+            navigate("/login");
+          }, 100);
+        }
+        setError(
+          "Error al cargar información acerca del viaje, intentar más tarde"
+        );
       }
       setLoading(false);
     };
@@ -307,6 +319,8 @@ const Trip = () => {
         </div>
         {loading ? (
           <SingleTripSkeleton />
+        ) : error ? (
+          <p>{error}</p>
         ) : (
           <motion.div
             variants={sectionVariants}

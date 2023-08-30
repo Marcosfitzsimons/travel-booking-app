@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import axios from "../api/axios";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Button } from "./ui/button";
@@ -22,11 +22,7 @@ const ForgotPassword = () => {
 
   const userValid = async () => {
     try {
-      const res = await axios.get(
-        `${
-          import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
-        }/auth/forgotpassword/${id}/${token}`
-      );
+      const res = await axios.get(`/auth/forgotpassword/${id}/${token}`);
       console.log(`User valid: ${res}`);
     } catch (err) {
       console.log(err);
@@ -58,14 +54,9 @@ const ForgotPassword = () => {
       });
     } else {
       try {
-        const res = await axios.post(
-          `${
-            import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
-          }/auth/changepassword/${id}/${token}`,
-          {
-            password: password,
-          }
-        );
+        const res = await axios.post(`/auth/changepassword/${id}/${token}`, {
+          password: password,
+        });
         console.log(res);
         toast({
           description: (

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Crop,
@@ -12,10 +12,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { AuthContext } from "../context/AuthContext";
 import SectionTitle from "../components/SectionTitle";
 import { useToast } from "../components/ui/use-toast";
-import axios from "axios";
 import DefaultButton from "../components/DefaultButton";
 import BackButton from "../components/BackButton";
 import { useForm } from "react-hook-form";
@@ -24,6 +22,9 @@ import AddressAutocomplete from "@/components/AddressAutocomplete";
 import EditProfileSkeleton from "@/components/skeletons/EditProfileSkeleton";
 import { UserData } from "@/types/types";
 import sectionVariants from "@/lib/variants/sectionVariants";
+import useAuth from "@/hooks/useAuth";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
+import axios from "../api/axios";
 
 const INITIAL_VALUES = {
   username: "",
@@ -49,7 +50,10 @@ const EditProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
 
-  const { user } = useContext(AuthContext);
+  const { auth, setAuth } = useAuth();
+  const user = auth?.user;
+
+  const axiosPrivate = useAxiosPrivate();
 
   const {
     register,
@@ -77,13 +81,7 @@ const EditProfile = () => {
   const fetchUserData = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
-          user?._id
-        }`,
-        { headers }
-      );
-      // Add backend endpoint to only fetch address data and not all the user data
+      const res = await axiosPrivate.get(`/users/${user?._id}`);
       const userData = res.data.user;
       setUserData(userData);
       reset({
@@ -99,22 +97,22 @@ const EditProfile = () => {
         },
         image: userData.image,
       });
-
       setAddressCapitalValue(userData.addressCapital);
+      setIsLoading(false);
     } catch (err: any) {
-      console.log(err);
+      if (err.response?.status === 403) {
+        setAuth({ user: null });
+        setTimeout(() => {
+          navigate("/login");
+        }, 100);
+      }
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const { toast } = useToast();
 
   const navigate = useNavigate();
-
-  const token = localStorage.getItem("token");
-  const headers = {
-    Authorization: `Bearer ${token}`,
-  };
 
   const handleOnSubmit = async (data: UserData) => {
     if (!isDirty && addressCapitalValue === userData.addressCapital) {
@@ -123,28 +121,22 @@ const EditProfile = () => {
         description: "Es necesario realizar cambios antes de enviar",
       });
     }
-    localStorage.removeItem("user");
-    setIsLoading(true);
 
+    setIsLoading(true);
     const imgData = new FormData();
     imgData.append("file", image);
     imgData.append("upload_preset", "upload");
 
     try {
       if (!image) {
-        const res = await axios.put(
-          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
-            user?._id
-          }`,
-          {
-            userData: {
-              ...data,
-              addressCapital: addressCapitalValue,
-            },
+        const res = await axiosPrivate.put(`/users/${user?._id}`, {
+          userData: {
+            ...data,
+            addressCapital: addressCapitalValue,
           },
-          { headers }
-        );
-        localStorage.setItem("user", JSON.stringify(res.data));
+        });
+        console.log();
+        setAuth((prev) => ({ ...prev, user: res.data }));
         setUserData(res.data);
         setIsLoading(false);
         toast({
@@ -160,27 +152,27 @@ const EditProfile = () => {
         );
         const { url } = uploadRes.data;
 
-        const res = await axios.put(
-          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
-            user?._id
-          }`,
-          {
-            userData: {
-              ...data,
-              image: url,
-              addressCapital: addressCapitalValue,
-            },
+        const res = await axiosPrivate.put(`/users/${user?._id}`, {
+          userData: {
+            ...data,
+            image: url,
+            addressCapital: addressCapitalValue,
           },
-          { headers }
-        );
-        localStorage.setItem("user", JSON.stringify(res.data));
+        });
+        setAuth((prev) => ({ ...prev, user: res.data }));
         setIsLoading(false);
 
         setTimeout(() => {
-          window.location.replace("/mi-perfil");
+          navigate("/mi-perfil");
         }, 500);
       }
     } catch (err: any) {
+      if (err.response?.status === 403) {
+        setAuth({ user: null });
+        setTimeout(() => {
+          navigate("/login");
+        }, 100);
+      }
       setIsLoading(false);
       console.log(err.response.data.err);
 
@@ -229,7 +221,7 @@ const EditProfile = () => {
                       src={
                         image instanceof File
                           ? URL.createObjectURL(image)
-                          : user?.image
+                          : userData.image
                       }
                       alt="avatar"
                     />
@@ -244,7 +236,7 @@ const EditProfile = () => {
                       className="flex items-center gap-1 cursor-pointer h-6 px-3 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border bg-white dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-zinc-300"
                     >
                       <Upload className="w-4 h-4" />
-                      {user?.image ? "Editar" : "Subir"}
+                      {userData.image ? "Editar" : "Subir"}
                     </Label>
                     <Input
                       type="file"

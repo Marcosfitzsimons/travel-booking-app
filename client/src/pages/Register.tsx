@@ -1,15 +1,14 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "../components/ui/separator";
 import { Link } from "react-router-dom";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
-import axios from "axios";
+import axios from "../api/axios";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
-import { AuthContext } from "../context/AuthContext";
 import {
   Check,
   Crop,
@@ -29,6 +28,7 @@ const Register = () => {
   const [addressCapitalValue, setAddressCapitalValue] = useState("");
   const [err, setErr] = useState<null | string>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -52,62 +52,58 @@ const Register = () => {
     },
   });
 
-  const { loading, dispatch } = useContext(AuthContext);
-
   const { toast } = useToast();
 
   const handleOnSubmit = async (data: UserInputs) => {
     setErr("");
-
-    if (dispatch) {
-      dispatch({ type: "LOGIN_START" });
-      try {
-        const res = await axios.post(
-          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/auth/register`,
-          { ...data, addressCapital: addressCapitalValue }
-        );
-        toast({
-          title: "¡Registro exitoso!",
-          description:
-            "Por favor, verifique su email para poder activar su cuenta",
-        });
-        setIsSuccess(true);
-        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-      } catch (err: any) {
-        setIsSuccess(false);
-        dispatch({
-          type: "LOGIN_FAILURE",
-          payload: err.response?.data,
-        });
-        console.log(err);
-        if (err.response.data.err?.keyValue.username) {
-          setErr(
-            `Nombre de usuario ${err.response.data.err.keyValue.username} ya está en uso`
-          );
-          toast({
-            variant: "destructive",
-            title: "Error al crear cuenta",
-            description: "Nombre de usuario ya está en uso",
-          });
-        } else if (err.response.data.err?.keyValue.email) {
-          setErr(
-            `Email ${err.response.data.err.keyValue.email} ya está en uso`
-          );
-          toast({
-            variant: "destructive",
-            title: "Error al crear cuenta",
-            description: "Email ya está en uso",
-          });
-        } else {
-          setErr(err.response.data.msg);
-          toast({
-            variant: "destructive",
-            title: "Error al crear cuenta",
-            description: err.response.data.msg
-              ? err.response.data.msg
-              : "Error al crear cuenta, intente más tarde.",
-          });
+    setLoading(true);
+    try {
+      await axios.post(
+        `/auth/register`,
+        { ...data, addressCapital: addressCapitalValue },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
         }
+      );
+      toast({
+        title: "¡Registro exitoso!",
+        description:
+          "Por favor, verifique su email para poder activar su cuenta",
+      });
+      setIsSuccess(true);
+      setLoading(false);
+    } catch (err: any) {
+      setIsSuccess(false);
+      console.log(err);
+      if (err.response.data.err?.keyValue.username) {
+        setErr(
+          `Nombre de usuario ${err.response.data.err.keyValue.username} ya está en uso`
+        );
+        setLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Error al crear cuenta",
+          description: "Nombre de usuario ya está en uso",
+        });
+      } else if (err.response.data.err?.keyValue.email) {
+        setErr(`Email ${err.response.data.err.keyValue.email} ya está en uso`);
+        setLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Error al crear cuenta",
+          description: "Email ya está en uso",
+        });
+      } else {
+        setErr(err.response.data.msg);
+        setLoading(false);
+        toast({
+          variant: "destructive",
+          title: "Error al crear cuenta",
+          description: err.response.data.msg
+            ? err.response.data.msg
+            : "Error al crear cuenta, intente más tarde.",
+        });
       }
     }
   };

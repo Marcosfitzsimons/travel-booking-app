@@ -2,7 +2,7 @@ import Loading from "@/components/Loading";
 import { Separator } from "@/components/ui/separator";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
-import axios from "axios";
+import axios from "../api/axios";
 import { motion } from "framer-motion";
 import {
   CalendarDays,
@@ -16,10 +16,10 @@ import {
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import getTodayDate from "@/lib/utils/getTodayDate";
-import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import formatDate from "@/lib/utils/formatDate";
 import ContactBox from "@/components/ContactBox";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 
 const INITIAL_VALUES = {
   _id: "",
@@ -41,6 +41,8 @@ const PaymentSuccess = () => {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  const axiosPrivate = useAxiosPrivate();
+
   const locationn = useLocation();
   const path = locationn.pathname;
   const parts = path.split("/");
@@ -61,16 +63,10 @@ const PaymentSuccess = () => {
       setError(false);
       setLoading1(true);
       try {
-        await axios.post(
-          `${
-            import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
-          }/passengers/${userId}/${tripId}`,
-          {
-            userId: userId,
-            isPaid: true,
-          },
-          { headers: createAuthHeaders() }
-        );
+        await axiosPrivate.post(`/passengers/${userId}/${tripId}`, {
+          userId: userId,
+          isPaid: true,
+        });
         toast({
           description: (
             <div className="flex items-center gap-1">
@@ -106,11 +102,7 @@ const PaymentSuccess = () => {
       setError(false);
       setLoading(true);
       try {
-        const res = await axios.get(
-          `${
-            import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
-          }/trips/${userId}/${tripId}`
-        );
+        const res = await axios.get(`/trips/${userId}/${tripId}`);
         setLoading(false);
         setData({ ...res.data });
       } catch (err) {

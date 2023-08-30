@@ -1,10 +1,8 @@
-import axios from "axios";
+import axios from "../../api/axios";
 
 const verifyUser = (code: any) => {
   return axios
-    .get(
-      `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/auth/confirm/${code}`
-    )
+    .get(`/auth/confirm/${code}`)
     .then((response) => {
       return response.data;
     })

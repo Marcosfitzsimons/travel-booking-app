@@ -8,14 +8,14 @@ import useFetch from "@/hooks/useFetch";
 import PublicationSkeleton from "@/components/skeletons/PublicationSkeleton";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import { Publication } from "@/types/types";
+import useAuth from "@/hooks/useAuth";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const { data, loading, error } = useFetch(
-    `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/publications`
-  );
-
+  const { data, loading, error } = useFetch("/publications");
+  const { auth } = useAuth();
+  console.log(auth);
   return (
     <div className="relative  section lg:pt-28">
       <motion.div
@@ -61,7 +61,7 @@ const Home = () => {
             </div>
           </div>
           <p className="font-medium px-4 text-card-foreground dark:text-slate-100">
-            Una empresa familiar con más de 28 años de trayectoria.
+            Una empresa familiar con más de 28 años de trayectoria
           </p>
           <Button
             onClick={() => navigate("/viajes")}

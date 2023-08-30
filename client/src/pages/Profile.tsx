@@ -1,14 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { AuthContext } from "../context/AuthContext";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import UserInfo from "../components/UserInfo";
 import BackButton from "../components/BackButton";
-import Loading from "../components/Loading";
-import axios from "axios";
 import sectionVariants from "@/lib/variants/sectionVariants";
-import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
 import SectionTitle from "@/components/SectionTitle";
 import ProfileSkeleton from "@/components/skeletons/ProfileSkeleton";
+import useAuth from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const INITIAL_STATES = {
   _id: "",
@@ -32,24 +31,31 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const { user } = useContext(AuthContext);
+  const axiosPrivate = useAxiosPrivate();
+
+  const navigate = useNavigate();
+
+  const { auth, setAuth } = useAuth();
+  const user = auth?.user;
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/users/${
-            user?._id
-          }`,
-          { headers: createAuthHeaders() }
-        );
+        const res = await axiosPrivate.get(`/users/${user?._id}`);
         setData(res.data.user);
-      } catch (err) {
+        setLoading(false);
+      } catch (err: any) {
+        if (err.response?.status === 403) {
+          setAuth({ user: null });
+          setTimeout(() => {
+            navigate("/login");
+          }, 100);
+        }
         console.log(err);
         setError(true);
+        setLoading(false);
       }
-      setLoading(false);
     };
     fetchData();
   }, []);

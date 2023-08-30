@@ -1,7 +1,6 @@
 import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyTripCard from "./MyTripCard";
 import { Button } from "./ui/button";
@@ -9,35 +8,32 @@ import { useToast } from "./../components/ui/use-toast";
 import { CheckCircle } from "lucide-react";
 import tripVariants from "@/lib/variants/tripVariants";
 import { TripProps } from "@/types/props";
-import { createAuthHeaders } from "@/lib/utils/createAuthHeaders";
-import { AuthContext } from "@/context/AuthContext";
 import SectionTitle from "./SectionTitle";
 import BackButton from "./BackButton";
 import CardSkeleton from "./skeletons/CardSkeleton";
 import { Skeleton } from "./ui/skeleton";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
+import useAuth from "@/hooks/useAuth";
 
 const MyTrips = () => {
   const [userTrips, setUserTrips] = useState<TripProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(false);
 
+  const axiosPrivate = useAxiosPrivate();
+
   const { toast } = useToast();
 
   const navigate = useNavigate();
 
-  const { user } = useContext(AuthContext);
-  const userId = user?._id;
+  const { auth, setAuth } = useAuth();
+  const userId = auth?.user?._id;
 
   const handleDelete = async (e: any) => {
     setLoading(true);
     const tripId = e.target.id;
     try {
-      await axios.delete(
-        `${
-          import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
-        }/passengers/${userId}/${tripId}`,
-        { headers: createAuthHeaders() }
-      );
+      await axiosPrivate.delete(`/passengers/${userId}/${tripId}`);
       toast({
         description: (
           <div className="flex items-center gap-1">
@@ -52,9 +48,14 @@ const MyTrips = () => {
         navigate("/viajes");
       }, 100);
     } catch (err: any) {
-      console.log(err);
+      if (err.response?.status === 403) {
+        setAuth({ user: null });
+        setTimeout(() => {
+          navigate("/login");
+        }, 100);
+      }
       setLoading(false);
-      setErr(err.message);
+      setErr(true);
       toast({
         variant: "destructive",
         title: "Error al cancelar su lugar",
@@ -69,18 +70,19 @@ const MyTrips = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(
-          `${
-            import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
-          }/users/trips/${userId}`,
-          { headers: createAuthHeaders() }
-        );
+        const res = await axiosPrivate.get(`/users/trips/${userId}`);
         setUserTrips(res.data.userTrips);
-      } catch (err) {
-        console.log(err);
+        setLoading(false);
+      } catch (err: any) {
+        if (err.response?.status === 403) {
+          setAuth({ user: null });
+          setTimeout(() => {
+            navigate("/login");
+          }, 100);
+        }
+        setLoading(false);
         setErr(true);
       }
-      setLoading(false);
     };
     fetchData();
   }, []);

@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "../api/axios"
 import { useEffect, useState } from "react"
 
 const useFetch = (url: string) => {
@@ -11,11 +11,7 @@ const useFetch = (url: string) => {
         setError(false)
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem('token');
-                const headers = {
-                Authorization: `Bearer ${token}`
-                };
-                const res = await axios.get(url, { headers })
+                const res = await axios.get(url)
                 setData(res.data)
             } catch(err) {
                 console.log(err)
@@ -32,11 +28,7 @@ const reFetch = async () => {
     setLoading(true)
     setError(false)
     try {
-        const token = localStorage.getItem('token');
-        const headers = {
-        Authorization: `Bearer ${token}`
-        };
-        const res = await axios.get(url, { headers })
+        const res = await axios.get(url)
         setData(res.data)
     } catch(err) {
         console.log(err)

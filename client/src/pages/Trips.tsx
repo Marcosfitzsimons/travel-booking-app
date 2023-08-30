@@ -18,9 +18,7 @@ const Trips = () => {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [isOnlyAvailableTrips, setIsOnlyAvailableTrips] = useState(true);
 
-  const { data, loading, error } = useFetch(
-    `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/trips`
-  );
+  const { data, loading, error } = useFetch(`/trips`);
 
   const availableTrips = data.filter((trip: TripProps) => {
     const combinedDateTime = `${trip.date.split("T")[0]}T${trip.departureTime}`;

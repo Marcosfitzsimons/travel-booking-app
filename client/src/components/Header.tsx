@@ -17,24 +17,33 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import ThemeToggle from "./ThemeToggle";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 import { Separator } from "./ui/separator";
 import Logo from "./Logo";
+import useAuth from "@/hooks/useAuth";
+import { useState } from "react";
+import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 
 const Header = () => {
-  const { user, dispatch } = useContext(AuthContext);
+  const { auth, setAuth } = useAuth();
+  const user = auth?.user;
+
+  const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const handleLogOut = () => {
-    if (dispatch) {
-      dispatch({
-        type: "LOGOUT",
-      });
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+
+  const axiosPrivate = useAxiosPrivate();
+
+  const handleLogOut = async () => {
+    setErr("");
+    try {
+      await axiosPrivate.get("auth/logout");
+      setAuth({ user: null });
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+      setErr("Error al cerrar sesión, intentar más tarde");
     }
-    navigate("/login");
   };
 
   return (

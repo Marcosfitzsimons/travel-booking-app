@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import axios from "../api/axios";
 import { motion } from "framer-motion";
 import {
   AlertDialog,
@@ -13,23 +13,25 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Separator } from "../components/ui/separator";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { AuthContext } from "../context/AuthContext";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
 import { Lock, Mail, User } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import { LoginUserInputs } from "@/types/types";
+import useAuth from "@/hooks/useAuth";
 
 const Login = () => {
   const [emailForgotten, setEmailForgotten] = useState("");
   const [err, setErr] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { setAuth } = useAuth();
 
   const {
     register,
@@ -42,31 +44,32 @@ const Login = () => {
     },
   });
 
-  const { loading, dispatch } = useContext(AuthContext);
-
   const { toast } = useToast();
 
   const navigate = useNavigate();
 
   const handleOnSubmit = async (data: LoginUserInputs) => {
-    if (dispatch) {
-      dispatch({ type: "LOGIN_START" });
-      try {
-        const res = await axios.post(
-          `${import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT}/auth/login`,
-          data
+    setIsLoading(true);
+    try {
+      const {
+        data: { token, details },
+      } = await axios.post(`/auth/login`, data, {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+      console.log({ user: details, token });
+      setAuth({ user: details, token });
+      setIsLoading(false);
+      navigate("/viajes");
+    } catch (err: any) {
+      if (!err?.response) {
+        setErr(
+          "Ha ocurrido un error en el servidor. Intentar de nuevo más tarde"
         );
-        dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-        const token = res.data.token;
-        localStorage.setItem("token", token);
-        navigate("/viajes");
-      } catch (err: any) {
-        dispatch({
-          type: "LOGIN_FAILURE",
-          payload: err.response?.data,
-        });
+      } else {
         const errorMsg = err.response.data.msg;
         setErr(errorMsg);
+        setIsLoading(false);
       }
     }
   };
@@ -86,12 +89,9 @@ const Login = () => {
     } else {
       setIsLoading(true);
       try {
-        const res = await axios.post(
-          `${
-            import.meta.env.VITE_REACT_APP_API_BASE_ENDPOINT
-          }/auth/sendpasswordlink`,
-          { email: emailForgotten }
-        );
+        const res = await axios.post(`/auth/sendpasswordlink`, {
+          email: emailForgotten,
+        });
         console.log(res);
         toast({
           title: "Link enviado a tu email con éxito",
@@ -200,7 +200,7 @@ const Login = () => {
             )}
 
             <div className="w-full self-center mt-1 max-w-sm lg:max-w-[9rem]">
-              <DefaultButton loading={loading}>Entrar</DefaultButton>
+              <DefaultButton loading={isLoading}>Entrar</DefaultButton>
             </div>
             <p className="w-full text-center lg:text-start">
               ¿No tenes cuenta?{" "}

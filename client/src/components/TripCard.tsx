@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
 import { DollarSign, CalendarDays, Heart, MapPin } from "lucide-react";
 import DefaultButton from "./DefaultButton";
 import { Separator } from "./ui/separator";
@@ -10,6 +8,7 @@ import getTodayDate from "@/lib/utils/getTodayDate";
 import { TripProps } from "@/types/props";
 import TripDataBox from "./TripDataBox";
 import TripTime from "./TripTime";
+import useAuth from "@/hooks/useAuth";
 
 const TripCard = ({
   name,
@@ -23,10 +22,11 @@ const TripCard = ({
   maxCapacity,
   passengers,
 }: TripProps) => {
+  const { auth } = useAuth();
+  const user = auth?.user;
+
   const isMaxCapacity = maxCapacity === passengers.length;
   const todayDate = getTodayDate();
-
-  const { user } = useContext(AuthContext);
 
   const navigate = useNavigate();
 

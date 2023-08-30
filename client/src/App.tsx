@@ -1,4 +1,4 @@
-import { ReactElement, useContext } from "react";
+import { ReactElement } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import moment from "moment-timezone";
@@ -15,12 +15,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "./components/ui/toaster";
 import NotFound from "./pages/NotFound";
-import { AuthContext } from "./context/AuthContext";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentFailure from "./pages/PaymentFailure";
 import Welcome from "./pages/Welcome";
 import ForgotPassword from "./components/ForgotPassword";
 import MyTrips from "./components/MyTrips";
+import useAuth from "./hooks/useAuth";
 
 type Props = {
   children: ReactElement;
@@ -30,7 +30,9 @@ function App() {
   const location = useLocation();
 
   const ProtectedRoute = ({ children }: Props) => {
-    const { user } = useContext(AuthContext);
+    const { auth } = useAuth();
+    const user = auth?.user;
+
     if (!user || user.status != "Active") {
       return <Navigate to="/login" />;
     }
@@ -47,7 +49,6 @@ function App() {
       <main className="pt-[4.6rem] w-[min(95%,1200px)] mx-auto py-2">
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-            <Route path="*" element={<NotFound />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/confirm/:confirmationCode" element={<Welcome />} />
@@ -94,6 +95,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
       </main>
