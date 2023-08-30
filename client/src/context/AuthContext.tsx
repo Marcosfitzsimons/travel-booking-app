@@ -13,6 +13,7 @@ export interface AuthContextType {
 type UserData = {
   _id: string;
   status: string;
+  image: "";
 };
 
 interface AuthObject {
