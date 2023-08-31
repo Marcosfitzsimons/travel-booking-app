@@ -147,19 +147,6 @@ const Trip = () => {
         addressCapital: addressCapitalValue,
       });
       setLoading(false);
-      const updatedUserData = {
-        ...user,
-        addressCda: {
-          street: res.data.addressCda.street,
-          streetNumber: res.data.addressCda.streetNumber,
-          crossStreets: res.data.addressCda.crossStreets,
-        },
-        addressCapital: res.data.addressCapital,
-      };
-      setAuth((prev: any) => {
-        console.log({ ...prev, user: updatedUserData });
-        return { ...prev, user: updatedUserData };
-      });
       const userUpdated = res.data;
       setUserInfo(userUpdated);
       reset({
