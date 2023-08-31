@@ -53,12 +53,14 @@ const EditProfile = () => {
   const { auth, setAuth } = useAuth();
   const user = auth?.user;
 
+  // Fix header image update when updating user profile
+
   const axiosPrivate = useAxiosPrivate();
 
   const {
     register,
     handleSubmit,
-    formState: { errors, dirtyFields, isDirty },
+    formState: { errors, isDirty },
     reset,
   } = useForm({
     defaultValues: {
@@ -75,8 +77,6 @@ const EditProfile = () => {
       image: userData.image,
     },
   });
-
-  console.log({ dirtyFields, isDirty });
 
   const fetchUserData = async () => {
     setIsLoading(true);
@@ -135,16 +135,22 @@ const EditProfile = () => {
             addressCapital: addressCapitalValue,
           },
         });
-        console.log();
-        setAuth((prev) => ({ ...prev, user: res.data }));
-        setUserData(res.data);
+        setAuth((prev) => ({
+          ...prev,
+          user: {
+            image: res.data.user.image,
+            _id: user?._id,
+            status: user?.status,
+          },
+        }));
+        setUserData(res.data.user);
         setIsLoading(false);
         toast({
           description: "Cambios guardados con exito.",
         });
         setTimeout(() => {
           navigate("/mi-perfil");
-        }, 500);
+        }, 100);
       } else {
         const uploadRes = await axios.post(
           "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
@@ -159,12 +165,19 @@ const EditProfile = () => {
             addressCapital: addressCapitalValue,
           },
         });
-        setAuth((prev) => ({ ...prev, user: res.data }));
+        setAuth((prev) => ({
+          ...prev,
+          user: {
+            image: res.data.user.image,
+            _id: user?._id,
+            status: user?.status,
+          },
+        }));
         setIsLoading(false);
 
         setTimeout(() => {
           navigate("/mi-perfil");
-        }, 500);
+        }, 100);
       }
     } catch (err: any) {
       if (err.response?.status === 403) {
@@ -334,6 +347,11 @@ const EditProfile = () => {
                                   value: 25,
                                   message:
                                     "Nombre y apellido no puede ser tan largo.",
+                                },
+                                pattern: {
+                                  value: /^[a-zA-Z\s]+$/,
+                                  message:
+                                    "Nombre y apellido deben contener solo letras.",
                                 },
                               })}
                             />

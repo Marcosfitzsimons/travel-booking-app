@@ -167,6 +167,11 @@ const Register = () => {
                               message:
                                 "Nombre y apellido no puede ser tan largo.",
                             },
+                            pattern: {
+                              value: /^[a-zA-Z\s]+$/,
+                              message:
+                                "Nombre y apellido deben contener solo letras.",
+                            },
                           })}
                         />
                       </div>
