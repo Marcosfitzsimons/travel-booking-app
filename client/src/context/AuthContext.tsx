@@ -11,9 +11,9 @@ export interface AuthContextType {
 }
 
 type UserData = {
-  _id: string;
-  status: string;
-  image: "";
+  _id: string | undefined;
+  status: string | undefined;
+  image?: string | undefined;
 };
 
 interface AuthObject {
