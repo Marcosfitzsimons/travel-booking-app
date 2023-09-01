@@ -9,7 +9,6 @@ const PersistLogin = () => {
   const refresh = useRefreshToken();
 
   const { auth, persist } = useAuth();
-
   useEffect(() => {
     let isMounted = true;
 
@@ -23,7 +22,6 @@ const PersistLogin = () => {
       }
     };
 
-    // persist added here AFTER tutorial video
     // Avoids unwanted call to verifyRefreshToken
     !auth?.token && persist ? verifyRefreshToken() : setIsLoading(false);
 
@@ -35,6 +33,7 @@ const PersistLogin = () => {
   useEffect(() => {
     console.log(`isLoading: ${isLoading}`);
     console.log(`aT: ${JSON.stringify(auth?.token)}`);
+    console.log(`Value of persist is: ${Boolean(persist)}`);
   }, [isLoading]);
 
   return (

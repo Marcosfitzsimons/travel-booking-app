@@ -28,21 +28,18 @@ interface AuthProviderProps {
 }
 
 const defaultAuthObject: AuthObject = {
-  user: {
-    _id: "",
-    status: "",
-    image: "",
-  },
-  token: "",
+  user: null,
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [auth, setAuth] = useState<AuthObject>(defaultAuthObject);
-  const [persist, setPersist] = useState<boolean>(
-    localStorage.getItem("persist") === "true" || false
-  );
+
+  const persistedValue = localStorage.getItem("persist");
+  const initialPersist = persistedValue ? persistedValue === "true" : false;
+
+  const [persist, setPersist] = useState<boolean>(initialPersist);
 
   return (
     <AuthContext.Provider value={{ auth, setAuth, persist, setPersist }}>
