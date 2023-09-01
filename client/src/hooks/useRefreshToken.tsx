@@ -15,11 +15,11 @@ const useRefreshToken = () => {
       console.log(response.data.token);
       return {
         user: {
-          _id: response.data.user._id,
-          status: response.data.user.status,
-          image: response.data.user.image,
+          _id: response.data?.user?._id,
+          status: response.data?.user?.status,
+          image: response.data?.user?.image,
         },
-        token: response.data.token,
+        token: response.data?.token,
       };
     });
     return response.data.token;
