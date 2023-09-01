@@ -28,7 +28,12 @@ interface AuthProviderProps {
 }
 
 const defaultAuthObject: AuthObject = {
-  user: null,
+  user: {
+    _id: "",
+    status: "",
+    image: "",
+  },
+  token: "",
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

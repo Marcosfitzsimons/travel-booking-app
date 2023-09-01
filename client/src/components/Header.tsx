@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   ChevronDown,
   ClipboardList,
@@ -27,8 +27,6 @@ const Header = () => {
   const logout = useLogout();
   const { auth } = useAuth();
   const user = auth?.user;
-
-  console.log(user);
 
   const handleLogOut = async () => {
     try {
@@ -96,7 +94,7 @@ const Header = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1 ">
                   <Avatar className="w-8 h-8">
-                    <AvatarImage src={user.image} alt="avatar picture" />
+                    <AvatarImage src={user.image ?? ""} alt="avatar picture" />
                     <AvatarFallback>
                       <User />
                     </AvatarFallback>
