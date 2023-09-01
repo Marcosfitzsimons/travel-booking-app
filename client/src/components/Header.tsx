@@ -20,29 +20,21 @@ import ThemeToggle from "./ThemeToggle";
 import { Separator } from "./ui/separator";
 import Logo from "./Logo";
 import useAuth from "@/hooks/useAuth";
-import { useState } from "react";
-import useAxiosPrivate from "@/hooks/useAxiosPrivate";
+import useLogout from "@/hooks/useLogOut";
 
 const Header = () => {
-  const { auth, setAuth } = useAuth();
+  // Fix header image update when updating user profile
+  const logout = useLogout();
+  const { auth } = useAuth();
   const user = auth?.user;
 
-  const [err, setErr] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
-
-  const axiosPrivate = useAxiosPrivate();
+  console.log(user);
 
   const handleLogOut = async () => {
-    setErr("");
     try {
-      await axiosPrivate.get("auth/logout");
-      setAuth({ user: null });
-      navigate("/login");
+      await logout();
     } catch (err) {
       console.log(err);
-      setErr("Error al cerrar sesión, intentar más tarde");
     }
   };
 
@@ -145,13 +137,12 @@ const Header = () => {
                   </DropdownMenuItem>
                   <DropdownMenuItem className="relative flex items-center gap-2 cursor-pointer p-0 hover:bg-hover/5 dark:hover:bg-hover/50">
                     <LogOut className="absolute left-2 h-4 w-4 text-accent " />
-                    <Link
-                      to="/login"
+                    <button
                       className="rounded-lg py-1.5 z-20 pl-7 px-2 flex items-center gap-1 w-full text-start bg-transparent dark:hover:text-white"
                       onClick={handleLogOut}
                     >
                       Salir
-                    </Link>
+                    </button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

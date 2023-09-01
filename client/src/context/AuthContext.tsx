@@ -8,6 +8,8 @@ import {
 export interface AuthContextType {
   auth: AuthObject;
   setAuth: Dispatch<SetStateAction<AuthObject>>;
+  persist: boolean;
+  setPersist: Dispatch<SetStateAction<boolean>>;
 }
 
 type UserData = {
@@ -33,9 +35,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [auth, setAuth] = useState<AuthObject>(defaultAuthObject);
+  const [persist, setPersist] = useState<boolean>(
+    localStorage.getItem("persist") === "true" || false
+  );
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, setAuth, persist, setPersist }}>
       {children}
     </AuthContext.Provider>
   );

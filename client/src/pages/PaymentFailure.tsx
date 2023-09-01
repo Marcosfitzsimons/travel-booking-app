@@ -26,6 +26,7 @@ const PaymentFailure = () => {
 
   return (
     <section className="section">
+      <BackButton linkTo="/viajes" />
       <motion.div
         variants={sectionVariants}
         initial="hidden"
@@ -41,7 +42,6 @@ const PaymentFailure = () => {
           <Separator className="w-4 my-2" />
           <ContactBox>¿Necesitas ayuda?</ContactBox>
         </div>
-        <BackButton linkTo="/viajes" />
       </motion.div>
     </section>
   );

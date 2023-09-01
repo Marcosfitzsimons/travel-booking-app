@@ -21,6 +21,7 @@ import Welcome from "./pages/Welcome";
 import ForgotPassword from "./components/ForgotPassword";
 import MyTrips from "./components/MyTrips";
 import useAuth from "./hooks/useAuth";
+import PersistLogin from "./components/PersistLogin";
 
 type Props = {
   children: ReactElement;
@@ -51,50 +52,54 @@ function App() {
           <Routes location={location} key={location.pathname}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/confirm/:confirmationCode" element={<Welcome />} />
             <Route
               path="/forgotpassword/:id/:token"
               element={<ForgotPassword />}
             />
-            <Route path="/" element={<Home />} />
-            <Route path="/viajes" element={<Trips />} />
+            <Route path="/confirm/:confirmationCode" element={<Welcome />} />
+
             <Route
               path="/payment-success/:userid/:tripid"
               element={<PaymentSuccess />}
             />
             <Route path="/payment-failure" element={<PaymentFailure />} />
-            <Route
-              path="/viajes/:id"
-              element={
-                <ProtectedRoute>
-                  <Trip />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/mi-perfil"
-              element={
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/mi-perfil/editar-perfil"
-              element={
-                <ProtectedRoute>
-                  <EditProfile />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/mis-viajes"
-              element={
-                <ProtectedRoute>
-                  <MyTrips />
-                </ProtectedRoute>
-              }
-            />
+
+            <Route element={<PersistLogin />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/viajes" element={<Trips />} />
+              <Route
+                path="/viajes/:id"
+                element={
+                  <ProtectedRoute>
+                    <Trip />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/mi-perfil"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/mi-perfil/editar-perfil"
+                element={
+                  <ProtectedRoute>
+                    <EditProfile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/mis-viajes"
+                element={
+                  <ProtectedRoute>
+                    <MyTrips />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>

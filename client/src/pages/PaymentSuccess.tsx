@@ -1,4 +1,3 @@
-import Loading from "@/components/Loading";
 import { Separator } from "@/components/ui/separator";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
@@ -11,6 +10,7 @@ import {
   Clock,
   DollarSign,
   Heart,
+  Loader2,
   MapPin,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -176,7 +176,9 @@ const PaymentSuccess = () => {
           <>
             <Separator className="w-4" />
             {loading ? (
-              <Loading />
+              <div className="w-full flex items-center justify-center">
+                <Loader2 className="animate-spin w-5 h-5" />{" "}
+              </div>
             ) : (
               <div className="flex flex-col gap-2">
                 <h1>Más información acerca de tu viaje</h1>

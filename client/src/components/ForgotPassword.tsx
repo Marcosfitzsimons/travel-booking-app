@@ -11,6 +11,8 @@ import { Skeleton } from "./ui/skeleton";
 
 const ForgotPassword = () => {
   const { id, token } = useParams();
+  console.log("Extracted id:", id);
+  console.log("Extracted token:", token);
 
   const history = useNavigate();
 
@@ -20,6 +22,8 @@ const ForgotPassword = () => {
 
   const { toast } = useToast();
 
+  // CHECK FORGOT PASSWORD TOKEN -> ERROR WHEN THE TOKEN HAVE . AND _
+  // NO FUNCIONA NO FUNCIONA NO FUNCIONA NO FUNCIONA
   const userValid = async () => {
     try {
       const res = await axios.get(`/auth/forgotpassword/${id}/${token}`);
@@ -30,7 +34,7 @@ const ForgotPassword = () => {
         variant: "destructive",
         description: "Tu link ha expirado. Debes enviar uno nuevo",
       });
-      history("/");
+      // history("/login");
     }
   };
 
