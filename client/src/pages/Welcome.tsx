@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-import AuthService from "../components/services/auth-service";
+import AuthService from "../services/auth-service";
 import { Link, useParams } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
