@@ -43,7 +43,7 @@ const INITIAL_VALUES = {
 
 const EditProfile = () => {
   const [userData, setUserData] = useState(INITIAL_VALUES);
-  const [image, setImage] = useState<File | string>("");
+  const [image, setImage] = useState<File | string>(userData.image ?? "");
   const [addressCapitalValue, setAddressCapitalValue] = useState(
     userData.addressCapital ?? ""
   );
@@ -74,9 +74,97 @@ const EditProfile = () => {
         streetNumber: userData.addressCda.streetNumber,
         crossStreets: userData.addressCda.crossStreets,
       },
-      image: userData.image,
     },
   });
+
+  const { toast } = useToast();
+
+  const navigate = useNavigate();
+
+  const handleOnSubmit = async (data: UserData) => {
+    if (
+      !isDirty &&
+      addressCapitalValue === userData.addressCapital &&
+      (!image || (typeof image === "string" && image === userData.image))
+    ) {
+      return toast({
+        variant: "destructive",
+        description: "Es necesario realizar cambios antes de enviar",
+      });
+    }
+    setIsLoading(true);
+
+    try {
+      let userDataToUpdate = {
+        ...data,
+        addressCapital: addressCapitalValue,
+      };
+
+      if (image instanceof File) {
+        const imgData = new FormData();
+        imgData.append("file", image);
+        imgData.append("upload_preset", "upload");
+
+        const uploadRes = await axios.post(
+          "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
+          imgData
+        );
+
+        userDataToUpdate = {
+          ...userDataToUpdate,
+          image: uploadRes.data.url,
+        };
+      }
+
+      const res = await axiosPrivate.put(`/users/${user?._id}`, {
+        userData: userDataToUpdate,
+      });
+
+      setAuth((prev) => ({
+        ...prev,
+        user: {
+          image: res.data.user.image,
+          _id: user?._id,
+          status: user?.status,
+        },
+      }));
+      setUserData(res.data.user);
+      setIsLoading(false);
+      toast({
+        description: "Cambios guardados con éxito.",
+      });
+      setTimeout(() => {
+        navigate("/mi-perfil");
+      }, 100);
+    } catch (err: any) {
+      if (err.response?.status === 403) {
+        setAuth({ user: null });
+        setTimeout(() => {
+          navigate("/login");
+        }, 100);
+      }
+      setIsLoading(false);
+      setErr(
+        err.response?.data?.msg || "Error al editar perfil, intente más tarde."
+      );
+      toast({
+        variant: "destructive",
+        title: "Error al crear cuenta",
+        description:
+          err.response?.data?.msg ||
+          "Error al editar perfil, intente más tarde.",
+      });
+    }
+  };
+
+  const handleFileChange = (e: any) => {
+    const file = e.target.files[0];
+    if (file instanceof File) {
+      setImage(file);
+    } else {
+      console.error("Invalid file type");
+    }
+  };
 
   const fetchUserData = async () => {
     setIsLoading(true);
@@ -95,9 +183,9 @@ const EditProfile = () => {
           streetNumber: userData.addressCda.streetNumber,
           crossStreets: userData.addressCda.crossStreets,
         },
-        image: userData.image,
       });
       setAddressCapitalValue(userData.addressCapital);
+      setImage(userData.image ? userData.image : "");
       setIsLoading(false);
     } catch (err: any) {
       if (err.response?.status === 403) {
@@ -107,96 +195,6 @@ const EditProfile = () => {
         }, 100);
       }
       setIsLoading(false);
-    }
-  };
-
-  const { toast } = useToast();
-
-  const navigate = useNavigate();
-
-  const handleOnSubmit = async (data: UserData) => {
-    if (!isDirty && addressCapitalValue === userData.addressCapital) {
-      return toast({
-        variant: "destructive",
-        description: "Es necesario realizar cambios antes de enviar",
-      });
-    }
-
-    setIsLoading(true);
-    const imgData = new FormData();
-    imgData.append("file", image);
-    imgData.append("upload_preset", "upload");
-
-    try {
-      if (!image) {
-        const res = await axiosPrivate.put(`/users/${user?._id}`, {
-          userData: {
-            ...data,
-            addressCapital: addressCapitalValue,
-          },
-        });
-        setAuth((prev) => ({
-          ...prev,
-          user: {
-            image: res.data.user.image,
-            _id: user?._id,
-            status: user?.status,
-          },
-        }));
-        setUserData(res.data.user);
-        setIsLoading(false);
-        toast({
-          description: "Cambios guardados con exito.",
-        });
-        setTimeout(() => {
-          navigate("/mi-perfil");
-        }, 100);
-      } else {
-        const uploadRes = await axios.post(
-          "https://api.cloudinary.com/v1_1/dioqjddko/image/upload",
-          imgData
-        );
-        const { url } = uploadRes.data;
-
-        const res = await axiosPrivate.put(`/users/${user?._id}`, {
-          userData: {
-            ...data,
-            image: url,
-            addressCapital: addressCapitalValue,
-          },
-        });
-        setAuth((prev) => ({
-          ...prev,
-          user: {
-            image: res.data.user.image,
-            _id: user?._id,
-            status: user?.status,
-          },
-        }));
-        setIsLoading(false);
-
-        setTimeout(() => {
-          navigate("/mi-perfil");
-        }, 100);
-      }
-    } catch (err: any) {
-      if (err.response?.status === 403) {
-        setAuth({ user: null });
-        setTimeout(() => {
-          navigate("/login");
-        }, 100);
-      }
-      setIsLoading(false);
-      console.log(err.response.data.err);
-
-      setErr(err.response.data.msg);
-      toast({
-        variant: "destructive",
-        title: "Error al crear cuenta",
-        description: err.response.data.msg
-          ? err.response.data.msg
-          : "Error al crear cuenta, intente más tarde.",
-      });
     }
   };
 
@@ -256,20 +254,8 @@ const EditProfile = () => {
                       id="image"
                       accept="image/*"
                       className="hidden"
-                      {...register("image", {
-                        onChange: (e) => {
-                          const file = e.target.files[0];
-                          if (file instanceof File) {
-                            setImage(file);
-                          } else {
-                            console.error("Invalid file type");
-                          }
-                        },
-                      })}
+                      onChange={handleFileChange}
                     />
-                    {errors.image && (
-                      <p className="text-red-600">{errors.image.message}</p>
-                    )}
                   </div>
                 </div>
 
