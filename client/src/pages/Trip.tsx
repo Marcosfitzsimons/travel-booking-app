@@ -93,7 +93,7 @@ const Trip = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     reset,
   } = useForm({
     defaultValues: {
@@ -139,6 +139,12 @@ const Trip = () => {
   // Old endpoint data transferred: 1.18kb / data size: 927kb
   // Updated endpoint data transferred: 366B / data size: 110B
   const handleOnSubmit = async (data: UserAddresses) => {
+    if (!isDirty) {
+      return toast({
+        variant: "destructive",
+        description: "Es necesario realizar cambios antes de enviar",
+      });
+    }
     setLoading(true);
 
     try {
