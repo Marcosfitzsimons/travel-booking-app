@@ -23,7 +23,6 @@ import useAuth from "@/hooks/useAuth";
 import useLogout from "@/hooks/useLogOut";
 
 const Header = () => {
-  // Fix header image update when updating user profile
   const logout = useLogout();
   const { auth } = useAuth();
   const user = auth?.user;

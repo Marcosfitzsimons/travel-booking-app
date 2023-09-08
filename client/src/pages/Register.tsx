@@ -67,7 +67,12 @@ const Register = () => {
         }
       );
       toast({
-        title: "¡Registro exitoso!",
+        title: (
+          <div className="flex items-center gap-1">
+            {<Check className="h-5 w-5 text-green-600" />} Cuenta se ha creado
+            con éxito!
+          </div>
+        ) as any,
         description:
           "Por favor, verifique su email para poder activar su cuenta",
       });
@@ -83,7 +88,12 @@ const Register = () => {
         setLoading(false);
         toast({
           variant: "destructive",
-          title: "Error al crear cuenta",
+          title: (
+            <div className="flex items-center gap-1">
+              {<Check className="h-5 w-5 text-green-600" />} Error al crear
+              cuenta
+            </div>
+          ) as any,
           description: "Nombre de usuario ya está en uso",
         });
       } else if (err.response.data.err?.keyValue.email) {
@@ -91,17 +101,27 @@ const Register = () => {
         setLoading(false);
         toast({
           variant: "destructive",
-          title: "Error al crear cuenta",
+          title: (
+            <div className="flex items-center gap-1">
+              {<Check className="h-5 w-5 text-green-600" />} Error al crear
+              cuenta
+            </div>
+          ) as any,
           description: "Email ya está en uso",
         });
       } else {
-        setErr(err.response.data.msg);
+        setErr(err.response?.data?.msg);
         setLoading(false);
         toast({
           variant: "destructive",
-          title: "Error al crear cuenta",
-          description: err.response.data.msg
-            ? err.response.data.msg
+          title: (
+            <div className="flex items-center gap-1">
+              {<Check className="h-5 w-5 text-green-600" />} Error al crear
+              cuenta
+            </div>
+          ) as any,
+          description: err.response?.data?.msg
+            ? err.response?.data?.msg
             : "Error al crear cuenta, intente más tarde.",
         });
       }
@@ -575,9 +595,11 @@ const Register = () => {
 
             <div className="text-center flex flex-col items-center w-11/12 mx-auto">
               <Separator className="w-4 self-center my-3" />
-              <div className="flex flex-col items-center gap-1 ">
-                <p>Estado de su cuenta</p>
-                <AccountStatus isActive={false}>Pendiente</AccountStatus>
+              <div className="w-auto flex flex-col items-center gap-4 bg-card rounded-lg py-2 px-4 border shadow-input dark:shadow-none">
+                <div className="flex flex-col items-center gap-1 ">
+                  <p>Estado de su cuenta</p>
+                  <AccountStatus isActive={false}>Pendiente</AccountStatus>
+                </div>
               </div>
             </div>
           </div>

@@ -25,21 +25,19 @@ const Welcome = () => {
         </div>
         <Separator className="w-4 self-center my-3" />
 
-        <div className="w-auto flex flex-col items-center gap-4 bg-card rounded-lg p-4 border shadow-input dark:shadow-none">
-          <div className="w-full  text-center flex flex-col items-center">
-            <div className="w-full flex flex-col items-center gap-1 ">
-              <p>Estado de su cuenta</p>
-              <AccountStatus isActive={true}>Activa</AccountStatus>
-            </div>
+        <div className="w-auto flex flex-col items-center gap-4 bg-card rounded-lg py-2 px-4 border shadow-input dark:shadow-none">
+          <div className="w-full flex flex-col items-center gap-1 ">
+            <p>Estado de su cuenta</p>
+            <AccountStatus isActive={true}>Activa</AccountStatus>
           </div>
-          <div className="flex">
-            <div className="relative flex items-center after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
-              <Button className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white">
-                <Link to="/login" className="">
-                  Entrar
-                </Link>
-              </Button>
-            </div>
+        </div>
+        <div className="flex">
+          <div className="relative flex items-center after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
+            <Button className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white">
+              <Link to="/login" className="">
+                Entrar
+              </Link>
+            </Button>
           </div>
         </div>
       </div>

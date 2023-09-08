@@ -1,11 +1,10 @@
-import { Heart } from "lucide-react";
+import { Check, Heart, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyTripCard from "./MyTripCard";
 import { Button } from "./ui/button";
 import { useToast } from "./../components/ui/use-toast";
-import { CheckCircle } from "lucide-react";
 import tripVariants from "@/lib/variants/tripVariants";
 import { TripProps } from "@/types/props";
 import SectionTitle from "./SectionTitle";
@@ -14,6 +13,7 @@ import CardSkeleton from "./skeletons/CardSkeleton";
 import { Skeleton } from "./ui/skeleton";
 import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import useAuth from "@/hooks/useAuth";
+import Error from "./Error";
 
 const MyTrips = () => {
   const [userTrips, setUserTrips] = useState<TripProps[]>([]);
@@ -36,9 +36,9 @@ const MyTrips = () => {
       await axiosPrivate.delete(`/passengers/${userId}/${tripId}`);
       toast({
         description: (
-          <div className="flex items-center gap-1">
-            {<CheckCircle className="w-[15px] h-[15px]" />} Lugar cancelado con
-            éxito.
+          <div className="flex gap-1">
+            {<Check className="h-5 w-5 text-green-600 shrink-0" />} Lugar
+            cancelado con éxito
           </div>
         ),
       });
@@ -58,10 +58,15 @@ const MyTrips = () => {
       setErr(true);
       toast({
         variant: "destructive",
-        title: "Error al cancelar su lugar",
+        title: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+            cancelar su lugar
+          </div>
+        ) as any,
         description: err.response.data.msg
           ? err.response.data.msg
-          : "Error al cancelar lugar, intente más tarde.",
+          : "Ha ocurrido un error al cancelar su lugar. Por favor, intentar más tarde",
       });
     }
   };
@@ -80,6 +85,19 @@ const MyTrips = () => {
             navigate("/login");
           }, 100);
         }
+        const errorMsg = err.response?.data?.msg;
+        toast({
+          variant: "destructive",
+          title: (
+            <div className="flex gap-1">
+              {<X className="h-5 w-5 text-destructive shrink-0" />}Error al
+              cargar información
+            </div>
+          ) as any,
+          description: errorMsg
+            ? errorMsg
+            : "Ha ocurrido un error al cargar información. Por favor, intentar más tarde",
+        });
         setLoading(false);
         setErr(true);
       }
@@ -121,6 +139,8 @@ const MyTrips = () => {
             <CardSkeleton cards={1} />
           </div>
         </div>
+      ) : err ? (
+        <Error />
       ) : (
         <>
           {userTrips && userTrips.length > 0 && (
@@ -155,10 +175,10 @@ const MyTrips = () => {
               <div className="flex flex-col items-center gap-3 mt-3 md:col-start-1 md:col-end-3">
                 <p>No tenes lugares reservados</p>
                 <div
-                  className="relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-white/20 dark:after:shadow-highlight dark:after:shadow-blue-lagoon-100/20 after:transition focus-within:after:shadow-blue-lagoon-200 dark:focus-within:after:shadow-blue-lagoon-200 h-8"
+                  className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white"
                   onClick={() => navigate("/viajes")}
                 >
-                  <Button className="relative bg-[#9e4a4f] text-slate-100  hover:text-white dark:shadow-input dark:shadow-black/5 dark:text-slate-100 dark:hover:text-white dark:bg-[#9e4a4f] h-8">
+                  <Button className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white">
                     Reservar ahora
                   </Button>
                 </div>

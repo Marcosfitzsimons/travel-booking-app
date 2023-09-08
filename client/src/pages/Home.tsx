@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Marquee from "react-fast-marquee";
 import { Button } from "../components/ui/button";
 import PublicationCard from "../components/PublicationCard";
-import { ChevronsRight, Heart, Newspaper } from "lucide-react";
+import { ChevronsRight, Frown, Heart, Newspaper } from "lucide-react";
 import useFetch from "@/hooks/useFetch";
 import PublicationSkeleton from "@/components/skeletons/PublicationSkeleton";
 import sectionVariants from "@/lib/variants/sectionVariants";
@@ -15,7 +15,7 @@ const Home = () => {
 
   const { data, loading, error } = useFetch("/publications");
   const { auth } = useAuth();
-  console.log(auth);
+
   return (
     <div className="relative  section lg:pt-28">
       <motion.div
@@ -76,7 +76,12 @@ const Home = () => {
             <Newspaper className="w-6 h-6 text-accent " />
             Anuncios destacados
           </h2>
-          {error ? <p>Error al cargar anuncios, intentar más tarde</p> : ""}
+          {error && (
+            <p className="pt-2 text-center flex items-center flex-col gap-1">
+              Ha ocurrido un error al intentar cargar anuncios
+              <Frown className="w-5 h-5 shrink-0" />
+            </p>
+          )}
           {loading ? (
             <PublicationSkeleton cards={3} />
           ) : (

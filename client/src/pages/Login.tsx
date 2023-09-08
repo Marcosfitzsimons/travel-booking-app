@@ -20,7 +20,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
-import { Lock, Mail, User } from "lucide-react";
+import { Check, Lock, Mail, User, X } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import { LoginUserInputs } from "@/types/types";
@@ -64,11 +64,12 @@ const Login = () => {
       navigate("/viajes");
     } catch (err: any) {
       if (!err?.response) {
+        setIsLoading(false);
         setErr(
           "Ha ocurrido un error en el servidor. Intentar de nuevo más tarde"
         );
       } else {
-        const errorMsg = err.response.data.msg;
+        const errorMsg = err.response?.data?.msg;
         setErr(errorMsg);
         setIsLoading(false);
       }
@@ -79,36 +80,56 @@ const Login = () => {
     if (emailForgotten === "") {
       toast({
         variant: "destructive",
-        description: "Email es requerido",
+        title: (
+          <div className="flex items-center gap-1">
+            {<X className="h-5 w-5 text-destructive" />} Error al enviar email
+          </div>
+        ) as any,
+        description: "Por favor, ingresar un email válido",
       });
     } else if (!emailForgotten.includes("@")) {
       toast({
         variant: "destructive",
-        description: "Email no válido",
+        title: (
+          <div className="flex items-center gap-1">
+            {<X className="h-5 w-5 text-destructive" />} Error al enviar email
+          </div>
+        ) as any,
+        description: "Por favor, ingresar un email válido",
       });
       setEmailForgotten("");
     } else {
       setIsLoading(true);
       try {
-        const res = await axios.post(`/auth/sendpasswordlink`, {
+        await axios.post(`/auth/sendpasswordlink`, {
           email: emailForgotten,
         });
-        console.log(res);
         toast({
-          title: "Link enviado a tu email con éxito",
+          title: (
+            <div className="flex gap-1">
+              {<Check className="h-5 w-5 text-green-600 shrink-0" />} Link se ha
+              envíado a tu email con éxito
+            </div>
+          ) as any,
           description:
-            "Tenes 5 minutos para utilizar el link antes de que expire.",
+            "Tenes 5 minutos para utilizar el link antes de que expire",
         });
         setEmailForgotten("");
         setIsLoading(false);
       } catch (err: any) {
+        const errorMsg = err.response?.data?.msg;
         setEmailForgotten("");
         setIsLoading(false);
         toast({
           variant: "destructive",
-          description: err.response.data.msg
-            ? err.response.data.msg
-            : "Error al enviar email, intentar más tarde.",
+          description: (
+            <div className="flex gap-1">
+              {<X className="h-5 w-5 text-destructive shrink-0" />}{" "}
+              {errorMsg
+                ? errorMsg
+                : "Error al enviar email, intentar más tarde"}
+            </div>
+          ),
         });
       }
     }

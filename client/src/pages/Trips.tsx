@@ -7,7 +7,7 @@ import useFetch from "../hooks/useFetch";
 import SectionTitle from "../components/SectionTitle";
 import DatePickerContainer from "../components/DatePickerContainer";
 import { Button } from "../components/ui/button";
-import { RotateCcw } from "lucide-react";
+import { Frown, RotateCcw } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
@@ -82,7 +82,12 @@ const Trips = () => {
           </Label>
         </div>
       </div>
-      {error && <p>Error al cargar viajes, intentar más tarde</p>}
+      {error && (
+        <p className="pt-2 text-center flex items-center flex-col gap-1">
+          Ha ocurrido un error al intentar cargar viajes
+          <Frown className="w-5 h-5 shrink-0" />
+        </p>
+      )}
       {loading ? (
         <CardSkeleton cards={6} />
       ) : (

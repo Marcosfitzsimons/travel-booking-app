@@ -8,7 +8,6 @@ import {
   Milestone,
   Crop,
   User,
-  CheckCircle,
   Check,
   X,
   ArrowUp,
@@ -142,7 +141,12 @@ const Trip = () => {
     if (!isDirty) {
       return toast({
         variant: "destructive",
-        description: "Es necesario realizar cambios antes de enviar",
+        description: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />} Es necesario
+            realizar cambios antes de enviar
+          </div>
+        ),
       });
     }
     setLoading(true);
@@ -165,9 +169,9 @@ const Trip = () => {
       setAddressCapitalValue(userUpdated.addressCapital);
       toast({
         description: (
-          <div className="flex items-center gap-1">
-            {<CheckCircle className="w-[15px] h-[15px]" />} Cambios guardados
-            con éxito
+          <div className="flex gap-1">
+            {<Check className="h-5 w-5 text-green-600 shrink-0" />} Cambios
+            guardados con éxito
           </div>
         ),
       });
@@ -178,14 +182,19 @@ const Trip = () => {
           navigate("/login");
         }, 100);
       }
-      const errorMsg = err.response.data.msg;
+      const errorMsg = err.response?.data?.msg;
       setLoading(false);
       toast({
         variant: "destructive",
-        title: "Error al guardar cambios",
+        title: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+            guardar cambios
+          </div>
+        ) as any,
         description: errorMsg
           ? errorMsg
-          : "Error al guardar cambios, intente más tarde.",
+          : "Ha ocurrido un error al guardar cambios. Por favor, intentar más tarde",
       });
     }
   };
@@ -217,18 +226,22 @@ const Trip = () => {
         }, 100);
       }
       setLoading(false);
-      console.log(err);
       toast({
         variant: "destructive",
-        title: "Error al guardar su lugar",
+        title: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+            guardar su lugar
+          </div>
+        ) as any,
         action: (
           <ToastAction altText="Mis viajes" asChild>
             <Link to="/mis-viajes">Mis viajes</Link>
           </ToastAction>
         ),
-        description: err.response.data.msg
-          ? err.response.data.msg
-          : "Error al guardar lugar, intente más tarde.",
+        description: err.response?.data?.msg
+          ? err.response?.data?.msg
+          : "Ha ocurrido un error al guardar su lugar. Por favor, intentar más tarde",
       });
     }
   };
@@ -240,11 +253,16 @@ const Trip = () => {
         userId: user?._id,
       });
       toast({
-        description: (
-          <div className="flex items-center gap-1">
-            {<CheckCircle className="w-[15px] h-[15px]" />} Lugar guardado con
-            éxito.
+        title: (
+          <div className="flex gap-1">
+            {<Check className="h-5 w-5 text-green-600 shrink-0" />} Lugar
+            guardado con éxito
           </div>
+        ) as any,
+        description: (
+          <p className="">
+            Desde fabebus le deseamos que tenga un muy buen viaje ❤️
+          </p>
         ),
       });
       setLoading(false);
@@ -261,15 +279,20 @@ const Trip = () => {
       setLoading(false);
       toast({
         variant: "destructive",
-        title: "Error al guardar su lugar",
+        title: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+            guardar su lugar
+          </div>
+        ) as any,
         action: (
           <ToastAction altText="Mis viajes" asChild>
             <Link to="/mis-viajes">Mis viajes</Link>
           </ToastAction>
         ),
-        description: err.response.data.msg
-          ? err.response.data.msg
-          : "Error al guardar lugar, intente más tarde.",
+        description: err.response?.data?.msg
+          ? err.response?.data?.msg
+          : "Ha ocurrido un error al guardar su lugar. Por favor, intentar más tarde",
       });
     }
   };

@@ -8,6 +8,9 @@ import SectionTitle from "@/components/SectionTitle";
 import ProfileSkeleton from "@/components/skeletons/ProfileSkeleton";
 import useAuth from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { X } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
+import Error from "@/components/Error";
 
 const INITIAL_STATES = {
   _id: "",
@@ -34,6 +37,7 @@ const Profile = () => {
   const axiosPrivate = useAxiosPrivate();
 
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const { auth, setAuth } = useAuth();
   const user = auth?.user;
@@ -52,7 +56,19 @@ const Profile = () => {
             navigate("/login");
           }, 100);
         }
-        console.log(err);
+        const errorMsg = err.response?.data?.msg;
+        toast({
+          variant: "destructive",
+          title: (
+            <div className="flex gap-1">
+              {<X className="h-5 w-5 text-destructive shrink-0" />}Error al
+              cargar información
+            </div>
+          ) as any,
+          description: errorMsg
+            ? errorMsg
+            : "Ha ocurrido un error al cargar información. Por favor, intentar más tarde",
+        });
         setError(true);
         setLoading(false);
       }
@@ -70,6 +86,8 @@ const Profile = () => {
       </div>
       {loading ? (
         <ProfileSkeleton />
+      ) : error ? (
+        <Error />
       ) : (
         <motion.div
           variants={sectionVariants}

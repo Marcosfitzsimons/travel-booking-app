@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
+  Check,
   Crop,
   Fingerprint,
   Mail,
@@ -8,6 +9,7 @@ import {
   Phone,
   Upload,
   User,
+  X,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Input } from "../components/ui/input";
@@ -25,6 +27,7 @@ import sectionVariants from "@/lib/variants/sectionVariants";
 import useAuth from "@/hooks/useAuth";
 import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import axios from "../api/axios";
+import Error from "@/components/Error";
 
 const INITIAL_VALUES = {
   username: "",
@@ -49,6 +52,7 @@ const EditProfile = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState<null | string>(null);
+  const [error, setError] = useState(false);
 
   const { auth, setAuth } = useAuth();
   const user = auth?.user;
@@ -89,7 +93,12 @@ const EditProfile = () => {
     ) {
       return toast({
         variant: "destructive",
-        description: "Es necesario realizar cambios antes de enviar",
+        description: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />}Es necesario
+            realizar cambios antes de enviar
+          </div>
+        ),
       });
     }
     setIsLoading(true);
@@ -131,7 +140,12 @@ const EditProfile = () => {
       setUserData(res.data.user);
       setIsLoading(false);
       toast({
-        description: "Cambios guardados con éxito.",
+        description: (
+          <div className="flex gap-1">
+            {<Check className="h-5 w-5 text-green-600 shrink-0" />}Cambios
+            guardados con éxito
+          </div>
+        ),
       });
       setTimeout(() => {
         navigate("/mi-perfil");
@@ -143,16 +157,20 @@ const EditProfile = () => {
           navigate("/login");
         }, 100);
       }
+      const errorMsg = err.response?.data?.msg;
       setIsLoading(false);
-      setErr(
-        err.response?.data?.msg || "Error al editar perfil, intente más tarde."
-      );
+      setErr(errorMsg || "Error al editar perfil, intente más tarde.");
       toast({
         variant: "destructive",
-        title: "Error al crear cuenta",
-        description:
-          err.response?.data?.msg ||
-          "Error al editar perfil, intente más tarde.",
+        title: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />}Error al editar
+            perfil
+          </div>
+        ) as any,
+        description: errorMsg
+          ? errorMsg
+          : "Ha ocurrido un error al editar perfil. Por favor, intentar más tarde",
       });
     }
   };
@@ -194,7 +212,21 @@ const EditProfile = () => {
           navigate("/login");
         }, 100);
       }
+      setError(true);
       setIsLoading(false);
+      const errorMsg = err.response?.data?.msg;
+      toast({
+        variant: "destructive",
+        title: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />}Error al cargar
+            información
+          </div>
+        ) as any,
+        description: errorMsg
+          ? errorMsg
+          : "Ha ocurrido un error al cargar información. Por favor, intentar más tarde",
+      });
     }
   };
 
@@ -212,6 +244,8 @@ const EditProfile = () => {
       </div>
       {isLoading ? (
         <EditProfileSkeleton />
+      ) : error ? (
+        <Error />
       ) : (
         <motion.div
           variants={sectionVariants}
