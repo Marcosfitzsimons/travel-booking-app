@@ -6,33 +6,47 @@ import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import { useToast } from "./ui/use-toast";
 import BackButton from "./BackButton";
-import { Check, CheckCircle } from "lucide-react";
+import { Check, CheckCircle, X } from "lucide-react";
 import { Skeleton } from "./ui/skeleton";
+import Error from "./Error";
 
 const ForgotPassword = () => {
   const { id, token } = useParams();
   console.log("Extracted id:", id);
   console.log("Extracted token:", token);
 
+  const originalToken = token?.replace(/_/g, ".");
+
   const history = useNavigate();
 
   const [data, setData] = useState(false);
+  const [error, setError] = useState(false);
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(false);
 
   const { toast } = useToast();
 
-  // CHECK FORGOT PASSWORD TOKEN -> ERROR WHEN THE TOKEN HAVE . AND _
-  // NO FUNCIONA NO FUNCIONA NO FUNCIONA NO FUNCIONA
   const userValid = async () => {
     try {
-      const res = await axios.get(`/auth/forgotpassword/${id}/${token}`);
+      const res = await axios.get(
+        `/auth/forgotpassword/${id}/${originalToken}`
+      );
       console.log(`User valid: ${res}`);
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
+      setError(true);
+      const errorMsg = err.response?.data?.msg;
       toast({
         variant: "destructive",
-        description: "Tu link ha expirado. Debes enviar uno nuevo",
+        title: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />} Ha ocurrido un
+            error
+          </div>
+        ) as any,
+        description: errorMsg
+          ? errorMsg
+          : "Tu link ha expirado. Debes enviar uno nuevo",
       });
       // history("/login");
     }
@@ -44,29 +58,44 @@ const ForgotPassword = () => {
     if (password === "") {
       toast({
         variant: "destructive",
-        description: "Contraseña es requerida",
+        description: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />} Contraseña es
+            requerida
+          </div>
+        ),
       });
     } else if (password.length < 6) {
       toast({
         variant: "destructive",
-        description: "Contraseña no puede ser tan corta",
+        description: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />} Contraseña no
+            puede ser tan corta
+          </div>
+        ),
       });
     } else if (password.length > 25) {
       toast({
         variant: "destructive",
-        description: "Contraseña no puede ser tan larga",
+        description: (
+          <div className="flex gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />} Contraseña no
+            puede ser tan larga
+          </div>
+        ),
       });
     } else {
       try {
-        const res = await axios.post(`/auth/changepassword/${id}/${token}`, {
+        await axios.post(`/auth/changepassword/${id}`, {
           password: password,
+          token: originalToken,
         });
-        console.log(res);
         toast({
           description: (
-            <div className="flex items-center gap-1">
-              {<CheckCircle className="w-[15px] h-[15px]" />} Contraseña
-              guardada con éxito.
+            <div className="flex gap-1">
+              {<Check className="h-5 w-5 text-green-600 shrink-0" />} Contraseña
+              actualizada con éxito
             </div>
           ),
         });
@@ -77,7 +106,12 @@ const ForgotPassword = () => {
         setPassword("");
         toast({
           variant: "destructive",
-          description: "Error al guardar su contraseña. Intentar más tarde.",
+          description: (
+            <div className="flex gap-1">
+              {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+              guardar contraseña. Intentar más tarde
+            </div>
+          ),
         });
       }
     }
@@ -94,56 +128,65 @@ const ForgotPassword = () => {
     <>
       {data ? (
         <section className="flex flex-col items-center mt-2">
-          <div className="self-start">
+          <div className="self-start pb-3">
             <BackButton linkTo="/viajes" />
           </div>
-
-          {message ? (
-            <div className="w-full relative flex flex-col items-center gap-3">
-              <div className="absolute -top-4 flex items-center justify-center w-8 aspect-square rounded-full border-2 bg-[#4E8D7C] border-white">
-                <Check className="h-5 w-5 text-white" />
-              </div>
-              <div className="w-full max-w-md pt-6 mx-auto flex flex-col text-center items-center gap-1 p-3 rounded-md bg-[#4E8D7C] text-white">
-                <h3 className="">Contraseña ha sido actualizada con éxito!</h3>
-              </div>
-              <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
-                <Button
-                  onClick={() => history("/login")}
-                  className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white "
-                >
-                  Entrar
-                </Button>
-              </div>
+          {error ? (
+            <div className="pt-3">
+              <Error />
             </div>
           ) : (
-            <div className="w-full flex flex-col items-center gap-3 max-w-md">
-              <h1 className="w-full text-lg text-center">
-                Ingresa tu contraseña nueva
-              </h1>
-              <form onSubmit={handleSubmit} className="w-full max-w-sm">
-                <div className="w-full flex flex-col gap-2">
-                  <Label htmlFor="password">Contraseña nueva</Label>
-                  <Input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    name="password"
-                    id="password"
-                    placeholder="..."
-                  />
-                  <div className="self-end flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
-                    <Button className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white ">
-                      Enviar
+            <>
+              {message ? (
+                <div className="w-full relative flex flex-col items-center gap-3">
+                  <div className="absolute -top-4 flex items-center justify-center w-8 aspect-square rounded-full border-2 bg-[#4E8D7C] border-white">
+                    <Check className="h-5 w-5 text-white" />
+                  </div>
+                  <div className="w-full max-w-md pt-6 mx-auto flex flex-col text-center items-center gap-1 p-3 rounded-md bg-[#4E8D7C] text-white">
+                    <h3 className="">
+                      Contraseña ha sido actualizada con éxito!
+                    </h3>
+                  </div>
+                  <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
+                    <Button
+                      onClick={() => history("/login")}
+                      className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white "
+                    >
+                      Entrar
                     </Button>
                   </div>
                 </div>
-              </form>
-            </div>
+              ) : (
+                <div className="w-full flex flex-col items-center gap-3 max-w-md">
+                  <h1 className="w-full text-lg text-center">
+                    Ingresa tu contraseña nueva
+                  </h1>
+                  <form onSubmit={handleSubmit} className="w-full max-w-sm">
+                    <div className="w-full flex flex-col gap-2">
+                      <Label htmlFor="password">Contraseña nueva</Label>
+                      <Input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        name="password"
+                        id="password"
+                        placeholder="..."
+                      />
+                      <div className="self-end flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
+                        <Button className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white ">
+                          Enviar
+                        </Button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              )}
+            </>
           )}
         </section>
       ) : (
         <div className="flex flex-col items-center gap-7">
-          <Skeleton className="h-7 w-[70px] self-start" />
+          <Skeleton className="h-7 aspect-square self-start" />
           <div className="w-full flex flex-col items-center gap-3 max-w-md">
             <Skeleton className="h-5 w-48" />
             <div className="w-full flex flex-col gap-1">
