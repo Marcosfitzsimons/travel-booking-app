@@ -67,3 +67,8 @@ export type UserData = {
   myTrips?: TripProps[];
   isReminder?: boolean;
 };
+
+export type ChangePasswordData = {
+  password: string;
+  cpassword: string;
+}
