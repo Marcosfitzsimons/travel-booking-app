@@ -28,6 +28,7 @@ import useAuth from "@/hooks/useAuth";
 import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import axios from "../api/axios";
 import Error from "@/components/Error";
+import ChangePassword from "./ChangePassword";
 
 const INITIAL_VALUES = {
   username: "",
@@ -254,12 +255,9 @@ const EditProfile = () => {
           exit="exit"
         >
           <div className="w-full mb-16 flex flex-col items-center gap-5">
-            <div className="w-full flex flex-col items-center gap-5 md:w-11/12">
-              <form
-                onSubmit={handleSubmit(handleOnSubmit)}
-                className="w-full flex flex-col items-center gap-3 lg:flex-row lg:gap-10 lg:items-start"
-              >
-                <div className="relative flex flex-col items-center mb-2 lg:px-6">
+            <div className="w-full flex flex-col items-center gap-3 lg:w-11/12 lg:flex-row lg:gap-10 lg:items-start">
+              <div className="flex flex-col items-center gap-1">
+                <div className="relative flex flex-col items-center mb-3 lg:px-6">
                   <Avatar className="w-24 h-24 lg:w-32 lg:h-32">
                     <AvatarImage
                       className="origin-center hover:origin-bottom hover:scale-105 transition-all duration-200 z-90 align-middle"
@@ -276,13 +274,15 @@ const EditProfile = () => {
                   </Avatar>
 
                   <div className="absolute -bottom-0.5">
-                    <Label
-                      htmlFor="image"
-                      className="flex items-center gap-1 cursor-pointer h-6 px-3 rounded-lg shadow-sm shadow-blue-lagoon-900/30 border bg-white dark:text-blue-lagoon-100 dark:bg-black dark:hover:border-zinc-300"
-                    >
-                      <Upload className="w-4 h-4" />
-                      {userData.image ? "Editar" : "Subir"}
-                    </Label>
+                    <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
+                      <Label
+                        htmlFor="image"
+                        className="py-0.5 px-3 cursor-pointer outline-none inline-flex items-center justify-center gap-1 text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white"
+                      >
+                        <Upload className="w-4 h-4" />
+                        {userData.image ? "Editar" : "Subir"}
+                      </Label>
+                    </div>
                     <Input
                       type="file"
                       id="image"
@@ -292,7 +292,12 @@ const EditProfile = () => {
                     />
                   </div>
                 </div>
-
+                <ChangePassword />
+              </div>
+              <form
+                onSubmit={handleSubmit(handleOnSubmit)}
+                className="w-full flex flex-col items-center gap-3 "
+              >
                 <div className="w-full flex flex-col items-center gap-5 lg:max-w-2xl">
                   <div className="w-full flex flex-col items-center">
                     <div className="w-full flex flex-col items-center ">
