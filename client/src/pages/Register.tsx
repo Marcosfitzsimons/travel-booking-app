@@ -13,11 +13,13 @@ import {
   Check,
   Crop,
   Fingerprint,
+  Loader2,
   Lock,
   Mail,
   Milestone,
   Phone,
   User,
+  X,
 } from "lucide-react";
 import AddressAutocomplete from "@/components/AddressAutocomplete";
 import { UserInputs } from "../types/types";
@@ -57,6 +59,15 @@ const Register = () => {
   const handleOnSubmit = async (data: UserInputs) => {
     setErr("");
     setLoading(true);
+    toast({
+      variant: "loading",
+      description: (
+        <div className="flex gap-1">
+          <Loader2 className="h-5 w-5 animate-spin text-purple-900 shrink-0" />
+          Creando cuenta...
+        </div>
+      ),
+    });
     try {
       await axios.post(
         `/auth/register`,
@@ -80,31 +91,32 @@ const Register = () => {
       setLoading(false);
     } catch (err: any) {
       setIsSuccess(false);
-      console.log(err);
-      if (err.response.data.err?.keyValue.username) {
+      if (err.response?.data?.err?.keyValue?.username) {
         setErr(
-          `Nombre de usuario ${err.response.data.err.keyValue.username} ya está en uso`
+          `Nombre de usuario ${err.response?.data?.err.keyValue?.username} ya está en uso`
         );
         setLoading(false);
         toast({
           variant: "destructive",
           title: (
             <div className="flex items-center gap-1">
-              {<Check className="h-5 w-5 text-green-600" />} Error al crear
-              cuenta
+              {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+              crear cuenta
             </div>
           ) as any,
           description: "Nombre de usuario ya está en uso",
         });
-      } else if (err.response.data.err?.keyValue.email) {
-        setErr(`Email ${err.response.data.err.keyValue.email} ya está en uso`);
+      } else if (err.response?.data?.err?.keyValue?.email) {
+        setErr(
+          `Email ${err.response?.data?.err.keyValue?.email} ya está en uso`
+        );
         setLoading(false);
         toast({
           variant: "destructive",
           title: (
             <div className="flex items-center gap-1">
-              {<Check className="h-5 w-5 text-green-600" />} Error al crear
-              cuenta
+              {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+              crear cuenta
             </div>
           ) as any,
           description: "Email ya está en uso",
@@ -116,13 +128,13 @@ const Register = () => {
           variant: "destructive",
           title: (
             <div className="flex items-center gap-1">
-              {<Check className="h-5 w-5 text-green-600" />} Error al crear
-              cuenta
+              {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+              crear cuenta
             </div>
           ) as any,
           description: err.response?.data?.msg
             ? err.response?.data?.msg
-            : "Error al crear cuenta, intente más tarde.",
+            : "Ha ocurrido un error al crear cuenta. Por favor, intentar más tarde",
         });
       }
     }

@@ -20,7 +20,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import Logo from "../components/Logo";
 import DefaultButton from "../components/DefaultButton";
-import { Check, Lock, Mail, User, X } from "lucide-react";
+import { Check, Loader2, Lock, Mail, User, X } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import { LoginUserInputs } from "@/types/types";
@@ -63,16 +63,28 @@ const Login = () => {
       setIsLoading(false);
       navigate("/viajes");
     } catch (err: any) {
+      const errorMsg = err.response?.data?.msg;
       if (!err?.response) {
         setIsLoading(false);
         setErr(
           "Ha ocurrido un error en el servidor. Intentar de nuevo más tarde"
         );
       } else {
-        const errorMsg = err.response?.data?.msg;
         setErr(errorMsg);
         setIsLoading(false);
       }
+      toast({
+        variant: "destructive",
+        title: (
+          <div className="flex items-center gap-1">
+            {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+            entrar a su cuenta
+          </div>
+        ) as any,
+        description: errorMsg
+          ? errorMsg
+          : "Ha ocurrido un error al entrar a su cuenta. Por favor, intentar más tarde",
+      });
     }
   };
 
@@ -100,6 +112,15 @@ const Login = () => {
       setEmailForgotten("");
     } else {
       setIsLoading(true);
+      toast({
+        variant: "loading",
+        description: (
+          <div className="flex gap-1">
+            <Loader2 className="h-5 w-5 animate-spin text-purple-900 shrink-0" />
+            Enviando email...
+          </div>
+        ),
+      });
       try {
         await axios.post(`/auth/sendpasswordlink`, {
           email: emailForgotten,
@@ -122,14 +143,15 @@ const Login = () => {
         setIsLoading(false);
         toast({
           variant: "destructive",
-          description: (
-            <div className="flex gap-1">
-              {<X className="h-5 w-5 text-destructive shrink-0" />}{" "}
-              {errorMsg
-                ? errorMsg
-                : "Error al enviar email, intentar más tarde"}
+          title: (
+            <div className="flex items-center gap-1">
+              {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+              enviar email
             </div>
-          ),
+          ) as any,
+          description: errorMsg
+            ? errorMsg
+            : "Ha ocurrido un error al enviar email. Por favor, intentar más tarde",
         });
       }
     }

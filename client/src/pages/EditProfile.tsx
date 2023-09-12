@@ -4,6 +4,7 @@ import {
   Check,
   Crop,
   Fingerprint,
+  Loader2,
   Mail,
   Milestone,
   Phone,
@@ -103,7 +104,15 @@ const EditProfile = () => {
       });
     }
     setIsLoading(true);
-
+    toast({
+      variant: "loading",
+      description: (
+        <div className="flex gap-1">
+          <Loader2 className="h-5 w-5 animate-spin text-purple-900 shrink-0" />
+          Editando perfil...
+        </div>
+      ),
+    });
     try {
       let userDataToUpdate = {
         ...data,

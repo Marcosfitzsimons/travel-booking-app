@@ -1,4 +1,4 @@
-import { Check, Heart, X } from "lucide-react";
+import { Check, Heart, Loader2, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -30,8 +30,17 @@ const MyTrips = () => {
   const userId = auth?.user?._id;
 
   const handleDelete = async (e: any) => {
-    setLoading(true);
     const tripId = e.target.id;
+    setLoading(true);
+    toast({
+      variant: "loading",
+      description: (
+        <div className="flex gap-1">
+          <Loader2 className="h-5 w-5 animate-spin text-purple-900 shrink-0" />
+          Cancelando lugar...
+        </div>
+      ),
+    });
     try {
       await axiosPrivate.delete(`/passengers/${userId}/${tripId}`);
       toast({

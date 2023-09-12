@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import {
   ChevronDown,
   ClipboardList,
+  Loader2,
   LogOut,
   User,
   UserCog,
@@ -21,6 +22,7 @@ import { Separator } from "./ui/separator";
 import Logo from "./Logo";
 import useAuth from "@/hooks/useAuth";
 import useLogout from "@/hooks/useLogOut";
+import { useToast } from "./ui/use-toast";
 
 const Header = () => {
   const logout = useLogout();

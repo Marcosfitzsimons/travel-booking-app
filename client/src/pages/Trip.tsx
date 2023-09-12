@@ -11,6 +11,7 @@ import {
   Check,
   X,
   ArrowUp,
+  Loader2,
 } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
@@ -43,6 +44,7 @@ import TripTime from "@/components/TripTime";
 import TripDataBox from "@/components/TripDataBox";
 import useAuth from "@/hooks/useAuth";
 import useAxiosPrivate from "@/hooks/useAxiosPrivate";
+import Error from "@/components/Error";
 
 const INITIAL_VALUES = {
   _id: "",
@@ -70,7 +72,7 @@ const Trip = () => {
   const [data, setData] = useState(INITIAL_VALUES);
   const [userInfo, setUserInfo] = useState(INITIAL_USER_VALUES);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
   const [isConfirm, setIsConfirm] = useState(false);
   const [isConfirmError, setIsConfirmError] = useState(false);
   const [addressCapitalValue, setAddressCapitalValue] = useState("");
@@ -128,9 +130,6 @@ const Trip = () => {
         }, 100);
       }
       setLoading(false);
-      setError(
-        "Error al cargar información acerca del viaje, intentar más tarde"
-      );
     }
   };
 
@@ -150,7 +149,15 @@ const Trip = () => {
       });
     }
     setLoading(true);
-
+    toast({
+      variant: "loading",
+      description: (
+        <div className="flex gap-1">
+          <Loader2 className="h-5 w-5 animate-spin text-purple-900 shrink-0" />
+          Guardando cambios...
+        </div>
+      ),
+    });
     try {
       const res = await axiosPrivate.put(`/users/addresses/${user?._id}`, {
         ...data,
@@ -209,6 +216,15 @@ const Trip = () => {
 
   const handleConfirmPayment = async () => {
     setLoading(true);
+    toast({
+      variant: "loading",
+      description: (
+        <div className="flex gap-1">
+          <Loader2 className="h-5 w-5 animate-spin text-purple-900 shrink-0" />
+          Guardando lugar...
+        </div>
+      ),
+    });
     try {
       const res = await axiosPrivate.post(`/payments`, {
         trip: {
@@ -248,6 +264,15 @@ const Trip = () => {
 
   const handleConfirmPassenger = async () => {
     setLoading(true);
+    toast({
+      variant: "loading",
+      description: (
+        <div className="flex gap-1">
+          <Loader2 className="h-5 w-5 animate-spin text-purple-900 shrink-0" />
+          Guardando lugar...
+        </div>
+      ),
+    });
     try {
       await axiosPrivate.post(`/passengers/${user?._id}/${tripId}`, {
         userId: user?._id,
@@ -306,7 +331,6 @@ const Trip = () => {
       setLoading(true);
       try {
         const res = await axiosPrivate.get(`/trips/${user?._id}/${tripId}`);
-        console.log(res.data);
         setData({ ...res.data });
       } catch (err: any) {
         if (err.response?.status === 403) {
@@ -315,9 +339,7 @@ const Trip = () => {
             navigate("/login");
           }, 100);
         }
-        setError(
-          "Error al cargar información acerca del viaje, intentar más tarde"
-        );
+        setError(true);
       }
       setLoading(false);
     };
@@ -336,7 +358,7 @@ const Trip = () => {
         {loading ? (
           <SingleTripSkeleton />
         ) : error ? (
-          <p>{error}</p>
+          <Error />
         ) : (
           <motion.div
             variants={sectionVariants}

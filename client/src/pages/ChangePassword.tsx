@@ -14,7 +14,7 @@ import { useToast } from "@/components/ui/use-toast";
 import useAuth from "@/hooks/useAuth";
 import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import { ChangePasswordData } from "@/types/types";
-import { Check, Lock, X } from "lucide-react";
+import { Check, Loader2, Lock, X } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -44,6 +44,15 @@ const ChangePassword = () => {
   const handleOnSubmit = async (data: ChangePasswordData) => {
     setLoading(true);
     setError("");
+    toast({
+      variant: "loading",
+      description: (
+        <div className="flex gap-1">
+          <Loader2 className="h-5 w-5 animate-spin text-purple-900 shrink-0" />
+          Actualizando contraseña...
+        </div>
+      ),
+    });
     try {
       await axiosPrivate.put(`/users/changepassword/${user?._id}`, {
         ...data,
