@@ -8,13 +8,11 @@ import useFetch from "@/hooks/useFetch";
 import PublicationSkeleton from "@/components/skeletons/PublicationSkeleton";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import { Publication } from "@/types/types";
-import useAuth from "@/hooks/useAuth";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const { data, loading, error } = useFetch("/publications");
-  const { auth } = useAuth();
 
   return (
     <div className="relative  section lg:pt-28">
@@ -27,20 +25,18 @@ const Home = () => {
       >
         <div className="absolute w-full left-0 top-2">
           <Marquee className="" direction="right" speed={55}>
-            <p className="px-2 lg:hidden">-</p>
-            <p className="flex items-center gap-1 shrink-0">
+            <p className="flex items-center gap-2">
               <Heart
-                className="w-4 h-4 relative top-[1px] dark:text-black"
+                className="w-4 h-4 relative top-[1px] dark:text-black shrink-0"
                 fill="red"
               />
-              Gracias por elegirnos
+              <span>Gracias por elegirnos</span>
               <Heart
-                className="w-4 h-4 relative top-[1px] dark:text-black"
+                className="w-4 h-4 relative top-[1px] dark:text-black shrink-0"
                 fill="red"
               />
+              <span className="pr-2">Viajá como la luz, viajá en fabebus</span>
             </p>
-            <p className="px-2">-</p>
-            Viajá como la luz, viajá en fabebus
           </Marquee>
         </div>
         <div className="pb-10 pt-20 flex flex-col items-center gap-5 text-center lg:h-auto lg:basis-1/2 lg:py-20">
