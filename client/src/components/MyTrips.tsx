@@ -64,8 +64,8 @@ const MyTrips = () => {
             cancelar su lugar
           </div>
         ) as any,
-        description: err.response.data.msg
-          ? err.response.data.msg
+        description: err.response?.data?.msg
+          ? err.response?.data?.msg
           : "Ha ocurrido un error al cancelar su lugar. Por favor, intentar más tarde",
       });
     }

@@ -13,11 +13,13 @@ const useFetch = (url: string) => {
             try {
                 const res = await axios.get(url)
                 setData(res.data)
+                setLoading(false)
+
             } catch(err) {
                 console.log(err)
                 setError(true)
+                setLoading(false)
             }
-            setLoading(false)
         }
         fetchData()
     }, [url])
@@ -30,11 +32,12 @@ const reFetch = async () => {
     try {
         const res = await axios.get(url)
         setData(res.data)
+        setLoading(false)
     } catch(err) {
         console.log(err)
         setError(true)
+        setLoading(false)
     }
-    setLoading(false)
 }
 return { data, loading, error, reFetch }
 
