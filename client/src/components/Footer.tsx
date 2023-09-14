@@ -1,6 +1,7 @@
 import { Facebook, Instagram, Phone } from "lucide-react";
 import { Separator } from "./ui/separator";
 import useAuth from "@/hooks/useAuth";
+import WhatsappButton from "./WhatsappButton";
 
 const Footer = () => {
   const { auth } = useAuth();
@@ -20,6 +21,8 @@ const Footer = () => {
         </div>
         <div className="flex items-center justify-center gap-3">
           <Instagram className="cursor-pointer w-5 h-5 hover:text-blue-lagoon-600 dark:hover:text-white" />
+          <Separator orientation="vertical" className="h-2" />
+          <WhatsappButton />
           <Separator orientation="vertical" className="h-2" />
           <Facebook className="cursor-pointer w-5 h-5 hover:text-blue-lagoon-600 dark:hover:text-white" />
         </div>
