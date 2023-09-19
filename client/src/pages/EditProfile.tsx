@@ -59,8 +59,6 @@ const EditProfile = () => {
   const { auth, setAuth } = useAuth();
   const user = auth?.user;
 
-  // Fix header image update when updating user profile
-
   const axiosPrivate = useAxiosPrivate();
 
   const {

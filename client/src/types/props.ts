@@ -43,5 +43,6 @@ export type TripProps = {
     maxCapacity: number;
     price: number;
     available: boolean;
-    handleDelete: (e: any) => void;
+    setUserTrips: (e: any) => void;
+    userTrips: TripProps[]
   };
