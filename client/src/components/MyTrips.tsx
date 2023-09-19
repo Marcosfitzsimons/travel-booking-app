@@ -29,57 +29,6 @@ const MyTrips = () => {
   const { auth, setAuth } = useAuth();
   const userId = auth?.user?._id;
 
-  const handleDelete = async (e: any) => {
-    const tripId = e.target.id;
-    setLoading(true);
-    toast({
-      variant: "loading",
-      description: (
-        <div className="flex gap-1">
-          <Loader2 className="h-5 w-5 animate-spin text-purple-900 shrink-0" />
-          Cancelando lugar...
-        </div>
-      ),
-    });
-    try {
-      await axiosPrivate.delete(`/passengers/${userId}/${tripId}`);
-      toast({
-        description: (
-          <div className="flex gap-1">
-            {<Check className="h-5 w-5 text-green-600 shrink-0" />} Lugar
-            cancelado con éxito
-          </div>
-        ),
-      });
-      setUserTrips(userTrips.filter((trip) => trip._id !== tripId));
-      setLoading(false);
-      setTimeout(() => {
-        navigate("/viajes");
-      }, 100);
-    } catch (err: any) {
-      if (err.response?.status === 403) {
-        setAuth({ user: null });
-        setTimeout(() => {
-          navigate("/login");
-        }, 100);
-      }
-      setLoading(false);
-      setErr(true);
-      toast({
-        variant: "destructive",
-        title: (
-          <div className="flex gap-1">
-            {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
-            cancelar su lugar
-          </div>
-        ) as any,
-        description: err.response?.data?.msg
-          ? err.response?.data?.msg
-          : "Ha ocurrido un error al cancelar su lugar. Por favor, intentar más tarde",
-      });
-    }
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -174,9 +123,10 @@ const MyTrips = () => {
               <>
                 {userTrips.map((trip: TripProps) => (
                   <MyTripCard
+                    userTrips={userTrips}
                     {...trip}
                     key={trip._id}
-                    handleDelete={handleDelete}
+                    setUserTrips={setUserTrips}
                   />
                 ))}
               </>
