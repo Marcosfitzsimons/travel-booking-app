@@ -8,7 +8,7 @@ const Footer = () => {
   const user = auth?.user;
   return (
     <footer className={!user ? "hidden" : ""}>
-      <div className="w-[min(95%,1200px)] mx-auto my-6 flex justify-center items-center">
+      <div className="w-[min(95%,1200px)] mx-auto my-12 flex justify-center items-center">
         <div className="hidden">
           <p className="flex items-center gap-1">
             <Phone className="h-4 w-4" />
