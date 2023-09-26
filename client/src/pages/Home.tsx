@@ -8,6 +8,7 @@ import useFetch from "@/hooks/useFetch";
 import PublicationSkeleton from "@/components/skeletons/PublicationSkeleton";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import { Publication } from "@/types/types";
+import GorgeousBoxBorder from "@/components/GorgeousBoxBorder";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -59,13 +60,15 @@ const Home = () => {
           <p className="font-medium px-4 text-card-foreground dark:text-slate-100">
             Una empresa familiar con más de 28 años de trayectoria
           </p>
-          <Button
-            onClick={() => navigate("/viajes")}
-            className="text-sm mt-1 h-10 pl-6 gap-[3px] border border-pink-1-700/50 shadow-md shadow-pink-1-900/30 bg-gradient-to-r from-[#9e4a4f] via-[#854147] to-[#9c595d] bg-[length:200%] bg-left transition text-pink-1-100 hover:shadow-lg hover:border-pink-1-300/80 hover:bg-right hover:text-white hover:shadow-pink-1-900/50 dark:hover:shadow-pink-1-900 dark:border-pink-1-300/60 dark:text-pink-1-100 dark:shadow-pink-1-900/60 dark:bg-[#9e4a4f] dark:hover:border-pink-1-300/80 dark:hover:shadow-lg dark:hover:text-white"
-          >
-            Viajes disponibles
-            <ChevronsRight className="w-5 h-5 relative top-[1px]" />
-          </Button>
+          <GorgeousBoxBorder className="">
+            <Button
+              onClick={() => navigate("/viajes")}
+              className="text-sm h-10 pl-6 gap-[3px] rounded-lg border border-pink-1-700/50 shadow-md shadow-pink-1-900/30 bg-gradient-to-r from-[#9e4a4f] via-[#854147] to-[#9c595d] bg-[length:200%] bg-left transition text-pink-1-100 hover:shadow-lg hover:border-pink-1-300/80 hover:bg-right hover:text-white hover:shadow-pink-1-900/50 dark:hover:shadow-pink-1-900 dark:border-pink-1-300/60 dark:text-pink-1-100 dark:shadow-pink-1-900/60 dark:bg-[#9e4a4f] dark:hover:border-pink-1-300/80 dark:hover:shadow-lg dark:hover:text-white"
+            >
+              Viajes disponibles
+              <ChevronsRight className="w-5 h-5 relative top-[1px]" />
+            </Button>
+          </GorgeousBoxBorder>
         </div>
         <div className="py-4 flex flex-col items-center gap-3 lg:items-start lg:basis-[45%]">
           <h2 className="flex items-center gap-2 my-2 text-xl uppercase font-bold lg:text-2xl dark:text-white">

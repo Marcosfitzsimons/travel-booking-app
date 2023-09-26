@@ -31,6 +31,9 @@ import { useToast } from "./ui/use-toast";
 import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import useAuth from "@/hooks/useAuth";
 import moment from "moment";
+import TripDate from "./TripDate";
+import TodayDate from "./TodayDate";
+import GorgeousBoxBorder from "./GorgeousBoxBorder";
 
 const MyTripCard = ({
   _id,
@@ -137,96 +140,95 @@ const MyTripCard = ({
   };
 
   return (
-    <article className="group w-full flex justify-center items-center relative mx-auto rounded-md shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none">
-      <CountdownTimer date={date} departureTime={departureTime} />
-      <div className="w-full px-2 pt-9 pb-2 sm:px-4">
-        <div className="flex flex-col gap-2">
-          <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
-            <span className="w-8 h-[4px] bg-red-700 rounded-full " />
-            <span className="w-4 h-[4px] bg-red-700 rounded-full " />
-            <span className="w-2 h-[4px] bg-red-700 rounded-full " />
-          </div>
-          <div className="absolute right-2 top-2 flex items-center gap-2 sm:right-4">
-            <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
-              <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
-              {formatDate(date)}
-            </p>
-            {formatDate(date) === todayDate && (
-              <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-lg dark:bg-[#75f5a8]/20 dark:border-[#86dda9] dark:text-white px-3 py-0">
-                HOY
-              </p>
-            )}
-          </div>
+    <GorgeousBoxBorder className="w-full max-w-[400px]">
+      <article className="group w-full flex justify-center items-center relative mx-auto rounded-lg shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none">
+        <CountdownTimer date={date} departureTime={departureTime} />
+        <div className="w-full px-2 pt-9 pb-2 sm:px-4">
+          <div className="flex flex-col gap-2">
+            <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
+              <span className="w-8 h-[4px] bg-red-700 rounded-full " />
+              <span className="w-4 h-[4px] bg-red-700 rounded-full " />
+              <span className="w-2 h-[4px] bg-red-700 rounded-full " />
+            </div>
+            <div className="absolute right-2 top-2 flex items-center flex-row-reverse gap-2 sm:right-4">
+              <TripDate date={formatDate(date)} />
+              {formatDate(date) === todayDate && <TodayDate />}
+            </div>
 
-          <div className="flex flex-col gap-1 relative">
-            <div className="flex flex-col gap-1 mt-2">
-              <h3 className="font-bold text-lg lg:text-xl">{name}</h3>
-              <h4 className="text-sm font-light text-card-foreground">
-                Información acerca del viaje:
-              </h4>
-            </div>
-            <div className="flex flex-col w-full gap-2 border px-2 py-1 shadow-inner rounded-md dark:bg-[#171717]">
-              <div className="flex flex-col overflow-auto pb-2">
-                <TripDataBox
-                  icon={<MapPin className="h-5 w-5 text-accent shrink-0" />}
-                  text="Salida"
-                >
-                  <div className="flex items-center gap-1">
-                    <p>{from}</p>
-                    <Separator className="w-2" />
-                    <TripTime>{departureTime} hs</TripTime>
-                  </div>
-                </TripDataBox>
-                <TripDataBox
-                  icon={<MapPin className="h-5 w-5 text-accent shrink-0" />}
-                  text="Destino"
-                >
-                  <div className="flex items-center gap-1">
-                    <p>{to}</p>
-                    <Separator className="w-2" />
-                    <TripTime>{arrivalTime} hs</TripTime>
-                  </div>
-                </TripDataBox>
-                <TripDataBox
-                  icon={<DollarSign className="h-5 w-5 text-accent" />}
-                  text="Precio"
-                >
-                  {price}
-                </TripDataBox>
+            <div className="flex flex-col gap-1 relative">
+              <div className="flex flex-col gap-1 mt-2">
+                <h3 className="font-bold text-lg lg:text-xl">{name}</h3>
+                <h4 className="text-sm font-light text-card-foreground">
+                  Información acerca del viaje
+                </h4>
               </div>
+              <GorgeousBoxBorder>
+                <div className="flex flex-col w-full gap-2 border px-2 py-1 shadow-inner rounded-lg dark:bg-[#171717]">
+                  <div className="flex flex-col overflow-auto pb-2">
+                    <TripDataBox
+                      icon={<MapPin className="h-5 w-5 text-accent shrink-0" />}
+                      text="Salida"
+                    >
+                      <div className="flex items-center gap-1">
+                        <p>{from}</p>
+                        <Separator className="w-2" />
+                        <TripTime>{departureTime} hs</TripTime>
+                      </div>
+                    </TripDataBox>
+                    <TripDataBox
+                      icon={<MapPin className="h-5 w-5 text-accent shrink-0" />}
+                      text="Destino"
+                    >
+                      <div className="flex items-center gap-1">
+                        <p>{to}</p>
+                        <Separator className="w-2" />
+                        <TripTime>{arrivalTime} hs</TripTime>
+                      </div>
+                    </TripDataBox>
+                    <TripDataBox
+                      icon={<DollarSign className="h-5 w-5 text-accent" />}
+                      text="Precio"
+                    >
+                      {price}
+                    </TripDataBox>
+                  </div>
+                </div>
+              </GorgeousBoxBorder>
             </div>
-          </div>
-          <div className="self-center flex items-center justify-between mt-2">
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <button
-                  type="button"
-                  className="text-red-700 hover:text-red-300"
-                >
-                  Cancelar viaje
-                </button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    Esta acción no podrá deshacerse. Esto eliminará
-                    permanentemente tu lugar en el viaje.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>No, volver a mis viajes</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete} id={String(_id)}>
-                    Cancelar mi lugar
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+            <div className="self-center flex items-center justify-between mt-2">
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button
+                    type="button"
+                    className="text-red-700 hover:text-red-300"
+                  >
+                    Cancelar viaje
+                  </button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Esta acción no podrá deshacerse. Esto eliminará
+                      permanentemente tu lugar en el viaje.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>
+                      No, volver a mis viajes
+                    </AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete} id={String(_id)}>
+                      Cancelar mi lugar
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
           </div>
         </div>
-      </div>
-      <Separator className="absolute -bottom-5 w-4 self-center" />
-    </article>
+        <Separator className="absolute -bottom-5 w-4 self-center" />
+      </article>
+    </GorgeousBoxBorder>
   );
 };
 
