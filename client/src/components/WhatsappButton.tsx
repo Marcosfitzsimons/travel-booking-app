@@ -1,5 +1,3 @@
-import whatsapp from "@/assets/whatsapp1.png";
-
 const WhatsappButton = () => {
   return (
     <a
