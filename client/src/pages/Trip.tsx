@@ -376,7 +376,7 @@ const Trip = () => {
                   departureTime={data.departureTime}
                 />
                 <div className="w-full px-2 pt-9 pb-4 sm:px-4">
-                  <div className="flex flex-col gap-2 ">
+                  <div className="flex flex-col gap-2">
                     <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
                       <span className="w-8 h-[4px] bg-red-700 rounded-full " />
                       <span className="w-4 h-[4px] bg-red-700 rounded-full " />
@@ -388,7 +388,7 @@ const Trip = () => {
                       {formatDate(data.date) === todayDate && <TodayDate />}
                     </div>
 
-                    <div className="flex flex-col gap-1 mt-2 ">
+                    <div className="flex flex-col gap-1 mt-2">
                       <div className="flex flex-col gap-1">
                         <h3 className="font-bold text-lg lg:text-xl">
                           {data.name}
@@ -407,7 +407,7 @@ const Trip = () => {
                               text="Salida"
                             >
                               <div className="flex items-center gap-1">
-                                <p>{data.from}</p>
+                                <p className="shrink-0">{data.from}</p>
                                 <Separator className="w-2" />
                                 <TripTime>{data.departureTime} hs</TripTime>
                               </div>
@@ -419,7 +419,7 @@ const Trip = () => {
                               text="Destino"
                             >
                               <div className="flex items-center gap-1">
-                                <p>{data.to}</p>
+                                <p className="shrink-0">{data.to}</p>
                                 <Separator className="w-2" />
                                 <TripTime>{data.arrivalTime} hs</TripTime>
                               </div>
@@ -437,10 +437,11 @@ const Trip = () => {
                       </GorgeousBoxBorder>
                     </div>
 
-                    <Separator className="w-4 self-center mt-2 bg-border lg:hidden" />
+                    <Separator className="w-4 self-center bg-border mt-1.5 lg:hidden" />
+
                     <div
                       className={`${
-                        isConfirmError && !isConfirm ? "pb-6" : "py-2"
+                        isConfirmError && !isConfirm ? "pb-6" : "pb-2"
                       }
                   flex flex-col gap-1`}
                     >

@@ -78,7 +78,7 @@ const TripCard = ({
                       text="Salida"
                     >
                       <div className="flex items-center gap-1">
-                        <p>{from}</p>
+                        <p className="shrink-0">{from}</p>
                         <Separator className="w-1" />
                         <TripTime>{departureTime} hs</TripTime>
                       </div>
@@ -88,7 +88,7 @@ const TripCard = ({
                       text="Destino"
                     >
                       <div className="flex items-center gap-1">
-                        <p>{to}</p>
+                        <p className="shrink-0">{to}</p>
                         <Separator className="w-1" />
                         <TripTime>{arrivalTime} hs</TripTime>
                       </div>
