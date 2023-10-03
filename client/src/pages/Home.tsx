@@ -9,6 +9,7 @@ import PublicationSkeleton from "@/components/skeletons/PublicationSkeleton";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import { Publication } from "@/types/types";
 import GorgeousBoxBorder from "@/components/GorgeousBoxBorder";
+import Commissions from "@/components/Commissions";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const Home = () => {
             </p>
           </Marquee>
         </div>
-        <div className="pb-10 pt-20 flex flex-col items-center gap-5 text-center lg:h-auto lg:basis-1/2 lg:py-20">
+        <div className="pb-10 pt-20 flex flex-col items-center gap-4 text-center lg:h-auto lg:basis-1/2 lg:pb-20 lg:pt-10">
           <div className="flex flex-col items-center gap-1">
             <h1 className="font-serif tracking-wider text-6xl dark:text-white lg:text-7xl">
               <span className="font-medium text-[5rem]">F</span>
@@ -57,10 +58,12 @@ const Home = () => {
               </p>
             </div>
           </div>
-          <p className="font-medium px-4 text-card-foreground dark:text-slate-100">
-            Una empresa familiar con más de 28 años de trayectoria
+          <p className="px-2 text-sm text-card-foreground max-w-lg lg:text-base dark:text-slate-100">
+            Una empresa familiar con una sólida trayectoria de más de 28 años,
+            siendo tu mejor opción para reservas de viajes en nuestra ciudad y
+            sus alrededores
           </p>
-          <GorgeousBoxBorder className="">
+          <GorgeousBoxBorder className="mt-3">
             <Button
               onClick={() => navigate("/viajes")}
               className="text-sm h-10 pl-6 gap-[3px] rounded-lg border border-pink-1-700/50 shadow-md shadow-pink-1-900/30 bg-gradient-to-r from-[#9e4a4f] via-[#854147] to-[#9c595d] bg-[length:200%] bg-left transition text-pink-1-100 hover:shadow-lg hover:border-pink-1-300/80 hover:bg-right hover:text-white hover:shadow-pink-1-900/50 dark:hover:shadow-pink-1-900 dark:border-pink-1-300/60 dark:text-pink-1-100 dark:shadow-pink-1-900/60 dark:bg-[#9e4a4f] dark:hover:border-pink-1-300/80 dark:hover:shadow-lg dark:hover:text-white"
@@ -70,9 +73,10 @@ const Home = () => {
             </Button>
           </GorgeousBoxBorder>
         </div>
-        <div className="py-4 flex flex-col items-center gap-3 lg:items-start lg:basis-[45%]">
-          <h2 className="flex items-center gap-2 my-2 text-xl uppercase font-bold lg:text-2xl dark:text-white">
-            <Newspaper className="w-6 h-6 text-accent " />
+        <div className="pb-4 flex flex-col items-center gap-3 lg:items-start lg:basis-[45%]">
+          <Commissions />
+          <h2 className="flex items-center gap-2 my-2 text-xl uppercase font-medium lg:text-2xl dark:text-white">
+            <Newspaper className="w-5 h-5 text-accent shrink-0 lg:w-6 lg:h-6" />
             Anuncios destacados
           </h2>
           {error && (
