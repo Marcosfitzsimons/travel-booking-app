@@ -8,9 +8,11 @@ const Commissions = () => {
       <article className="flex items-center gap-3 rounded-lg py-3 px-4 border border-l-4 border-l-blue-700 bg-card shadow-input lg:py-6 dark:shadow-none">
         <Truck className="w-5 h-5 shrink-0 text-accent lg:w-6 lg:h-6" />
         <div className="flex flex-col">
-          <h4 className="text-lg font-medium">Comisiones</h4>
+          <h4 className="text-base font-medium lg:text-lg">Comisiones</h4>
           <p className="flex-wrap flex items-center gap-1">
-            Para comisiones comunicarse al
+            <span className="text-sm lg:text-base">
+              Para comisiones comunicarse al
+            </span>
             <GorgeousBoxBorder>
               <a
                 href="http://wa.me/+5492325402444"

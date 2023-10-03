@@ -1,4 +1,4 @@
-import { Check, Heart, Loader2, X } from "lucide-react";
+import { Check, Heart, Loader2, Meh, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -76,19 +76,21 @@ const MyTrips = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center gap-3 my-3">
-        <p className="flex items-center gap-1 ">
-          <Heart
-            className="w-4 h-4 relative top-[1px] dark:text-black"
-            fill="red"
-          />
-          Gracias por viajar con nosotros
-          <Heart
-            className="w-4 h-4 relative top-[1px] dark:text-black"
-            fill="red"
-          />
-        </p>
-      </div>
+      {userTrips && userTrips.length > 0 && (
+        <div className="flex flex-col items-center gap-3 my-3">
+          <p className="flex items-center gap-1 ">
+            <Heart
+              className="w-4 h-4 relative top-[1px] dark:text-black"
+              fill="red"
+            />
+            Gracias por viajar con nosotros
+            <Heart
+              className="w-4 h-4 relative top-[1px] dark:text-black"
+              fill="red"
+            />
+          </p>
+        </div>
+      )}
 
       {loading ? (
         <div className="w-full flex flex-col items-center">
@@ -132,7 +134,10 @@ const MyTrips = () => {
               </>
             ) : (
               <div className="flex flex-col items-center gap-3 mt-3 md:col-start-1 md:col-end-3">
-                <p>No tenes lugares reservados</p>
+                <p className="flex items-center gap-1">
+                  No tenes viajes reservados
+                  <Meh className="shrink-0 w-5 h-5 text-accent" />
+                </p>
                 <div
                   className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white"
                   onClick={() => navigate("/viajes")}

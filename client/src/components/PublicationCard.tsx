@@ -114,8 +114,12 @@ const PublicationCard = ({
             <p className="text-black font-medium dark:text-white">Fabebus</p>
           </div>
           <div className="flex flex-col">
-            <h3 className="font-medium text-lg dark:text-white">{title}</h3>
-            {subtitle && <h4 className="text-card-foreground">{subtitle}</h4>}
+            <h3 className="font-medium lg:text-lg dark:text-white">{title}</h3>
+            {subtitle && (
+              <h4 className="text-card-foreground text-sm lg:text-base">
+                {subtitle}
+              </h4>
+            )}
           </div>
           <p className="text-card-foreground">{description}</p>
 
