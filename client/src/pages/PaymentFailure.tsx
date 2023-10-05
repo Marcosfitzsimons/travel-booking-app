@@ -37,7 +37,7 @@ const PaymentFailure = () => {
         <div className="mt-4 flex flex-col items-center gap-4">
           <div className="flex flex-col items-center gap-1">
             <XCircle className="text-red-600 w-14 h-14 drop-shadow-sm dark:text-red-800" />
-            <p>
+            <p className="text-center">
               Lo siento, pero ha ocurrido un fallo en el procesamiento del pago
             </p>
           </div>

@@ -253,6 +253,11 @@ const Trip = () => {
             guardar su lugar
           </div>
         ) as any,
+        action: (
+          <ToastAction altText="Mis viajes" asChild>
+            <Link to="/mis-viajes">Mis viajes</Link>
+          </ToastAction>
+        ),
         description: err.response?.data?.msg
           ? err.response?.data?.msg
           : "Ha ocurrido un error al guardar su lugar. Por favor, intentar más tarde",

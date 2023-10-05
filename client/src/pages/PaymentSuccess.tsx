@@ -110,7 +110,9 @@ const PaymentSuccess = () => {
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-col items-center gap-1">
               <XCircle className="text-red-600 w-14 h-14 drop-shadow-sm dark:text-red-800" />
-              <p>Lo siento, pero ha ocurrido un error al guardar su lugar</p>
+              <p className="text-center">
+                Lo siento, pero ha ocurrido un error al guardar su lugar
+              </p>
             </div>
             <Separator className="w-2" />
             <GorgeousBoxBorder className="w-full max-w-lg mx-auto lg:mx-0 ">
