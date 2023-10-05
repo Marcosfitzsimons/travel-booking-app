@@ -3,9 +3,14 @@ import { useEffect, useState } from "react";
 type CountdownTimerProps = {
   date: string;
   departureTime: string;
+  isTripStarted?: boolean;
 };
 
-const CountdownTimer = ({ date, departureTime }: CountdownTimerProps) => {
+const CountdownTimer = ({
+  isTripStarted,
+  date,
+  departureTime,
+}: CountdownTimerProps) => {
   const [remainingTime, setRemainingTime] = useState("");
 
   const combinedDateTime = `${date.split("T")[0]}T${departureTime}`;
@@ -58,8 +63,14 @@ const CountdownTimer = ({ date, departureTime }: CountdownTimerProps) => {
         remainingTime ? "-top-[5px] group-hover:-top-[23px]" : "top-0"
       } absolute -z-10 transition-all min-w-[120px] text-xs text-white right-2 pt-[3px] bg-orange-600 rounded-t-md px-2 h-10 lg:right-4 dark:bg-orange-700`}
     >
-      <span className="font-bold uppercase">sale en: </span>
-      <span>{remainingTime ? remainingTime : "..."}</span>
+      {isTripStarted ? (
+        <p className="font-bold uppercase">Estamos en camino :)</p>
+      ) : (
+        <>
+          <span className="font-bold uppercase">sale en: </span>
+          <span>{remainingTime ? remainingTime : "..."}</span>
+        </>
+      )}
     </div>
   );
 };

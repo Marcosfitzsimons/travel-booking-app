@@ -6,6 +6,7 @@ import {
   Loader2,
   Check,
   X,
+  Rocket,
 } from "lucide-react";
 import {
   AlertDialog,
@@ -22,7 +23,7 @@ import { Separator } from "./ui/separator";
 import CountdownTimer from "./CountdownTimer";
 import getTodayDate from "@/lib/utils/getTodayDate";
 import formatDate from "@/lib/utils/formatDate";
-import { MyTripCardProps } from "@/types/props";
+import { MyTripCardProps, TripProps } from "@/types/props";
 import TripDataBox from "./TripDataBox";
 import TripTime from "./TripTime";
 import { useState } from "react";
@@ -34,6 +35,7 @@ import moment from "moment";
 import TripDate from "./TripDate";
 import TodayDate from "./TodayDate";
 import GorgeousBoxBorder from "./GorgeousBoxBorder";
+import GorgeousBorder from "./GorgeousBorder";
 
 const MyTripCard = ({
   _id,
@@ -139,10 +141,23 @@ const MyTripCard = ({
     }
   };
 
+  const tripStarted = userTrips?.find((trip: TripProps) => {
+    const combinedDateTime = `${trip.date.split("T")[0]}T${trip.departureTime}`;
+    const targetDateTime = new Date(combinedDateTime); // Convert the date string to a Date object
+    // Calculate the time difference in milliseconds between the target time and the current time
+    const timeDifference = targetDateTime.getTime() - new Date().getTime();
+
+    return Math.abs(timeDifference) <= 2 * 60 * 60 * 1000;
+  });
+
   return (
     <GorgeousBoxBorder className="w-full max-w-[400px]">
       <article className="group w-full flex justify-center items-center relative mx-auto rounded-lg shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none">
-        <CountdownTimer date={date} departureTime={departureTime} />
+        <CountdownTimer
+          isTripStarted={tripStarted?._id === _id}
+          date={date}
+          departureTime={departureTime}
+        />
         <div className="w-full px-2 pt-9 pb-2 sm:px-4">
           <div className="flex flex-col gap-2">
             <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
@@ -196,33 +211,44 @@ const MyTripCard = ({
               </GorgeousBoxBorder>
             </div>
             <div className="self-center flex items-center justify-between mt-2">
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <button
-                    type="button"
-                    className="text-red-700 hover:text-red-300"
-                  >
-                    Cancelar viaje
-                  </button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Esta acción no podrá deshacerse. Esto eliminará
-                      permanentemente tu lugar en el viaje.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>
-                      No, volver a mis viajes
-                    </AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDelete} id={String(_id)}>
-                      Cancelar mi lugar
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
+              {tripStarted?._id === _id ? (
+                <GorgeousBorder>
+                  <p className="flex items-center gap-1 font-medium rounded-lg px-2 py-0.5 bg-card border shadow-input dark:shadow-none">
+                    🚀 Estamos en camino...
+                  </p>
+                </GorgeousBorder>
+              ) : (
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <button
+                      type="button"
+                      className="text-red-700 hover:text-red-300"
+                    >
+                      Cancelar viaje
+                    </button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Esta acción no podrá deshacerse. Esto eliminará
+                        permanentemente tu lugar en el viaje.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>
+                        No, volver a mis viajes
+                      </AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={handleDelete}
+                        id={String(_id)}
+                      >
+                        Cancelar mi lugar
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              )}
             </div>
           </div>
         </div>

@@ -6,8 +6,7 @@ import TripCard from "../components/TripCard";
 import useFetch from "../hooks/useFetch";
 import SectionTitle from "../components/SectionTitle";
 import DatePickerContainer from "../components/DatePickerContainer";
-import { Button } from "../components/ui/button";
-import { Frown, RotateCcw } from "lucide-react";
+import { Frown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
@@ -24,9 +23,9 @@ const Trips = () => {
   const availableTrips = data.filter((trip: TripProps) => {
     const combinedDateTime = `${trip.date.split("T")[0]}T${trip.departureTime}`;
     const targetDateTime = new Date(combinedDateTime); // Convert the date string to a Date object
-
     // Calculate the time difference in milliseconds between the target time and the current time
     const timeDifference = targetDateTime.getTime() - new Date().getTime();
+
     return timeDifference > 0;
   });
 
@@ -126,18 +125,33 @@ const Trips = () => {
               <>
                 <AnimatePresence>
                   {isOnlyAvailableTrips ? (
-                    onlyTripsAvailableSeats.map((trip: TripProps) => (
-                      <motion.div
-                        variants={sectionVariants}
-                        initial="hidden"
-                        whileInView="visible"
-                        className="w-full max-w-md"
-                        exit="exit"
-                        key={trip._id}
-                      >
-                        <TripCard {...trip} />
-                      </motion.div>
-                    ))
+                    <>
+                      {onlyTripsAvailableSeats.length !== 0 ? (
+                        onlyTripsAvailableSeats.map((trip: TripProps) => (
+                          <motion.div
+                            variants={sectionVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            className="w-full max-w-md"
+                            exit="exit"
+                            key={trip._id}
+                          >
+                            <TripCard {...trip} />
+                          </motion.div>
+                        ))
+                      ) : (
+                        <motion.p
+                          className="w-full mb-[20rem] lg:mb-[28rem]"
+                          variants={sectionVariants}
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                          key="empty-trip"
+                        >
+                          No hay viajes disponibles en este momento
+                        </motion.p>
+                      )}
+                    </>
                   ) : (
                     <>
                       {availableTrips.length !== 0 ? (
@@ -162,7 +176,7 @@ const Trips = () => {
                           exit="exit"
                           key="empty-trip"
                         >
-                          No hay viajes disponibles.
+                          No hay viajes disponibles en este momento
                         </motion.p>
                       )}
                     </>

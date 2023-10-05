@@ -1,42 +1,18 @@
-import { Separator } from "@/components/ui/separator";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
-import axios from "../api/axios";
 import { motion } from "framer-motion";
-import {
-  CalendarDays,
-  Check,
-  CheckCircle,
-  Clock,
-  DollarSign,
-  Heart,
-  Loader2,
-  MapPin,
-} from "lucide-react";
+import { Check, Heart, BadgeHelp, Loader2, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import getTodayDate from "@/lib/utils/getTodayDate";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import sectionVariants from "@/lib/variants/sectionVariants";
-import formatDate from "@/lib/utils/formatDate";
-import ContactBox from "@/components/ContactBox";
 import useAxiosPrivate from "@/hooks/useAxiosPrivate";
-
-const INITIAL_VALUES = {
-  _id: "",
-  name: "",
-  date: "",
-  from: "",
-  to: "",
-  departureTime: "",
-  arrivalTime: "",
-  price: "",
-  image: "",
-  maxCapacity: "",
-};
+import GorgeousBoxBorder from "@/components/GorgeousBoxBorder";
+import useAuth from "@/hooks/useAuth";
+import { XCircle } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import Whatsapp from "@/components/Whatsapp";
 
 const PaymentSuccess = () => {
-  const [data, setData] = useState(INITIAL_VALUES);
-  const [loading, setLoading] = useState(false);
   const [loading1, setLoading1] = useState(false);
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -50,9 +26,9 @@ const PaymentSuccess = () => {
   const userId = parts[2];
   const tripId = parts[3];
 
+  const { setAuth } = useAuth();
   const { toast } = useToast();
-
-  const todayDate = getTodayDate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLoaded) {
@@ -62,57 +38,64 @@ const PaymentSuccess = () => {
     const handleConfirmPassenger = async () => {
       setError(false);
       setLoading1(true);
+      toast({
+        variant: "loading",
+        description: (
+          <div className="flex gap-1">
+            <Loader2 className="h-5 w-5 animate-spin text-purple-900 shrink-0" />
+            Guardando lugar...
+          </div>
+        ),
+      });
       try {
         await axiosPrivate.post(`/passengers/${userId}/${tripId}`, {
           userId: userId,
           isPaid: true,
         });
         toast({
-          description: (
-            <div className="flex items-center gap-1">
-              {<CheckCircle className="w-[15px] h-[15px]" />} Lugar guardado con
-              éxito.
+          title: (
+            <div className="flex gap-1">
+              {<Check className="h-5 w-5 text-green-600 shrink-0" />} Lugar
+              guardado con éxito
             </div>
+          ) as any,
+          description: (
+            <p className="">
+              Desde fabebus le deseamos que tenga un muy buen viaje ❤️
+            </p>
           ),
         });
         setLoading1(false);
       } catch (err: any) {
-        console.log(err);
+        if (err.response?.status === 403) {
+          setAuth({ user: null });
+          setTimeout(() => {
+            navigate("/login");
+          }, 100);
+        }
         setError(true);
         setLoading1(false);
         toast({
           variant: "destructive",
-          title: "Error al guardar su lugar",
+          title: (
+            <div className="flex gap-1">
+              {<X className="h-5 w-5 text-destructive shrink-0" />} Error al
+              guardar su lugar
+            </div>
+          ) as any,
           action: (
             <ToastAction altText="Mis viajes" asChild>
               <Link to="/mis-viajes">Mis viajes</Link>
             </ToastAction>
           ),
-          description: err.response.data.msg
-            ? err.response.data.msg
-            : "Error al guardar lugar, intente más tarde.",
+          description: err.response?.data?.msg
+            ? err.response?.data?.msg
+            : "Ha ocurrido un error al guardar su lugar. Por favor, intentar más tarde",
         });
       }
     };
     handleConfirmPassenger();
   }, [isLoaded]);
-
-  useEffect(() => {
-    const getTrip = async () => {
-      setError(false);
-      setLoading(true);
-      try {
-        const res = await axios.get(`/trips/${userId}/${tripId}`);
-        setLoading(false);
-        setData({ ...res.data });
-      } catch (err) {
-        console.log(err);
-        setError(true);
-        setLoading(false);
-      }
-    };
-    getTrip();
-  }, []);
 
   return (
     <section className="section">
@@ -121,29 +104,52 @@ const PaymentSuccess = () => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="flex flex-col items-center justify-center gap-6 mt-4"
+        className="mt-4 flex flex-col items-center gap-1"
       >
         {error ? (
           <div className="flex flex-col items-center gap-4">
-            <p className="text-red-600">Error al confirmar su lugar</p>
-            <ContactBox>¿Necesitas ayuda?</ContactBox>
+            <div className="flex flex-col items-center gap-1">
+              <XCircle className="text-red-600 w-14 h-14 drop-shadow-sm dark:text-red-800" />
+              <p>Lo siento, pero ha ocurrido un error al guardar su lugar</p>
+            </div>
+            <Separator className="w-2" />
+            <GorgeousBoxBorder className="w-full max-w-lg mx-auto lg:mx-0 ">
+              <article className="flex items-center gap-3 rounded-lg py-3 px-4 border border-l-4 border-l-blue-700 bg-card shadow-input lg:py-6 dark:shadow-none">
+                <BadgeHelp className="w-5 h-5 shrink-0 text-accent lg:w-6 lg:h-6" />
+                <div className="flex flex-col">
+                  <h4 className="text-base font-medium lg:text-lg">
+                    ¿Necesitas ayuda?
+                  </h4>
+                  <p className="flex-wrap flex items-center gap-1">
+                    <span className="text-sm lg:text-base">
+                      No dudes en contáctarnos
+                    </span>
+                    <Whatsapp />
+                  </p>
+                </div>
+              </article>
+            </GorgeousBoxBorder>
+            <Separator className="w-2" />
+            <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
+              <Link
+                to="/viajes"
+                className="h-8 py-2 px-3 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white "
+              >
+                Viajes disponibles
+              </Link>
+            </div>
           </div>
         ) : (
           <>
             {loading1 ? (
               <p>...</p>
             ) : (
-              <div className="flex w-full flex-col items-center gap-6">
-                <div className="w-full relative flex flex-col items-center mt-2 max-w-sm">
-                  <div className="absolute -top-4 flex items-center justify-center w-8 aspect-square rounded-full border-2 bg-[#5b9184] border-white dark:bg-[#4b7c71]">
-                    <Check className="h-5 w-5 text-white" />
-                  </div>
-                  <div className="w-full pt-6 mx-auto flex flex-col text-center items-center gap-1 p-3 rounded-md bg-[#5b9184] text-white dark:bg-[#4b7c71]">
-                    <h3 className="font-medium text-lg">
-                      Pago realizado con éxito!
-                    </h3>
-                  </div>
+              <div className="flex w-full flex-col items-center gap-4">
+                <div className="flex flex-col items-center">
+                  <Check className="text-[#3d8f78] w-14 h-14 drop-shadow-sm dark:text-[rgba(75,270,200,1)]" />
+                  <p>Pago se ha realizado con éxito</p>
                 </div>
+                <Separator className="w-2" />
 
                 <p className="flex items-center gap-1">
                   <Heart
@@ -156,6 +162,7 @@ const PaymentSuccess = () => {
                     fill="red"
                   />
                 </p>
+                <Separator className="w-2" />
 
                 <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
                   <Link
@@ -165,94 +172,6 @@ const PaymentSuccess = () => {
                     Ir a mis viajes
                   </Link>
                 </div>
-              </div>
-            )}
-          </>
-        )}
-
-        {error ? (
-          ""
-        ) : (
-          <>
-            <Separator className="w-4" />
-            {loading ? (
-              <div className="w-full flex items-center justify-center">
-                <Loader2 className="animate-spin w-5 h-5" />{" "}
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                <h1>Más información acerca de tu viaje</h1>
-                <article
-                  key={data._id}
-                  className="relative w-full flex justify-center items-center mx-auto rounded-md shadow-input pb-4 max-w-[400px] bg-card border dark:shadow-none"
-                >
-                  <div className="w-full px-2 pt-9 sm:px-4">
-                    <div className="flex flex-col gap-2">
-                      <div className="absolute top-[0.75rem] left-2.5 sm:left-4 flex flex-col gap-[3px] transition-transform ">
-                        <span className="w-8 h-[4px] bg-red-700 rounded-full " />
-                        <span className="w-4 h-[4px] bg-red-700 rounded-full " />
-                        <span className="w-2 h-[4px] bg-red-700 rounded-full " />
-                      </div>
-                      <div className="absolute right-2 top-2 flex items-center gap-2 sm:right-4">
-                        <p className="text-teal-900 order-2 font-medium flex items-center select-none gap-1 rounded-lg border border-slate-800/60 bg-slate-200/30 dark:bg-slate-800/70 dark:border-slate-200/80 dark:text-white px-3">
-                          <CalendarDays className="w-4 h-4 relative lg:w-5 lg:h-5" />
-                          {formatDate(data.date)}
-                        </p>
-                        {formatDate(data.date) === todayDate && (
-                          <p className="text-green-900 bg-green-300/30 border border-green-800/80 order-1 select-none font-medium rounded-lg dark:bg-[#75f5a8]/20 dark:border-[#86dda9] dark:text-white px-3 py-0">
-                            HOY
-                          </p>
-                        )}
-                      </div>
-
-                      <div className="flex flex-col gap-1 mt-6 lg:mt-8">
-                        <div className="flex flex-col sm:gap-2">
-                          <h3 className="font-bold text-lg lg:text-xl">
-                            {data.name}
-                          </h3>
-                          <h4 className="text-sm font-light">
-                            Información acerca del viaje:
-                          </h4>
-                        </div>
-                        <div className="flex flex-col w-full bg-background gap-2 border px-1 py-4 shadow-inner rounded-md dark:bg-[#171717]">
-                          <div className="flex flex-col gap-2 overflow-auto">
-                            <p className="flex items-center gap-1">
-                              <MapPin className="h-4 w-4 text-accent shrink-0 " />
-                              <span className="dark:text-white font-medium">
-                                Salida:
-                              </span>{" "}
-                              <span className="shrink-0">{data.from}</span>
-                              <Separator className="w-2 bg-border" />
-                              <Clock className="h-4 w-4 text-accent shrink-0 " />
-                              <span className="shrink-0">
-                                {data.departureTime} hs.
-                              </span>
-                            </p>
-                            <p className="flex items-center gap-1">
-                              <MapPin className="h-4 w-4 text-accent shrink-0 " />
-                              <span className="dark:text-white font-medium">
-                                Destino:
-                              </span>{" "}
-                              <span className="shrink-0">{data.to}</span>
-                              <Separator className="w-2 bg-border" />
-                              <Clock className="h-4 w-4 text-accent shrink-0 " />
-                              <span className="shrink-0">
-                                {data.arrivalTime} hs.
-                              </span>
-                            </p>
-                            <p className="flex items-center gap-1">
-                              <DollarSign className="h-4 w-4 text-accent " />
-                              <span className="dark:text-white font-medium">
-                                Precio:
-                              </span>
-                              <span className="">${data.price}</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </article>
               </div>
             )}
           </>

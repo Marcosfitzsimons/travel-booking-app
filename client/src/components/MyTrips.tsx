@@ -29,6 +29,15 @@ const MyTrips = () => {
   const { auth, setAuth } = useAuth();
   const userId = auth?.user?._id;
 
+  const availableTrips = userTrips?.filter((trip: TripProps) => {
+    const combinedDateTime = `${trip.date.split("T")[0]}T${trip.departureTime}`;
+    const targetDateTime = new Date(combinedDateTime); // Convert the date string to a Date object
+    // Calculate the time difference in milliseconds between the target time and the current time
+    const timeDifference = targetDateTime.getTime() - new Date().getTime();
+
+    return Math.abs(timeDifference) <= 2 * 60 * 60 * 1000 || timeDifference > 0;
+  });
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -76,7 +85,7 @@ const MyTrips = () => {
         </div>
       </div>
 
-      {userTrips && userTrips.length > 0 && (
+      {availableTrips && availableTrips.length > 0 && (
         <div className="flex flex-col items-center gap-3 my-3">
           <p className="flex items-center gap-1 ">
             <Heart
@@ -103,15 +112,15 @@ const MyTrips = () => {
         <Error />
       ) : (
         <>
-          {userTrips && userTrips.length > 0 && (
+          {availableTrips && availableTrips.length > 0 && (
             <p className="flex items-center gap-[3px] self-end text-sm mb-4">
               Tenes
               <span className="font-medium text-accent">
-                {userTrips && userTrips.length}
+                {availableTrips && availableTrips.length}
               </span>
               viaje
-              {userTrips.length > 1 && "s"} reservado
-              {userTrips.length > 1 && "s"}
+              {availableTrips.length > 1 && "s"} reservado
+              {availableTrips.length > 1 && "s"}
             </p>
           )}
           <motion.div
@@ -121,11 +130,11 @@ const MyTrips = () => {
             exit="exit"
             className="w-full flex flex-col items-center gap-10 md:grid md:justify-items-center md:grid-cols-2"
           >
-            {userTrips && userTrips.length > 0 ? (
+            {availableTrips && availableTrips.length > 0 ? (
               <>
-                {userTrips.map((trip: TripProps) => (
+                {availableTrips.map((trip: TripProps) => (
                   <MyTripCard
-                    userTrips={userTrips}
+                    userTrips={availableTrips}
                     {...trip}
                     key={trip._id}
                     setUserTrips={setUserTrips}

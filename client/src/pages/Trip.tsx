@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import SectionTitle from "../components/SectionTitle";
 import {
-  CalendarDays,
   MapPin,
   Milestone,
   Crop,
@@ -48,6 +47,7 @@ import Error from "@/components/Error";
 import TodayDate from "@/components/TodayDate";
 import TripDate from "@/components/TripDate";
 import GorgeousBoxBorder from "@/components/GorgeousBoxBorder";
+import axios from "@/api/axios";
 
 const INITIAL_VALUES = {
   _id: "",
@@ -253,11 +253,6 @@ const Trip = () => {
             guardar su lugar
           </div>
         ) as any,
-        action: (
-          <ToastAction altText="Mis viajes" asChild>
-            <Link to="/mis-viajes">Mis viajes</Link>
-          </ToastAction>
-        ),
         description: err.response?.data?.msg
           ? err.response?.data?.msg
           : "Ha ocurrido un error al guardar su lugar. Por favor, intentar más tarde",
@@ -777,7 +772,7 @@ const Trip = () => {
                             <div className="w-full max-w-xs">
                               <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100">
                                 <Button
-                                  disabled={true} // disabled={loading}
+                                  disabled={loading}
                                   onClick={handleConfirmPayment}
                                   className="relative w-full bg-primary text-slate-100 hover:text-white dark:text-slate-100 dark:bg-primary dark:hover:text-white h-8"
                                 >
