@@ -172,7 +172,7 @@ const Register = () => {
                     Datos personales
                   </h5>
                 </div>
-                <div className="w-full flex flex-col gap-2 lg:flex-row">
+                <div className="w-full flex flex-col gap-2 lg:flex-row lg:items-start">
                   <div className="w-full flex flex-col gap-2">
                     <div className="grid w-full items-center gap-2">
                       <Label htmlFor="fullName">Nombre completo</Label>
@@ -187,22 +187,22 @@ const Register = () => {
                             required: {
                               value: true,
                               message:
-                                "Por favor, ingresa tu nombre y apellido.",
+                                "Por favor, ingresa tu nombre y apellido",
                             },
                             minLength: {
                               value: 3,
                               message:
-                                "Nombre y apellido no puede ser tan corto.",
+                                "Nombre y apellido no puede ser tan corto",
                             },
                             maxLength: {
                               value: 25,
                               message:
-                                "Nombre y apellido no puede ser tan largo.",
+                                "Nombre y apellido no puede ser tan largo",
                             },
                             pattern: {
                               value: /^[a-zA-Z\s]+$/,
                               message:
-                                "Nombre y apellido deben contener solo letras.",
+                                "Nombre y apellido deben contener solo letras",
                             },
                           })}
                         />
@@ -214,12 +214,12 @@ const Register = () => {
                       )}
                     </div>
                     <div className="grid w-full items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <Label htmlFor="username">Nombre de usuario </Label>
-                        <span className="text-xs select-none text-accent">
+                      <Label htmlFor="username" className="w-auto relative">
+                        Nombre de usuario
+                        <span className="absolute mx-1 text-xs select-none text-accent">
                           * Req. para ingresar
                         </span>
-                      </div>
+                      </Label>
                       <div className="relative flex items-center">
                         <span className="z-30 absolute text-accent left-[11px] pb-[2px] select-none ">
                           @
@@ -233,22 +233,22 @@ const Register = () => {
                             required: {
                               value: true,
                               message:
-                                "Por favor, ingresa tu nombre de usuario.",
+                                "Por favor, ingresa tu nombre de usuario",
                             },
                             minLength: {
                               value: 3,
                               message:
-                                "Nombre de usuario no puede ser tan corto.",
+                                "Nombre de usuario no puede ser tan corto",
                             },
                             maxLength: {
                               value: 15,
                               message:
-                                "Nombre de usuario no puede ser tan largo.",
+                                "Nombre de usuario no puede ser tan largo",
                             },
                             pattern: {
                               value: /^(?=.*[0-9])[a-zA-Z0-9]{3,}$/,
                               message:
-                                "El nombre de usuario debe tener al menos 3 caracteres y contener al menos un número.",
+                                "El nombre de usuario debe tener al menos 3 caracteres y contener al menos un número",
                             },
                           })}
                         />
@@ -262,7 +262,7 @@ const Register = () => {
                     <div className="grid w-full items-center gap-2">
                       <Label htmlFor="password">Contraseña</Label>
                       <div className="relative flex items-center">
-                        <Lock className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                        <Lock className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px]" />
                         <Input
                           className="pl-[32px]"
                           placeholder="..."
@@ -271,15 +271,15 @@ const Register = () => {
                           {...register("password", {
                             required: {
                               value: true,
-                              message: "Por favor, ingresa tu contraseña.",
+                              message: "Por favor, ingresa tu contraseña",
                             },
                             minLength: {
                               value: 6,
-                              message: "Contraseña no puede ser tan corta.",
+                              message: "Contraseña no puede ser tan corta",
                             },
                             maxLength: {
                               value: 20,
-                              message: "Contraseña no puede ser tan larga.",
+                              message: "Contraseña no puede ser tan larga",
                             },
                           })}
                         />
@@ -302,15 +302,15 @@ const Register = () => {
                           {...register("cpassword", {
                             required: {
                               value: true,
-                              message: "Por favor, ingresa tu contraseña.",
+                              message: "Por favor, ingresa tu contraseña",
                             },
                             minLength: {
                               value: 6,
-                              message: "Contraseña no puede ser tan corta.",
+                              message: "Contraseña no puede ser tan corta",
                             },
                             maxLength: {
                               value: 20,
-                              message: "Contraseña no puede ser tan larga.",
+                              message: "Contraseña no puede ser tan larga",
                             },
                           })}
                         />
@@ -322,16 +322,16 @@ const Register = () => {
                       )}
                     </div>
                   </div>
-                  <div className="flex w-full flex-col items-center gap-2">
+                  <div className="flex w-full flex-col gap-2">
                     <div className="grid w-full items-center gap-2">
-                      <div className="flex items-center gap-1">
-                        <Label htmlFor="email">Email </Label>
-                        <span className="text-xs select-none text-accent">
+                      <Label htmlFor="email" className="w-auto relative">
+                        Email
+                        <span className="absolute mx-1 text-xs select-none text-accent">
                           * Req. para ingresar
                         </span>
-                      </div>
+                      </Label>
 
-                      <div className="relative flex items-center">
+                      <div className="relative flex items-center shrink-0">
                         <Mail className="z-30 top-[11px] h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
                         <Input
                           className="pl-[32px]"
@@ -341,15 +341,15 @@ const Register = () => {
                           {...register("email", {
                             required: {
                               value: true,
-                              message: "Por favor, ingresa tu email.",
+                              message: "Por favor, ingresa tu email",
                             },
                             minLength: {
                               value: 3,
-                              message: "Email no puede ser tan corto.",
+                              message: "Email no puede ser tan corto",
                             },
                             maxLength: {
                               value: 40,
-                              message: "Email no puede ser tan largo.",
+                              message: "Email no puede ser tan largo",
                             },
                           })}
                         />
@@ -368,24 +368,24 @@ const Register = () => {
                         <Input
                           type="number"
                           id="dni"
-                          placeholder="41260122"
+                          placeholder="40240122"
                           className="appearance-none pl-[32px]"
                           {...register("dni", {
                             required: {
                               value: true,
-                              message: "Por favor, ingresa tu DNI.",
+                              message: "Por favor, ingresa tu DNI",
                             },
                             minLength: {
-                              value: 3,
-                              message: "DNI no puede ser tan corto.",
+                              value: 6,
+                              message: "DNI no puede ser tan corto",
                             },
                             maxLength: {
-                              value: 25,
-                              message: "DNI no puede ser tan largo.",
+                              value: 12,
+                              message: "DNI no puede ser tan largo",
                             },
                             pattern: {
                               value: /^[0-9]+$/,
-                              message: "DNI debe incluir solo números.",
+                              message: "DNI debe incluir solo números",
                             },
                           })}
                         />
@@ -408,20 +408,20 @@ const Register = () => {
                           {...register("phone", {
                             required: {
                               value: true,
-                              message: "Por favor, ingresa tu número celular.",
+                              message: "Por favor, ingresa tu número celular",
                             },
                             minLength: {
-                              value: 3,
-                              message: "Número celular no puede ser tan corto.",
+                              value: 6,
+                              message: "Número celular no puede ser tan corto",
                             },
                             maxLength: {
-                              value: 25,
-                              message: "Número celular no puede ser tan largo.",
+                              value: 14,
+                              message: "Número celular no puede ser tan largo",
                             },
                             pattern: {
                               value: /^[0-9]+$/,
                               message:
-                                "Número celular debe incluir solo números.",
+                                "Número celular debe incluir solo números",
                             },
                           })}
                         />
@@ -464,15 +464,15 @@ const Register = () => {
                               {...register("addressCda.street", {
                                 required: {
                                   value: true,
-                                  message: "Por favor, ingresar domicilio.",
+                                  message: "Por favor, ingresar domicilio",
                                 },
                                 minLength: {
                                   value: 3,
-                                  message: "Domicilio no puede ser tan corto.",
+                                  message: "Domicilio no puede ser tan corto",
                                 },
                                 maxLength: {
-                                  value: 25,
-                                  message: "Domicilio no puede ser tan largo.",
+                                  value: 20,
+                                  message: "Domicilio no puede ser tan largo",
                                 },
                               })}
                             />
@@ -496,21 +496,21 @@ const Register = () => {
                                 required: {
                                   value: true,
                                   message:
-                                    "Por favor, ingresar número de domicilio ",
+                                    "Por favor, ingresar número de domicilio",
                                 },
                                 minLength: {
                                   value: 1,
                                   message:
-                                    "Número de domicilio no puede ser tan corto.",
+                                    "Número de domicilio no puede ser tan corto",
                                 },
                                 maxLength: {
                                   value: 5,
                                   message:
-                                    "Número de domicilio no puede ser tan largo.",
+                                    "Número de domicilio no puede ser tan largo",
                                 },
                                 pattern: {
                                   value: /^[0-9]+$/,
-                                  message: "Debe incluir solo números.",
+                                  message: "Debe incluir solo números",
                                 },
                               })}
                             />
@@ -536,15 +536,15 @@ const Register = () => {
                               required: {
                                 value: true,
                                 message:
-                                  "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
+                                  "Por favor, ingresar las calles que cruzan cerca de ese domicilio",
                               },
                               minLength: {
                                 value: 3,
-                                message: "No puede ser tan corto.",
+                                message: "No puede ser tan corto",
                               },
                               maxLength: {
                                 value: 45,
-                                message: "No puede ser tan largo.",
+                                message: "No puede ser tan largo",
                               },
                             })}
                           />
@@ -578,7 +578,11 @@ const Register = () => {
                 </div>
               </div>
 
-              {err && <p className="text-red-600 self-start max-w-sm">{err}</p>}
+              {err && (
+                <p className="text-red-600 self-start max-w-sm text-xs sm:text-sm">
+                  {err}
+                </p>
+              )}
 
               <div className="w-full flex flex-col items-center gap-3">
                 <div className="w-full max-w-sm mt-4 lg:max-w-[9rem]">

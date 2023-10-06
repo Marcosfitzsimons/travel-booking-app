@@ -26,7 +26,7 @@ const Home = () => {
         className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-0"
       >
         <div className="absolute w-full left-0 top-2">
-          <Marquee className="" direction="right" speed={55}>
+          <Marquee className="" direction="left" speed={55}>
             <p className="flex items-center gap-2">
               <Heart
                 className="w-4 h-4 relative top-[1px] dark:text-black shrink-0"

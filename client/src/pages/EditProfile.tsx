@@ -166,6 +166,7 @@ const EditProfile = () => {
         }, 100);
       }
       const errorMsg = err.response?.data?.msg;
+      setAddressCapitalValue(userData.addressCapital);
       setIsLoading(false);
       setErr(errorMsg || "Error al editar perfil, intente más tarde.");
       toast({
@@ -284,7 +285,7 @@ const EditProfile = () => {
                     <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
                       <Label
                         htmlFor="image"
-                        className="py-0.5 px-3 cursor-pointer outline-none inline-flex items-center justify-center gap-1 text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white"
+                        className="py-0.5 px-4 outline-none inline-flex items-center gap-1 cursor-pointer justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white"
                       >
                         <Upload className="w-4 h-4" />
                         {userData.image ? "Editar" : "Subir"}
@@ -314,48 +315,7 @@ const EditProfile = () => {
                     </div>
 
                     <div className="w-full max-w-sm mx-auto flex flex-col items-center gap-2 lg:max-w-5xl lg:flex-row lg:items-start">
-                      <div className="flex w-full flex-col items-center gap-3">
-                        <div className="grid w-full items-center gap-2 mt-4 lg:mt-0">
-                          <Label htmlFor="username">Nombre de usuario</Label>
-                          <div className="relative flex items-center">
-                            <span className="z-30 absolute text-accent left-[11px] pb-[2px] select-none ">
-                              @
-                            </span>
-                            <Input
-                              type="text"
-                              id="username"
-                              placeholder="ej. juanperez98"
-                              className="pl-[30px]"
-                              {...register("username", {
-                                required: {
-                                  value: true,
-                                  message:
-                                    "Por favor, ingresa tu nombre de usuario.",
-                                },
-                                minLength: {
-                                  value: 3,
-                                  message:
-                                    "Nombre de usuario no puede ser tan corto.",
-                                },
-                                maxLength: {
-                                  value: 15,
-                                  message:
-                                    "Nombre de usuario no puede ser tan largo.",
-                                },
-                                pattern: {
-                                  value: /^(?=.*[0-9])[a-zA-Z0-9]{3,}$/,
-                                  message:
-                                    "El nombre de usuario debe tener al menos 3 caracteres y contener al menos un número.",
-                                },
-                              })}
-                            />
-                          </div>
-                          {errors.username && (
-                            <p className="text-red-600">
-                              {errors.username.message}
-                            </p>
-                          )}
-                        </div>
+                      <div className="flex w-full flex-col items-center gap-3 mt-4 lg:mt-0">
                         <div className="grid w-full items-center gap-2">
                           <Label htmlFor="fullName">Nombre completo</Label>
                           <div className="relative flex items-center">
@@ -368,29 +328,69 @@ const EditProfile = () => {
                                 required: {
                                   value: true,
                                   message:
-                                    "Por favor, ingresa tu nombre y apellido.",
+                                    "Por favor, ingresa tu nombre y apellido",
                                 },
                                 minLength: {
                                   value: 3,
                                   message:
-                                    "Nombre y apellido no puede ser tan corto.",
+                                    "Nombre y apellido no puede ser tan corto",
                                 },
                                 maxLength: {
                                   value: 25,
                                   message:
-                                    "Nombre y apellido no puede ser tan largo.",
+                                    "Nombre y apellido no puede ser tan largo",
                                 },
                                 pattern: {
                                   value: /^[a-zA-Z\s]+$/,
                                   message:
-                                    "Nombre y apellido deben contener solo letras.",
+                                    "Nombre y apellido deben contener solo letras",
                                 },
                               })}
                             />
                           </div>
                           {errors.fullName && (
-                            <p className="text-red-600">
+                            <p className="text-red-600 text-xs sm:text-sm">
                               {errors.fullName.message}
+                            </p>
+                          )}
+                        </div>
+                        <div className="grid w-full items-center gap-2">
+                          <Label htmlFor="username">Nombre de usuario</Label>
+                          <div className="relative flex items-center">
+                            <span className="z-30 absolute text-accent left-[11px] pb-[2px] select-none ">
+                              @
+                            </span>
+                            <Input
+                              type="text"
+                              id="username"
+                              className="pl-[30px]"
+                              {...register("username", {
+                                required: {
+                                  value: true,
+                                  message:
+                                    "Por favor, ingresa tu nombre de usuario",
+                                },
+                                minLength: {
+                                  value: 3,
+                                  message:
+                                    "Nombre de usuario no puede ser tan corto",
+                                },
+                                maxLength: {
+                                  value: 15,
+                                  message:
+                                    "Nombre de usuario no puede ser tan largo",
+                                },
+                                pattern: {
+                                  value: /^(?=.*[0-9])[a-zA-Z0-9]{3,}$/,
+                                  message:
+                                    "El nombre de usuario debe tener al menos 3 caracteres y contener al menos un número",
+                                },
+                              })}
+                            />
+                          </div>
+                          {errors.username && (
+                            <p className="text-red-600 text-xs sm:text-sm">
+                              {errors.username.message}
                             </p>
                           )}
                         </div>
@@ -405,22 +405,22 @@ const EditProfile = () => {
                               {...register("email", {
                                 required: {
                                   value: true,
-                                  message: "Por favor, ingresa tu email.",
+                                  message: "Por favor, ingresa tu email",
                                 },
                                 minLength: {
                                   value: 3,
-                                  message: "Email no puede ser tan corto.",
+                                  message: "Email no puede ser tan corto",
                                 },
                                 maxLength: {
                                   value: 40,
-                                  message: "Email no puede ser tan largo.",
+                                  message: "Email no puede ser tan largo",
                                 },
                               })}
                             />
                           </div>
 
                           {errors.email && (
-                            <p className="text-red-600">
+                            <p className="text-red-600 text-xs sm:text-sm">
                               {errors.email.message}
                             </p>
                           )}
@@ -428,6 +428,40 @@ const EditProfile = () => {
                       </div>
 
                       <div className="flex w-full flex-col items-center gap-3">
+                        <div className="grid w-full items-center gap-2">
+                          <Label htmlFor="dni">DNI</Label>
+                          <div className="relative flex items-center">
+                            <Fingerprint className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
+                            <Input
+                              type="number"
+                              id="dni"
+                              className="appearance-none pl-[32px]"
+                              {...register("dni", {
+                                required: {
+                                  value: true,
+                                  message: "Por favor, ingresa tu DNI",
+                                },
+                                minLength: {
+                                  value: 6,
+                                  message: "DNI no puede ser tan corto",
+                                },
+                                maxLength: {
+                                  value: 12,
+                                  message: "DNI no puede ser tan largo",
+                                },
+                                pattern: {
+                                  value: /^[0-9]+$/,
+                                  message: "DNI debe incluir solo números",
+                                },
+                              })}
+                            />
+                          </div>
+                          {errors.dni && (
+                            <p className="text-red-600 text-xs sm:text-sm">
+                              {errors.dni.message}
+                            </p>
+                          )}
+                        </div>
                         <div className="grid w-full items-center gap-2">
                           <Label htmlFor="phone">Celular</Label>
                           <div className="relative flex items-center">
@@ -440,62 +474,30 @@ const EditProfile = () => {
                                 required: {
                                   value: true,
                                   message:
-                                    "Por favor, ingresa tu número celular.",
+                                    "Por favor, ingresa tu número celular",
                                 },
                                 minLength: {
-                                  value: 3,
+                                  value: 6,
                                   message:
-                                    "Número celular no puede ser tan corto.",
+                                    "Número celular no puede ser tan corto",
                                 },
                                 maxLength: {
-                                  value: 25,
+                                  value: 14,
                                   message:
-                                    "Número celular no puede ser tan largo.",
+                                    "Número celular no puede ser tan largo",
                                 },
                                 pattern: {
                                   value: /^[0-9]+$/,
                                   message:
-                                    "Número celular debe incluir solo números.",
+                                    "Número celular debe incluir solo números",
                                 },
                               })}
                             />
                           </div>
                           {errors.phone && (
-                            <p className="text-red-600">
+                            <p className="text-red-600 text-xs sm:text-sm">
                               {errors.phone.message}
                             </p>
-                          )}
-                        </div>
-                        <div className="grid w-full items-center gap-2">
-                          <Label htmlFor="dni">DNI</Label>
-                          <div className="relative flex items-center">
-                            <Fingerprint className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] pb-[2px] " />
-                            <Input
-                              type="number"
-                              id="dni"
-                              className="appearance-none pl-[32px]"
-                              {...register("dni", {
-                                required: {
-                                  value: true,
-                                  message: "Por favor, ingresa tu DNI.",
-                                },
-                                minLength: {
-                                  value: 3,
-                                  message: "DNI no puede ser tan corto.",
-                                },
-                                maxLength: {
-                                  value: 25,
-                                  message: "DNI no puede ser tan largo.",
-                                },
-                                pattern: {
-                                  value: /^[0-9]+$/,
-                                  message: "DNI debe incluir solo números.",
-                                },
-                              })}
-                            />
-                          </div>
-                          {errors.dni && (
-                            <p className="text-red-600">{errors.dni.message}</p>
                           )}
                         </div>
                       </div>
@@ -530,17 +532,17 @@ const EditProfile = () => {
                                       required: {
                                         value: true,
                                         message:
-                                          "Por favor, ingresar domicilio.",
+                                          "Por favor, ingresar domicilio",
                                       },
                                       minLength: {
                                         value: 3,
                                         message:
-                                          "Domicilio no puede ser tan corto.",
+                                          "Domicilio no puede ser tan corto",
                                       },
                                       maxLength: {
-                                        value: 25,
+                                        value: 20,
                                         message:
-                                          "Domicilio no puede ser tan largo.",
+                                          "Domicilio no puede ser tan largo",
                                       },
                                     })}
                                   />
@@ -564,21 +566,21 @@ const EditProfile = () => {
                                       required: {
                                         value: true,
                                         message:
-                                          "Por favor, ingresar número de domicilio ",
+                                          "Por favor, ingresar número de domicilio",
                                       },
                                       minLength: {
                                         value: 1,
                                         message:
-                                          "Número de domicilio no puede ser tan corto.",
+                                          "Número de domicilio no puede ser tan corto",
                                       },
                                       maxLength: {
                                         value: 5,
                                         message:
-                                          "Número de domicilio no puede ser tan largo.",
+                                          "Número de domicilio no puede ser tan largo",
                                       },
                                       pattern: {
                                         value: /^[0-9]+$/,
-                                        message: "Debe incluir solo números.",
+                                        message: "Debe incluir solo números",
                                       },
                                     })}
                                   />
@@ -606,15 +608,15 @@ const EditProfile = () => {
                                     required: {
                                       value: true,
                                       message:
-                                        "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
+                                        "Por favor, ingresar las calles que cruzan cerca de ese domicilio",
                                     },
                                     minLength: {
                                       value: 3,
-                                      message: "No puede ser tan corto.",
+                                      message: "No puede ser tan corto",
                                     },
                                     maxLength: {
                                       value: 45,
-                                      message: "No puede ser tan largo.",
+                                      message: "No puede ser tan largo",
                                     },
                                   })}
                                 />
@@ -649,9 +651,13 @@ const EditProfile = () => {
                     </div>
                   </div>
 
-                  {err && <p className="text-red-600 self-start">{err}</p>}
+                  {err && (
+                    <p className="text-red-600 max-w-sm text-xs sm:text-sm lg:self-start">
+                      {err}
+                    </p>
+                  )}
 
-                  <div className="w-full mt-4 max-w-sm lg:w-[10rem]">
+                  <div className="w-full mt-2 max-w-sm lg:w-[10rem]">
                     <DefaultButton>Guardar cambios</DefaultButton>
                   </div>
                 </div>

@@ -50,6 +50,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleOnSubmit = async (data: LoginUserInputs) => {
+    setErr("");
     setIsLoading(true);
     try {
       const {
@@ -195,15 +196,15 @@ const Login = () => {
                       required: {
                         value: true,
                         message:
-                          "Por favor, ingresa tu email o nombre de usuario.",
+                          "Por favor, ingresa tu email o nombre de usuario",
                       },
                       minLength: {
                         value: 3,
-                        message: "Email o nombre de usuario demasiado corto.",
+                        message: "Email o nombre de usuario demasiado corto",
                       },
                       maxLength: {
                         value: 40,
-                        message: "Email o nombre de usuario demasiado largo.",
+                        message: "Email o nombre de usuario demasiado largo",
                       },
                     })}
                   />
@@ -230,11 +231,11 @@ const Login = () => {
                       },
                       minLength: {
                         value: 3,
-                        message: "Contraseña no puede ser tan corta.",
+                        message: "Contraseña no puede ser tan corta",
                       },
                       maxLength: {
                         value: 25,
-                        message: "Contraseña no puede ser tan larga.",
+                        message: "Contraseña no puede ser tan larga",
                       },
                     })}
                   />
@@ -259,7 +260,7 @@ const Login = () => {
                 </label>
               </div>
               {err && (
-                <p className="text-red-600 w-full self-center text-sm max-w-sm">
+                <p className="text-red-600 w-full self-center text-xs max-w-sm sm:text-sm">
                   {err}
                 </p>
               )}
@@ -274,7 +275,7 @@ const Login = () => {
                 Crear una cuenta nueva
               </Link>
             </p>
-            <Separator className="w-4 self-center" />
+            <Separator className="w-2 self-center" />
             <AlertDialog>
               <AlertDialogTrigger
                 asChild

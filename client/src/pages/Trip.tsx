@@ -47,7 +47,6 @@ import Error from "@/components/Error";
 import TodayDate from "@/components/TodayDate";
 import TripDate from "@/components/TripDate";
 import GorgeousBoxBorder from "@/components/GorgeousBoxBorder";
-import axios from "@/api/axios";
 
 const INITIAL_VALUES = {
   _id: "",
@@ -140,7 +139,7 @@ const Trip = () => {
   // Old endpoint data transferred: 1.18kb / data size: 927kb
   // Updated endpoint data transferred: 366B / data size: 110B
   const handleOnSubmit = async (data: UserAddresses) => {
-    if (!isDirty) {
+    if (!isDirty && addressCapitalValue === userInfo.addressCapital) {
       return toast({
         variant: "destructive",
         description: (
@@ -193,6 +192,7 @@ const Trip = () => {
         }, 100);
       }
       const errorMsg = err.response?.data?.msg;
+      setAddressCapitalValue(userInfo.addressCapital);
       setLoading(false);
       toast({
         variant: "destructive",
@@ -506,17 +506,17 @@ const Trip = () => {
                                                   required: {
                                                     value: true,
                                                     message:
-                                                      "Por favor, ingresar domicilio.",
+                                                      "Por favor, ingresar domicilio",
                                                   },
                                                   minLength: {
                                                     value: 3,
                                                     message:
-                                                      "Domicilio no puede ser tan corto.",
+                                                      "Domicilio no puede ser tan corto",
                                                   },
                                                   maxLength: {
-                                                    value: 25,
+                                                    value: 20,
                                                     message:
-                                                      "Domicilio no puede ser tan largo.",
+                                                      "Domicilio no puede ser tan largo",
                                                   },
                                                 }
                                               )}
@@ -545,22 +545,22 @@ const Trip = () => {
                                                   required: {
                                                     value: true,
                                                     message:
-                                                      "Por favor, ingresar número de domicilio ",
+                                                      "Por favor, ingresar número de domicilio",
                                                   },
                                                   minLength: {
                                                     value: 1,
                                                     message:
-                                                      "Número de domicilio no puede ser tan corto.",
+                                                      "Número de domicilio no puede ser tan corto",
                                                   },
                                                   maxLength: {
                                                     value: 5,
                                                     message:
-                                                      "Número de domicilio no puede ser tan largo.",
+                                                      "Número de domicilio no puede ser tan largo",
                                                   },
                                                   pattern: {
                                                     value: /^[0-9]+$/,
                                                     message:
-                                                      "Debe incluir solo números.",
+                                                      "Debe incluir solo números",
                                                   },
                                                 }
                                               )}
@@ -595,17 +595,17 @@ const Trip = () => {
                                               required: {
                                                 value: true,
                                                 message:
-                                                  "Por favor, ingresar las calles que cruzan cerca de ese domicilio.",
+                                                  "Por favor, ingresar las calles que cruzan cerca de ese domicilio",
                                               },
                                               minLength: {
                                                 value: 3,
                                                 message:
-                                                  "No puede ser tan corto.",
+                                                  "No puede ser tan corto",
                                               },
                                               maxLength: {
                                                 value: 45,
                                                 message:
-                                                  "No puede ser tan largo.",
+                                                  "No puede ser tan largo",
                                               },
                                             }
                                           )}
@@ -644,10 +644,10 @@ const Trip = () => {
 
                               <DialogFooter>
                                 <div className="w-full max-w-xs mt-5">
-                                  <div className="relative w-full after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-100/20 dark:after:shadow-highlight dark:after:shadow-slate-100/30 after:transition focus-within:after:shadow-slate-100 dark:focus-within:after:shadow-slate-100">
+                                  <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
                                     <Button
                                       disabled={loading}
-                                      className="relative w-full bg-primary text-slate-100 hover:text-white dark:text-slate-100 dark:bg-primary dark:hover:text-white h-7"
+                                      className="h-8 py-2 px-4 outline-none inline-flex items-center justify-center text-sm font-medium transition-colors rounded-lg shadow-input bg-card border border-slate-800/20 hover:bg-white dark:text-neutral-200 dark:border-slate-800 dark:hover:bg-black dark:shadow-none dark:hover:text-white"
                                     >
                                       Guardar cambios
                                     </Button>

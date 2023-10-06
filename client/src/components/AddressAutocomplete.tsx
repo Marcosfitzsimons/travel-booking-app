@@ -68,7 +68,6 @@ const AddressAutocomplete = ({
           types: ["address"],
         },
         (predictions: any, status: any) => {
-          console.log(predictions, status);
           if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
             setSuggestions([]);
             setValue("");
