@@ -34,7 +34,6 @@ const MyTrips = () => {
     const targetDateTime = new Date(combinedDateTime); // Convert the date string to a Date object
     // Calculate the time difference in milliseconds between the target time and the current time
     const timeDifference = targetDateTime.getTime() - new Date().getTime();
-
     return Math.abs(timeDifference) <= 2 * 60 * 60 * 1000 || timeDifference > 0;
   });
 

@@ -93,7 +93,7 @@ const Register = () => {
       setIsSuccess(false);
       if (err.response?.data?.err?.keyValue?.username) {
         setErr(
-          `Nombre de usuario ${err.response?.data?.err.keyValue?.username} ya está en uso`
+          `Nombre de usuario ${err.response?.data?.err?.keyValue?.username} ya está en uso`
         );
         setLoading(false);
         toast({
@@ -108,7 +108,7 @@ const Register = () => {
         });
       } else if (err.response?.data?.err?.keyValue?.email) {
         setErr(
-          `Email ${err.response?.data?.err.keyValue?.email} ya está en uso`
+          `Email ${err.response?.data?.err?.keyValue?.email} ya está en uso`
         );
         setLoading(false);
         toast({

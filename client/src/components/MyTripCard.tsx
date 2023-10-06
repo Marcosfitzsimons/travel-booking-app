@@ -75,11 +75,11 @@ const MyTripCard = ({
         </div>
       ),
     });
-    const currentDate = moment();
+    const currentDate = moment(); // This gets the current date and time
 
     // Parse the received date and time
     const receivedDate = moment(date);
-    const receivedHour = moment(arrivalTime, "HH:mm");
+    const receivedHour = moment(departureTime, "HH:mm");
 
     // Combine the parsed date and time into a single moment
     receivedDate.set({
