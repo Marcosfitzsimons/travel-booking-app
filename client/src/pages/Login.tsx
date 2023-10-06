@@ -58,7 +58,6 @@ const Login = () => {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
-      console.log({ user: details, token });
       setAuth({ user: details, token });
       setIsLoading(false);
       navigate("/viajes");

@@ -49,12 +49,12 @@ const PaymentFailure = () => {
                 <h4 className="text-base font-medium lg:text-lg">
                   ¿Necesitas ayuda?
                 </h4>
-                <p className="flex-wrap flex items-center gap-1">
-                  <span className="text-sm lg:text-base">
+                <div className="flex-wrap flex items-center gap-1">
+                  <p className="text-sm lg:text-base">
                     No dudes en contáctarnos
-                  </span>
+                  </p>
                   <Whatsapp />
-                </p>
+                </div>
               </div>
             </article>
           </GorgeousBoxBorder>

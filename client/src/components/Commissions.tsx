@@ -9,12 +9,12 @@ const Commissions = () => {
         <Truck className="w-5 h-5 shrink-0 text-accent lg:w-6 lg:h-6" />
         <div className="flex flex-col">
           <h4 className="text-base font-medium lg:text-lg">Comisiones</h4>
-          <p className="flex-wrap flex items-center gap-1">
-            <span className="text-sm lg:text-base">
+          <div className="flex-wrap flex items-center gap-1">
+            <p className="text-sm lg:text-base">
               Para comisiones comunicarse al
-            </span>
+            </p>
             <Whatsapp />
-          </p>
+          </div>
         </div>
       </article>
     </GorgeousBoxBorder>
