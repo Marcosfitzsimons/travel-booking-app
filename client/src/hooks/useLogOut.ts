@@ -3,7 +3,7 @@ import axios from "../api/axios";
 import useAuth from "./useAuth";
 
 const useLogout = () => {
-    const { setAuth } = useAuth();
+    const { setAuth, setPersist } = useAuth();
 
     const navigate = useNavigate();
 
@@ -13,6 +13,7 @@ const useLogout = () => {
                 withCredentials: true
         });
         setAuth({ user: null });
+        setPersist(false);
         navigate("/login");
         } catch (err) {
             console.error(err);
