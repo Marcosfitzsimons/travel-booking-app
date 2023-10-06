@@ -1,13 +1,4 @@
-import {
-  DollarSign,
-  CalendarDays,
-  Clock,
-  MapPin,
-  Loader2,
-  Check,
-  X,
-  Rocket,
-} from "lucide-react";
+import { DollarSign, MapPin, Loader2, Check, X } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -142,12 +133,11 @@ const MyTripCard = ({
   };
 
   const tripStarted = userTrips?.find((trip: TripProps) => {
-    const combinedDateTime = `${trip.date.split("T")[0]}T${trip.departureTime}`;
+    const combinedDateTime = `${trip.date.split("T")[0]}T${departureTime}`;
     const targetDateTime = new Date(combinedDateTime); // Convert the date string to a Date object
     // Calculate the time difference in milliseconds between the target time and the current time
     const timeDifference = targetDateTime.getTime() - new Date().getTime();
-
-    return Math.abs(timeDifference) <= 2 * 60 * 60 * 1000;
+    return timeDifference <= 0 && timeDifference <= 2 * 60 * 60 * 1000;
   });
 
   return (
