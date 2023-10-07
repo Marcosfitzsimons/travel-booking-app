@@ -10,11 +10,11 @@ import sectionVariants from "@/lib/variants/sectionVariants";
 import GorgeousBoxBorder from "@/components/GorgeousBoxBorder";
 
 const Welcome = () => {
-  // const { confirmationCode } = useParams();
+  const { confirmationCode } = useParams();
 
-  // if (confirmationCode) {
-  //   AuthService.verifyUser(confirmationCode);
-  // }
+  if (confirmationCode) {
+    AuthService.verifyUser(confirmationCode);
+  }
   return (
     <motion.div
       variants={sectionVariants}
@@ -39,7 +39,6 @@ const Welcome = () => {
             </div>
           </div>
         </GorgeousBoxBorder>
-
         <Separator className="w-2" />
 
         <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
