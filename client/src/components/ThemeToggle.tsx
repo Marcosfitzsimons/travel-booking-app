@@ -39,7 +39,7 @@ export default function ThemeToggle() {
   }, []);
 
   return isMounted ? (
-    <div className="">
+    <div className="relative left-2">
       <AnimatePresence mode="wait">
         {theme === "dark" ? (
           <motion.div

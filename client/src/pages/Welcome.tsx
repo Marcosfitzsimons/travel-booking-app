@@ -3,9 +3,7 @@ import { motion } from "framer-motion";
 import AuthService from "../services/auth-service";
 import { Link, useParams } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import AccountStatus from "@/components/AccountStatus";
-import Logo from "@/components/Logo";
 import sectionVariants from "@/lib/variants/sectionVariants";
 import GorgeousBoxBorder from "@/components/GorgeousBoxBorder";
 

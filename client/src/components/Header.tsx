@@ -51,20 +51,22 @@ const Header = () => {
           )}
           <Logo />
         </div>
-        <div className="flex items-center gap-2">
-          <nav className="hidden lg:flex">
-            <ul className="flex items-center">
-              <li>
-                <Link
-                  to="/viajes"
-                  className="font-medium rounded-md py-1 px-3 hover:text-hover dark:hover:text-white"
-                >
-                  Viajes
-                </Link>
-              </li>
-            </ul>
-          </nav>
-          <Separator orientation="vertical" className="hidden h-2 lg:flex" />
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 relative left-4">
+            <nav className="hidden lg:flex">
+              <ul className="flex items-center">
+                <li>
+                  <Link
+                    to="/viajes"
+                    className="relative left-1 font-medium rounded-md py-1 px-3 hover:text-hover dark:hover:text-white"
+                  >
+                    Viajes
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+            <Separator orientation="vertical" className="hidden h-2 lg:flex" />
+          </div>
           <ThemeToggle />
           <Separator orientation="vertical" className="h-2" />
           {!user || user?.status != "Active" ? (
@@ -89,7 +91,7 @@ const Header = () => {
               </div>
             </div>
           ) : (
-            <div className="ml-2">
+            <div className="">
               <DropdownMenu>
                 <DropdownMenuTrigger className="flex items-center gap-1 ">
                   <Avatar className="w-8 h-8">
