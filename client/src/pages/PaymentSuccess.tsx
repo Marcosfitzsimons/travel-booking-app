@@ -109,7 +109,7 @@ const PaymentSuccess = () => {
         {error ? (
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-col items-center gap-1">
-              <XCircle className="text-red-600 w-14 h-14 drop-shadow-sm dark:text-red-800" />
+              <XCircle className="text-red-600 w-14 h-14 drop-shadow-sm lg:w-20 lg:h-20 dark:text-red-800" />
               <p className="text-center">
                 Lo siento, pero ha ocurrido un error al guardar su lugar
               </p>
@@ -148,8 +148,8 @@ const PaymentSuccess = () => {
             ) : (
               <div className="flex w-full flex-col items-center gap-4">
                 <div className="flex flex-col items-center">
-                  <Check className="text-[#3d8f78] w-14 h-14 drop-shadow-sm dark:text-[rgba(75,270,200,1)]" />
-                  <p>Pago se ha realizado con éxito</p>
+                  <Check className="text-[#3d8f78] w-20 h-20 drop-shadow-sm lg:w-24 lg:h-24 dark:text-[rgba(75,270,200,1)]" />
+                  <p>Tu pago se ha realizado con éxito</p>
                 </div>
                 <Separator className="w-2" />
 
@@ -164,6 +164,7 @@ const PaymentSuccess = () => {
                     fill="red"
                   />
                 </p>
+
                 <Separator className="w-2" />
 
                 <div className="flex items-center relative after:absolute after:pointer-events-none after:inset-px after:rounded-[7px] after:shadow-highlight after:shadow-slate-200/20 after:transition focus-within:after:shadow-slate-400 dark:after:shadow-highlight dark:after:shadow-zinc-500/50 dark:focus-within:after:shadow-slate-100 dark:hover:text-white">
