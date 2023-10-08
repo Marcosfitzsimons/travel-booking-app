@@ -44,11 +44,7 @@ const TripCard = ({
 
   return (
     <GorgeousBoxBorder className="w-full max-w-[400px]">
-      <article
-        className={`${
-          isMaxCapacity ? "dark:border-zinc-800" : "dark:border"
-        } group w-full flex justify-center items-center relative mx-auto rounded-lg shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none`}
-      >
+      <article className="group w-full flex justify-center items-center relative mx-auto rounded-lg shadow-input pb-2 max-w-[400px] bg-card border dark:shadow-none">
         <CountdownTimer date={date} departureTime={departureTime} />
         <div className="w-full px-2 pt-9 sm:px-4">
           <div className="flex flex-col gap-2">
@@ -105,8 +101,10 @@ const TripCard = ({
             </div>
             <div
               className={`${
-                isMaxCapacity ? "lg:self-center" : "lg:self-end"
-              } py-1 lg:py-2`}
+                isMaxCapacity
+                  ? "lg:self-center py-1 lg:py-0"
+                  : "lg:self-end py-1 lg:py-2"
+              } `}
             >
               {isMaxCapacity ? (
                 <div className="flex flex-col items-center justify-center select-none">
@@ -137,7 +135,7 @@ const TripCard = ({
           </div>
         </div>
 
-        <Separator className="bg-border w-4 absolute -bottom-7 self-center" />
+        <Separator className="bg-border w-2 absolute -bottom-7 self-center" />
       </article>
     </GorgeousBoxBorder>
   );
