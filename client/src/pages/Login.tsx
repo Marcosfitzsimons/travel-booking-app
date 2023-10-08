@@ -177,10 +177,10 @@ const Login = () => {
           <p className="text-center text-card-foreground lg:text-start">
             Entra a tu cuenta para reservar tu lugar
           </p>
-          <div className="flex flex-col items-center gap-3 lg:self-start ">
+          <div className="w-full flex flex-col items-center gap-3 lg:self-start lg:max-w-sm">
             <form
               onSubmit={handleSubmit(handleOnSubmit)}
-              className="relative w-full mt-2 pt-6 flex flex-col gap-3 lg:mt-4 lg:max-w-[350px]"
+              className="relative w-full mt-2 pt-6 flex flex-col gap-3 lg:mt-4"
             >
               <div className="flex flex-col gap-3 w-full max-w-sm mx-auto">
                 <div className="grid w-full items-center gap-2">
@@ -270,7 +270,7 @@ const Login = () => {
                 </div>
               </div>
 
-              <p className="w-full text-center lg:text-start">
+              <p className="w-full text-center">
                 ¿No tenes cuenta?{" "}
                 <Link to="/register" className="font-medium text-accent">
                   Crear una cuenta nueva
@@ -281,9 +281,9 @@ const Login = () => {
             <AlertDialog>
               <AlertDialogTrigger
                 asChild
-                className="w-full flex justify-center items-center"
+                className="w-full flex justify-center items-center "
               >
-                <Button className="h-auto w-auto mx-auto bg-transparent text-base py-0 px-0 dark:bg-transparent dark:text-accent">
+                <Button className="h-auto w-auto mx-auto bg-transparent text-base py-0 px-0 dark:bg-transparent">
                   Olvidé mi contraseña
                 </Button>
               </AlertDialogTrigger>
