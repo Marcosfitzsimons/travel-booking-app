@@ -149,7 +149,9 @@ const PaymentSuccess = () => {
               <div className="flex w-full flex-col items-center gap-4">
                 <div className="flex flex-col items-center">
                   <Check className="text-[#3d8f78] w-20 h-20 drop-shadow-sm lg:w-24 lg:h-24 dark:text-[rgba(75,270,200,1)]" />
-                  <p>Tu pago se ha realizado con éxito</p>
+                  <p className="text-center">
+                    Tu pago se ha realizado con éxito
+                  </p>
                 </div>
                 <Separator className="w-2" />
 

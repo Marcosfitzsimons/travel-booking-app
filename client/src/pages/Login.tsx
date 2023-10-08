@@ -168,118 +168,120 @@ const Login = () => {
         initial="hidden"
         animate="visible"
         exit="exit"
-        className="flex flex-col items-center lg:flex-row lg:justify-between"
+        className="flex flex-col items-center lg:flex-row lg:justify-between lg:items-start"
       >
-        <div className="w-full flex flex-col my-6">
+        <div className="w-full flex flex-col mt-6 lg:mt-28">
           <h2 className="text-3xl py-1 font-medium text-center lg:text-start lg:text-4xl dark:text-white">
             Bienvenido de vuelta
           </h2>
           <p className="text-center text-card-foreground lg:text-start">
             Entra a tu cuenta para reservar tu lugar
           </p>
-          <form
-            onSubmit={handleSubmit(handleOnSubmit)}
-            className="relative w-full mt-2 py-6 flex flex-col gap-3 lg:my-4 lg:max-w-[350px]"
-          >
-            <div className="flex flex-col gap-3 w-full max-w-sm mx-auto">
-              <div className="grid w-full items-center gap-2">
-                <Label htmlFor="emailOrUsername">
-                  Email o nombre de usuario
-                </Label>
-                <div className="relative flex items-center">
-                  <User className="z-30 h-5 w-5 text-accent absolute left-[10px] " />
-                  <Input
-                    type="text"
-                    id="emailOrUsername"
-                    className="pl-[32px]"
-                    {...register("emailOrUsername", {
-                      required: {
-                        value: true,
-                        message:
-                          "Por favor, ingresa tu email o nombre de usuario",
-                      },
-                      minLength: {
-                        value: 3,
-                        message: "Email o nombre de usuario demasiado corto",
-                      },
-                      maxLength: {
-                        value: 40,
-                        message: "Email o nombre de usuario demasiado largo",
-                      },
-                    })}
-                  />
-                </div>
+          <div className="flex flex-col items-center gap-3 lg:self-start ">
+            <form
+              onSubmit={handleSubmit(handleOnSubmit)}
+              className="relative w-full mt-2 pt-6 flex flex-col gap-3 lg:mt-4 lg:max-w-[350px]"
+            >
+              <div className="flex flex-col gap-3 w-full max-w-sm mx-auto">
+                <div className="grid w-full items-center gap-2">
+                  <Label htmlFor="emailOrUsername">
+                    Email o nombre de usuario
+                  </Label>
+                  <div className="relative flex items-center">
+                    <User className="z-30 h-5 w-5 text-accent absolute left-[10px] " />
+                    <Input
+                      type="text"
+                      id="emailOrUsername"
+                      className="pl-[32px]"
+                      {...register("emailOrUsername", {
+                        required: {
+                          value: true,
+                          message:
+                            "Por favor, ingresa tu email o nombre de usuario",
+                        },
+                        minLength: {
+                          value: 3,
+                          message: "Email o nombre de usuario demasiado corto",
+                        },
+                        maxLength: {
+                          value: 40,
+                          message: "Email o nombre de usuario demasiado largo",
+                        },
+                      })}
+                    />
+                  </div>
 
-                {errors.emailOrUsername && (
-                  <p className="text-red-600 text-xs sm:text-sm">
-                    {errors.emailOrUsername.message}
+                  {errors.emailOrUsername && (
+                    <p className="text-red-600 text-xs sm:text-sm">
+                      {errors.emailOrUsername.message}
+                    </p>
+                  )}
+                </div>
+                <div className="grid w-full items-center gap-2">
+                  <Label htmlFor="password">Contraseña</Label>
+                  <div className="relative flex items-center">
+                    <Lock className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px]  " />
+                    <Input
+                      type="password"
+                      id="password"
+                      className="pl-[32px]"
+                      {...register("password", {
+                        required: {
+                          value: true,
+                          message: "Por favor, ingresa tu contraseña",
+                        },
+                        minLength: {
+                          value: 3,
+                          message: "Contraseña no puede ser tan corta",
+                        },
+                        maxLength: {
+                          value: 25,
+                          message: "Contraseña no puede ser tan larga",
+                        },
+                      })}
+                    />
+                  </div>
+                  {errors.password && (
+                    <p className="text-red-600 text-xs sm:text-sm">
+                      {errors.password.message}
+                    </p>
+                  )}
+                </div>
+                <div className="w-full relative flex items-center space-x-1">
+                  <Checkbox
+                    id="confirmAddress"
+                    checked={persist}
+                    onCheckedChange={() => setPersist((prev) => !prev)}
+                  />
+                  <label
+                    htmlFor="confirmAddress"
+                    className="text-sm font-medium flex items-center gap-[2px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Permanecer conectado
+                  </label>
+                </div>
+                {err && (
+                  <p className="text-red-600 w-full self-center text-xs max-w-sm sm:text-sm">
+                    {err}
                   </p>
                 )}
-              </div>
-              <div className="grid w-full items-center gap-2">
-                <Label htmlFor="password">Contraseña</Label>
-                <div className="relative flex items-center">
-                  <Lock className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px]  " />
-                  <Input
-                    type="password"
-                    id="password"
-                    className="pl-[32px]"
-                    {...register("password", {
-                      required: {
-                        value: true,
-                        message: "Por favor, ingresa tu contraseña",
-                      },
-                      minLength: {
-                        value: 3,
-                        message: "Contraseña no puede ser tan corta",
-                      },
-                      maxLength: {
-                        value: 25,
-                        message: "Contraseña no puede ser tan larga",
-                      },
-                    })}
-                  />
+                <div className="w-full mt-1 lg:max-w-[9rem] lg:self-center">
+                  <DefaultButton loading={isLoading}>Entrar</DefaultButton>
                 </div>
-                {errors.password && (
-                  <p className="text-red-600 text-xs sm:text-sm">
-                    {errors.password.message}
-                  </p>
-                )}
               </div>
-              <div className="w-full relative flex items-center space-x-1">
-                <Checkbox
-                  id="confirmAddress"
-                  checked={persist}
-                  onCheckedChange={() => setPersist((prev) => !prev)}
-                />
-                <label
-                  htmlFor="confirmAddress"
-                  className="text-sm font-medium flex items-center gap-[2px] leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                >
-                  Permanecer conectado
-                </label>
-              </div>
-              {err && (
-                <p className="text-red-600 w-full self-center text-xs max-w-sm sm:text-sm">
-                  {err}
-                </p>
-              )}
-              <div className="w-full mt-1 lg:max-w-[9rem] lg:self-center">
-                <DefaultButton loading={isLoading}>Entrar</DefaultButton>
-              </div>
-            </div>
 
-            <p className="w-full text-center lg:text-start">
-              ¿No tenes cuenta?{" "}
-              <Link to="/register" className="font-medium text-accent">
-                Crear una cuenta nueva
-              </Link>
-            </p>
+              <p className="w-full text-center lg:text-start">
+                ¿No tenes cuenta?{" "}
+                <Link to="/register" className="font-medium text-accent">
+                  Crear una cuenta nueva
+                </Link>
+              </p>
+            </form>
             <Separator className="w-2 self-center" />
             <AlertDialog>
               <AlertDialogTrigger
                 asChild
-                className="w-full flex justify-center items-center "
+                className="w-full flex justify-center items-center"
               >
                 <Button className="h-auto w-auto mx-auto bg-transparent text-base py-0 px-0 dark:bg-transparent dark:text-accent">
                   Olvidé mi contraseña
@@ -293,7 +295,7 @@ const Login = () => {
                     minutos para utilizar el link antes de que expire.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
-                <div className="grid w-full max-w-sm items-center self-center gap-2">
+                <div className="grid w-full items-center self-center gap-2">
                   <Label htmlFor="emailForgotten">Email</Label>
                   <div className="relative flex items-center">
                     <Mail className="z-30 h-[18px] w-[18px] text-accent absolute left-[10px] " />
@@ -313,13 +315,14 @@ const Login = () => {
                     className="lg:w-auto"
                     onClick={handleSendLink}
                     disabled={isLoading}
+                    asChild
                   >
-                    Recuperar
+                    <Button>Recuperar</Button>
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-          </form>
+          </div>
         </div>
         <div className="hidden lg:flex lg:flex-col lg:items-center lg:gap-6 lg:mr-8 ">
           <Separator
