@@ -89,17 +89,23 @@ const Home = () => {
             <PublicationSkeleton cards={3} />
           ) : (
             <div className="flex flex-col gap-6">
-              {data.map((publication: Publication) => (
-                <motion.div
-                  variants={sectionVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  exit="exit"
-                  key={publication._id}
-                >
-                  <PublicationCard {...publication} />
-                </motion.div>
-              ))}
+              {data.length > 0 ? (
+                data.map((publication: Publication) => (
+                  <motion.div
+                    variants={sectionVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    exit="exit"
+                    key={publication._id}
+                  >
+                    <PublicationCard {...publication} />
+                  </motion.div>
+                ))
+              ) : (
+                <p className="text-center lg:text-start">
+                  No se encontraron anuncios hasta el momento
+                </p>
+              )}
             </div>
           )}
         </div>
