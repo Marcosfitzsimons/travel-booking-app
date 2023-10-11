@@ -58,14 +58,14 @@ function App() {
             />
             <Route path="/confirm/:confirmationCode" element={<Welcome />} />
 
-            <Route
-              path="/payment-success/:userid/:tripid"
-              element={<PaymentSuccess />}
-            />
-            <Route path="/payment-failure" element={<PaymentFailure />} />
-
             <Route element={<PersistLogin />}>
               <Route path="/" element={<Home />} />
+              <Route
+                path="/payment-success/:userid/:tripid"
+                element={<PaymentSuccess />}
+              />
+              <Route path="/payment-failure" element={<PaymentFailure />} />
+
               <Route path="/viajes" element={<Trips />} />
               <Route
                 path="/viajes/:id"
