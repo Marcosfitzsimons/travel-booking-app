@@ -6,7 +6,6 @@ import { useState } from "react";
 import DataBox from "./DataBox";
 import { UserData } from "@/types/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import GorgeousBoxBorder from "./GorgeousBoxBorder";
 
 interface UserInfoProps {
   userData: UserData;
