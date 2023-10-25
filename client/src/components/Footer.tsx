@@ -8,17 +8,7 @@ const Footer = () => {
   const user = auth?.user;
   return (
     <footer className={!user ? "hidden" : ""}>
-      <div className="w-[min(95%,1200px)] mx-auto my-12 flex justify-center items-center">
-        <div className="hidden">
-          <p className="flex items-center gap-1">
-            <Phone className="h-4 w-4" />
-            2273856102
-          </p>
-          <p className="flex items-center gap-1">
-            <Phone className="h-4 w-4" />
-            2273856382
-          </p>
-        </div>
+      <div className="w-[min(95%,1200px)] mx-auto my-12 flex flex-col justify-center items-center gap-4">
         <div className="flex items-center justify-center gap-3">
           <a href="https://www.instagram.com/fabebus/" target="_blank">
             <Instagram className="cursor-pointer w-5 h-5 hover:text-blue-lagoon-600 dark:hover:text-white" />
@@ -33,6 +23,9 @@ const Footer = () => {
             <Facebook className="cursor-pointer w-5 h-5 hover:text-blue-lagoon-600 dark:hover:text-white" />
           </a>
         </div>
+        <p className="text-sm">
+          Copyright 2023 © - <span className="font-medium">Fabebus</span>
+        </p>
       </div>
     </footer>
   );
