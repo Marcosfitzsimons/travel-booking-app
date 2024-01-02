@@ -2,6 +2,7 @@ import { Facebook, Instagram, Phone } from "lucide-react";
 import { Separator } from "./ui/separator";
 import useAuth from "@/hooks/useAuth";
 import WhatsappButton from "./WhatsappButton";
+import { currentYear } from "@/lib/utils/getCurrentYear";
 
 const Footer = () => {
   const { auth } = useAuth();
@@ -24,7 +25,8 @@ const Footer = () => {
           </a>
         </div>
         <p className="text-sm">
-          Copyright 2023 © - <span className="font-medium">Fabebus</span>
+          Copyright {currentYear} © -{" "}
+          <span className="font-medium">Fabebus</span>
         </p>
       </div>
     </footer>
