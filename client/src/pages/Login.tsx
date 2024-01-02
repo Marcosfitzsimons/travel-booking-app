@@ -283,7 +283,7 @@ const Login = () => {
                 asChild
                 className="w-full flex justify-center items-center "
               >
-                <Button className="h-auto w-auto mx-auto bg-transparent text-base py-0 px-0 dark:bg-transparent">
+                <Button className="h-auto w-auto mx-auto bg-transparent font-medium text-base py-0 px-0 dark:bg-transparent dark:text-accent">
                   Olvidé mi contraseña
                 </Button>
               </AlertDialogTrigger>
