@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Moon, SunMedium } from "lucide-react";
+import { MoonStar, SunMedium } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "./ui/button";
 import themeButtonVariants from "@/lib/variants/themeButtonVariants";
@@ -41,7 +41,7 @@ export default function ThemeToggle() {
   return isMounted ? (
     <div className="relative left-2">
       <AnimatePresence mode="wait">
-        {theme === "dark" ? (
+        {theme === "light" ? (
           <motion.div
             variants={themeButtonVariants}
             initial="hidden"
@@ -72,7 +72,7 @@ export default function ThemeToggle() {
               onClick={toggleTheme}
               className="w-8 h-8 rounded-md p-0 dark:text-white"
             >
-              <Moon className="w-5 h-5" fill="white" />
+              <MoonStar className="w-5 h-5" />
             </Button>
           </motion.div>
         )}
